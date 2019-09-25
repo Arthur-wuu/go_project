@@ -1,0 +1,429 @@
+package db
+
+import (
+	"fmt"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"time"
+)
+
+type DbMgr struct {
+	mConn *gorm.DB
+}
+
+func (this *DbMgr) Init(options *DbOptions) (err error) {
+	this.mConn, err = gorm.Open("mysql",
+		options.User+":"+options.Pass+"@tcp("+options.Host+":"+options.Port+")/"+options.DbName+"?charset=utf8&parseTime=True&loc=Local")
+	if err != nil {
+		return err
+	}
+
+	this.mConn.SingularTable(true)
+	this.mConn.LogMode(false)
+
+	this.mConn.DB().SetMaxIdleConns(options.MaxIdleConn)
+	this.mConn.DB().SetMaxOpenConns(options.MaxOpenConn)
+	this.mConn.DB().SetConnMaxLifetime(time.Hour * 3)
+
+	this.mConn.Callback().Create().Replace("gorm:update_time_stamp", this.updateTimeStampForCreateCallback)
+	this.mConn.Callback().Update().Replace("gorm:update_time_stamp", this.updateTimeStampForUpdateCallback)
+	this.mConn.Callback().Delete().Replace("gorm:delete", this.deleteCallback)
+
+	return nil
+}
+
+func (this *DbMgr) Close() {
+	this.mConn.Close()
+}
+
+func (this *DbMgr) CountTemplate(mm map[string]interface{}) (int, error) {
+	cc := 0
+	err := this.mConn.Model(&NotifyTemplate{}).Where(mm).Count(&cc).Error
+	return cc,err
+}
+
+func (this *DbMgr) UpdateTemplate(info *NotifyTemplate) error {
+	return this.mConn.Model(&NotifyTemplate{}).Updates(info).Error
+}
+
+func (this *DbMgr) UpdateTemplateGroup(info *NotifyTemplateGroup) error {
+	return this.mConn.Model(&NotifyTemplateGroup{}).Updates(info).Error
+}
+
+func (this *DbMgr) AddTemplate(info *NotifyTemplate) error {
+	newDB := this.mConn.Model(&NotifyTemplate{}).Where("id = ?", info.GetId()).Update(info)
+	if newDB.Error != nil {
+		return newDB.Error
+	}
+	if newDB.RowsAffected != 0 {//找到了那行但是内容一样，RowsAffected==0
+		return nil
+	}
+	return this.mConn.Create(info).Error
+}
+
+func (this *DbMgr) AddTemplateGroup(info *NotifyTemplateGroup) error {
+	newDB := this.mConn.Model(&NotifyTemplateGroup{}).Where("id = ?", info.GetId()).Update(info)
+	if newDB.Error != nil {
+		return newDB.Error
+	}
+	if newDB.RowsAffected != 0 {
+		return nil
+	}
+	return this.mConn.Create(info).Error
+}
+
+func (this *DbMgr) GetTemplateById(tempId uint) (*NotifyTemplate, error) {
+	nt := new(NotifyTemplate)
+	err := this.mConn.Where("id = ?", tempId).Find(nt).Error
+	return nt, err
+}
+
+func (this *DbMgr) GetAliveTemplateByAlias(alias string, tp uint) (*NotifyTemplate, error) {
+	nt := new(NotifyTemplate)
+	err := this.mConn.Where("alias = ? and alive = ? and type = ?", alias, 1, tp).Last(nt).Error
+	return nt, err
+}
+
+func (this *DbMgr) GetAliveTemplateByGroupId(gId uint, lang string) (*NotifyTemplate, error) {
+	nt := new(NotifyTemplate)
+	err := this.mConn.Where("group_id = ? and lang = ? and alive = ?", gId, lang, 1).Last(nt).Error
+	return nt, err
+}
+
+func (this *DbMgr) GetTemplateGroupByNameAndType(name string, tp uint) (*NotifyTemplateGroup, error) {
+	nt := new(NotifyTemplateGroup)
+	err := this.mConn.Where("name = ? and type = ?", name, tp).Find(nt).Error
+	return nt, err
+}
+
+func (this *DbMgr) GetTemplateGroupByAliasAndType(alias string, tp uint) (*NotifyTemplateGroup, error) {
+	nt := new(NotifyTemplateGroup)
+	err := this.mConn.Where("alias = ? and type", alias, tp).Find(nt).Error
+	return nt, err
+}
+
+func (this *DbMgr) UpdateAllTemplatesByGroupId(gId uint, info *NotifyTemplate) error {
+	return this.mConn.Model(&NotifyTemplate{}).Where("group_id = ? ", gId).Updates(info).Error
+}
+
+func (this *DbMgr) AliveTemplateGroupAndTemplates(gId uint, alive int) error {
+	tx := this.mConn.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	if tx.Error != nil {
+		return tx.Error
+	}
+
+	err := tx.Model(&NotifyTemplateGroup{}).Where("id = ? ", gId).Update("alive", alive).Error
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+	err = tx.Model(&NotifyTemplate{}).Where("group_id = ? ", gId).Update("alive", alive).Error
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+	return tx.Commit().Error
+}
+
+func (this *DbMgr) DelTemplateGroupAndTemplates(gId uint) error {
+	tx := this.mConn.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	if tx.Error != nil {
+		return tx.Error
+	}
+	err := tx.Unscoped().Where("id = ? ", gId).Delete(&NotifyTemplateGroup{}).Error
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+	err = tx.Where("group_id = ? ", gId).Delete(&NotifyTemplate{}).Error
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+	return tx.Commit().Error
+}
+
+func (this *DbMgr) SetDefaultRecipientOfTemplateGroupAndTemplatesByLang(gId uint, recipient string) error {
+	tx := this.mConn.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	if tx.Error != nil {
+		return tx.Error
+	}
+
+	err := tx.Model(&NotifyTemplateGroup{}).Where("id = ? ", gId).Update("default_recipient", recipient).Error
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+	err = tx.Model(&NotifyTemplate{}).Where("group_id = ?", gId).Update("default_recipient", recipient).Error
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+	return tx.Commit().Error
+}
+
+//func (this *DbMgr) GetTemplateByLang(groupId uint, lang string)(*NotifyTemplate, error){
+//	nt := new(NotifyTemplate)
+//	err := this.mConn.Where("id = ?", groupId).Find(nt).Error
+//	return nt, err
+//}
+
+func (this *DbMgr) GetAllTemplateByGroupId(groupId uint) ([]*NotifyTemplate, error) {
+	arr := make([]*NotifyTemplate, 0)
+	err := this.mConn.Where("group_id = ?", groupId).Order("id desc").Find(&arr).Error
+	return arr, err
+}
+
+func (this *DbMgr) GetAllTemplateGroupLangsByGroupId(groupId uint) ([]string, error) {
+	arr := make([]string, 0)
+	err := this.mConn.Model(&NotifyTemplate{}).Select("lang").Where(`group_id = ? and ( content is not null ) and trim(content) !='' `, groupId).Order("id desc").Pluck("lang", &arr).Error
+	mm := make(map[string]bool)
+	newArr := make([]string, 0)
+	for i:=0; i < len(arr); i++ {//去重.Table("notify_template")
+		_,ok := mm[arr[i]]
+		if ok {
+			continue
+		}
+		newArr =append(newArr, arr[i])
+		mm[arr[i]] = true
+	}
+	return newArr, err
+}
+//name模糊查询
+func (this *DbMgr) GetAllTemplateGroup(beginIndex, pageNum int,likeName string) ([]*NotifyTemplateGroup, error) {
+	arr := make([]*NotifyTemplateGroup, 0)
+	err := this.mConn.Model(&NotifyTemplateGroup{}).Where("name LIKE ?", "%"+likeName+"%").Offset(beginIndex).Limit(pageNum).Order("alive desc").Order("id desc").Find(&arr).Error
+	return arr, err
+}
+
+func (this *DbMgr) GetAllTemplateGroupByType(beginIndex, pageNum int, tp uint, likeName string) ([]*NotifyTemplateGroup, error) {
+	arr := make([]*NotifyTemplateGroup, 0)
+	err := this.mConn.Model(&NotifyTemplateGroup{}).Where("name LIKE ?", "%"+likeName+"%").Where("type = ?", tp).Order("alive desc").Order("id desc").Offset(beginIndex).Limit(pageNum).Find(&arr).Error
+	return arr, err
+}
+
+func (this *DbMgr) CountTemplateGroup(likeName string) (int, error) {
+	cc := 0
+	err := this.mConn.Model(&NotifyTemplateGroup{}).Where("name LIKE ?", "%"+likeName+"%").Count(&cc).Error
+	return cc, err
+}
+
+func (this *DbMgr) CountTemplateGroupByType(tp uint, likeName string) (int, error) {
+	cc := 0
+	err := this.mConn.Model(&NotifyTemplateGroup{}).Where("name LIKE ?", "%"+likeName+"%").Where("type = ?", tp).Count(&cc).Error
+	return cc, err
+}
+
+func (this *DbMgr) ExistTemplateGroup(mm map[string]interface{}) (bool, error) {
+	cc := 0
+	err := this.mConn.Model(&NotifyTemplateGroup{}).Where(mm).Count(&cc).Error
+	return cc > 0,err
+}
+
+//事物,这里用回调的目的是，减少db处理业务
+func (this *DbMgr) IncrTemplateHistoryCountAndRate(groupId uint,day int64, tp, succ, fail int, genRateFail func(int, int)float32, firstOverRateFailThd func(oldhis, newhis *NotifyTemplateHistory, tp int)bool ) (bool, error) {
+	tx := this.mConn.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	if tx.Error != nil {
+		return false, tx.Error
+	}
+
+	oldHis := new(NotifyTemplateHistory)
+	newHis := new(NotifyTemplateHistory)
+	err := tx.Model(&NotifyTemplateHistory{}).Where("group_id = ? and day = ?", groupId, day).Find(oldHis).Error
+	if err == gorm.ErrRecordNotFound {
+		newHis.SetGroupId(groupId)
+		newHis.SetDay(day)
+		newHis.SetType(tp)
+		newHis.SetDaySucc(succ)
+		newHis.SetDayFail(fail)
+		newHis.SetRateFail(genRateFail(succ, fail))
+		err = this.mConn.Create(newHis).Error //创建的时候不需要判断是否错误率超过阈值
+		if err != nil {
+			tx.Rollback()
+			return false, err
+		}
+		return false, tx.Commit().Error
+	}
+	if err != nil {
+		tx.Rollback()
+		return false, err
+	}
+	newHis.SetGroupId(groupId)
+	newHis.SetDay(day)
+	newHis.SetDaySucc(succ + oldHis.GetDaySucc())
+	newHis.SetDayFail(fail + oldHis.GetDayFail())
+	newHis.SetRateFail(genRateFail(newHis.GetDaySucc(), newHis.GetDayFail()))
+	flag := firstOverRateFailThd(oldHis, newHis, tp)
+	if flag {
+		newHis.SetInfom(1)
+	}
+	err = tx.Model(&NotifyTemplateHistory{}).Where("group_id = ? and day = ?", groupId, day).Update(newHis).Error
+	if err != nil {
+		tx.Rollback()
+		return false, err
+	}
+	return flag, tx.Commit().Error
+}
+
+func (this *DbMgr) AddTemplateHistory(info *NotifyTemplateHistory) error {
+	return this.mConn.Create(info).Error
+}
+
+func (this *DbMgr) UpdateTemplateHistory(groupId uint, day int64, mm map[string]interface{}) (bool,error) {
+	newDB := this.mConn.Model(&NotifyTemplateHistory{}).Where("group_id = ? and day = ?", groupId, day).Update(mm)
+	return (newDB.RowsAffected != 0), newDB.Error
+}
+
+func (this *DbMgr) GetTemplateHistory(groupId uint, day int64) (*NotifyTemplateHistory,error) {
+	n := new(NotifyTemplateHistory)
+	err := this.mConn.Model(&NotifyTemplateHistory{}).Where("group_id = ? and day = ?", groupId, day).Find(&n).Error
+	return n, err
+}
+
+func (this *DbMgr) GetAllTemplateHistory(beginIndex, pageNum int, groupId uint) ([]*NotifyTemplateHistory,error) {
+	arr := make([]*NotifyTemplateHistory, 0)
+	err := this.mConn.Model(&NotifyTemplateHistory{}).Where("group_id = ? ", groupId).Offset(beginIndex).Limit(pageNum).Order("day desc").Find(&arr).Error
+	return arr, err
+}
+
+func (this *DbMgr) CountTemplateHistory(groupid uint) (int, error) {
+	cc := 0
+	err := this.mConn.Model(&NotifyTemplateHistory{}).Where("group_id = ?", groupid).Count(&cc).Error
+	return cc, err
+}
+
+func (d *DbMgr) updateTimeStampForCreateCallback(scope *gorm.Scope) {
+	if !scope.HasError() {
+		now := NowTimestamp()
+
+		if createdAtField, ok := scope.FieldByName("CreatedAt"); ok {
+			if createdAtField.IsBlank {
+				createdAtField.Set(now)
+			}
+		}
+
+		if updatedAtField, ok := scope.FieldByName("UpdatedAt"); ok {
+			if updatedAtField.IsBlank {
+				updatedAtField.Set(now)
+			}
+		}
+	}
+}
+
+func (d *DbMgr) updateTimeStampForUpdateCallback(scope *gorm.Scope) {
+	if !scope.HasError() {
+		if updatedAtField, ok := scope.FieldByName("UpdatedAt"); ok {
+			//	if updatedAtField.IsBlank {
+			updatedAtField.Set(NowTimestamp())
+			//	}
+		}
+	}
+}
+
+func (this *DbMgr) SetSmsPlatformTemplateGroupAndTemplates(gId uint, pf uint) error {
+	tx := this.mConn.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	if tx.Error != nil {
+		return tx.Error
+	}
+
+	err := tx.Model(&NotifyTemplateGroup{}).Where("id = ? ", gId).Update("sms_platform", pf).Error
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+	err = tx.Model(&NotifyTemplate{}).Where("group_id = ? ", gId).Update("sms_platform", pf).Error
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+	return tx.Commit().Error
+}
+
+func (this *DbMgr) SetAllSmsPlatformTemplateGroupAndTemplates(pf uint) error {
+	tx := this.mConn.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	if tx.Error != nil {
+		return tx.Error
+	}
+
+	err := tx.Model(&NotifyTemplateGroup{}).Update("sms_platform", pf).Error
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+	err = tx.Model(&NotifyTemplate{}).Update("sms_platform", pf).Error
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+	return tx.Commit().Error
+}
+
+func (d *DbMgr) deleteCallback(scope *gorm.Scope) {
+	if !scope.HasError() {
+		var extraOption string
+		if str, ok := scope.Get("gorm:delete_option"); ok {
+			extraOption = fmt.Sprint(str)
+		}
+
+		deletedAtField, hasDeletedAtField := scope.FieldByName("DeletedAt")
+
+		if !scope.Search.Unscoped && hasDeletedAtField {
+			scope.Raw(fmt.Sprintf(
+				"UPDATE %v SET %v=%v%v%v",
+				scope.QuotedTableName(),
+				scope.Quote(deletedAtField.DBName),
+				scope.AddToVars(NowTimestamp()),
+				addExtraSpaceIfExist(scope.CombinedConditionSql()),
+				addExtraSpaceIfExist(extraOption),
+			)).Exec()
+		} else {
+			scope.Raw(fmt.Sprintf(
+				"DELETE FROM %v%v%v",
+				scope.QuotedTableName(),
+				addExtraSpaceIfExist(scope.CombinedConditionSql()),
+				addExtraSpaceIfExist(extraOption),
+			)).Exec()
+		}
+	}
+}
+
+func addExtraSpaceIfExist(str string) string {
+	if str != "" {
+		return " " + str
+	}
+	return ""
+}
+
+func NowTimestamp() int64 {
+	return time.Now().Unix()
+}

@@ -1,0 +1,95 @@
+system:
+    host: 0.0.0.0
+    port: 8080
+    logPath: ./data/logs/golang
+    debug: true
+    company_name: BLOCKSHINE_ADMIN
+    expire: 3600
+    gaExpire: 300
+
+mysql:
+  dialect: mysql
+  host: bastionpay-test.ct4xtinmcb5a.us-east-1.rds.amazonaws.com
+  port: 3306
+  dbname: admin
+  user: PastionAdmin
+  password: bastionadmin.123
+  charset: utf8
+  parseTime: false
+  maxIdle: 20
+  maxOpen: 200
+  debug: true
+
+redis:
+  network: tcp
+  host: 127.0.0.1
+  port: 6379
+  password: ""
+  database: 0
+  maxIdle: 0
+  maxActive: 10
+  idleTimeout: 5
+  prefix: ""
+
+wallet:
+  host: http://35.173.156.149:8082
+  userKey: 1c75c668-f1ab-474b-9dae-9ed7950604b4
+  keyPath: ./pem
+
+wallet_paths:
+  - /v1/bastionpay/support_assets
+  - /v1/bastionpay/sp_get_asset_attribute
+  - /v1/bastionpay/sp_set_asset_attribute
+  - /v1/bastionpay/sp_query_address
+  - /v1/bastionpay/sp_post_transaction
+  - /v1/bastionpay/sp_get_pay_address
+  - /v1/bastionpay/sp_set_pay_address
+  - /v1/bastionpay/sp_transaction_bill
+  - /v1/bastionpay/sp_transaction_bill_daily
+  - /v1/bastionpay/sp_get_balance
+  - /v1/bastionpay/sp_get_chain_balance
+  - /v1/bastionpay/sp_deposit_order
+  - /v1/bastionpay/sp_withdrawal_order
+  - /v1/bastionpay/sp_reality_account_daily
+  - /v1/account/listusers
+  - /v1/account/updatefrozen
+
+bas_admin:
+  url: http://127.0.0.1:8081
+
+coin_market:
+  url: https://api.coinmarketcap.com
+  id_path: ./coinidpair.json
+
+monitor:
+  addr: 0.0.0.0:21000
+
+aws:
+  accesskeyid: AKIAJEJUHBCEJGTFGNHA
+  accesskey:  oflCXIs+8jsbBYffy8lPedKok90NkSSabv8SVY66
+  accesstoken:
+  logoregion: us-east-2
+  logobucket: blockshine-bastionpay-logo
+  logotimeout: 30
+  pinpointregion:
+
+rule:
+  usernotify:
+    - level<3 or (level<6 and sub=true) or (behavior in ())
+    - level<3 or (level<6 and sub=true) or (behavior in ())
+  sysnotify:
+    - level<3 or (level<6 and sub=true) or (behavior in ())
+    - level<3 or (level<6 and sub=true) or (behavior in ())
+  textid:
+    - t1
+    - behavior in ()
+    - t2
+    - behavior in ()
+    - t3
+    - behavior in ()
+
+ip_find:
+  auth: 26c27bb8-84fa-47f8-ac8d-1fccdc720669
+operate_log:
+  remain_days: 14       #单位day
+  clean_interval: 86000 #单位秒

@@ -1,0 +1,293 @@
+2019-03-21T17:29:35.576+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-21T17:29:39.241+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-21T17:29:39.241+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-21T17:29:39.241+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-21T17:31:13.196+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-21T17:31:13.197+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-21T17:33:56.533+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-21T17:33:58.928+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-21T17:33:58.928+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-21T17:33:58.928+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-21T17:34:10.645+0800	error	controllers/transfernotify.go:96	set flag err	{"app": "bas-admin-api"}
+2019-03-21T17:34:36.440+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-21T17:34:36.440+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-21T17:53:31.223+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-21T17:53:35.239+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-21T17:53:35.240+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-21T17:53:35.240+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-21T17:54:05.315+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-21T17:54:05.320+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-21T17:57:23.637+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-21T17:57:26.263+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-21T17:57:26.267+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-21T17:57:26.267+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-21T17:57:30.970+0800	error	comsumer/task.go:380	set flag err	{"app": "bas-admin-api"}
+2019-03-21T17:57:32.142+0800	info	comsumer/task.go:228	transfer succ	{"app": "bas-admin-api"}
+2019-03-21T17:57:43.477+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-21T17:57:43.477+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-22T15:08:08.580+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-22T15:08:14.712+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-22T15:08:14.712+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-22T15:08:14.713+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-22T15:09:57.126+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-22T15:09:57.126+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-22T15:13:45.940+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-22T15:13:48.260+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-22T15:13:48.260+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-22T15:13:48.260+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-22T15:14:15.294+0800	error	controllers/transfernotify.go:62	param err	{"app": "bas-admin-api", "error": "invalid character ',' looking for beginning of object key string"}
+2019-03-22T15:14:50.797+0800	error	controllers/transfernotify.go:62	param err	{"app": "bas-admin-api", "error": "invalid character '}' looking for beginning of object key string"}
+2019-03-22T15:17:04.596+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-22T15:17:04.597+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-22T15:17:15.192+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-22T15:17:17.772+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-22T15:17:17.772+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-22T15:17:17.772+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-22T15:17:49.747+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-22T15:17:49.748+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-22T15:18:56.537+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-22T15:18:59.047+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-22T15:18:59.047+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-22T15:18:59.047+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-22T15:23:32.889+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-22T15:23:32.889+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-22T15:24:33.818+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-22T15:24:36.444+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-22T15:24:36.444+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-22T15:24:36.444+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-22T15:25:34.456+0800	error	controllers/transfernotify.go:72	get uid by phone err	{"app": "bas-admin-api"}
+2019-03-22T15:26:31.230+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-22T15:26:31.230+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-22T17:33:54.924+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123321}}]	{"app": "bas-admin-api"}
+2019-03-22T17:34:00.777+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-22T17:34:00.778+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-22T17:34:00.778+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-22T17:34:08.354+0800	info	comsumer/task.go:234	transfer succ	{"app": "bas-admin-api"}
+2019-03-22T17:34:08.695+0800	error	comsumer/task.go:210	transfer maybe double	{"app": "bas-admin-api"}
+2019-03-22T17:34:09.274+0800	error	comsumer/task.go:210	transfer maybe double	{"app": "bas-admin-api"}
+2019-03-22T17:36:56.494+0800	error	controllers/transfernotify.go:72	get uid by phone err	{"app": "bas-admin-api"}
+2019-03-22T17:39:24.867+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-22T17:39:24.871+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-22T17:50:35.427+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123321}}]	{"app": "bas-admin-api"}
+2019-03-22T17:50:37.859+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-22T17:50:37.859+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-22T17:50:37.859+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-22T17:50:42.946+0800	info	comsumer/task.go:234	transfer succ	{"app": "bas-admin-api"}
+2019-03-22T17:50:43.313+0800	error	comsumer/task.go:210	transfer maybe double	{"app": "bas-admin-api"}
+2019-03-22T17:50:43.569+0800	error	comsumer/task.go:210	transfer maybe double	{"app": "bas-admin-api"}
+2019-03-22T17:50:56.830+0800	error	comsumer/task.go:157	request red err[Post https://test-activity.bastionpay.io/v1/fissionshare/robber/searchs: read tcp 10.10.14.124:61229->104.27.142.16:443: read: connection reset by peer]	{"app": "bas-admin-api"}
+2019-03-22T17:51:02.770+0800	error	comsumer/getuid.go:110	unmarshal return data err	{"app": "bas-admin-api", "error": "json: cannot unmarshal string into Go struct field GetUidDataInfo.user_id of type int64"}
+2019-03-22T17:51:02.771+0800	error	controllers/transfernotify.go:72	get uid by phone err	{"app": "bas-admin-api", "error": "json: cannot unmarshal string into Go struct field GetUidDataInfo.user_id of type int64"}
+2019-03-22T17:51:32.118+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-22T17:51:32.118+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-22T17:54:56.641+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123321}}]	{"app": "bas-admin-api"}
+2019-03-22T17:54:59.230+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-22T17:54:59.230+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-22T17:54:59.230+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-22T17:55:07.614+0800	info	comsumer/task.go:234	transfer succ	{"app": "bas-admin-api"}
+2019-03-22T17:55:08.023+0800	error	comsumer/task.go:210	transfer maybe double	{"app": "bas-admin-api"}
+2019-03-22T17:55:08.433+0800	error	comsumer/task.go:210	transfer maybe double	{"app": "bas-admin-api"}
+2019-03-22T17:55:34.895+0800	error	comsumer/task.go:157	request red err[Post https://test-activity.bastionpay.io/v1/fissionshare/robber/searchs: read tcp 10.10.14.124:62332->104.27.142.16:443: read: connection reset by peer]	{"app": "bas-admin-api"}
+2019-03-22T17:56:41.985+0800	info	controllers/transfernotify.go:118	transfer succ	{"app": "bas-admin-api"}
+2019-03-22T17:57:32.157+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-22T17:57:32.158+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-22T18:48:28.806+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123321}}]	{"app": "bas-admin-api"}
+2019-03-22T18:48:32.119+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-22T18:48:32.119+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-22T18:48:32.119+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-22T18:49:50.459+0800	info	controllers/transfernotify.go:125	transfer succ	{"app": "bas-admin-api"}
+2019-03-22T18:49:59.674+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-22T18:49:59.686+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-22T18:52:24.421+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123321}}]	{"app": "bas-admin-api"}
+2019-03-22T18:52:26.917+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-22T18:52:26.918+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-22T18:52:26.918+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-22T18:52:31.837+0800	info	comsumer/task.go:234	transfer succ	{"app": "bas-admin-api"}
+2019-03-22T18:52:32.184+0800	error	comsumer/task.go:210	transfer maybe double	{"app": "bas-admin-api"}
+2019-03-22T18:52:32.508+0800	error	comsumer/task.go:210	transfer maybe double	{"app": "bas-admin-api"}
+2019-03-22T18:52:46.454+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-22T18:52:46.454+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-22T18:53:01.776+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123321}}]	{"app": "bas-admin-api"}
+2019-03-22T18:53:04.320+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-22T18:53:04.320+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-22T18:53:04.320+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-22T18:54:46.616+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-22T18:54:46.617+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T12:51:15.874+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T12:51:19.103+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T12:51:19.103+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T12:51:19.104+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T12:53:56.900+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T12:54:00.589+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T12:54:00.589+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T12:54:00.590+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T12:58:02.476+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T12:58:11.290+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T12:58:11.291+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T12:58:11.291+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T13:03:47.068+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T13:03:47.070+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T13:04:47.580+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T13:04:50.138+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T13:04:50.139+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T13:04:50.139+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T13:09:30.432+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T13:09:30.434+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T13:09:39.882+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T13:09:44.546+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T13:09:44.546+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T13:09:44.546+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T13:10:24.363+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T13:10:24.363+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T13:47:18.731+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T13:47:22.144+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T13:47:22.144+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T13:47:22.144+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T13:47:26.751+0800	error	comsumer/task.go:200	set flag err	{"app": "bas-admin-api"}
+2019-03-27T13:47:27.365+0800	error	comsumer/task.go:200	set flag err	{"app": "bas-admin-api"}
+2019-03-27T13:48:16.609+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T13:48:16.609+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T14:08:33.513+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:08:35.838+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:08:35.838+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:08:35.839+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:09:09.606+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:09:12.876+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:09:12.888+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:09:12.888+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:09:20.351+0800	info	comsumer/task.go:235	transfer running...	{"app": "bas-admin-api"}
+2019-03-27T14:09:21.889+0800	info	comsumer/task.go:235	transfer running...	{"app": "bas-admin-api"}
+2019-03-27T14:09:24.349+0800	info	comsumer/task.go:235	transfer running...	{"app": "bas-admin-api"}
+2019-03-27T14:09:25.782+0800	info	comsumer/task.go:235	transfer running...	{"app": "bas-admin-api"}
+2019-03-27T14:09:27.521+0800	info	comsumer/task.go:235	transfer running...	{"app": "bas-admin-api"}
+2019-03-27T14:09:27.672+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T14:09:27.672+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T14:10:35.764+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:10:38.153+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:10:38.153+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:10:38.153+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:10:44.425+0800	info	comsumer/task.go:235	transfer running...	{"app": "bas-admin-api"}
+2019-03-27T14:10:45.959+0800	info	comsumer/task.go:235	transfer running...	{"app": "bas-admin-api"}
+2019-03-27T14:10:46.423+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T14:10:46.423+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T14:12:08.692+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:12:11.264+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:12:11.264+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:12:11.264+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:12:26.275+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T14:12:26.276+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T14:13:18.724+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:13:22.741+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:13:22.742+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:13:22.742+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:13:39.011+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T14:13:39.011+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T14:14:33.645+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:14:37.092+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:14:37.092+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:14:37.092+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:14:45.994+0800	info	comsumer/task.go:229	transfer succ	{"app": "bas-admin-api"}
+2019-03-27T14:14:48.350+0800	info	comsumer/task.go:229	transfer succ	{"app": "bas-admin-api"}
+2019-03-27T14:14:54.185+0800	info	comsumer/task.go:229	transfer succ	{"app": "bas-admin-api"}
+2019-03-27T14:15:05.897+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T14:15:05.897+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T14:18:54.565+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:18:56.957+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:18:56.957+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:18:56.957+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:20:24.804+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:20:28.440+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:20:28.441+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:20:28.441+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:21:23.594+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:21:26.163+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:21:26.163+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:21:26.163+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:22:47.590+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:22:52.904+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:22:52.904+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:22:52.904+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:23:48.336+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:23:51.162+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:23:51.162+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:23:51.162+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:27:30.980+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:27:33.562+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:27:33.562+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:27:33.562+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:29:40.727+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:29:45.682+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:29:45.682+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:29:45.682+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:31:05.868+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:31:09.556+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:31:09.556+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:31:09.556+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:33:17.952+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:33:23.289+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:33:23.298+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:33:23.298+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:33:26.571+0800	error	comsumer/task.go:116	get data err[sql: Scan error on column index 1, name "CREATE_TIME": converting driver.Value type time.Time ("2019-03-27 02:06:36 +0800 CST") to a int64: invalid syntax; sql: Scan error on column index 1, name "CREATE_TIME": converting driver.Value type time.Time ("2019-03-27 02:08:48 +0800 CST") to a int64: invalid syntax]	{"app": "bas-admin-api"}
+2019-03-27T14:33:38.545+0800	error	comsumer/task.go:116	get data err[sql: Scan error on column index 1, name "CREATE_TIME": converting driver.Value type time.Time ("2019-03-27 02:06:36 +0800 CST") to a int64: invalid syntax; sql: Scan error on column index 1, name "CREATE_TIME": converting driver.Value type time.Time ("2019-03-27 02:08:48 +0800 CST") to a int64: invalid syntax]	{"app": "bas-admin-api"}
+2019-03-27T14:33:50.935+0800	error	comsumer/task.go:116	get data err[sql: Scan error on column index 1, name "CREATE_TIME": converting driver.Value type time.Time ("2019-03-27 02:06:36 +0800 CST") to a int64: invalid syntax; sql: Scan error on column index 1, name "CREATE_TIME": converting driver.Value type time.Time ("2019-03-27 02:08:48 +0800 CST") to a int64: invalid syntax]	{"app": "bas-admin-api"}
+2019-03-27T14:34:03.223+0800	error	comsumer/task.go:116	get data err[sql: Scan error on column index 1, name "CREATE_TIME": converting driver.Value type time.Time ("2019-03-27 02:06:36 +0800 CST") to a int64: invalid syntax; sql: Scan error on column index 1, name "CREATE_TIME": converting driver.Value type time.Time ("2019-03-27 02:08:48 +0800 CST") to a int64: invalid syntax]	{"app": "bas-admin-api"}
+2019-03-27T14:34:15.190+0800	error	comsumer/task.go:116	get data err[sql: Scan error on column index 1, name "CREATE_TIME": converting driver.Value type time.Time ("2019-03-27 02:06:36 +0800 CST") to a int64: invalid syntax; sql: Scan error on column index 1, name "CREATE_TIME": converting driver.Value type time.Time ("2019-03-27 02:08:48 +0800 CST") to a int64: invalid syntax]	{"app": "bas-admin-api"}
+2019-03-27T14:34:24.401+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T14:34:24.401+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T14:35:41.500+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:35:44.384+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:35:44.384+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:35:44.385+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:35:46.064+0800	error	comsumer/task.go:116	get data err[sql: Scan error on column index 1, name "CREATE_TIME": converting driver.Value type time.Time ("2019-03-27 02:06:36 +0800 CST") to a int64: invalid syntax; sql: Scan error on column index 1, name "CREATE_TIME": converting driver.Value type time.Time ("2019-03-27 02:08:48 +0800 CST") to a int64: invalid syntax]	{"app": "bas-admin-api"}
+2019-03-27T14:35:53.457+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T14:35:53.457+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T14:39:21.404+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:39:25.562+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:39:25.562+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:39:25.562+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:39:31.923+0800	info	comsumer/task.go:237	transfer succ	{"app": "bas-admin-api"}
+2019-03-27T14:39:33.456+0800	info	comsumer/task.go:237	transfer succ	{"app": "bas-admin-api"}
+2019-03-27T14:39:35.685+0800	info	comsumer/task.go:237	transfer succ	{"app": "bas-admin-api"}
+2019-03-27T14:39:47.922+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T14:39:47.922+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T14:48:50.326+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:48:53.502+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:48:53.503+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:48:53.503+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:50:36.341+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T14:50:39.787+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T14:50:39.787+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T14:50:39.787+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T14:50:46.646+0800	info	comsumer/task.go:236	transfer succ	{"app": "bas-admin-api"}
+2019-03-27T14:50:48.490+0800	info	comsumer/task.go:236	transfer succ	{"app": "bas-admin-api"}
+2019-03-27T14:50:59.006+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T14:50:59.007+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T15:15:03.250+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T15:15:06.025+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T15:15:06.025+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T15:15:06.025+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T15:15:14.620+0800	info	comsumer/task.go:236	transfer succ	{"app": "bas-admin-api"}
+2019-03-27T15:17:08.177+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T15:17:08.179+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T15:17:14.155+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T15:17:17.090+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T15:17:17.090+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T15:17:17.090+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T15:17:25.899+0800	info	comsumer/task.go:236	transfer succ	{"app": "bas-admin-api"}
+2019-03-27T15:17:27.535+0800	info	comsumer/task.go:236	transfer succ	{"app": "bas-admin-api"}
+2019-03-27T15:17:29.277+0800	info	comsumer/task.go:236	transfer succ	{"app": "bas-admin-api"}
+2019-03-27T15:17:30.917+0800	info	comsumer/task.go:236	transfer succ	{"app": "bas-admin-api"}
+2019-03-27T15:17:33.678+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T15:17:33.678+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T16:11:55.315+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T16:11:58.172+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T16:11:58.172+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T16:11:58.172+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T16:14:42.691+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T16:14:42.692+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-27T17:14:26.353+0800	info	baspay-recharge/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false} {http://test1-user.bastionwallet.com} {xfp7662391GPS +086_15216614713 123456}}]	{"app": "bas-admin-api"}
+2019-03-27T17:14:30.678+0800	info	baspay-recharge/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-27T17:14:30.678+0800	info	baspay-recharge/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-27T17:14:30.678+0800	info	baspay-recharge/server.go:66	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-27T17:14:57.665+0800	info	baspay-recharge/server.go:70	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-27T17:14:57.669+0800	info	baspay-recharge/main.go:36	WebServer Stop	{"app": "bas-admin-api"}

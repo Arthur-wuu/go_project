@@ -1,0 +1,103 @@
+pipeline {
+    agent any
+    environment { 
+        def PROJECT_TYPE='API'
+        def PROJECT_NAME='bas-admin-api'
+        def ENV='test'
+        def ENV_PORT=8010
+        def MY_DOMAIN='src/BastionPay'
+        def REGION='us-east-1'
+        def CLUSTER="TEST-BAS-API"
+        def GOPATH="${WORKSPACE}"
+        def PATH="${GOPATH}:${PATH}"
+        def CODE_DIR="${MY_DOMAIN}/${PROJECT_NAME}"
+        def REPOSITORY_NAME="${ENV}-${PROJECT_NAME}"
+        def NAME="${ENV}-${PROJECT_NAME}"
+        def SERVICE_NAME="${ENV}-${PROJECT_NAME}-service"
+        def FAMILY="${ENV}-${PROJECT_NAME}-task"
+        def TASKDEFNAME="${ENV}-${PROJECT_NAME}-task"
+    }
+    stages {
+        stage('clone'){
+            steps{
+                deleteDir()
+                git branch: 'develop', credentialsId: '325bd343-f984-4cb0-b6b8-91480ad81068', url: "https://github.com/BastionPay/${PROJECT_NAME}.git"
+                sh '''
+                    if [ ! -n "${GIT_COMMIT}" ]; then
+                        git rev-parse --short HEAD > environment.tmp
+                    else
+                        echo 'exist GIT_COMMIT'
+                    fi
+                '''
+                script{
+                    if (env.GIT_COMMIT){
+                        echo "exist env.GIT_COMMIT"
+                    } else {
+                        echo "have no GIT_COMMIT"
+                        env.GIT_COMMIT = readFile encoding: 'utf-8', file: 'environment.tmp'
+
+                    }
+                }
+                sh '''# 准备编译环境
+                    mkdir -p ${CODE_DIR}
+                    cd $GOPATH && ls |grep  -v \'\\(^src\\|environment.tmp\\)\' |xargs -i mv {} ${CODE_DIR}/
+                    
+                    ## 手动拉取日志模块
+                    cd $GOPATH/$MY_DOMAIN
+                    git clone https://github.com/BastionPay/bas-base.git
+                    
+                    ## 手动拉取bas-api公共模块
+                    cd $GOPATH/$MY_DOMAIN
+                    git clone -b dev https://github.com/BastionPay/bas-api.git
+                    
+                    ## github上谷歌验证模块更改了，暂时指定分支
+                    mkdir -p $GOPATH/src/github.com/rsc/ 
+                    cd $GOPATH/src/github.com/rsc/
+                    git clone https://github.com/rsc/qr
+                    cd $GOPATH/src/github.com/rsc/qr
+                    git checkout 48b2ede4844e13f1a2b7ce4d2529c9af7e359fc5
+                    
+                    ## 创建软连接
+                    ln -s $GOPATH/$MY_DOMAIN $GOPATH/src/github.com/BastionPay
+                '''
+            }
+        }
+        stage('build'){
+            steps{
+                sh '''
+                    cd $GOPATH/${CODE_DIR} && go get && go build -o ${PROJECT_NAME}
+                    mkdir -p ${GOPATH}/tmp
+                    mv ${PROJECT_NAME} ${GOPATH}/tmp
+                    cp -rf {templates,locales} ${GOPATH}/tmp
+                '''
+            }
+        }
+        stage('Environment configuration'){
+            steps{
+                dir('configuration') {
+                    // some block
+                    git branch: 'dev', credentialsId: '325bd343-f984-4cb0-b6b8-91480ad81068', url: 'https://github.com/BastionPay/configuration.git'
+                }
+                sh '''
+                    cp -rp configuration/public/init.sh ./init.sh
+                    ./init.sh
+                '''
+            }
+        }
+        stage('pull dockerimage') {
+            steps{
+                sh '''
+                    ./pull_image.sh
+                '''
+            }
+        }
+        
+        stage('deploy ecs') {
+            steps{
+                sh '''
+                    ./deploy_ecs.sh
+                '''
+            }
+        }
+    }
+}

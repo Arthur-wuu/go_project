@@ -1,0 +1,11 @@
+{
+	"node":
+	{
+		"srv_name": "bastionpay",
+		"srv_version": "v1",
+		"center_addr": "127.0.0.1:8081"
+	},
+	"test_tool":1,
+	"db":"root:command@tcp(127.0.0.1:3306)/test?charset=utf8",
+	"chains":["eth"]
+}

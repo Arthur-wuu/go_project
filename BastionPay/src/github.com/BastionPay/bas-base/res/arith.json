@@ -1,0 +1,8 @@
+{
+	"node":
+	{
+		"srv_name": "arith",
+		"srv_version": "v1",
+		"center_addr": "127.0.0.1:8081"
+	}
+}

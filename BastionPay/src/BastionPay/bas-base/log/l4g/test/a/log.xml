@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logging>
+	<filter enabled="true">
+		<tag>stdout</tag>
+		<type>console</type>
+		<level>DEBUG</level>
+	</filter>
+	<filter enabled="true">
+		<tag>file</tag>
+		<type>file</type>
+		<level>FINEST</level>
+		<property name="filename">/Users/yy/Desktop/all/BastionPay/src/github.com/BastionPay/bas-base/l4gmgr/test/a/b/c/app.log</property>
+		<property name="format">[%D %T] [%L] (%S) %M</property>
+		<property name="rotate">false</property>
+		<property name="maxsize">0M</property>
+		<property name="maxlines">0K</property>
+		<property name="daily">true</property>
+	</filter>
+	<filter enabled="false">
+		<tag>xmllog</tag>
+		<type>xml</type>
+		<level>TRACE</level>
+		<property name="filename">trace.xml</property>
+		<property name="rotate">true</property>
+		<property name="maxsize">100M</property>
+		<property name="maxrecords">6K</property>
+		<property name="daily">false</property>
+	</filter>
+	<filter enabled="false">
+		<tag>donotopen</tag>
+		<type>socket</type>
+		<level>FINEST</level>
+		<property name="endpoint">192.168.1.255:12124</property>
+		<property name="protocol">udp</property>
+	</filter>
+</logging>

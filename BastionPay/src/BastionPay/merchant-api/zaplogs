@@ -1,0 +1,13 @@
+2019-09-19T14:19:03.503+0800	info	merchant-api/main.go:26	Config Content[{{8099 false zap.conf :21000} {     0 0 0 } {paytestdb-cluster.cluster-ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_merchant utf8 0 5 true false} {200 300 3 300 30 300} {https://test-merchant.bastionpay.io/v1/basmerchant/callback/trade/complete https://test-merchant.bastionpay.io/v1/basmerchant/callback/trade/cancel https://test-merchantapi.bastionpay.io/v2/bas-merchant/callback/notify} [{869300033969209 game ws://iot.bigeapp.com:1883/ws}] {http://test-openapi.bastionpay.io http://test1-user.bastionwallet.com http://test-quote.rkuan.com} {57 123456 +086_17317351119 123456 394a55969f7bd7061bdaa320db925ac1} {185 8} {0.03 0.03}}]	{"app": "bas-merchant"}
+2019-09-19T14:19:05.412+0800	info	models/model.go:12	start InitDbTable	{"app": "bas-merchant"}
+2019-09-19T14:20:37.468+0800	info	models/model.go:61	end InitDbTable	{"app": "bas-merchant"}
+2019-09-19T14:20:39.109+0800	info	merchant-api/server.go:65	WebServer Init ok	{"app": "bas-merchant"}
+2019-09-19T14:20:39.109+0800	info	merchant-api/main.go:31	WebServer Start Runing...	{"app": "bas-merchant"}
+2019-09-19T14:20:39.109+0800	info	merchant-api/server.go:70	WebServer Run with port[8099]	{"app": "bas-merchant"}
+2019-09-19T14:21:43.209+0800	error	base/ws.go:166	ws ReadMessage err	{"app": "bas-merchant", "error": "read tcp 10.12.31.86:62886->47.244.27.248:1883: read: connection reset by peer"}
+2019-09-19T14:21:43.215+0800	info	base/ws.go:224	Find Disconnect and will reConnect	{"app": "bas-merchant"}
+2019-09-19T14:21:48.245+0800	info	base/ws.go:238	reConnect ok and will reSub all topic	{"app": "bas-merchant"}
+2019-09-19T14:22:03.694+0800	error	baspay/refund.go:109	send message to refund err	{"app": "bas-merchant", "error": "405 Method Not Allowed"}
+2019-09-19T14:22:03.694+0800	error	controllers/trade.go:260	baspay refund Send err	{"app": "bas-merchant", "error": "405 Method Not Allowed"}
+2019-09-19T14:22:16.770+0800	info	merchant-api/server.go:75	Iris Run[8099] Stoped[http: Server closed]	{"app": "bas-merchant"}
+2019-09-19T14:22:16.775+0800	info	merchant-api/main.go:36	WebServer Stop	{"app": "bas-merchant"}

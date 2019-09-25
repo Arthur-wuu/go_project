@@ -1,0 +1,248 @@
+package main
+
+import (
+	"BastionPay/bas-notify/db"
+	"time"
+	"BastionPay/bas-notify/config"
+	"strings"
+	"sort"
+	"fmt"
+	"os/exec"
+	"bytes"
+)
+
+func ConvertNotifyTemplate(n *db.NotifyTemplate) *Template {
+	temp := new(Template)
+	temp.Id = n.Id
+	temp.CreatedAt = n.CreatedAt
+	temp.UpdatedAt = n.UpdatedAt
+	temp.Content = n.Content
+	temp.Title = n.Title
+	temp.Type = n.Type
+	temp.Lang = n.Lang
+	temp.Sign = n.Sign
+	temp.GroupId = n.GroupId
+	temp.Alive = n.Alive
+	temp.Alias = n.Alias
+	temp.Name = n.Name
+	temp.DefaultRecipient = n.DefaultRecipient
+	temp.SmsPlatform = n.SmsPlatform
+	return temp
+}
+
+func ConvertNotifyTemplateGroup(n *db.NotifyTemplateGroup) *TemplateGroup {
+	temp := new(TemplateGroup)
+	temp.Id = n.Id
+	temp.CreatedAt = n.CreatedAt
+	temp.UpdatedAt = n.UpdatedAt
+	temp.Detail = n.Detail
+	temp.Alive = n.Alive
+	temp.Type = n.Type
+	temp.Author = n.Author
+	temp.Editor = n.Editor
+	temp.Name = n.Name
+	temp.DefaultRecipient = n.DefaultRecipient
+	temp.SmsPlatform = n.SmsPlatform
+	return temp
+}
+
+func ConvertDbTemplate(t *Template) *db.NotifyTemplate {
+	temp := new(db.NotifyTemplate)
+	temp.Id = t.Id
+	temp.CreatedAt = t.CreatedAt
+	temp.UpdatedAt = t.UpdatedAt
+	temp.Content = t.Content
+	temp.Title = t.Title
+	temp.Type = t.Type
+	temp.Lang = t.Lang
+	temp.Sign = t.Sign
+	temp.GroupId = t.GroupId
+	temp.Alive = t.Alive
+	temp.Alias = t.Alias
+	temp.Name = t.Name
+	temp.DefaultRecipient = t.DefaultRecipient
+	temp.SmsPlatform = t.SmsPlatform
+	return temp
+}
+
+func ConvertDbTemplateGroup(n *TemplateGroup) *db.NotifyTemplateGroup {
+	temp := new(db.NotifyTemplateGroup)
+	temp.Id = n.Id
+	temp.CreatedAt = n.CreatedAt
+	temp.UpdatedAt = n.UpdatedAt
+	temp.Detail = n.Detail
+	temp.Alive = n.Alive
+	temp.Type = n.Type
+	temp.Author = n.Author
+	temp.Editor = n.Editor
+	temp.Name = n.Name
+	temp.DefaultRecipient = n.DefaultRecipient
+	temp.SmsPlatform = n.SmsPlatform
+	return temp
+}
+
+func ConvertNotifyTemplateHistory(n *db.NotifyTemplateHistory) *TemplateHistory {
+	temp := new(TemplateHistory)
+	temp.Id        = n.Id
+	temp.CreatedAt = n.CreatedAt
+	temp.UpdatedAt = n.UpdatedAt
+	temp.Day       = n.Day
+	temp.DaySucc   = n.DaySucc
+	temp.DayFail   = n.DayFail
+	temp.GroupId   = n.GroupId
+	temp.RateFail  = n.RateFail
+	return temp
+}
+
+func AverageRateFail(arr []*TemplateHistory) float32 {
+	r := float32(0)
+	for i:=0; i < len(arr); i++ {
+		r = r + GenRateFail(arr[i])
+		r/=2
+	}
+	return 0
+}
+
+func GenRateFail(t *TemplateHistory)float32 {
+	sum := t.GetDaySucc() + t.GetDayFail()
+	if sum == 0 {
+		return 0
+	}
+	return float32(t.GetDayFail())/float32(sum)
+}
+
+func GenRateFail2(succ, fail int)float32 {
+	sum := succ + fail
+	if sum == 0 {
+		return 0
+	}
+	return float32(fail)/float32(sum)
+}
+
+func GenDay() int64{
+	t1:=time.Now().Year()        //年
+	t2:=time.Now().Month()       //月
+	t3:=time.Now().Day()         //日
+	currentTimeData:=time.Date(t1,t2,t3,0,0,0,0,time.Local)
+	return currentTimeData.Unix()
+}
+
+func FirstOverRateFailThd(oldhis, newhis *db.NotifyTemplateHistory, tp int) bool {
+	if (oldhis != nil) && (oldhis.GetInfom() != 0) {
+		return false
+	}
+	if  newhis == nil {
+		return false
+	}
+	failThd := 0
+	rateFailThd := float32(0)
+	if tp == Notify_Type_Sms {
+		failThd = config.GConfig.Sms.FailThreshold
+		rateFailThd = config.GConfig.Sms.FailRateThreshold
+	}else{
+		failThd = config.GConfig.Email.FailThreshold
+		rateFailThd = config.GConfig.Email.FailRateThreshold
+	}
+	if failThd == 0 {
+		return false
+	}
+	if newhis.GetDaySucc() + newhis.GetDayFail() < failThd {
+		return false
+	}
+	if newhis.GetRateFail() > rateFailThd {
+		return true
+	}
+	return false
+}
+
+func GenRateFailArr(hisArr []*TemplateHistory) []float32 {
+	if len(hisArr) == 0 {
+		return nil
+	}
+	arr := make([]float32, len(hisArr),len(hisArr))
+	for i :=0 ; i< len(hisArr); i++ {
+		arr[i] = hisArr[i].GetRateFail()
+	}
+	return arr
+}
+
+func AppendRecipient(req* ReqNotifyMsg, recipients string) {
+	if len(recipients) < 4 {//手机和邮箱 何止4字符
+		return
+	}
+	recipients = strings.Replace(recipients," ","", len(recipients))
+	recipientsArr := strings.Split(recipients, ",")
+	if req.Recipient == nil {
+		req.Recipient = make([]string, 0)
+	}
+	for i:=0; i< len(recipientsArr); i++ {
+		if len(recipientsArr[i]) == 0 {
+			continue
+		}
+		req.Recipient = append(req.Recipient, recipientsArr[i])
+	}
+}
+
+//国内，国外，蓝创独用
+func ChuangLanSplitPhones(phones []string) ([]string, []string) {
+	zhPhones := make([]string, 0)
+	noZhPhones := make([]string, 0)
+	for i:=0;i< len(phones);i++{
+		if strings.HasPrefix(phones[i], "0086") || strings.HasPrefix(phones[i], "+86") {
+			newPhone := strings.TrimLeft(phones[i], "0086")
+			newPhone = strings.TrimLeft(newPhone, "+86")
+			zhPhones = append(zhPhones, newPhone)
+		}else{
+			noZhPhones = append(noZhPhones, phones[i])
+		}
+	}
+	return zhPhones, noZhPhones
+}
+
+//返回body和params
+func ParseSmsBodyChuanglan(body string, param map[string]interface{}) (string, []string){
+	if param == nil || len(param) == 0 || !strings.Contains(body, "{{."){
+		return body, nil
+	}
+	keysArr := make([]string, 0)
+	for k,_ := range param {
+		body = strings.Replace(body, "{{."+k+"}}", "{S12}", len(body))
+		keysArr = append(keysArr, k)
+	}
+	sort.Strings(keysArr)
+	paramsArr :=  make([]string, 0)
+	for i:=0; i< len(keysArr); i++{
+		v,_ := param[keysArr[i]]
+		vStr := fmt.Sprintf("%v",v)
+		if len(vStr) > 12 {
+			vStr = vStr[:12]
+		}
+		paramsArr = append(paramsArr, vStr)
+	}
+	return body, paramsArr
+}
+
+//func DealAwsKeyInfo(c *config.Config) error {
+//	if (len(c.Aws.Accesskey) != 0) && (len(c.Aws.Accesskeyid) != 0) {
+//		return nil
+//	}
+//	if len(c.Aws.MetadataCmd) == 0 {
+//		return errors.New("nil Aws MetadataCmd")
+//	}
+//	content, err := Exec_shell(c.Aws.MetadataCmd)
+//	if err != nil {
+//		return err
+//	}
+//}
+
+func Exec_shell(s string) (string, error){
+	//函数返回一个*Cmd，用于使用给出的参数执行name指定的程序
+	cmd := exec.Command("/bin/bash", "-c", s)
+	//读取io.Writer类型的cmd.Stdout，再通过bytes.Buffer(缓冲byte类型的缓冲器)将byte类型转化为string类型(out.String():这是bytes类型提供的接口)
+	var out bytes.Buffer
+	cmd.Stdout = &out
+
+	//Run执行c包含的命令，并阻塞直到完成。  这里stdout被取出，cmd.Wait()无法正确获取stdin,stdout,stderr，则阻塞在那了
+	err := cmd.Run()
+	return out.String(), err
+}

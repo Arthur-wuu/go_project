@@ -1,0 +1,74 @@
+system:
+  port: 8066
+  debug: false
+  log_path: zap.conf
+  monitor: :21000
+
+redis:
+  network: tcp
+  host: 127.0.0.1
+  port: 6379
+  password: ""
+  database: 0
+  maxIdle: 0
+  maxActive: 10
+  idleTimeout: 5
+  maxOpen: 200
+  prefix: ""
+
+#aws:
+#  accesskeyid: AKIAJEJUHBCEJGTFGNHA
+#  accesskey:  oflCXIs+8jsbBYffy8lPedKok90NkSSabv8SVY66
+#  accesstoken:
+#  fileregion: us-east-1
+#  filebucket: bastionpay-dev-filetransfer
+#  filetimeout: 300
+
+#mysql: #多个数据库
+#  host: 127.0.0.1
+#  port: 3306
+#  dbname: wallet
+#  user: root
+#  password: root
+#  charset: utf8
+#  parseTime: false
+#  maxIdle: 0
+#  maxOpen: 5
+#  debug: true
+
+mysql: #多个数据库
+  host: pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com
+  port: 3306
+  dbname: bastionpay
+  user: TestDBAdmin
+  password: bastionpay.123
+  charset: utf8
+  parseTime: false
+  maxIdle: 0
+  maxOpen: 5
+  debug: true
+
+#mysql: #多个数据库
+#  host: testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com
+#  port: 3306
+#  dbname: test1
+#  user: testbastion
+#  password: testbastion.123
+#  charset: utf8
+#  parseTime: false
+#  maxIdle: 0
+#  maxOpen: 5
+#  debug: true
+
+#数据加密解密的bastion url
+bastionpay_url:
+  bastionurl: http://test1-user.bastionwallet.com
+
+redpack_url:
+  redpackurl: https://test-activity.bastionpay.io
+
+login:
+  password: xfp7662391GPS
+  phone: +086_15216614713
+  zf_pwd: 123456
+  device_id: ab9dd65725876c597

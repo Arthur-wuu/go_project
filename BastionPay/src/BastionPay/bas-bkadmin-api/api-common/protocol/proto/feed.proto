@@ -1,0 +1,214 @@
+syntax = "proto3";
+
+package rpc;
+
+import public "common.proto";
+
+message Ticker
+{
+    string pair = 1;                  // trading pair
+    string price = 2;                 // latest trades price
+    string ask = 3;                   // best ask price
+    string bid = 4;                   // best bid price
+    double change = 5;                // change compared with 24h ago
+    string base_asset_vol = 6;        // last 24h base asset trade amount
+    string quote_asset_vol = 7;       // last 24h quote asset trade amount
+    string high = 8;                  // last 24h highest price
+    string low = 9;                   // last 24h lowest price
+    int64 time = 10;                  // latet trades timestamp (ms)
+}
+
+message RequestGetTickers
+{
+    repeated string pairs = 1;        // list tickers of specified trading pairs. (default get all tickers)
+    bool show_detail = 2;             // only show pair, price, ask, bid, time if false. (default is false)
+}
+
+message ResponseGetTickers
+{
+    repeated Ticker tickers = 1;
+}
+
+message Level
+{
+    int32 size = 1;                   // orders in this level
+    string price = 2;                 // price of level
+    string amount = 3;                // amount of level
+    string sum = 4;                   // total amount can buy / sell at this level
+}
+
+message LevelUpdate
+{
+    rpc.Side side = 1;                // 'bid' or 'ask'
+    int32 size = 2;                   // orders in this level
+    string price = 3;                 // price of level
+    string amount = 4;                // new amount of level, '0' to delete level
+    string sum = 5;                   // total amount can buy / sell at this level
+    uint64 seq = 6;                   // sequence of LevelUpdate message
+}
+
+message RequestGetDepth
+{
+    string pair = 1;                  // trading pair
+    int32 limit = 2;                  // number of levels (default is 20)
+    int32 pricision = 3;              // the precision of quote asset to combine depth
+}
+
+message ResponseGetDepth
+{
+    string pair = 1;                  // trading pair
+    repeated LevelUpdate update = 2;  // update of depth
+    repeated Level ask = 3;           // depth of ask side
+    repeated Level bid = 4;           // depth of bid side
+    uint64 seq = 6;                   // last sequence in the snapshot
+}
+ 
+message RequestGetDepthState
+{
+    string pair = 1;                  // trading pair
+}
+
+message ResponseGetDepthState
+{
+    string pair = 1;                  // trading pair
+    int32 sum_of_asks = 2;            // [optional] total orders of ask side
+    int32 sum_of_bids = 3;            // [optional] total orders of bid side
+    int32 sum_of_ask_levels = 4;      // [optional] total levels of ask side
+    int32 sum_of_bid_levels = 5;      // [optional] total levels of bid side
+}
+
+message MarketTrades
+{
+    string price = 1;                 // trade price
+    string amount = 2;                // trade amount
+    rpc.Side side = 3;                // 'bid' or 'ask'
+    int64 time = 4;                   // trade timestamp (ms)
+    uint64 exec_id = 5;               // execute trade id
+}
+
+message MarketTradesUpdate
+{
+    string price = 1;                 // trade price
+    string amount = 2;                // trade amount
+    rpc.Side side = 3;                // 'bid' or 'ask'
+    int64 time = 4;                   // trade timestamp (ms)
+    string pair = 5;                  // trading pair
+    uint64 exec_id = 6;               // execute trade id
+}
+
+message RequestGetMarketTrades
+{
+    string pair = 1;                  // trading pair
+    int32 limit = 2;                  // number of trades (default is 100)
+}
+
+message ResponseGetMarketTrades
+{
+    string pair = 1;                  // trading pair
+    repeated MarketTrades trades = 2; // list of market trades
+}
+
+message Candlestick
+{
+    int64 time = 1;                   // candle timestamp (ms)
+    string open = 2;
+    string high = 3;
+    string low = 4;
+    string close = 5;
+    string vol = 6;
+}
+
+message CandlestickUpdate
+{
+    int64 time = 1;                   // candle timestamp (ms)
+    string open = 2;
+    string high = 3;
+    string low = 4;
+    string close = 5;
+    string vol = 6;
+    string pair = 7;                  // trading pair
+    string cycle = 8;                 // 1m, 5m, 15m, 30m, 1h, 2h, 6h, 12h, 1D, 7D, 1M
+}
+
+message RequestGetCandlestick
+{
+    string pair = 1;                  // trading pair
+    string cycle = 2;                 // 1m, 5m, 15m, 30m, 1h, 2h, 6h, 12h, 1D, 7D, 1M
+    int64 time = 3;                   // start timestamp of candle, range: [time, now]
+    int32 limit = 4;                  // number of candles
+}
+
+message ResponseGetCandlestick
+{
+    string pair = 1;                  // trading pair
+    string cycle = 2;                 // 1m, 5m, 15m, 30m, 1h, 2h, 6h, 12h, 1D, 7D, 1M
+    repeated Candlestick candles = 4; // candles
+}
+
+///////////////////////////////////////////////////////////////////////
+message RequestGetOrders
+{
+    uint64 tid = 1;                   // trading account id.
+    string pair = 2;                  // get orders of specified trading pair.
+    repeated uint64 order_ids = 3;    // list of order ids to return. (leave empty to get all orders)
+}
+
+message Order
+{
+    uint64 order_id = 1;
+    uint64 client_id = 2;
+    rpc.Type type = 3;                // 'limit' or 'market' (default is limit).
+    rpc.Side side = 4;                // 'buy' or 'sell'.
+    string price = 5;                 // price for limit order, no use for market order.
+    string quantity = 6;              // amount of base currency to buy or sell for limit order, amount of currency to use for market order.
+    string avg_price = 7;
+    string costs = 8;
+    string rest = 9;
+    string fees = 10;
+    rpc.State state = 11;
+    int64  created = 12;
+}
+
+message OrderUpdate
+{
+    uint64 tid = 1;                   // trading account id.
+    string pair = 2;                  // trading pair.
+    uint64 order_id = 3;
+    uint64 client_id = 4;
+    rpc.Side side = 6;                // 'buy' or 'sell'.
+    string price = 7;                 // price for limit order, no use for market order.
+    string quantity = 8;              // amount of base currency to buy or sell for limit order, amount of currency to use for market order.
+    string avg_price = 9;
+    string costs = 10;
+    string rest = 11;
+    string fees = 12;
+    rpc.State state = 13;
+    int64  created = 14;
+}
+
+message ResponseGetOrders
+{
+    uint64 tid = 1;                   // trading account id.
+    string pair = 2;                  // trading pair.
+    repeated Order orders = 3;        // list of active orders.
+}
+
+service Feed {
+    // Get ticker.
+    rpc GetTicker(RequestGetTickers) returns (ResponseGetTickers) {}
+
+    // Get depth.
+    rpc GetDepth(RequestGetDepth) returns (ResponseGetDepth) {}
+
+    // Get depth status.
+    rpc GetDepthState(RequestGetDepthState) returns (ResponseGetDepthState) {}
+
+    // Get maket trades.
+    rpc GetTrades(RequestGetMarketTrades) returns (ResponseGetMarketTrades) {}
+
+    // Get candlesticks.
+    rpc GetCandlestick(RequestGetCandlestick) returns (ResponseGetCandlestick) {}
+
+    // Get active order.
+    rpc GetOrders(RequestGetOrders) returns (ResponseGetOrders) {}
+}

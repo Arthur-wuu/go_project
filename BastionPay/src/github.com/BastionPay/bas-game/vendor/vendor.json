@@ -1,0 +1,19 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "G/4w3rAvaRWtoJcoYciMRk7tDcY=",
+			"path": "github.com/caibirdme/yql/internal/grammar",
+			"revision": "2299810551271e2656058c76ced3118cffc05500",
+			"revisionTime": "2019-04-20T14:17:51Z"
+		},
+		{
+			"checksumSHA1": "GO72Hbg5y/fTpuigBfROhfvKCcA=",
+			"path": "github.com/caibirdme/yql/internal/stack",
+			"revision": "2299810551271e2656058c76ced3118cffc05500",
+			"revisionTime": "2019-04-20T14:17:51Z"
+		}
+	],
+	"rootPath": "github.com/BastionPay/bas-game"
+}

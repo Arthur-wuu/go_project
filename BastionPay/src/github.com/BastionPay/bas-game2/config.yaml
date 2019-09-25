@@ -1,0 +1,38 @@
+system:
+  port: 8046
+  debug: false
+  log_path: zap.conf
+  monitor: :21000
+
+redis:
+  network: tcp
+  host: 127.0.0.1
+  port: 6379
+  password: ""
+  database: 0
+  maxIdle: 0
+  maxActive: 10
+  idleTimeout: 5
+  maxOpen: 200
+  prefix: ""
+
+#aws:
+#  accesskeyid: AKIAJEJUHBCEJGTFGNHA
+#  accesskey:  oflCXIs+8jsbBYffy8lPedKok90NkSSabv8SVY66
+#  accesstoken:
+#  fileregion: us-east-1
+#  filebucket: bastionpay-dev-filetransfer
+#  filetimeout: 300
+
+
+mysql: #多个数据库
+  host: pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com
+  port: 3306
+  dbname: bastionpay
+  user: TestDBAdmin
+  password: bastionpay.123
+  charset: utf8
+  parseTime: false
+  maxIdle: 0
+  maxOpen: 5
+  debug: true

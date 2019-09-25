@@ -1,0 +1,20 @@
+if err != nil || status != 2 {
+		//充值失败，再设置回0
+		robberUpdate, _ := json.Marshal(map[string]interface{}{
+			"id": *params.Id ,
+			"transfer_flag": 0,
+		})
+
+		res, err :=base.HttpSend(config.GConfig.RedPackUrl.RedPackUrl+"/v1/ft/fissionshare/robber/set-transferflag",bytes.NewBuffer(robberUpdate),"POST",nil)
+		if err != nil {
+			ZapLog().Sugar().Errorf("request red err[%v]", err)
+		}
+		fmt.Println("[** set flag again res***]")
+
+		responseMsg := new(api.NotifyResponse)
+		json.Unmarshal(res, responseMsg)
+		if responseMsg.Code != 0 {
+			ZapLog().Error( "set flag err")
+			fmt.Println("[** set flag again fail....]")
+		}
+	}

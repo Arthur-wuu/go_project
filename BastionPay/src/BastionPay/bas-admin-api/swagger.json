@@ -1,0 +1,1466 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Bastion pay user management services include registration, authentication, user information viewing,\nsecurity authentication and other information using JWT token authentication and authentication\nusing email, SMS, captcha, Google authentication.",
+    "title": "bastion pay Account API.",
+    "contact": {
+      "name": "Ingram",
+      "email": "mike.huang@blockshine.com"
+    },
+    "version": "0.1.0"
+  },
+  "host": "http://account.api.test.mike-huang.cn",
+  "basePath": "/api/account",
+  "paths": {
+    "/exists": {
+      "post": {
+        "description": "Check if the user exists",
+        "tags": [
+          "account"
+        ],
+        "summary": "User exists",
+        "operationId": "postExists",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "captcha_token": {
+                  "description": "operating=register",
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "username": {
+                  "type": "string",
+                  "format": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "bool",
+                  "format": "bool"
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ga": {
+      "get": {
+        "tags": [
+          "ga"
+        ],
+        "summary": "Get google authentication secret",
+        "operationId": "getGa",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "use post /ga to verify",
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "image": {
+                      "description": "Base64 of URI QR code",
+                      "type": "bool"
+                    },
+                    "secret": {
+                      "type": "string",
+                      "format": "string"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ga/bind": {
+      "post": {
+        "tags": [
+          "ga"
+        ],
+        "summary": "Bind google authentication",
+        "operationId": "postGa",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "value": {
+                  "type": "string",
+                  "format": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {},
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ga/unbind": {
+      "post": {
+        "tags": [
+          "ga"
+        ],
+        "summary": "UnBind google authentication",
+        "operationId": "unbindGa",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email_token": {
+                  "description": "operating=unbind_ga",
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "sms_token": {
+                  "description": "operating=unbind_ga",
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "value": {
+                  "type": "string",
+                  "format": "number"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {},
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/info": {
+      "get": {
+        "tags": [
+          "information"
+        ],
+        "summary": "Account information",
+        "operationId": "getInfo",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {},
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "information"
+        ],
+        "summary": "Update information",
+        "operationId": "updateInfo",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "language": {
+                  "type": "string"
+                },
+                "timezone": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {},
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/info/email": {
+      "post": {
+        "tags": [
+          "information"
+        ],
+        "summary": "Bind email",
+        "operationId": "bindEmail",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email"
+                },
+                "email_token": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {},
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/info/phone": {
+      "post": {
+        "tags": [
+          "information"
+        ],
+        "summary": "Bind phone",
+        "operationId": "bindPhone",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "country_code": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "sms_token": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {},
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/info/phone/rebind": {
+      "post": {
+        "tags": [
+          "information"
+        ],
+        "summary": "Rebind phone",
+        "operationId": "RebindPhone",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "country_code": {
+                  "type": "string"
+                },
+                "email_token": {
+                  "description": "operating=rebind_phone",
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "ga_token": {
+                  "description": "operating=rebind_phone",
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "new_sms_token": {
+                  "description": "operating=bind_phone",
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "old_sms_token": {
+                  "description": "operating=rebind_phone",
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "phone": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {},
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/log/login": {
+      "get": {
+        "tags": [
+          "log"
+        ],
+        "summary": "Login log",
+        "operationId": "getLoginLog",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "type": "number",
+            "default": 1,
+            "description": "Which page, start from 1",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "type": "number",
+            "default": 10,
+            "description": "One page record number, between 1 and 100",
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array"
+                    },
+                    "page": {
+                      "description": "Current page",
+                      "type": "number"
+                    },
+                    "total": {
+                      "description": "Total number",
+                      "type": "number"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/log/safe": {
+      "get": {
+        "tags": [
+          "log"
+        ],
+        "summary": "Security settings log",
+        "operationId": "getSafeLog",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "type": "number",
+            "default": 1,
+            "description": "Which page, start from 1",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "type": "number",
+            "default": 10,
+            "description": "One page record number, between 1 and 100",
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array"
+                    },
+                    "page": {
+                      "description": "Current page",
+                      "type": "number"
+                    },
+                    "total": {
+                      "description": "Total number",
+                      "type": "number"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "User username and password to get JWT token",
+        "tags": [
+          "account"
+        ],
+        "summary": "Login",
+        "operationId": "postLogin",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "mail and phone need any one",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "captcha_token": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "password": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "username": {
+                  "description": "Use the email or phone you used to register",
+                  "type": "string",
+                  "format": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "expiration": {
+                      "type": "number"
+                    },
+                    "safe": {
+                      "description": "If it is not safe, you need to verify it with /login/ga",
+                      "type": "bool"
+                    },
+                    "token": {
+                      "description": "JWT token",
+                      "type": "string",
+                      "format": "byte"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login/ga": {
+      "post": {
+        "description": "Verify ga token",
+        "tags": [
+          "account"
+        ],
+        "summary": "Login with ga",
+        "operationId": "postLoginWithGa",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ga_token": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "properties": {
+                    "expiration": {
+                      "type": "number"
+                    },
+                    "token": {
+                      "description": "JWT token",
+                      "type": "string",
+                      "format": "byte"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/optional": {
+      "get": {
+        "tags": [
+          "optional"
+        ],
+        "summary": "Get optional",
+        "operationId": "getOptional",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "optional"
+        ],
+        "summary": "Update optional",
+        "operationId": "updateOptional",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {},
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/password/inquire": {
+      "post": {
+        "tags": [
+          "password"
+        ],
+        "summary": "Query reset password information",
+        "operationId": "inquireResetInfo",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "captcha_token": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "username": {
+                  "type": "string",
+                  "format": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "county_code": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "ga": {
+                      "type": "bool"
+                    },
+                    "phone": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/password/modify": {
+      "post": {
+        "tags": [
+          "password"
+        ],
+        "summary": "Modify password",
+        "operationId": "modifyPassword",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "old_password": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "password": {
+                  "type": "string",
+                  "format": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {},
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/password/reset": {
+      "post": {
+        "tags": [
+          "password"
+        ],
+        "summary": "Reset password",
+        "operationId": "resetPassword",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email_token": {
+                  "description": "If you have bind email, you need to enter this",
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "ga_value": {
+                  "description": "six number like 000000",
+                  "type": "number",
+                  "format": "int"
+                },
+                "password": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "sms_token": {
+                  "description": "If you have bind phone, you need to enter this",
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "username": {
+                  "type": "string",
+                  "format": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {},
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/refresh": {
+      "get": {
+        "description": "Refresh JWT token expiration time before token expires",
+        "tags": [
+          "token"
+        ],
+        "summary": "Refresh JWT token",
+        "operationId": "getRefresh",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "expiration": {
+                      "type": "number"
+                    },
+                    "token": {
+                      "description": "JWT token",
+                      "type": "string",
+                      "format": "byte"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "description": "Can use email or mobile number to register",
+        "tags": [
+          "account"
+        ],
+        "summary": "Register",
+        "operationId": "postRegister",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "description": "email and phone need any one",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "citizenship": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "country_code": {
+                  "description": "If use phone, you need this",
+                  "type": "string",
+                  "format": "string"
+                },
+                "email": {
+                  "type": "string",
+                  "format": "email"
+                },
+                "language": {
+                  "description": "Get from user's browser",
+                  "type": "string",
+                  "format": "en-US"
+                },
+                "password": {
+                  "type": "string",
+                  "format": "password"
+                },
+                "phone": {
+                  "type": "string",
+                  "format": "tel"
+                },
+                "timezone": {
+                  "description": "Get from user's browser",
+                  "type": "string",
+                  "format": "+8:00"
+                },
+                "token": {
+                  "description": "Please verify the email or phone",
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "properties": {
+                    "expiration": {
+                      "type": "number"
+                    },
+                    "token": {
+                      "description": "JWT token",
+                      "type": "string",
+                      "format": "byte"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/report/key": {
+      "post": {
+        "tags": [
+          "optional",
+          "report"
+        ],
+        "summary": "report key",
+        "operationId": "key",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "callback_url": {
+                  "type": "string"
+                },
+                "public_key": {
+                  "type": "string"
+                },
+                "source_ip": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {},
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/verification": {
+      "post": {
+        "description": "Request to verify code",
+        "tags": [
+          "verification"
+        ],
+        "summary": "Request to verify",
+        "operationId": "postVerification",
+        "parameters": [
+          {
+            "description": "require params",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "value": {
+                  "type": "string",
+                  "format": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {},
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/verification/{type}": {
+      "get": {
+        "description": "Get verify code",
+        "tags": [
+          "verification"
+        ],
+        "summary": "Get verify code",
+        "operationId": "getVerification",
+        "parameters": [
+          {
+            "enum": [
+              "email",
+              "sms",
+              "captcha",
+              "ga"
+            ],
+            "type": "string",
+            "description": "type of verification",
+            "name": "type",
+            "in": "path",
+            "required": true
+          },
+          {
+            "enum": [
+              "login",
+              "register",
+              "forget_password",
+              "withdrawal",
+              "withdrawal_address",
+              "trading",
+              "bind_ga",
+              "unbind_ga",
+              "bind_email",
+              "bind_phone",
+              "rebind_phone"
+            ],
+            "type": "string",
+            "description": "type of operating",
+            "name": "operating",
+            "in": "query",
+            "required": true
+          },
+          {
+            "description": "if type is email,sms and not logged in， need this",
+            "name": "recipient",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "if type is email,sms and not logged in, you need to request a captcha token to prevent violent requests",
+            "name": "captcha_token",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "responses": {
+    "Response": {
+      "description": "This is default response struct",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "description": "response code",
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          },
+          "msg": {
+            "description": "response msg",
+            "type": "string",
+            "x-go-name": "Msg"
+          }
+        }
+      },
+      "headers": {
+        "result": {
+          "description": "response result"
+        },
+        "status": {
+          "description": "response status"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "JWT": {
+      "description": "JWT token expiration time is 30 minutes, please re-request before expiration",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "JWT": []
+    }
+  ],
+  "x-meta-array": [
+    "language",
+    "timezone"
+  ]
+}

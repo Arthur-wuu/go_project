@@ -1,0 +1,75 @@
+pipeline {
+    agent any
+    environment { 
+        def PROJECT_TYPE='API'
+        def PROJECT_NAME='bas-notify'
+        def ENV='test'
+        def ENV_PORT=80
+        def MY_DOMAIN='src/BastionPay'
+        def REGION='us-east-1'
+        def CLUSTER="TEST-BAS-API"
+        def GOPATH="${WORKSPACE}"
+        def PATH="${GOPATH}:${PATH}"
+        def CODE_DIR="${MY_DOMAIN}/${PROJECT_NAME}"
+        def REPOSITORY_NAME="${ENV}-${PROJECT_NAME}"
+        def NAME="${ENV}-${PROJECT_NAME}"
+        def SERVICE_NAME="${ENV}-${PROJECT_NAME}-service"
+        def FAMILY="${ENV}-${PROJECT_NAME}-task"
+        def TASKDEFNAME="${ENV}-${PROJECT_NAME}-task"
+    }
+    stages {
+        stage('clone'){
+            steps{
+                deleteDir()
+                script{
+                    env.GIT_LOCAL_BRANCH=env.GIT_BRANCH.substring(7,)
+                }
+                dir("$CODE_DIR") {
+                    // some block
+                    git branch: "$GIT_LOCAL_BRANCH", credentialsId: '325bd343-f984-4cb0-b6b8-91480ad81068', url: "https://github.com/BastionPay/${PROJECT_NAME}.git"
+                }
+            }
+        }
+        stage('init'){
+            steps{
+                dir('configuration') {
+                    // some block
+                    git branch: 'dev', credentialsId: '325bd343-f984-4cb0-b6b8-91480ad81068', url: 'https://github.com/BastionPay/configuration.git'
+                }
+                sh '''
+                    cp -rp configuration/public/init.sh ./init.sh
+                    ./init.sh
+                '''
+            }
+        }
+        stage('build'){
+            steps{
+                sh '''
+                    ./build.sh
+                '''
+            }
+        }
+        stage('pull dockerimage') {
+            steps{
+                sh '''
+                    ./pull_image.sh
+                '''
+            }
+        }
+        
+        stage('deploy ecs') {
+            steps{
+                sh '''
+                    ./deploy_ecs.sh
+                '''
+            }
+        }
+        stage('check deploy') {
+            steps{
+                sh '''
+                    ./check_deploy.py
+                '''
+            }
+        }
+    }
+}

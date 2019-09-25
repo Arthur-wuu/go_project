@@ -1,0 +1,142 @@
+2018-11-08T11:07:58.837+0800	info	bas-export/main.go:26	Config Content[{{8989 false zap.conf} {127.0.0.1 3306 root wsy123456008ik,>LO( mydb 10 100}}]	{"app": "bas-admin-api"}
+2018-11-08T11:07:58.837+0800	info	bas-export/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2018-11-08T11:07:58.838+0800	info	bas-export/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2018-11-08T11:09:23.180+0800	error	bas-export/main.go:14	goroutine 15 [running]:
+runtime/debug.Stack(0xc000094840, 0xc000212f80, 0x1)
+	/usr/local/Cellar/go/1.11/libexec/src/runtime/debug/stack.go:24 +0xa7
+main.PanicPrint()
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-export/main.go:14 +0x141
+panic(0x162efe0, 0xc000266590)
+	/usr/local/Cellar/go/1.11/libexec/src/runtime/panic.go:513 +0x1b9
+flag.(*FlagSet).Var(0xc000094180, 0x1812c60, 0xc0005cea48, 0x17239ce, 0x4, 0x173a473, 0x1f)
+	/usr/local/Cellar/go/1.11/libexec/src/flag/flag.go:805 +0x529
+flag.(*FlagSet).IntVar(0xc000094180, 0xc0005cea48, 0x17239ce, 0x4, 0xcea, 0x173a473, 0x1f)
+	/usr/local/Cellar/go/1.11/libexec/src/flag/flag.go:604 +0x71
+flag.(*FlagSet).Int(0xc000094180, 0x17239ce, 0x4, 0xcea, 0x173a473, 0x1f, 0x100d80f)
+	/usr/local/Cellar/go/1.11/libexec/src/flag/flag.go:617 +0x77
+flag.Int(0x17239ce, 0x4, 0xcea, 0x173a473, 0x1f, 0x58)
+	/usr/local/Cellar/go/1.11/libexec/src/flag/flag.go:624 +0x5f
+github.com/BastionPay/bas-export/quote.(*DataMgr).Init(0xc0002b1e08, 0xc000232960, 0x2)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-export/quote/quote_mgr.go:37 +0xe5
+main.(*WebServer).handleExport(0xc0002b1e00, 0x1828020, 0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-export/server.go:139 +0x3a2
+main.(*WebServer).handleExport-fm(0x1828020, 0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-export/server.go:102 +0x3e
+github.com/kataras/iris/context.DefaultNext(0x1828020, 0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1332 +0x10a
+github.com/kataras/iris/context.(*context).Next(0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1341 +0x3e
+main.(*WebServer).controller.func2(0x1828020, 0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-export/server.go:100 +0x34
+github.com/kataras/iris/context.DefaultNext(0x1828020, 0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1332 +0x10a
+github.com/kataras/iris/context.(*context).Next(0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1341 +0x3e
+github.com/iris-contrib/middleware/cors.(*Cors).Serve(0xc000168be0, 0x1828020, 0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/iris-contrib/middleware/cors/cors.go:185 +0xc8
+github.com/iris-contrib/middleware/cors.(*Cors).Serve-fm(0x1828020, 0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/iris-contrib/middleware/cors/cors.go:144 +0x3e
+github.com/kataras/iris/context.DefaultNext(0x1828020, 0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1332 +0x10a
+github.com/kataras/iris/context.(*context).Next(0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1341 +0x3e
+github.com/kataras/iris/middleware/logger.(*requestLoggerMiddleware).ServeHTTP(0xc000094c60, 0x1828020, 0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/middleware/logger/logger.go:50 +0x8f
+github.com/kataras/iris/middleware/logger.(*requestLoggerMiddleware).ServeHTTP-fm(0x1828020, 0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/middleware/logger/logger.go:31 +0x3e
+github.com/kataras/iris/context.DefaultNext(0x1828020, 0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1332 +0x10a
+github.com/kataras/iris/context.(*context).Next(0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1341 +0x3e
+github.com/kataras/iris/middleware/recover.New.func1(0x1828020, 0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/middleware/recover/recover.go:56 +0x64
+github.com/kataras/iris/context.Do(0x1828020, 0xc0001c45a0, 0xc0004c4630, 0x5, 0x5)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1046 +0x81
+github.com/kataras/iris/context.(*context).Do(0xc0001c45a0, 0xc0004c4630, 0x5, 0x5)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1218 +0x55
+github.com/kataras/iris/core/router.(*routerHandler).HandleRequest(0xc0002b7900, 0x1828020, 0xc0001c45a0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/core/router/handler.go:230 +0x55c
+github.com/kataras/iris/core/router.(*Router).BuildRouter.func1(0x18160e0, 0xc0006ca0e0, 0xc0002d8400)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/core/router/router.go:70 +0x8f
+github.com/kataras/iris/core/router.(*Router).ServeHTTP(0xc00049c3c0, 0x18160e0, 0xc0006ca0e0, 0xc0002d8400)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/core/router/router.go:147 +0x48
+net/http.serverHandler.ServeHTTP(0xc00030e0d0, 0x18160e0, 0xc0006ca0e0, 0xc0002d8400)
+	/usr/local/Cellar/go/1.11/libexec/src/net/http/server.go:2741 +0xab
+net/http.(*conn).serve(0xc0006be000, 0x1816960, 0xc000212580)
+	/usr/local/Cellar/go/1.11/libexec/src/net/http/server.go:1847 +0x646
+created by net/http.(*Server).Serve
+	/usr/local/Cellar/go/1.11/libexec/src/net/http/server.go:2851 +0x2f5
+	{"app": "bas-admin-api", "error": "./bas-export flag redefined: port"}
+2018-11-08T11:10:00.178+0800	error	bas-export/main.go:14	goroutine 15 [running]:
+runtime/debug.Stack(0xc000094840, 0xc0001b4580, 0x1)
+	/usr/local/Cellar/go/1.11/libexec/src/runtime/debug/stack.go:24 +0xa7
+main.PanicPrint()
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-export/main.go:14 +0x141
+panic(0x162efe0, 0xc000454800)
+	/usr/local/Cellar/go/1.11/libexec/src/runtime/panic.go:513 +0x1b9
+flag.(*FlagSet).Var(0xc000094180, 0x1812c60, 0xc0005c2360, 0x17239ce, 0x4, 0x173a473, 0x1f)
+	/usr/local/Cellar/go/1.11/libexec/src/flag/flag.go:805 +0x529
+flag.(*FlagSet).IntVar(0xc000094180, 0xc0005c2360, 0x17239ce, 0x4, 0xcea, 0x173a473, 0x1f)
+	/usr/local/Cellar/go/1.11/libexec/src/flag/flag.go:604 +0x71
+flag.(*FlagSet).Int(0xc000094180, 0x17239ce, 0x4, 0xcea, 0x173a473, 0x1f, 0x100d80f)
+	/usr/local/Cellar/go/1.11/libexec/src/flag/flag.go:617 +0x77
+flag.Int(0x17239ce, 0x4, 0xcea, 0x173a473, 0x1f, 0x58)
+	/usr/local/Cellar/go/1.11/libexec/src/flag/flag.go:624 +0x5f
+github.com/BastionPay/bas-export/quote.(*DataMgr).Init(0xc0002b1e08, 0xc00007cd80, 0x2)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-export/quote/quote_mgr.go:37 +0xe5
+main.(*WebServer).handleExport(0xc0002b1e00, 0x1828020, 0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-export/server.go:139 +0x3a2
+main.(*WebServer).handleExport-fm(0x1828020, 0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-export/server.go:102 +0x3e
+github.com/kataras/iris/context.DefaultNext(0x1828020, 0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1332 +0x10a
+github.com/kataras/iris/context.(*context).Next(0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1341 +0x3e
+main.(*WebServer).controller.func2(0x1828020, 0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-export/server.go:100 +0x34
+github.com/kataras/iris/context.DefaultNext(0x1828020, 0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1332 +0x10a
+github.com/kataras/iris/context.(*context).Next(0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1341 +0x3e
+github.com/iris-contrib/middleware/cors.(*Cors).Serve(0xc000168be0, 0x1828020, 0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/iris-contrib/middleware/cors/cors.go:185 +0xc8
+github.com/iris-contrib/middleware/cors.(*Cors).Serve-fm(0x1828020, 0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/iris-contrib/middleware/cors/cors.go:144 +0x3e
+github.com/kataras/iris/context.DefaultNext(0x1828020, 0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1332 +0x10a
+github.com/kataras/iris/context.(*context).Next(0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1341 +0x3e
+github.com/kataras/iris/middleware/logger.(*requestLoggerMiddleware).ServeHTTP(0xc000094c60, 0x1828020, 0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/middleware/logger/logger.go:50 +0x8f
+github.com/kataras/iris/middleware/logger.(*requestLoggerMiddleware).ServeHTTP-fm(0x1828020, 0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/middleware/logger/logger.go:31 +0x3e
+github.com/kataras/iris/context.DefaultNext(0x1828020, 0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1332 +0x10a
+github.com/kataras/iris/context.(*context).Next(0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1341 +0x3e
+github.com/kataras/iris/middleware/recover.New.func1(0x1828020, 0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/middleware/recover/recover.go:56 +0x64
+github.com/kataras/iris/context.Do(0x1828020, 0xc0005142d0, 0xc0004c4630, 0x5, 0x5)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1046 +0x81
+github.com/kataras/iris/context.(*context).Do(0xc0005142d0, 0xc0004c4630, 0x5, 0x5)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/context/context.go:1218 +0x55
+github.com/kataras/iris/core/router.(*routerHandler).HandleRequest(0xc0002b7900, 0x1828020, 0xc0005142d0)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/core/router/handler.go:230 +0x55c
+github.com/kataras/iris/core/router.(*Router).BuildRouter.func1(0x18160e0, 0xc0006f0000, 0xc0002d8600)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/core/router/router.go:70 +0x8f
+github.com/kataras/iris/core/router.(*Router).ServeHTTP(0xc00049c3c0, 0x18160e0, 0xc0006f0000, 0xc0002d8600)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/kataras/iris/core/router/router.go:147 +0x48
+net/http.serverHandler.ServeHTTP(0xc00030e0d0, 0x18160e0, 0xc0006f0000, 0xc0002d8600)
+	/usr/local/Cellar/go/1.11/libexec/src/net/http/server.go:2741 +0xab
+net/http.(*conn).serve(0xc0006be000, 0x1816960, 0xc000212580)
+	/usr/local/Cellar/go/1.11/libexec/src/net/http/server.go:1847 +0x646
+created by net/http.(*Server).Serve
+	/usr/local/Cellar/go/1.11/libexec/src/net/http/server.go:2851 +0x2f5
+	{"app": "bas-admin-api", "error": "./bas-export flag redefined: port"}
+2018-11-08T11:10:39.446+0800	info	bas-export/server.go:70	Iris Run[%!d(string=8989)] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2018-11-08T11:10:39.446+0800	info	bas-export/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2018-11-08T11:11:08.526+0800	info	bas-export/main.go:26	Config Content[{{8989 false zap.conf} {127.0.0.1 3306 root wsy123456008ik,>LO( mydb 10 100}}]	{"app": "bas-admin-api"}
+2018-11-08T11:11:08.527+0800	info	bas-export/server.go:61	WebServer Init ok	{"app": "bas-admin-api"}
+2018-11-08T11:11:08.528+0800	info	bas-export/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2018-11-08T14:20:46.131+0800	info	bas-export/server.go:70	Iris Run[%!d(string=8989)] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2018-11-08T14:20:46.131+0800	info	bas-export/main.go:36	WebServer Stop	{"app": "bas-admin-api"}

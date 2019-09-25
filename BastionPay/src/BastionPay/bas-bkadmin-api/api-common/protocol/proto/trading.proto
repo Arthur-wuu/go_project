@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package rpc;
+
+import public "common.proto";
+
+message RequestCreateOrder
+{
+    uint64 tid = 1;                   // trading account id.
+    string pair = 2;                  // trading pair. (eg. etc_btc)
+    rpc.Type type = 3;                // 'limit' or 'market' (default is limit).
+    rpc.Side side = 4;                // 'buy' or 'sell' (default is buy).
+    string price = 5;                 // price for limit order, no use for market order.
+    string quantity = 6;              // amount of base currency to buy or sell for limit order, amount of currency to use for market order.
+    double maker_fee = 7;
+    double taker_fee = 8;
+    uint64 client_id = 9;             // [optional] user specified order id.
+}
+
+message ResponseCreateOrder
+{
+    uint64 tid = 1;                   // trading account id.
+    string pair = 2;                  // trading pair.
+    uint64 order_id = 3;              // system order id for order lifecycle.
+    string available = 4;             // available after order created, base asset available for sell, quote asset available for buy.
+    string frozen = 5;                // frozen after created order, base asset frozen for sell, quote asset frozen for buy.
+    uint64 client_id = 6;             // [optional] user specified order id.
+    string amount_used = 7;           // amount asset frozen
+}
+
+message RequestCancelOrder
+{
+    uint64 tid = 1;                   // trading account id.
+    string pair = 2;                  // trading pair.
+    repeated uint64 order_ids = 3;    // order ids to cancel. 
+}
+
+message ResponseCancelOrder
+{
+    uint64 tid = 1;                   // trading account id.
+    string pair = 2;                  // trading pair.
+    repeated uint64 order_ids = 3;    // order ids to cancel. (limit 10 orders)
+}
+
+service Trading {
+    // Create new order.
+    rpc CreateOrder(RequestCreateOrder) returns (ResponseCreateOrder) {}
+
+    // Cancel un-filled order.
+    rpc CancelOrder(RequestCancelOrder) returns (ResponseCancelOrder) {}
+}

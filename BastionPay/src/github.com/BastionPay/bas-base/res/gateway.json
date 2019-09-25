@@ -1,0 +1,10 @@
+{
+  "gateway":
+  {
+    "port":"8082",
+    "gateway_version":"v1",
+    "gateway_name":"center",
+    "gateway_port":"8081",
+    "test_mode":1
+  }
+}

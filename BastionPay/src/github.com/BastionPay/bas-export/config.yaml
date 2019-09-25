@@ -1,0 +1,14 @@
+server:
+  #ENV SERVER_PORT
+  port: 8989
+  #ENV SERVER_DEBUG
+  debug: false
+  log: zap.conf
+db:
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  password: wsy123456008ik,>LO(
+  db: mydb
+  max_idle_conn: 10
+  max_open_conn: 100

@@ -1,0 +1,58 @@
+server:
+  #ENV SERVER_PORT
+  port: 8098
+  #ENV SERVER_DEBUG
+  debug: false
+  log: zap.conf
+db:
+  host: testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com
+  port: 3306
+  user: testbastion
+  password: testbastion.123
+  db: bas_backend_admin
+  max_idle_conn: 10
+  max_open_conn: 100
+  charset: utf8
+aws:
+  accesskeyid: AKIAJEJUHBCEJGTFGNHA
+  accesskey:  oflCXIs+8jsbBYffy8lPedKok90NkSSabv8SVY66
+  accesstoken:
+  sesregion: us-east-1
+  sestimeout: 60
+  snsregion: us-east-1
+  snstimeout: 60
+  srcemail: info@bastionpay.com
+sms: #短信限制
+  limit_send: 10000
+  fail_rate_threshold: 0.2
+  fail_threshold: 3
+mail:
+  limit_send: 10000
+  fail_rate_threshold: 0.2
+  fail_threshold: 3
+monitor:
+  mail_tempgroup_name: basbnotify_tempfail
+  mail_tempgroup_lang: zh-CN
+  sms_tempgroup_name: basbnotify_tempfail
+  sms_tempgroup_lang: zh-CN
+chuanglan:
+  account: N165420_N5452541
+  pwd:   YfSFtsVrJ79b37
+  url:    https://smssh1.253.com/msg/send/json
+twilio:
+  account_sid: AC282b2815c1a609b425a9468f97417e98
+  auth_token: 39cabda5dda362ef5c208d8105a1c2b3
+  from_phone: +18502047524
+nexmo:
+  api_key: 5279667b
+  api_secret: UJV6I0I4dEOpyrb0
+  url:     https://rest.nexmo.com/sms/json
+  default_sender: Bastion
+yuntongxun:
+  app_id:       8aaf07086b6526f8016b6e49156d05cb
+  auth_token:   8efc69f78ce24befaf3a7a9617c9ec16
+  account_sid:  8a216da86b652116016b6e155c99068a
+  url:   https://app.cloopen.com:8883
+dingding:
+- qun_name: TestBasAlarm
+  rob_token: 9155e81ceeced09069076ddff0270d73d49fa2718a360cea8c61d1f12ed609d0

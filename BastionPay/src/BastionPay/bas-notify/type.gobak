@@ -1,0 +1,437 @@
+package main
+
+const (
+	Notify_Level_Normal = 0
+	Notify_Level_Low   = 0
+	Notify_Level_High  = 1
+)
+
+const (
+	Notify_Type_Sms  = 0
+	Notify_Type_Mail = 1
+)
+
+const (
+	Notify_AliveMode_Dead = 0
+	Notify_AliveMode_Live = 1
+)
+
+const(
+	SMSPlatform_AWS = 0
+	SMSPlatform_CHUANGLAN = 1
+	SMSPlatform_TWL = 2
+)
+
+type TemplateHistoryListParam struct{
+	Total_lines     int              `json:"total_lines"`
+	Page_index      int              `json:"page_index"`
+	Max_disp_lines  int              `json:"max_disp_lines"`
+	GroupId         uint             `json:"groupid,omitempty"`
+}
+
+type TemplateHistoryList struct{
+	Total_lines     int              `json:"total_lines"`
+	Page_index      int              `json:"page_index"`
+	Max_disp_lines  int              `json:"max_disp_lines"`
+	TemplateHistorys []*TemplateHistory `json:"templatehistory,omitempty"`
+}
+
+type TemplateHistory struct {
+	Id        *uint   `json:"id,omitempty"`
+	CreatedAt *int64  `json:"createdat,omitempty"`
+	UpdatedAt *int64  `json:"updatedat,omitempty"`
+	Day       *int64  `json:"day,omitempty"`
+	DaySucc   *int    `json:"day_succ,omitempty"`
+	DayFail   *int    `json:"day_fail,omitempty"`
+	GroupId   *uint    `json:"group_id,omitempty"`
+	RateFail  *float32 `json:"rate_fail,omitempty"`
+	Inform    *int     `json:"inform,omitempty"`
+}
+
+func (this *TemplateHistory) GetRateFail() float32{
+	if this.RateFail == nil {
+		return 0
+	}
+	return *this.RateFail
+}
+
+func (this *TemplateHistory) SetRateFail(r float32) {
+	if this.RateFail == nil {
+		this.RateFail = new(float32)
+	}
+	*this.RateFail = r
+}
+
+func (this *TemplateHistory) GetDaySucc() int {
+	if this.DaySucc == nil {
+		return 0
+	}
+	return *this.DaySucc
+}
+
+func (this *TemplateHistory) GetDayFail() int {
+	if this.DayFail == nil {
+		return 0
+	}
+	return *this.DayFail
+}
+
+
+type TemplateGroupListParam struct{
+	Total_lines     int              `json:"total_lines"`
+	Page_index      int              `json:"page_index"`
+	Max_disp_lines  int              `json:"max_disp_lines"`
+	Type            *uint            `json:"type"`
+	Name            *string          `json:"name"`
+}
+
+func (this * TemplateGroupListParam)GetName()string {
+	if this.Name == nil {
+		return ""
+	}
+	return *this.Name
+}
+
+//优先级TempId(唯一)>>TempAlias(同一个groupid，同一语言 可以少量重复)
+//     >>(GroupId+lang)(lang可以少量重复)>>(GroupName+lang)(GroupName唯一，lang可少量重复)
+//     >>(GroupAlias+lang)(GroupAlias唯一，lang可少量重复)
+type ReqNotifyMsg struct {
+	GroupName *string                `json:"group_name,omitempty"` //groupname+lang 联合使用
+	GroupId   *uint                  `json:"group_id,omitempty"` //groupid+lang联合使用
+	Lang      *string                `json:"lang,omitempty"`
+	GroupAlias *string               `json:"group_alias,omitempty"`//GroupAlias+lang
+	TempAlias *string                `json:"temp_alias,omitempty"`     //可单独使用，重复则选其一
+	TempId    *uint                  `json:"temp_id,omitempty"`    //唯一，可单独使用
+	Params    map[string]interface{} `json:"params,omitempty"`    //optional
+	Recipient []string               `json:"recipient,omitempty"` //require
+	Level     *uint                  `json:"level,omitempty"`     //optional
+	AppName   *string                `json:"app_name,omitempty"`
+	UseDefaultRecipient *bool        `json:"use_default_recipient,omitempty"` //使用默认收件人
+}
+
+func (this *ReqNotifyMsg) GetUseDefaultRecipient() bool {
+	if this.UseDefaultRecipient == nil {
+		return true //默认使用，兼容老的程序
+	}
+	return *this.UseDefaultRecipient
+}
+
+func (this *ReqNotifyMsg) GetRecipientSize() int {
+	if this.Recipient == nil {
+		return 0
+	}
+	return len(this.Recipient)
+}
+
+func (this *ReqNotifyMsg) GetGroupAlias() string {
+	if this.GroupAlias == nil {
+		return ""
+	}
+	return *this.GroupAlias
+}
+
+func (this *ReqNotifyMsg) GetGroupName() string {
+	if this.GroupName == nil {
+		return ""
+	}
+	return *this.GroupName
+}
+
+func (this *ReqNotifyMsg) SetGroupName(name string) {
+	if this.GroupName == nil {
+		this.GroupName = new(string)
+	}
+	*this.GroupName = name
+}
+
+func (this *ReqNotifyMsg) SetGroupId(id uint) {
+	if this.GroupId == nil {
+		this.GroupId = new(uint)
+	}
+	*this.GroupId = id
+}
+
+func (this *ReqNotifyMsg) SetLang(ll string) {
+	if this.Lang == nil {
+		this.Lang = new(string)
+	}
+	*this.Lang = ll
+}
+
+func (this *ReqNotifyMsg) GetTempId() uint {
+	if this.TempId == nil {
+		return 0
+	}
+	return *this.TempId
+}
+
+func (this *ReqNotifyMsg) GetTempAlias() string {
+	if this.TempAlias == nil {
+		return ""
+	}
+	return *this.TempAlias
+}
+
+func (this *ReqNotifyMsg) GetGroupId() uint {
+	if this.GroupId == nil {
+		return 0
+	}
+	return *this.GroupId
+}
+
+func (this *ReqNotifyMsg) GetLang() string {
+	if this.Lang == nil {
+		return ""
+	}
+	return *this.Lang
+}
+
+func NewResNotifyMsg(e int, msg string) *ResNotifyMsg {
+	res := new(ResNotifyMsg)
+	res.SetErr(e)
+	res.SetErrMsg(msg)
+	return res
+}
+
+type ResNotifyMsg struct {
+	Err               *int             `json:"err,omitempty"`
+	ErrMsg            *string          `json:"errmsg,omitempty"`
+	TemplateGroupList *TemplateGroupList `json:"templategrouplist,omitempty"`
+	Templates         []*Template      `json:"template,omitempty"`
+	TemplateHistoryList *TemplateHistoryList `json:"templatehistorylist,omitempty"`
+}
+
+func (this *ResNotifyMsg) SetErr(e int) {
+	if this.Err == nil {
+		this.Err = new(int)
+	}
+	*this.Err = e
+}
+
+func (this *ResNotifyMsg) SetErrMsg(msg string) {
+	if len(msg) == 0 {
+		return
+	}
+	if this.ErrMsg == nil {
+		this.ErrMsg = new(string)
+	}
+	*this.ErrMsg = msg
+}
+
+func (this *ResNotifyMsg) SetTemplates(tps []*Template) {
+	this.Templates = tps
+}
+
+func (this *ResNotifyMsg) SetTemplateGroupList(t *TemplateGroupList) {
+	this.TemplateGroupList = t
+}
+
+type Template struct {
+	Id        *uint   `json:"id,omitempty"`
+	CreatedAt *int64  `json:"createdat,omitempty"`
+	UpdatedAt *int64  `json:"updatedat,omitempty"`
+	Content   *string `json:"content,omitempty"`
+	Name     *string  `json:"name,omitempty"`
+	Title     *string `json:"title,omitempty"`
+	Type      *int    `json:"type,omitempty" `
+	Lang      *string `json:"lang,omitempty" `
+	Sign      *string `json:"sign,omitempty" `
+	GroupId   *uint    `json:"groupid,omitempty" `
+	Alive     *int    `json:"alive,omitempty" `
+	Alias     *string `json:"alias,omitempty" `
+	DefaultRecipient *string `json:"default_recipient,omitempty"`
+	SmsPlatform *uint  `json:"sms_platform,omitempty"`
+}
+
+func (this* Template) SetSmsPlatform(u uint) {
+	if this.SmsPlatform == nil {
+		this.SmsPlatform = new(uint)
+	}
+	*this.SmsPlatform = u
+}
+
+func (this* Template) GetSmsPlatform() uint {
+	if this.SmsPlatform == nil {
+		return 0
+	}
+	return *this.SmsPlatform
+}
+
+func (this* Template)SetAlive(a int) {
+	if this.Alive == nil {
+		this.Alive = new(int)
+	}
+	*this.Alive = a
+}
+
+func (this *Template) GetId() uint {
+	if this.Id == nil {
+		return 0
+	}
+	return *this.Id
+}
+
+func (this *Template) GetName() string {
+	if this.Name == nil {
+		return ""
+	}
+	return *this.Name
+}
+
+func (this *Template) GetDefaultRecipient() string {
+	if this.DefaultRecipient == nil {
+		return ""
+	}
+	return *this.DefaultRecipient
+}
+
+func (this *Template) GetTitle() string {
+	if this.Title == nil {
+		return ""
+	}
+	return *this.Title
+}
+
+func (this *Template) GetGroupId() uint {
+	if this.GroupId == nil {
+		return 0
+	}
+	return *this.GroupId
+}
+
+func (this *Template) GetALive() int {
+	if this.Alive == nil {
+		return 0
+	}
+	return *this.Alive
+}
+
+func (this *Template) GetType() int {
+	if this.Type == nil {
+		return 0
+	}
+	return *this.Type
+}
+
+func (this *Template) GetContent() string {
+	if this.Content == nil {
+		return ""
+	}
+	return *this.Content
+}
+
+func (this *Template) SetContent(c string) {
+	if this.Content == nil {
+		this.Content = new(string)
+	}
+	*this.Content = c
+}
+
+func (this *Template) IsNullContent() bool {
+	if this.Content == nil {
+		return true
+	}
+	return false
+}
+
+type TemplateGroupList struct{
+	Total_lines     int              `json:"total_lines"`
+	Page_index      int              `json:"page_index"`
+	Max_disp_lines  int              `json:"max_disp_lines"`
+	TemplateGroups []*TemplateGroup `json:"templategroup,omitempty"`
+}
+
+func (this *TemplateGroupList) SetTemplateGroups(g []*TemplateGroup) {
+	this.TemplateGroups = g
+}
+
+type TemplateGroup struct {
+	Id        *uint       `json:"id,omitempty"`
+	Name     *string      `json:"name,omitempty"`
+	Detail    *string     `json:"detail,omitempty"`
+	Alive     *int        `json:"alive,omitempty"`
+	Type      *int        `json:"type,omitempty"`
+	CreatedAt *int64      `json:"createdat,omitempty"`
+	UpdatedAt *int64      `json:"updatedat,omitempty"`
+	Templates []*Template `json:"templates,omitempty"`
+	Langs     []string    `json:"lang,omitempty"`
+	Author    *string     `json:"author,omitempty"`
+	Editor    *string     `json:"editor,omitempty"`
+	DefaultRecipient *string `json:"default_recipient,omitempty"`
+	RateFail  []float32    `json:"rate_fail,omitempty"`
+	SmsPlatform *uint  `json:"sms_platform,omitempty"`
+}
+
+func (this *TemplateGroup) SetSmsPlatform(u uint) {
+	if this.SmsPlatform == nil {
+		this.SmsPlatform = new(uint)
+	}
+	*this.SmsPlatform = u
+}
+
+func (this *TemplateGroup) GetSmsPlatform() uint {
+	if this.SmsPlatform == nil {
+		return 0
+	}
+	return *this.SmsPlatform
+}
+
+func (this *TemplateGroup) GetDefaultRecipient() string{
+	if this.DefaultRecipient == nil {
+		return ""
+	}
+	return *this.DefaultRecipient
+}
+
+func (this *TemplateGroup) GetType() int {
+	if this.Type == nil {
+		return 0
+	}
+	return *this.Type
+}
+
+func (this *TemplateGroup) GetName()string {
+	if this.Name == nil {
+		return ""
+	}
+	return *this.Name
+}
+
+func (this *TemplateGroup) SetName(n string) {
+	if this.Name == nil {
+		this.Name = new(string)
+	}
+	*this.Name = n
+}
+
+func (this *TemplateGroup) AddRateFail(r float32) {
+	if this.RateFail == nil {
+		this.RateFail = make([]float32, 0)
+	}
+	this.RateFail = append(this.RateFail, r)
+}
+
+func (this *TemplateGroup) SetLangs(l []string) {
+	this.Langs = l
+}
+
+func (this *TemplateGroup) GetAlive() int {
+	if this.Alive == nil {
+		return 0
+	}
+	return *this.Alive
+}
+
+func (this *TemplateGroup) SetAlive(a int) {
+	if this.Alive == nil {
+		this.Alive = new(int)
+	}
+	*this.Alive = a
+}
+
+func (this *TemplateGroup) GetId() uint {
+	if this.Id == nil {
+		return 0
+	}
+	return *this.Id
+}

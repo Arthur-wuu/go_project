@@ -1,0 +1,112 @@
+server:
+  #ENV SERVER_PORT
+  port: 8010
+  #ENV SERVER_DEBUG
+  debug: false
+  logpath: ./zap.conf
+db:
+  host: testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com
+  port: 3306
+  user: testbastion
+  password: testbastion.123
+  db: account
+  max_idle_conn: 10
+  max_open_conn: 100
+redis:
+  host: 127.0.0.1 #dev-bas-ec.dniwml.0001.use1.cache.amazonaws.com
+  port: 6379
+  password:
+  db:
+token:
+  #secret: G7TWq%1#q*FwQs@Pf518svD0rA24xZp3u=z8WoQmx3$c?7^*c@(j5lg6s0yWsw1z35
+  # 单位为 minute
+  expiration: 1440
+exchange:
+  host: 127.0.0.1
+  port: 8090
+  appkey: 8eec1e97ac602d3228bad33b61efeaae
+  signature: 8eec1e97ac602d3228bad33b61efeaae-8eec1e97ac602d3228bad33b61efeaae
+ses:
+  region: us-east-1
+  access_key_id: AKIAIGKZLCWQMJHK3L6A
+  secret_key: 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
+  sender: info@bastionpay.com
+sns:
+  region: us-east-1
+  access_key_id: AKIAIGKZLCWQMJHK3L6A
+  secret_key: 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
+ip_find:
+  auth: 26c27bb8-84fa-47f8-ac8d-1fccdc720669
+path_limits: #与业务无关的，高频
+#  - path: /login
+#    method: post
+#    limit: 20
+#    # 单位为 second
+#    time: 3600
+#  - path: /login/ga
+#    method: post
+#    limit: 20
+#    time: 600
+wallet:
+  host: http://35.173.156.149:8082
+  userKey: 1c75c668-f1ab-474b-9dae-9ed7950604b4
+  keyPath: ./pem_test
+wallet_paths:
+  - /v1/bastionpay/transaction_bill
+  - /v1/bastionpay/query_address
+  - /v1/bastionpay/transaction_message
+  - /v1/bastionpay/get_balance
+  - /v1/bastionpay/asset_attribute
+  - /v1/bastionpay/support_assets
+  - /v1/bastionpay/transaction_bill_daily
+  - /v1/bastionpay/deposit_order
+  - /v1/bastionpay/withdrawal_order
+  - /v1/bastionpay/block_height
+  - /v1/account/readprofile
+  - /v1/account/updateprofile
+  - /v1/bastionpay/get_dashboard
+  - /v1/push/pushdatatest
+
+coinmarket:
+  url: https://api.coinmarketcap.com
+  id_path: ./coinidpair.json
+notice:
+  clear_timer: "00:11"
+cache:
+  audite_max_key: 0
+  audite_timeout: 300
+limits:
+  id_sms: [2, 600]  #count，expire
+  id_mail: [2, 600]
+  ip_sms: [1, 30, 3, 600]  #从左到右依次匹配
+  ip_mail: [1, 30, 3, 600] #[count1, expire1, count2, expire2.....]
+  ip_userhelp: [20, 3600]
+  id_userhelp: [3, 3600]
+termblock_limits: #短周期锁死账户
+  - name: login_pwd_incorrect    #login和password_reset都需要 GET/v1/coin/quote
+    limit: 3
+    time: 120
+    locktime: 1800
+bas_quote:
+  addr: http://127.0.0.1:8099
+bas_notify:
+  addr: http://127.0.0.1:8098
+  verifycode_sms_tmp: verifycode
+  verifycode_mail_tmp: verifycode
+level_path_limits: #业务相关
+  - name: download_bill_turnover_file
+    level: 0
+    limit: 5
+    time: 600
+  - name: download_bill_turnover_file
+    level: 0
+    limit: 3
+    time: 60
+  - name: download_bill_turnover_file
+    level: 1
+    limit: 20
+    time: 3000
+bas_user_api:
+  addr: http://test1-user.bastionwallet.com
+
+path_white_list:

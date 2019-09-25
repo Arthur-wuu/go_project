@@ -1,0 +1,325 @@
+package main
+
+import (
+	"BastionPay/bas-base/log/zap"
+	"BastionPay/bas-notify/config"
+	"BastionPay/bas-notify/db"
+	"bytes"
+	html "html/template"
+	"regexp"
+	text "text/template"
+)
+
+type TemplateMgr struct {
+	//	mTemplates map[string]*Template 将来可能需要吧
+	mSqlDb db.DbMgr //这个连接池，不需要锁
+	//	sync.Locker
+}
+
+func (this *TemplateMgr) Init() error {
+	dbOp := &db.DbOptions{
+		Host:        config.GConfig.Db.Host,
+		Port:        config.GConfig.Db.Port,
+		User:        config.GConfig.Db.User,
+		Pass:        config.GConfig.Db.Pwd,
+		DbName:      config.GConfig.Db.Quote_db,
+		MaxIdleConn: config.GConfig.Db.Max_idle_conn,
+		MaxOpenConn: config.GConfig.Db.Max_open_conn,
+	}
+	log.ZapLog().Sugar().Infof("%v", *dbOp)
+	err := this.mSqlDb.Init(dbOp)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (this *TemplateMgr) Start() error {
+	return nil
+}
+
+func (this *TemplateMgr) Stop() error {
+	return nil
+}
+
+func (this *TemplateMgr) CountTemplate(mm map[string]interface{}) (int, error) {
+	return this.mSqlDb.CountTemplate(mm)
+}
+
+func (this *TemplateMgr) ExistTemplateGroup(mm map[string]interface{}) (bool, error) {
+	return this.mSqlDb.ExistTemplateGroup(mm)
+}
+
+func (this *TemplateMgr) UpdateTemplate(t *Template) error {
+	//if len(t.GetContent()) != 0 {
+	//	if t.GetType() == Notify_Type_Sms {
+	//		tmp := text.New("smsTmp")
+	//		_, err := tmp.Parse(t.GetContent())
+	//		if err != nil {
+	//			return err
+	//		}
+	//	} else {
+	//		tmp := html.New("mailTmp")
+	//		_, err := tmp.Parse(t.GetContent())
+	//		if err != nil {
+	//			return err
+	//		}
+	//	}
+	//}
+	dbTmp := ConvertDbTemplate(t)
+	return this.mSqlDb.UpdateTemplate(dbTmp)
+}
+
+func (this *TemplateMgr) UpdateTemplateGroup(t *TemplateGroup) error {
+	dbTmp := ConvertDbTemplateGroup(t)
+	return this.mSqlDb.UpdateTemplateGroup(dbTmp)
+}
+
+func (this *TemplateMgr) AddTemplate(t *Template) error {
+	//if len(t.GetContent()) != 0 {
+	//	if t.GetType() == Notify_Type_Sms {
+	//		tmp := text.New("smsTmp")
+	//		_, err := tmp.Parse(t.GetContent())
+	//		if err != nil {
+	//			return err
+	//		}
+	//	} else {
+	//		tmp := html.New("mailTmp")
+	//		_, err := tmp.Parse(t.GetContent())
+	//		if err != nil {
+	//			return err
+	//		}
+	//	}
+	//}
+	dbTmp := ConvertDbTemplate(t)
+	return this.mSqlDb.AddTemplate(dbTmp)
+}
+
+func (this *TemplateMgr) AddTemplateGroup(t *TemplateGroup) error {
+	dbTmp := ConvertDbTemplateGroup(t)
+	return this.mSqlDb.AddTemplateGroup(dbTmp)
+}
+
+func (this *TemplateMgr) ParseHtmlTemplate(tpl string, params map[string]interface{}) (string, string, error) {
+	tmp := html.New("mailTmp")
+	t, err := tmp.Parse(tpl)
+	if err != nil {
+		return "", "", err
+	}
+	var tplBuf bytes.Buffer
+	if err := t.Execute(&tplBuf, params); err != nil {
+		return "", "", err
+	}
+	result := tplBuf.String()
+	return this.getTemplateTitle(result), result, nil
+}
+
+func (this *TemplateMgr) getTemplateTitle(result string) string {
+	r, err := regexp.Compile(`<title>(.*)<\/title>`)
+	if err != nil || r == nil {
+		return ""
+	}
+	title := r.FindString(result)
+	rr, err := regexp.Compile(`<[^>]*>`)
+	if err != nil || rr == nil {
+		return ""
+	}
+	return rr.ReplaceAllString(title, "")
+}
+
+func (this *TemplateMgr) ParseTextTemplate(tmpBody string, params map[string]interface{}) (string, error) {
+	tmp := text.New("smsTemp")
+	_, err := tmp.Parse(tmpBody)
+	if err != nil {
+		return "", err
+	}
+	var tplBuf bytes.Buffer
+	if err := tmp.Execute(&tplBuf, params); err != nil {
+		return "", err
+	}
+	return tplBuf.String(), nil
+}
+
+func (this *TemplateMgr) GetTempalteById(id uint) (*Template, error) {
+	dbTmp, err := this.mSqlDb.GetTemplateById(id)
+	if err != nil {
+		return nil, err
+	}
+	return ConvertNotifyTemplate(dbTmp), nil
+}
+
+func (this *TemplateMgr) GetAliveTempalteByAlias(alias string, tp uint) (*Template, error) {
+	dbTmp, err := this.mSqlDb.GetAliveTemplateByAlias(alias, tp)
+	if err != nil {
+		return nil, err
+	}
+	return ConvertNotifyTemplate(dbTmp), nil
+}
+
+func (this *TemplateMgr) AliveAllTempaltesByGroupId(gid uint, alive int) error {
+	info := new(db.NotifyTemplate)
+	info.SetAlive(alive)
+	return this.mSqlDb.UpdateAllTemplatesByGroupId(gid, info)
+}
+
+func (this *TemplateMgr) AliveTemplateGroupAndTemplates(gid uint, alive int) error {
+	return this.mSqlDb.AliveTemplateGroupAndTemplates(gid, alive)
+}
+
+func (this *TemplateMgr) DelTemplateGroupAndTemplates(gid uint) error {
+	return this.mSqlDb.DelTemplateGroupAndTemplates(gid)
+}
+
+func (this *TemplateMgr) SetSmsPlatformTemplateGroupAndTemplates(gid uint, a uint) error {
+	return this.mSqlDb.SetSmsPlatformTemplateGroupAndTemplates(gid, a)
+}
+
+func (this *TemplateMgr) SetAllSmsPlatformTemplateGroupAndTemplates(a uint) error {
+	return this.mSqlDb.SetAllSmsPlatformTemplateGroupAndTemplates( a)
+}
+
+func (this *TemplateMgr) SetDefaultRecipientOfTemplateGroupAndTemplates(gid uint, recipient string) error {
+	return this.mSqlDb.SetDefaultRecipientOfTemplateGroupAndTemplatesByLang(gid, recipient)
+}
+
+func (this *TemplateMgr) GetAliveTempalteByGroupId(gid uint, lang string) (*Template, error) {
+	dbTmp, err := this.mSqlDb.GetAliveTemplateByGroupId(gid, lang)
+	if err != nil {
+		return nil, err
+	}
+	return ConvertNotifyTemplate(dbTmp), nil
+}
+
+func (this *TemplateMgr) GetAliveTempalteByGroupName(name, lang string,tp uint) (*Template, error) {
+	tempGroup, err := this.mSqlDb.GetTemplateGroupByNameAndType(name, tp)
+	if err != nil {
+		return nil, err
+	}
+	dbTmp, err := this.mSqlDb.GetAliveTemplateByGroupId(tempGroup.GetId(), lang)
+	if err != nil {
+		return nil, err
+	}
+	return ConvertNotifyTemplate(dbTmp), nil
+}
+
+func (this *TemplateMgr) GetAliveTempalteByGroupAlias(alias, lang string, tp uint) (*Template, error) {
+	tempGroup, err := this.mSqlDb.GetTemplateGroupByAliasAndType(alias, tp)
+	if err != nil {
+		return nil, err
+	}
+	dbTmp, err := this.mSqlDb.GetAliveTemplateByGroupId(tempGroup.GetId(), lang)
+	if err != nil {
+		return nil, err
+	}
+	return ConvertNotifyTemplate(dbTmp), nil
+}
+
+func (this *TemplateMgr) GetAllTempaltesByGroupIdFromDb(groupId uint) ([]*Template, error) {
+	temps, err := this.mSqlDb.GetAllTemplateByGroupId(groupId)
+	if err != nil {
+		return nil, err
+	}
+	arr := make([]*Template, 0)
+	for i := 0; i < len(temps); i++ {
+		t := ConvertNotifyTemplate(temps[i])
+		arr = append(arr, t)
+	}
+	return arr, nil
+}
+
+func (this *TemplateMgr) GetAllTempalteGroupLangsByGroupIdFromDb(groupId uint) ([]string, error) {
+	arr, err := this.mSqlDb.GetAllTemplateGroupLangsByGroupId(groupId)
+	if err != nil {
+		return nil, err
+	}
+	return arr, nil
+}
+
+func (this *TemplateMgr) GetAllTempaltesGroupFromDb(beginIndex, pageNum int, tp *uint, likeName string) ([]*TemplateGroup, error) {
+	var err error
+	temps := make([]*db.NotifyTemplateGroup, 0)
+	if tp == nil {
+		temps, err = this.mSqlDb.GetAllTemplateGroup(beginIndex, pageNum,likeName)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		temps, err = this.mSqlDb.GetAllTemplateGroupByType(beginIndex, pageNum, *tp, likeName)
+		if err != nil {
+			return nil, err
+		}
+	}
+	arr := make([]*TemplateGroup, 0)
+	for i := 0; i < len(temps); i++ {
+		tg := ConvertNotifyTemplateGroup(temps[i])
+		arr = append(arr, tg)
+	}
+	return arr, nil
+}
+
+func (this *TemplateMgr) CountTempaltesGroupFromDb(tp *uint, likeName string) (int, error) {
+	if tp == nil {
+		cc, err := this.mSqlDb.CountTemplateGroup(likeName)
+		if err != nil {
+			return 0, err
+		}
+		return cc,nil
+	} else {
+		cc,err := this.mSqlDb.CountTemplateGroupByType(*tp, likeName)
+		if err != nil {
+			return 0, err
+		}
+		return cc,nil
+	}
+	return 0, nil
+}
+
+func (this *TemplateMgr) IncrTemplateHistoryCount(groupId uint, tp, succ, fail int) (bool,error) {
+	if succ == 0 && fail == 0 {
+		return false, nil
+	}
+	day := GenDay()
+	firstOverFlag, err := this.mSqlDb.IncrTemplateHistoryCountAndRate(groupId, day,tp, succ, fail, GenRateFail2, FirstOverRateFailThd)
+	if err != nil {
+		return false,err
+	}
+	return firstOverFlag, err
+}
+
+func (this *TemplateMgr) CountTempalteHistoryFromDb(groupid uint) (int, error) {
+	return this.mSqlDb.CountTemplateHistory(groupid)
+}
+
+func (this *TemplateMgr) GetAllTempalteHistoryFromDb(beginIndex, pageNum int, groupId uint) ([]*TemplateHistory, error) {
+	temps, err := this.mSqlDb.GetAllTemplateHistory(beginIndex, pageNum, groupId)
+	if err != nil {
+		return nil, err
+	}
+	arr := make([]*TemplateHistory, 0)
+	for i := 0; i < len(temps); i++ {
+		tg := ConvertNotifyTemplateHistory(temps[i])
+		arr = append(arr, tg)
+	}
+	return arr, nil
+}
+
+func (this *TemplateMgr) BodyToHtml(body string) string {
+	head :=`<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" /> -->
+    <title>{{.title_key}}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+</head>
+<body style="margin: 0;padding:0">
+`
+
+	tail := `
+            </body>
+            </html>
+            `
+
+    return head + body +tail
+}

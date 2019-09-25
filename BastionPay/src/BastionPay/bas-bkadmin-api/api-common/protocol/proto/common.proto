@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package rpc;
+
+enum Side
+{
+    NO_SIDE = 0;
+    BUY = 1;
+    SELL = -1;
+}
+
+enum State
+{
+    STATE_NONE = 0;
+    NEW = 1;
+    REVISE = 2;
+    CANCEL = 3;
+    PARTIALFILL = 4;
+    TRADE = 5;
+    REMOVED = 6;
+}
+
+enum Type
+{
+    TYPE_NONE = 0;
+    LIMIT = 1;
+    MARKET = 2;
+    CANCEL_ORDER = 15;
+}
+
+enum Role
+{
+    ROLE_NONE = 0;
+    MAKER = 1;
+    TAKER = 2;
+}

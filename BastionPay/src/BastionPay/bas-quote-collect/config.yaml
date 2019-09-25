@@ -1,0 +1,122 @@
+server:
+  #ENV SERVER_PORT
+  port: 8099
+  #ENV SERVER_DEBUG
+  debug: false
+  log: zap.conf
+db:
+  host: testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com
+  port: 3306
+  user: testbastion
+  password: testbastion.123
+  db: coin_quote
+  max_idle_conn: 10
+  max_open_conn: 100
+cache:
+  leveldb_path: ./data
+coinmarketcap: #采集相关
+  coinmarket_url: https://api.coinmarketcap.com
+  coinmarket_new_url: https://pro-api.coinmarketcap.com
+  api_key: 4f51407a-0eb7-44a1-8e43-08ec99119227,4e35f3ec-654f-4928-a396-7ed6eedb55a9
+  quote_interval: 3600
+  err_interval: 300
+  code_interval: 3600
+  diff_env_interval: 20   #不同环境配置不同请求频率
+  new_api_flag: true
+  #采集的法币列表
+  coins: USD,BTC,CNY
+  #country_name: 阿联酋迪拉姆,澳元,澳门元,阿尔及利亚第纳尔,阿曼里亚尔,埃及镑,白俄罗斯卢布,巴西雷亚尔,波兰兹罗提,巴林第纳尔,保加利亚列弗,冰岛克朗,丹麦克朗,俄罗斯卢布,菲律宾比索,港元,哥伦比亚比索,哥斯达黎加科朗,韩元,加元,捷克克朗,柬埔寨瑞尔,克罗地亚库纳,卡塔尔里亚尔,科威特第纳尔,肯尼亚先令,老挝基普,罗马尼亚列伊,黎巴嫩镑,离岸人民币,缅甸元,马来西亚林吉特,摩洛哥道拉姆,墨西哥元,挪威克朗,南非兰特,欧元,人民币,瑞士法郎,日元,瑞典克朗,沙特里亚尔,斯里兰卡卢比,塞尔维亚第纳尔,泰铢,坦桑尼亚先令,文莱元,乌干达先令,叙利亚镑,新西兰元,新土耳其里拉,新加坡元,新台币,匈牙利福林,英镑,约旦第纳尔,伊拉克第纳尔,越南盾,以色列新锡克尔,印度卢比,印尼卢比,智利比索
+ # country_code: AED,AUD,MOP,DZD,OMR,EGP,BYR,BRL,PLN,BHD,BGN,ISK,DKK,RUB,PHP,HKD,COP,CRC,KRW,CAD,CZK,KHR,HRK,QAR,KWD,KES,LAK,RON,LBP,CNH,BUK,MYR,MAD,MXN,NOK,ZAR,EUR,CNY,CHF,JPY,SEK,SAR,LKR,RSD,THB,TZS,BND,UGX,SYP,NZD,TRY,SGD,TWD,HUF,GBP,JOD,IQD,VND,ILS,INR,IDR,CLP
+parities:  #汇率
+  country_name: 阿联酋迪拉姆,澳门元,阿尔及利亚第纳尔,阿曼里亚尔,巴西雷亚尔,波兰兹罗提,巴林第纳尔,保加利亚列弗,冰岛克朗,丹麦克朗,菲律宾比索,港币,哥伦比亚比索,韩元,加拿大元,捷克克朗,克罗地亚库纳,卡塔尔里亚尔,科威特第纳尔,肯尼亚先令,老挝基普,罗马尼亚列伊,黎巴嫩镑,离岸人民币,缅甸缅元,摩洛哥道拉姆,墨西哥比索,挪威克朗,南非兰特,欧元,人民币,瑞士法郎,日元,瑞典克朗,沙特里亚尔,斯里兰卡卢比,泰国铢,坦桑尼亚先令,危地马拉格查尔,委内瑞拉博利瓦,乌拉圭比索,新西兰元,新加坡元,新台币,匈牙利福林,英镑,约旦第纳尔,越南盾,牙买加元,以色列谢克尔,印度卢比,印尼盾,智利比索,阿根廷比索,澳大利亚元,百慕大元,博茨瓦纳普拉,巴基斯坦卢比,巴拉圭瓜拉尼,巴拿马巴尔博亚,玻利维亚诺,秘鲁新索尔,古巴比索,哈萨克坚戈,加纳塞地,林吉特,卢布,立陶宛立特,毛里求斯卢比,蒙古图格里克,孟加拉塔卡,索马里先令,土耳其里拉,突尼斯第纳尔
+  country_code: AED,MOP,DZD,OMR,BRL,PLN,BHD,BGN,ISK,DKK,PHP,HKD,COP,KER,CAD,CZK,HRK,QAR,KWD,KES,LAK,RON,LBP,CNH,BUK,MAD,MXN,NOK,ZAR,EUR,CNY,CHF,JPY,SEK,SAR,LKR,THB,TZS,GTQ,VEB,UYU,NZD,SGD,TWD,HUF,GBP,JOD,VND,JMD,ILS,INR,IDR,CLP,ARS,AUD,BMD,BWP,PKR,PYG,PAB,BOB,PEN,CUP,KZT,GHC,MYR,RUB,LTL,MUR,MNT,BDT,SOS,TRY,TND
+redis:
+  network: tcp
+  host: 127.0.0.1
+  port: 6379
+  password: ""
+  database: 0
+  maxIdle: 0
+  maxActive: 10
+  idleTimeout: 5
+  prefix: ""
+
+coinmerit:
+  secret_key: 37bc9ec9e92edbc91ac74b48f28da89e
+  api_key: cb210bb8fde025e45d8bd1c207e3f1b6
+  http_url:  http://gw.api.coinmerit.com
+
+collect:
+  coin_from_num: 100000,100001,100002,100003,100004,100005
+  coin_from:     ACU,    IPGO,  WMB,    FIDE, SOVC,  OPP
+  coin_to:       BTC,    BTC,   USDT,   USDT, BTC,   ETH
+  coin_pairs:    acu_btc,ipgo_btc,wmb_usdt,fide_usdt,sovc_btc,opp_eth
+  coin_exchange: btcexa,btcexa,btcexa,btcexa,btcexa,btcexa
+  coin_entrance: btcexa,btcexa,btcexa,btcexa,btcexa,btcexa
+  #目前coinmerit里还不支持btcexa交易所
+
+#汇率接口开关 true=开  false=关
+switch:
+  fx_sina: true
+  fx_baidu: false
+
+
+sina_parities:  #汇率 新浪 181种
+  - cty_name: 阿联酋, 阿富汗尼, 阿尔巴尼, 亚美尼亚, 荷兰, 安哥拉, 阿根廷, 澳大利亚, 阿鲁巴, 阿塞拜疆, 波黑, 巴巴多斯, 孟加拉国, 保加利亚
+    cty_code: AED,   AFN,     ALL,    AMD,    ANG,  AOA,  ARS,   AUD,    AWG,   AZN,     BAM, BBD,    BDT,     BGN
+
+  - cty_name: 巴林, 布隆迪, 百慕大, 文莱, 玻利维亚, 巴西, BRX, 巴哈马元, 不丹, 博茨瓦纳, BYN, 	白俄罗斯, 伯利兹, 加拿大, 加拿大(参考）
+    cty_code: BHD, BIF,   BMD,   BND, BOB,     BRL, BRX, BSD,    BTN, BWP,     BYN,  BYR,    BZD,  CAD,   CAX
+
+  - cty_name: 刚果, 瑞士, 智利比索(基金), 智利比索, 中国(香港), 中国, 哥伦比亚, 哥斯达黎加, 古巴(参考), 古巴, 佛得角, 捷克, 捷克(参考)
+    cty_code: CDF, CHF,  CLF,         CLP,    CNH,       CNY, COP,     CRC,      CUC,      CUP,  CVE,  CZK, CZX
+
+  - cty_name: 吉布提, 丹麦, 丹麦(参考), 多米尼加, 阿尔及利亚, 埃及, 厄立特里亚, 埃塞俄比亚, 欧盟, 斐济, 福克兰群岛, 英国, 格鲁吉亚
+    cty_code: DJF,   DKK, DKX,       DOP,    DZD,      EGP, ERN,      ETB,      EUR, FJD,  FKP,      GBP, GEL
+
+  - cty_name: 加纳, 直布罗陀, 冈比亚, 几内亚, 危地马拉, 圭亚那, 香港, 洪都拉斯, 克罗地亚, 克罗地亚(参考), 海地, 匈牙利, 匈牙利(参考)
+    cty_code: GHS, GIP,     GMD,   GNF,  GTQ,     GYD,   HKD, HNL,    HRK,     HRX,         HTG, HUF,   HUX
+
+  - cty_name: 印度尼西亚, 以色列阿高洛, 以色列谢克尔, 印度, INX, 伊拉克, 伊朗, 冰岛, 冰岛(参考), 牙买加, 约旦, 日本, 肯尼亚, 吉尔吉斯斯坦
+    cty_code: IDR,      ILA,        ILS,       INR, INX,  IQD,  IRR,  ISK, ISX,      JMD,  JOD,  JPY, KES,   KGS
+
+  - cty_name: 柬埔寨, 科摩罗, 朝鲜, 韩元, 科威特, 开曼群岛, 哈萨克斯坦, 老挝, 黎巴嫩, 斯里兰卡, 	利比里, 莱索托, 立陶宛, 立陶宛(参考)
+    cty_code: KHR,   KMF,   KPW,  KRW, KWD,  KYD,     KZT,      LAK, LBP,   LKR,    LRD,   LSL,   LTL,  LTX
+
+  - cty_name: 拉脱维亚, 利比亚, 摩洛哥, 摩尔多瓦, 马达加斯加, 马其顿, 缅甸, 蒙古, 澳元, 毛里塔尼亚, MRU, MSD, 毛里求斯, 马尔代夫
+    cty_code: LVL,     LYD,  MAD,   MDL,     MGA,      MKD,   MMK, MNT, MOP, MRO,      MRU, MSD, MUR,    MVR
+
+  - cty_name: 马拉维, 墨西哥, 墨西哥(衍生), 马来西亚, 马来西亚(参考), 莫桑比克, 纳米比亚, 尼日利亚, 	尼加拉瓜, 挪威, 尼泊尔, 新西兰
+    cty_code: MWK,   MXN,   MXV,        MYR,    MYX,          MZN,    NAD,     NGN,     NIO,     NOK, NPR,   NZD
+
+  - cty_name: 阿曼, 巴拿马, 秘鲁, 巴布亚新几内亚, 菲律宾, 巴基斯坦, 	波兰, 波兰(参考), 	巴拉圭, 卡塔尔, 罗马尼亚, 塞尔维亚, 俄罗斯
+    cty_code: OMR, PAB,   PEN,  PGK,         PHP,   PKR,    PLN,  PLX,      PYG,   QAR,   RON,    RSD,     RUB
+
+  - cty_name: RUX, 卢旺达, 沙特阿拉伯, 所罗门群岛, 塞舌尔, 苏丹, 瑞典, 新加坡, 圣赫勒拿, 塞拉利昂, 索马里, 苏里南元, 圣多美, STN
+    cty_code: RUX, RWF,   SAR,      SBD,      SCR,   SDG, SEK, SGD,   SHP,    SLL,     SOS,   SRD,    STD,   STN
+
+  - cty_name: 萨尔瓦多, 叙利亚, 斯威士兰, 泰国, 塔吉克斯坦, 土库曼斯坦, 突尼斯, 汤加, 土耳其, 特立尼达多巴哥, 台湾, 坦桑尼亚, 乌克兰
+    cty_code: SVC,    SYP,   SZL,     THB, TJS,      TMT,      TND,   TOP, TRY,   TTD,         TWD, TZS,    UAH
+
+  - cty_name: 乌干达, 乌拉圭, 乌兹别克斯坦, 委内瑞拉, VES, 越南, 瓦努阿图, 萨摩亚, 中非, 加勒比海, 安提瓜和巴布达, 国际货币基金, 非洲金融
+    cty_code: UGX,   UYU,   UZS,       VEF,     VES, VND, VUV,    WST,   XAF, XCD,     XCU,         XDR,        XOF
+
+  - cty_name: 三个太平洋辖区(法), 也门, 南非美分, 南非兰特, 赞比亚, 津巴布韦
+    cty_code: XPF,             YER, ZAC,     ZAR,    ZMW,   ZWL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

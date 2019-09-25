@@ -1,0 +1,39 @@
+system:
+  port: 8070
+  debug: true
+  log_path: zap.conf
+  temp_path: ./data/filetemp
+  max_wait_task: 30
+
+redis:
+  network: tcp
+  host: 127.0.0.1
+  port: 6379
+  password: ""
+  database: 0
+  maxIdle: 0
+  maxActive: 10
+  idleTimeout: 5
+  maxOpen: 200
+  prefix: ""
+
+aws:
+  accesskeyid: AKIAJEJUHBCEJGTFGNHA
+  accesskey:  oflCXIs+8jsbBYffy8lPedKok90NkSSabv8SVY66
+  accesstoken:
+  fileregion: us-east-1
+  filebucket: bastionpay-dev-filetransfer
+  filetimeout: 300
+
+
+mysql: #多个数据库
+  - host: blockshine-exadmin.ct4xtinmcb5a.us-east-1.rds.amazonaws.com
+    port: 3306
+    dbname: bas_backend_admin #用逗号分割
+    user: devrdsadmin
+    password: blockshine.123
+    charset: utf8
+    parseTime: false
+    maxIdle: 0
+    maxOpen: 5
+    debug: true

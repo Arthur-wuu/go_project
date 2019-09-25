@@ -1,0 +1,6 @@
+vendor/*/
+*.log
+*.log.*
+.DS_Store
+/bin
+Jenkinsfile*

@@ -1,0 +1,53 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "/XsGSGDzAN3nyiJPS4OaJDngw+c=",
+			"path": "github.com/BastionPay/bas-api",
+			"revision": "35b7664f1186f96ee2d9a5efcf0297b8e9ac5b64",
+			"revisionTime": "2018-06-13T14:46:52Z",
+			"tree": true,
+			"version": "=master",
+			"versionExact": "master"
+		},
+		{
+			"checksumSHA1": "iPNN6DQKr8/4K3JqBFerujwdBKE=",
+			"path": "github.com/BastionPay/bas-base",
+			"revision": "37a843c8b6a2c151064c172ca643abc8dc75bdee",
+			"revisionTime": "2018-06-15T02:06:27Z",
+			"tree": true,
+			"version": "=master",
+			"versionExact": "master"
+		},
+		{
+			"checksumSHA1": "PLYRsSaqhSKrGIuxWkV+B9uMUL8=",
+			"path": "github.com/alecthomas/log4go",
+			"revision": "d146e6b86faab5f7e4d135cc63b749d74bf0d4a6",
+			"revisionTime": "2018-01-09T08:25:32Z"
+		},
+		{
+			"checksumSHA1": "72zRy5zCQvI87HDwbIfwhfOBXew=",
+			"path": "github.com/cenkalti/hub",
+			"revision": "11382a9960d39b0ecda16fd01c424c11ff765a34",
+			"revisionTime": "2016-05-27T10:32:12Z"
+		},
+		{
+			"checksumSHA1": "xoOkcixbl+i6kkiHvXMNcN0/zJ0=",
+			"path": "github.com/cenkalti/rpc2",
+			"revision": "c51a77e5f664b4a8a69bce4270d14204f94d51f9",
+			"revisionTime": "2017-07-26T07:05:24Z"
+		},
+		{
+			"checksumSHA1": "kxzfnN+IPF0sViI9iiUnI7aZVWM=",
+			"path": "github.com/go-sql-driver/mysql",
+			"revision": "d523deb1b23d913de5bdada721a6071e71283618",
+			"revisionTime": "2018-06-03T12:45:54Z"
+		},
+		{
+			"path": "google.golang.org/appengine/cloudsql",
+			"revision": ""
+		}
+	],
+	"rootPath": "BastionPay/bas-push-srv"
+}

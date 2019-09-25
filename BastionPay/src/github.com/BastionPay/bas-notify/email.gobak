@@ -1,0 +1,26 @@
+package main
+
+import (
+	"BastionPay/bas-notify/config"
+	ses "BastionPay/bas-tools/sdk.aws.ses"
+)
+
+type MailMgr struct {
+	mSdk     *ses.SesSdk
+	mSrcMail string
+}
+
+func (this *MailMgr) Init() error {
+	awsConfig := config.GConfig.Aws
+	this.mSrcMail = awsConfig.SrcEMail
+	this.mSdk = ses.NewSesSdk(awsConfig.SesRegion, awsConfig.Accesskeyid, awsConfig.Accesskey, awsConfig.Accesstoken)
+	return nil
+}
+
+func (this *MailMgr) DirectSend(subject, body, toEmail string) error {
+	err := this.mSdk.Send(toEmail, subject, this.mSrcMail, "UTF-8", body)
+	if err != nil {
+		return err
+	}
+	return nil
+}

@@ -1,0 +1,60 @@
+#!/usr/bin/env groovy
+pipeline {
+    agent any
+    environment { 
+        def PROJECT_TYPE='BASE_GO_API'
+        def PROJECT_NAME='bas-notify'
+        def MY_DOMAIN='src/BastionPay'
+        def REGION='us-east-1'
+    }
+    stages {
+        stage('clone'){
+            steps{
+                deleteDir()
+                script{
+                    env.GOPATH="${WORKSPACE}"
+                    env.PATH="${GOPATH}:${PATH}"
+                    env.CODE_DIR="${MY_DOMAIN}/${PROJECT_NAME}"
+                    env.RELEASE=env.GIT_BRANCH
+                    env.GIT_COMMIT_SHORT=env.GIT_COMMIT.substring(0,5)
+                    env.BUILD_TIME=new Date().format( 'yyyyMMddHHmm' )
+                }
+                dir("$CODE_DIR") {
+                    // some block
+                    git branch: "$RELEASE", credentialsId: '325bd343-f984-4cb0-b6b8-91480ad81068', url: "https://github.com/BastionPay/${PROJECT_NAME}.git"
+                }
+            }
+        }
+        stage('init'){
+            steps{
+                dir('bas-ops-public') {
+                    // some block
+                    git branch: 'master', credentialsId: '325bd343-f984-4cb0-b6b8-91480ad81068', url: 'https://github.com/BastionPay/bas-ops-public.git'
+                }
+                sh '''
+                    cp -rp bas-ops-public/init/base_init.py ./
+                    ./base_init.py
+                '''
+                script{
+                    env.REPOSITORY_URI = readFile encoding: 'utf-8', file: 'environment.tmp'
+                    env.RELEASE_REPOSITORY_TAG = "$REPOSITORY_URI".split(':',2)[1]
+                    manager.addShortText(RELEASE_REPOSITORY_TAG)
+                }
+            }
+        }
+        stage('build'){
+            steps{
+                sh '''
+                    ./build.sh
+                '''
+            }
+        }
+        stage('pull dockerimage') {
+            steps{
+                sh '''
+                    ./pull_image_to_base.sh
+                '''
+            }
+        }
+    }
+}

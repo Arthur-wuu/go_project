@@ -1,0 +1,192 @@
+2019-03-11T13:36:19.505+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-11T13:36:19.505+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-11T13:36:19.505+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-11T13:36:19.505+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-11T13:38:21.897+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-11T13:38:21.898+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-13T10:20:07.948+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-13T10:20:07.949+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-13T10:20:07.949+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-13T10:20:07.949+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-13T10:23:07.685+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-13T10:23:07.685+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-13T10:25:50.965+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-13T10:25:50.966+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-13T10:25:50.966+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-13T10:25:50.966+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-13T14:43:28.379+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-13T14:43:28.388+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-13T14:43:48.754+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-13T14:43:48.754+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-13T14:43:48.754+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-13T14:43:48.754+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-13T14:56:24.841+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-13T14:56:24.852+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-13T14:56:35.010+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-13T14:56:35.010+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-13T14:56:35.010+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-13T14:56:35.011+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-13T15:00:56.817+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-13T15:00:56.818+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-13T15:01:20.727+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-13T15:01:20.728+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-13T15:01:20.728+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-13T15:01:20.728+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-13T15:02:59.506+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-13T15:02:59.506+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-13T15:03:06.606+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-13T15:03:06.607+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-13T15:03:06.607+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-13T15:03:06.607+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-13T15:04:59.272+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-13T15:04:59.273+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-13T15:17:34.201+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-13T15:17:34.202+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-13T15:17:34.202+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-13T15:17:34.202+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-13T15:30:27.809+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-13T15:30:27.811+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-13T15:32:00.910+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-13T15:32:00.910+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-13T15:32:00.911+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-13T15:32:00.911+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-13T15:41:18.778+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-13T15:41:18.779+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-13T15:41:39.059+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-13T15:41:39.060+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-13T15:41:39.060+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-13T15:41:39.060+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-13T15:49:24.283+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-13T15:49:24.288+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-13T15:49:33.069+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-13T15:49:33.070+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-13T15:49:33.070+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-13T15:49:33.070+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-13T15:56:30.887+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-13T15:56:30.893+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-13T15:56:45.148+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-13T15:56:45.149+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-13T15:56:45.149+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-13T15:56:45.149+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-13T16:11:17.015+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-13T16:11:17.016+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-13T16:11:28.201+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-13T16:11:28.202+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-13T16:11:28.202+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-13T16:11:28.202+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-13T16:12:47.588+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-13T16:12:47.589+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-13T16:12:57.243+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-13T16:12:57.243+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-13T16:12:57.243+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-13T16:12:57.243+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-13T16:17:31.723+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-13T16:17:31.724+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-13T16:19:29.120+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-13T16:19:29.121+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-13T16:19:29.121+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-13T16:19:29.121+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-13T17:14:37.149+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-13T17:14:37.151+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T10:45:52.455+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T10:45:52.456+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T10:45:52.456+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T10:45:52.456+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T11:03:36.299+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T11:03:36.299+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T11:03:46.318+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T11:03:46.319+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T11:03:46.319+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T11:03:46.319+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T12:36:37.082+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T12:36:37.085+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T12:39:10.910+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T12:39:10.911+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T12:39:10.911+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T12:39:10.911+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T12:46:59.042+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T12:46:59.049+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T12:47:40.086+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T12:47:40.087+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T12:47:40.087+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T12:47:40.087+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T12:51:06.217+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T12:51:06.218+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T12:51:15.715+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T12:51:15.716+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T12:51:15.716+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T12:51:15.716+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T12:53:41.459+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T12:53:41.459+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T12:53:49.186+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T12:53:49.187+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T12:53:49.187+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T12:53:49.187+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T12:55:33.243+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T12:55:33.243+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T12:55:40.457+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T12:55:40.458+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T12:55:40.458+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T12:55:40.458+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T12:58:04.102+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T12:58:04.103+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T12:58:11.008+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T12:58:11.008+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T12:58:11.008+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T12:58:11.008+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T12:59:15.748+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T12:59:15.748+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T12:59:22.878+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T12:59:22.879+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T12:59:22.879+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T12:59:22.879+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T13:01:46.583+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T13:01:46.583+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T13:01:51.742+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T13:01:51.742+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T13:01:51.742+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T13:01:51.742+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T13:02:26.006+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T13:02:26.006+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T13:02:30.992+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T13:02:30.992+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T13:02:30.992+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T13:02:30.992+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T13:05:59.215+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T13:05:59.215+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T13:06:05.165+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T13:06:05.166+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T13:06:05.166+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T13:06:05.166+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T13:06:57.695+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T13:06:57.696+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T13:07:02.694+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T13:07:02.695+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T13:07:02.695+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T13:07:02.695+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T13:07:57.351+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T13:07:57.351+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T13:15:14.602+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T13:15:14.603+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T13:15:14.603+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T13:15:14.603+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T13:15:37.131+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T13:15:37.131+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T13:36:37.416+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T13:36:37.417+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T13:36:37.417+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T13:36:37.417+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T15:20:28.099+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T15:20:28.105+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-14T17:09:29.067+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-03-14T17:09:29.067+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-14T17:09:29.067+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-14T17:09:29.067+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-03-14T17:09:32.672+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-14T17:09:32.672+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-04-09T14:56:29.537+0800	info	baspay-encrypte/main.go:26	Config Content[{{8077 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false} {http://test1-user.bastionwallet.com}}]	{"app": "bas-admin-api"}
+2019-04-09T14:56:29.538+0800	info	baspay-encrypte/server.go:54	WebServer Init ok	{"app": "bas-admin-api"}
+2019-04-09T14:56:29.538+0800	info	baspay-encrypte/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-04-09T14:56:29.538+0800	info	baspay-encrypte/server.go:59	WebServer Run with port[8077]	{"app": "bas-admin-api"}
+2019-04-09T15:04:12.338+0800	info	baspay-encrypte/server.go:63	Iris Run[8077] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-04-09T15:04:12.340+0800	info	baspay-encrypte/main.go:36	WebServer Stop	{"app": "bas-admin-api"}

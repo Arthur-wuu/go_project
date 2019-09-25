@@ -1,0 +1,16 @@
+{
+  "data":[
+    {
+      "id":1,
+      "symbol":"btc"
+    },
+    {
+      "id":1027,
+      "symbol":"eth"
+    },
+    {
+      "id":1808,
+      "symbol":"omg"
+    }
+  ]
+}

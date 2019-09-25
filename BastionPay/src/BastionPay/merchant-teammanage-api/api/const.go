@@ -1,0 +1,4 @@
+package api
+
+const CONST_MARKETING_TP_FISSION = 0
+const CONST_MARKETING_TP_LUCKDRAW = 1

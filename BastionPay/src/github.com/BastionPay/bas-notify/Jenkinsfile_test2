@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    environment { 
+        def PROJECT_TYPE='BASE_GO_API'
+        def PROJECT_NAME='bas-notify'
+        def MY_DOMAIN='src/BastionPay'
+        def REGION='us-east-1'
+        def GOPATH="${WORKSPACE}"
+        def PATH="${GOPATH}:${PATH}"
+        def CODE_DIR="${MY_DOMAIN}/${PROJECT_NAME}"
+    }
+    stages {
+        stage('Test') {
+            steps {
+                deleteDir()
+                sh 'echo "failed!"'
+                sh 'echo $GIT_BRANCH $GIT_COMMIT '
+                script{
+                    env.RELEASE=env.GIT_BRANCH
+                    env.REPOSITORY_NAME="base-${RELEASE}-${PROJECT_NAME}"
+                    env.GIT_COMMIT_SHORT=env.GIT_COMMIT.substring(0,5)
+                }
+                dir("$CODE_DIR") {
+                    // some block
+                    git branch: "$RELEASE", credentialsId: '325bd343-f984-4cb0-b6b8-91480ad81068', url: "https://github.com/BastionPay/${PROJECT_NAME}.git"
+                }
+            }
+        }
+    }
+}

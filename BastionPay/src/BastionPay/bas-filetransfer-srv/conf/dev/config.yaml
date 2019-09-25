@@ -1,0 +1,49 @@
+system:
+  port: 8070
+  debug: true
+  log_path: zap.conf
+  temp_path: ./data/filetemp
+
+task:
+  max_wait_len: 30         #最大任务队列
+  max_op_time: 1200        #最大操作时间
+  max_wait_time: 3600      #最长等待时间
+  max_page: 100            #最大页大小
+  max_records: 10000       #最多读取记录数
+  status_keep_time: 7200   #状态保留时间，每个任务都有一个状态，状态包含任务的所有信息，包含文件地址
+  file_keep_time: 10800    #文件保留时间
+  file_gen_limit: 3-3H     #实名用户3小时只能生成3个文件
+  file_use_exist: false     #是否使用已存在的文件
+
+redis:
+  network: tcp
+  host: 127.0.0.1
+  port: 6379
+  password: ""
+  database: 0
+  maxIdle: 0
+  maxActive: 10
+  idleTimeout: 5
+  maxOpen: 200
+  prefix: ""
+
+aws:
+  accesskeyid: AKIAJEJUHBCEJGTFGNHA
+  accesskey:  oflCXIs+8jsbBYffy8lPedKok90NkSSabv8SVY66
+  accesstoken:
+  fileregion: us-east-1
+  filebucket: bastionpay-dev-filetransfer
+  filetimeout: 300
+
+
+mysql: #多个数据库
+  - host: blockshine-exadmin.ct4xtinmcb5a.us-east-1.rds.amazonaws.com
+    port: 3306
+    dbname: bas_backend_admin #用逗号分割
+    user: devrdsadmin
+    password: blockshine.123
+    charset: utf8
+    parseTime: false
+    maxIdle: 0
+    maxOpen: 5
+    debug: true

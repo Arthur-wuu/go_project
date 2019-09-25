@@ -1,0 +1,51 @@
+system:
+  port: 8044
+  debug: true
+  log_path: zap.conf
+  monitor: :21000
+
+#redis:
+#  network: tcp
+#  host: 127.0.0.1
+#  port: 6379
+#  password: ""
+#  database: 0
+#  maxIdle: 0
+#  maxActive: 10
+#  idleTimeout: 5
+#  maxOpen: 200
+#  prefix: ""
+
+#bussiness_limits:
+#  phone_sms: [3-M, 30-H]  #从左到右依次匹配
+#  ip_sms: [100-M, 10000-H]  #从左到右依次匹配
+#
+#bas_notify:
+#  addr: http://127.0.0.1:8098
+#  verifycode_sms_tmp: fissionverifycode
+
+
+mysql: #多个数据库
+  host: merchant-test-cluster.cluster-ckbyno63cpkt.us-east-1.rds.amazonaws.com
+  port: 3306
+  dbname: merchant
+  user: test_merchant
+  password: mcBlockshine.123
+  charset: utf8
+  parseTime: false
+  maxIdle: 0
+  maxOpen: 30
+  debug: false
+#cache:
+#  activity_max_key: 100
+#  activity_timeout: 3600
+#  sponsor_activity_max_key: 100
+#  sponsor_activity_timeout: 3600
+#  sponsor_max_key: 100
+#  sponsor_timeout: 10000
+#  page_max_key:     100
+#  page_timeout:     3600
+#  shareinfo_max_key:  100
+#  shareinfo_timeout:  3600
+#  robber_max_key: 1000
+#  robber_timeout: 600

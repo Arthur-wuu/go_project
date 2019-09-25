@@ -1,0 +1,131 @@
+2019-02-28T10:58:13.756+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-02-28T10:58:13.756+0800	error	bas-userhelp/server.go:24	webServer Init err	{"app": "bas-admin-api", "error": "dial tcp 127.0.0.1:6379: connect: connection refused"}
+2019-02-28T10:58:13.757+0800	error	bas-userhelp/main.go:14	goroutine 1 [running]:
+runtime/debug.Stack(0xc0000b4720, 0xc0001ea240, 0x1)
+	/usr/local/Cellar/go/1.11/libexec/src/runtime/debug/stack.go:24 +0xa7
+main.PanicPrint()
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-userhelp/main.go:14 +0x141
+panic(0x1690120, 0x188a3b0)
+	/usr/local/Cellar/go/1.11/libexec/src/runtime/panic.go:513 +0x1b9
+main.NewWebServer(0xc000000000)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-userhelp/server.go:25 +0x2b5
+main.main()
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-userhelp/main.go:30 +0x3b3
+	{"app": "bas-admin-api", "error": "webServer Init err"}
+2019-02-28T10:59:10.797+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-02-28T11:00:00.127+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-28T11:00:00.128+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-28T11:00:00.128+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-02-28T11:09:32.952+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-28T11:09:32.952+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-28T16:11:08.735+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-02-28T16:11:59.319+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-28T16:11:59.319+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-28T16:11:59.319+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-02-28T16:47:52.782+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-28T16:47:52.783+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-28T16:48:34.228+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-02-28T16:50:19.970+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-02-28T16:51:38.488+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-28T16:51:38.492+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-28T16:51:38.492+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-02-28T16:56:51.227+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-28T16:56:51.228+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-28T16:59:07.452+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-02-28T17:00:25.144+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-28T17:00:25.144+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-28T17:00:25.144+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-02-28T17:00:42.739+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-28T17:00:42.739+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-28T17:00:44.502+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-02-28T17:02:01.841+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-28T17:02:01.841+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-28T17:02:01.841+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-02-28T17:15:52.525+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-28T17:15:52.527+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-28T17:16:04.518+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-02-28T17:17:20.257+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-28T17:17:20.259+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-28T17:17:20.259+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-02-28T17:20:54.719+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-28T17:20:54.719+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-28T17:21:00.995+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-02-28T17:22:22.661+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-28T17:22:22.666+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-28T17:22:22.666+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-02-28T17:28:49.831+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-28T17:28:49.832+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-28T17:31:17.024+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-02-28T17:32:35.213+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-28T17:32:35.213+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-28T17:32:35.213+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-02-28T17:34:58.014+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-28T17:34:58.014+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-28T17:35:06.284+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-02-28T17:36:21.870+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-28T17:36:21.870+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-28T17:36:21.871+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-02-28T17:41:09.585+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-28T17:41:09.586+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-28T17:50:37.834+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-02-28T17:51:51.199+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-28T17:51:51.199+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-28T17:51:51.199+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-02-28T18:14:51.031+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-28T18:14:51.033+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-28T18:15:05.098+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-02-28T18:16:17.170+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-28T18:16:17.170+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-28T18:16:17.170+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-02-28T18:20:14.433+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-28T18:20:14.434+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-01T11:03:28.746+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-03-01T11:04:18.666+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-01T11:04:18.666+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-01T11:04:18.666+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-01T11:11:12.329+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-01T11:11:12.332+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-01T14:25:26.842+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-03-01T14:27:24.857+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-01T14:27:24.857+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-01T14:27:24.857+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-01T14:34:51.336+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-01T14:34:51.338+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-01T15:45:00.991+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-03-01T15:46:34.033+0800	error	bas-userhelp/server.go:24	webServer Init err	{"app": "bas-admin-api", "error": "Error 1075: Incorrect table definition; there can be only one auto column and it must be defined as a key"}
+2019-03-01T15:46:34.033+0800	error	bas-userhelp/main.go:14	goroutine 1 [running]:
+runtime/debug.Stack(0xc0000b4840, 0xc00050d9c0, 0x1)
+	/usr/local/Cellar/go/1.11/libexec/src/runtime/debug/stack.go:24 +0xa7
+main.PanicPrint()
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-userhelp/main.go:14 +0x141
+panic(0x1686f80, 0x187eda0)
+	/usr/local/Cellar/go/1.11/libexec/src/runtime/panic.go:513 +0x1b9
+main.NewWebServer(0xc000000000)
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-userhelp/server.go:25 +0x2b5
+main.main()
+	/Users/sywu/Desktop/all/BastionPay/src/github.com/BastionPay/bas-userhelp/main.go:30 +0x3b3
+	{"app": "bas-admin-api", "error": "webServer Init err"}
+2019-03-01T15:49:10.464+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-03-01T15:50:04.426+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-01T15:50:04.426+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-01T15:50:04.427+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-01T15:56:33.682+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-01T15:56:33.686+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-01T15:56:44.122+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-03-01T15:58:08.413+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-01T15:58:08.418+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-01T15:58:08.418+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-01T16:02:00.842+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-01T16:02:00.843+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-01T16:02:12.270+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-03-01T16:03:45.743+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-01T16:03:45.743+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-01T16:03:45.743+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-01T16:09:36.142+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-01T16:09:36.143+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-03-01T16:10:26.012+0800	info	bas-userhelp/main.go:26	Config Content[{{8066 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_userhelp utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-03-01T16:11:54.630+0800	info	bas-userhelp/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-03-01T16:11:54.636+0800	info	bas-userhelp/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-03-01T16:11:54.636+0800	info	bas-userhelp/server.go:68	WebServer Run with port[8066]	{"app": "bas-admin-api"}
+2019-03-01T16:15:23.957+0800	info	bas-userhelp/server.go:72	Iris Run[8066] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-03-01T16:15:23.959+0800	info	bas-userhelp/main.go:36	WebServer Stop	{"app": "bas-admin-api"}

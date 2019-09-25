@@ -1,0 +1,38 @@
+system:
+  port: 8044
+  debug: true
+  log_path: zap.conf
+  monitor: :21000
+
+#redis:
+#  network: tcp
+#  host: 127.0.0.1
+#  port: 6379
+#  password: ""
+#  database: 0
+#  maxIdle: 0
+#  maxActive: 10
+#  idleTimeout: 5
+#  maxOpen: 200
+#  prefix: ""
+
+
+mysql: #多个数据库
+  host: testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com
+  port: 3306
+  dbname: bastionpay_activity
+  user: TestDBAdmin
+  password: bastionpay.123
+  charset: utf8
+  parseTime: false
+  maxIdle: 0
+  maxOpen: 30
+  debug: false
+
+#cache:
+#  user_level_max_key: 5000
+#  user_level_timeout: 300
+#  level_max_key:     30
+#  level_timeout:     7200
+#  level_rule_max_key:  30
+#  level_rule_timeout:  7200

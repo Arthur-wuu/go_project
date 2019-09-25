@@ -1,0 +1,78 @@
+2019-02-19T16:32:54.479+0800	info	bas-wallet-im-assist/main.go:27	Config Content[{{8033 false zap.conf :21000} {     0 0 0 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_merchant utf8 0 5 true false} {0 0} {https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/complete https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/cancel https://test-bkweb.bastionpay.com/v1/basmerchant/callback/notify} [] {  }}]	{"app": "bas-admin-api"}
+2019-02-19T16:32:56.599+0800	info	bas-wallet-im-assist/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-19T16:32:56.599+0800	info	bas-wallet-im-assist/main.go:32	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-19T16:32:56.599+0800	info	bas-wallet-im-assist/server.go:63	WebServer Run with port[8033]	{"app": "bas-admin-api"}
+2019-02-19T16:36:42.302+0800	info	bas-wallet-im-assist/server.go:68	Iris Run[8033] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-19T16:36:42.303+0800	info	bas-wallet-im-assist/main.go:37	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-19T16:36:52.611+0800	info	bas-wallet-im-assist/main.go:27	Config Content[{{8033 false zap.conf :21000} {     0 0 0 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_merchant utf8 0 5 true false} {0 0} {https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/complete https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/cancel https://test-bkweb.bastionpay.com/v1/basmerchant/callback/notify} [] {  }}]	{"app": "bas-admin-api"}
+2019-02-19T16:36:54.069+0800	info	bas-wallet-im-assist/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-19T16:36:54.069+0800	info	bas-wallet-im-assist/main.go:32	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-19T16:36:54.069+0800	info	bas-wallet-im-assist/server.go:63	WebServer Run with port[8033]	{"app": "bas-admin-api"}
+2019-02-19T16:41:08.871+0800	info	bas-wallet-im-assist/server.go:68	Iris Run[8033] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-19T16:41:08.872+0800	info	bas-wallet-im-assist/main.go:37	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-19T16:41:19.837+0800	info	bas-wallet-im-assist/main.go:27	Config Content[{{8033 false zap.conf :21000} {     0 0 0 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_merchant utf8 0 5 true false} {0 0} {https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/complete https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/cancel https://test-bkweb.bastionpay.com/v1/basmerchant/callback/notify} [] {  }}]	{"app": "bas-admin-api"}
+2019-02-19T16:41:21.231+0800	info	bas-wallet-im-assist/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-19T16:41:21.231+0800	info	bas-wallet-im-assist/main.go:32	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-19T16:41:21.231+0800	info	bas-wallet-im-assist/server.go:63	WebServer Run with port[8033]	{"app": "bas-admin-api"}
+2019-02-19T16:43:28.779+0800	info	bas-wallet-im-assist/server.go:68	Iris Run[8033] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-19T16:43:28.780+0800	info	bas-wallet-im-assist/main.go:37	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-19T16:43:38.327+0800	info	bas-wallet-im-assist/main.go:27	Config Content[{{8033 false zap.conf :21000} {     0 0 0 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_merchant utf8 0 5 true false} {0 0} {https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/complete https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/cancel https://test-bkweb.bastionpay.com/v1/basmerchant/callback/notify} [] {  }}]	{"app": "bas-admin-api"}
+2019-02-19T16:43:39.780+0800	info	bas-wallet-im-assist/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-19T16:43:39.787+0800	info	bas-wallet-im-assist/main.go:32	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-19T16:43:39.787+0800	info	bas-wallet-im-assist/server.go:63	WebServer Run with port[8033]	{"app": "bas-admin-api"}
+2019-02-19T16:45:18.496+0800	info	bas-wallet-im-assist/server.go:68	Iris Run[8033] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-19T16:45:18.498+0800	info	bas-wallet-im-assist/main.go:37	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-19T16:45:40.784+0800	info	bas-wallet-im-assist/main.go:27	Config Content[{{8033 false zap.conf :21000} {     0 0 0 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_merchant utf8 0 5 true false} {0 0} {https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/complete https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/cancel https://test-bkweb.bastionpay.com/v1/basmerchant/callback/notify} [] {  }}]	{"app": "bas-admin-api"}
+2019-02-19T16:45:42.047+0800	info	bas-wallet-im-assist/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-19T16:45:42.048+0800	info	bas-wallet-im-assist/main.go:32	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-19T16:45:42.048+0800	info	bas-wallet-im-assist/server.go:63	WebServer Run with port[8033]	{"app": "bas-admin-api"}
+2019-02-19T16:47:53.070+0800	info	bas-wallet-im-assist/server.go:68	Iris Run[8033] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-19T16:47:53.072+0800	info	bas-wallet-im-assist/main.go:37	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-19T16:48:03.962+0800	info	bas-wallet-im-assist/main.go:27	Config Content[{{8033 false zap.conf :21000} {     0 0 0 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_merchant utf8 0 5 true false} {0 0} {https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/complete https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/cancel https://test-bkweb.bastionpay.com/v1/basmerchant/callback/notify} [] {  }}]	{"app": "bas-admin-api"}
+2019-02-19T16:48:05.461+0800	info	bas-wallet-im-assist/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-19T16:48:05.461+0800	info	bas-wallet-im-assist/main.go:32	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-19T16:48:05.461+0800	info	bas-wallet-im-assist/server.go:63	WebServer Run with port[8033]	{"app": "bas-admin-api"}
+2019-02-19T16:49:13.515+0800	info	bas-wallet-im-assist/server.go:68	Iris Run[8033] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-19T16:49:13.516+0800	info	bas-wallet-im-assist/main.go:37	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-19T16:49:20.045+0800	info	bas-wallet-im-assist/main.go:27	Config Content[{{8033 false zap.conf :21000} {     0 0 0 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_merchant utf8 0 5 true false} {0 0} {https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/complete https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/cancel https://test-bkweb.bastionpay.com/v1/basmerchant/callback/notify} [] {  }}]	{"app": "bas-admin-api"}
+2019-02-19T16:49:21.286+0800	info	bas-wallet-im-assist/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-19T16:49:21.286+0800	info	bas-wallet-im-assist/main.go:32	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-19T16:49:21.286+0800	info	bas-wallet-im-assist/server.go:63	WebServer Run with port[8033]	{"app": "bas-admin-api"}
+2019-02-19T16:50:55.265+0800	info	bas-wallet-im-assist/server.go:68	Iris Run[8033] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-19T16:50:55.266+0800	info	bas-wallet-im-assist/main.go:37	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-19T16:51:04.051+0800	info	bas-wallet-im-assist/main.go:27	Config Content[{{8033 false zap.conf :21000} {     0 0 0 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_merchant utf8 0 5 true false} {0 0} {https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/complete https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/cancel https://test-bkweb.bastionpay.com/v1/basmerchant/callback/notify} [] {  }}]	{"app": "bas-admin-api"}
+2019-02-19T16:51:05.449+0800	info	bas-wallet-im-assist/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-19T16:51:05.449+0800	info	bas-wallet-im-assist/main.go:32	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-19T16:51:05.449+0800	info	bas-wallet-im-assist/server.go:63	WebServer Run with port[8033]	{"app": "bas-admin-api"}
+2019-02-19T16:51:48.576+0800	info	bas-wallet-im-assist/server.go:68	Iris Run[8033] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-19T16:51:48.576+0800	info	bas-wallet-im-assist/main.go:37	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-19T16:51:57.879+0800	info	bas-wallet-im-assist/main.go:27	Config Content[{{8033 false zap.conf :21000} {     0 0 0 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_merchant utf8 0 5 true false} {0 0} {https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/complete https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/cancel https://test-bkweb.bastionpay.com/v1/basmerchant/callback/notify} [] {  }}]	{"app": "bas-admin-api"}
+2019-02-19T16:51:59.087+0800	info	bas-wallet-im-assist/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-19T16:51:59.087+0800	info	bas-wallet-im-assist/main.go:32	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-19T16:51:59.087+0800	info	bas-wallet-im-assist/server.go:63	WebServer Run with port[8033]	{"app": "bas-admin-api"}
+2019-02-19T16:53:26.176+0800	info	bas-wallet-im-assist/server.go:68	Iris Run[8033] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-19T16:53:26.177+0800	info	bas-wallet-im-assist/main.go:37	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-26T10:57:17.328+0800	info	bas-wallet-im-assist/main.go:27	Config Content[{{8033 false zap.conf :21000} {     0 0 0 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_merchant utf8 0 5 true false} {0 0} {https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/complete https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/cancel https://test-bkweb.bastionpay.com/v1/basmerchant/callback/notify} [] {  }}]	{"app": "bas-admin-api"}
+2019-02-26T10:57:19.370+0800	info	bas-wallet-im-assist/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-26T10:57:19.371+0800	info	bas-wallet-im-assist/main.go:32	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-26T10:57:19.371+0800	info	bas-wallet-im-assist/server.go:63	WebServer Run with port[8033]	{"app": "bas-admin-api"}
+2019-02-26T10:57:24.549+0800	info	bas-wallet-im-assist/server.go:68	Iris Run[8033] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-26T10:57:24.549+0800	info	bas-wallet-im-assist/main.go:37	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-26T11:18:51.206+0800	info	bas-wallet-im-assist/main.go:27	Config Content[{{8033 false zap.conf :21000} {     0 0 0 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_merchant utf8 0 5 true false} {0 0} {https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/complete https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/cancel https://test-bkweb.bastionpay.com/v1/basmerchant/callback/notify} [] {  } {}}]	{"app": "bas-admin-api"}
+2019-02-26T11:18:52.604+0800	info	bas-wallet-im-assist/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-26T11:18:52.604+0800	info	bas-wallet-im-assist/main.go:32	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-26T11:18:52.604+0800	info	bas-wallet-im-assist/server.go:63	WebServer Run with port[8033]	{"app": "bas-admin-api"}
+2019-02-26T12:56:19.808+0800	info	bas-wallet-im-assist/server.go:68	Iris Run[8033] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-26T12:56:19.813+0800	info	bas-wallet-im-assist/main.go:37	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-27T10:07:50.593+0800	info	bas-wallet-im-assist/main.go:27	Config Content[{{8033 false zap.conf :21000} {     0 0 0 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_merchant utf8 0 5 true false} {0 0} {https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/complete https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/cancel https://test-bkweb.bastionpay.com/v1/basmerchant/callback/notify} [] {  } {}}]	{"app": "bas-admin-api"}
+2019-02-27T10:07:53.418+0800	info	bas-wallet-im-assist/server.go:59	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-27T10:07:53.419+0800	info	bas-wallet-im-assist/main.go:32	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-27T10:07:53.419+0800	info	bas-wallet-im-assist/server.go:64	WebServer Run with port[8033]	{"app": "bas-admin-api"}
+2019-02-27T10:07:56.103+0800	info	bas-wallet-im-assist/server.go:69	Iris Run[8033] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-27T10:07:56.104+0800	info	bas-wallet-im-assist/main.go:37	WebServer Stop	{"app": "bas-admin-api"}
+2019-02-27T10:18:25.787+0800	info	bas-wallet-im-assist/main.go:27	Config Content[{{8033 false zap.conf :21000} {     0 0 0 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_merchant utf8 0 5 true false} {0 0} {https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/complete https://test-bkweb.bastionpay.com/v1/basmerchant/callback/trade/cancel https://test-bkweb.bastionpay.com/v1/basmerchant/callback/notify} [] {  } {}}]	{"app": "bas-admin-api"}
+2019-02-27T10:18:27.352+0800	info	bas-wallet-im-assist/server.go:59	WebServer Init ok	{"app": "bas-admin-api"}
+2019-02-27T10:18:27.352+0800	info	bas-wallet-im-assist/main.go:32	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-02-27T10:18:27.353+0800	info	bas-wallet-im-assist/server.go:64	WebServer Run with port[8033]	{"app": "bas-admin-api"}
+2019-02-27T10:18:35.652+0800	info	bas-wallet-im-assist/server.go:69	Iris Run[8033] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-02-27T10:18:35.652+0800	info	bas-wallet-im-assist/main.go:37	WebServer Stop	{"app": "bas-admin-api"}

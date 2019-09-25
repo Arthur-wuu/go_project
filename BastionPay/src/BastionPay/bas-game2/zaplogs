@@ -1,0 +1,269 @@
+2019-01-08T10:20:57.033+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_backend_admin utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T10:20:58.515+0800	info	bas-game1/server.go:56	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T10:20:58.515+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T10:20:58.515+0800	info	bas-game1/server.go:61	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T10:29:29.303+0800	info	bas-game1/server.go:65	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T10:29:29.305+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T10:58:49.630+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_backend_admin utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T10:58:51.408+0800	info	bas-game1/server.go:56	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T10:58:51.409+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T10:58:51.409+0800	info	bas-game1/server.go:61	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T10:59:19.363+0800	info	bas-game1/server.go:65	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T10:59:19.365+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T11:01:00.958+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_backend_admin utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T11:01:02.381+0800	info	bas-game1/server.go:56	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T11:01:02.382+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T11:01:02.382+0800	info	bas-game1/server.go:61	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T11:01:07.277+0800	info	bas-game1/server.go:65	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T11:01:07.277+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T11:08:55.616+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_backend_admin utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T11:08:57.115+0800	info	bas-game1/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T11:08:57.115+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T11:08:57.116+0800	info	bas-game1/server.go:63	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T11:09:08.867+0800	info	bas-game1/server.go:67	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T11:09:08.867+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T11:10:44.412+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {testbastion.cka6afgwtw5w.us-east-1.rds.amazonaws.com 3306 testbastion testbastion.123 bas_backend_admin utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T11:10:46.570+0800	info	bas-game1/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T11:10:46.570+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T11:10:46.570+0800	info	bas-game1/server.go:63	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T11:10:56.599+0800	info	bas-game1/server.go:67	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T11:10:56.599+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T11:12:11.962+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_manager utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T11:12:14.018+0800	info	bas-game1/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T11:12:14.019+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T11:12:14.019+0800	info	bas-game1/server.go:63	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T11:12:35.369+0800	info	bas-game1/server.go:67	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T11:12:35.370+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T11:18:44.490+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_manager utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T11:18:48.086+0800	info	bas-game1/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T11:18:48.095+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T11:18:48.095+0800	info	bas-game1/server.go:63	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T11:18:59.372+0800	info	bas-game1/server.go:67	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T11:18:59.372+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T11:28:58.087+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_manager utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T11:29:00.976+0800	info	bas-game1/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T11:29:00.976+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T11:29:00.976+0800	info	bas-game1/server.go:63	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T11:29:06.626+0800	info	bas-game1/server.go:67	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T11:29:06.626+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T11:30:30.479+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_manager utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T11:30:33.526+0800	info	bas-game1/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T11:30:33.526+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T11:30:33.526+0800	info	bas-game1/server.go:63	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T11:31:54.810+0800	info	bas-game1/server.go:67	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T11:31:54.815+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T11:32:01.433+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_manager utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T11:32:04.114+0800	info	bas-game1/server.go:58	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T11:32:04.114+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T11:32:04.114+0800	info	bas-game1/server.go:63	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T11:32:42.272+0800	info	bas-game1/server.go:67	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T11:32:42.273+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T11:32:47.819+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay_manager utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T11:32:50.357+0800	info	bas-game1/server.go:57	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T11:32:50.357+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T11:32:50.357+0800	info	bas-game1/server.go:62	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T11:33:45.135+0800	info	bas-game1/server.go:66	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T11:33:45.141+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T11:33:54.973+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T11:33:57.996+0800	info	bas-game1/server.go:57	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T11:33:57.996+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T11:33:57.996+0800	info	bas-game1/server.go:62	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T11:34:03.113+0800	info	bas-game1/server.go:66	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T11:34:03.113+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T11:56:15.682+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T11:56:18.755+0800	info	bas-game1/server.go:57	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T11:56:18.755+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T11:56:18.755+0800	info	bas-game1/server.go:62	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T11:56:39.088+0800	info	bas-game1/server.go:66	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T11:56:39.088+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T11:56:44.453+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T11:56:47.246+0800	info	bas-game1/server.go:57	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T11:56:47.246+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T11:56:47.246+0800	info	bas-game1/server.go:62	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T11:57:01.615+0800	info	bas-game1/server.go:66	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T11:57:01.615+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T11:57:08.458+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T11:57:11.343+0800	info	bas-game1/server.go:57	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T11:57:11.344+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T11:57:11.344+0800	info	bas-game1/server.go:62	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T11:57:15.380+0800	info	bas-game1/server.go:66	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T11:57:15.380+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T12:02:22.741+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T12:02:24.126+0800	info	bas-game1/server.go:59	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T12:02:24.126+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T12:02:24.126+0800	info	bas-game1/server.go:64	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T12:02:35.077+0800	info	bas-game1/server.go:68	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T12:02:35.077+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T12:04:01.345+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T12:04:02.840+0800	info	bas-game1/server.go:59	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T12:04:02.840+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T12:04:02.840+0800	info	bas-game1/server.go:64	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T12:04:16.262+0800	info	bas-game1/server.go:68	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T12:04:16.262+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T12:05:01.302+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T12:05:02.846+0800	info	bas-game1/server.go:59	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T12:05:02.846+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T12:05:02.846+0800	info	bas-game1/server.go:64	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T12:05:19.625+0800	info	bas-game1/server.go:68	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T12:05:19.634+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T12:05:36.060+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T12:05:37.560+0800	info	bas-game1/server.go:59	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T12:05:37.560+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T12:05:37.560+0800	info	bas-game1/server.go:64	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T12:06:04.442+0800	info	bas-game1/server.go:68	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T12:06:04.442+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T13:53:16.248+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T13:53:59.211+0800	info	bas-game1/server.go:65	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T13:53:59.212+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T13:53:59.212+0800	info	bas-game1/server.go:70	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T13:53:59.386+0800	info	bas-game1/server.go:74	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T13:53:59.386+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T14:05:17.318+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T14:05:52.879+0800	info	bas-game1/server.go:65	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T14:05:52.880+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T14:05:52.880+0800	info	bas-game1/server.go:70	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T14:05:53.190+0800	info	bas-game1/server.go:74	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T14:05:53.190+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T14:06:59.315+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T14:07:18.677+0800	info	bas-game1/server.go:65	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T14:07:18.678+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T14:07:18.678+0800	info	bas-game1/server.go:70	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T14:07:18.803+0800	info	bas-game1/server.go:74	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T14:07:18.804+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T14:11:47.886+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T14:16:04.627+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T14:16:06.055+0800	info	bas-game1/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T14:16:06.055+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T14:16:06.055+0800	info	bas-game1/server.go:68	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T14:16:24.879+0800	info	bas-game1/server.go:72	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T14:16:24.879+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T14:16:30.743+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T14:16:32.288+0800	info	bas-game1/server.go:63	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T14:16:32.303+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T14:16:32.303+0800	info	bas-game1/server.go:68	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T14:16:44.238+0800	info	bas-game1/server.go:72	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T14:16:44.243+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T14:21:30.494+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T14:21:32.060+0800	info	bas-game1/server.go:68	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T14:21:32.060+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T14:21:32.060+0800	info	bas-game1/server.go:73	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T14:26:14.152+0800	info	bas-game1/server.go:77	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T14:26:14.152+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T14:38:27.435+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T14:38:28.735+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T14:38:28.735+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T14:38:28.735+0800	info	bas-game1/server.go:72	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T14:40:59.592+0800	info	bas-game1/server.go:76	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T14:40:59.592+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T14:41:11.942+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T14:41:14.011+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T14:41:14.012+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T14:41:14.012+0800	info	bas-game1/server.go:72	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T14:42:27.346+0800	info	bas-game1/server.go:76	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T14:42:27.347+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T14:42:47.529+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T14:42:51.727+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T14:42:51.727+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T14:42:51.727+0800	info	bas-game1/server.go:72	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T14:43:52.785+0800	info	bas-game1/server.go:76	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T14:43:52.785+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T14:44:26.543+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T14:44:28.064+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T14:44:28.064+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T14:44:28.064+0800	info	bas-game1/server.go:72	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T14:45:59.457+0800	info	bas-game1/server.go:76	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T14:45:59.457+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T14:52:39.666+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T14:52:41.139+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T14:52:41.139+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T14:52:41.139+0800	info	bas-game1/server.go:72	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T14:53:51.072+0800	info	bas-game1/server.go:76	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T14:53:51.072+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T15:00:09.021+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T15:00:10.372+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T15:00:10.372+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T15:00:10.372+0800	info	bas-game1/server.go:72	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T15:01:03.434+0800	info	bas-game1/server.go:76	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T15:01:03.434+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T15:58:22.298+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T15:58:24.470+0800	info	bas-game1/server.go:68	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T15:58:24.470+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T15:58:24.470+0800	info	bas-game1/server.go:73	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T16:01:04.950+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T16:01:06.803+0800	info	bas-game1/server.go:68	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T16:01:06.803+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T16:01:06.803+0800	info	bas-game1/server.go:73	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T16:08:14.091+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T16:08:15.623+0800	info	bas-game1/server.go:68	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T16:08:15.624+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T16:08:15.624+0800	info	bas-game1/server.go:73	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T16:10:07.283+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T16:10:08.694+0800	info	bas-game1/server.go:68	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T16:10:08.695+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T16:10:08.695+0800	info	bas-game1/server.go:73	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T16:20:44.816+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T16:20:46.299+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T16:20:46.299+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T16:20:46.299+0800	info	bas-game1/server.go:72	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T16:21:06.355+0800	info	bas-game1/server.go:76	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T16:21:06.356+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T16:21:36.376+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T16:21:37.791+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T16:21:37.792+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T16:21:37.792+0800	info	bas-game1/server.go:72	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T16:22:41.581+0800	info	bas-game1/server.go:76	Iris Run[8044] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T16:22:41.581+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T17:40:33.212+0800	info	bas-game1/main.go:26	Config Content[{{8044 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T17:40:35.419+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T17:40:35.419+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T17:40:35.420+0800	info	bas-game1/server.go:72	WebServer Run with port[8044]	{"app": "bas-admin-api"}
+2019-01-08T17:40:35.420+0800	error	bas-game1/server.go:78	Iris Run[8044] err[listen tcp :8044: bind: address already in use]	{"app": "bas-admin-api"}
+2019-01-08T17:40:35.421+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T17:40:50.415+0800	info	bas-game1/main.go:26	Config Content[{{8046 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T17:40:51.877+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T17:40:51.877+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T17:40:51.878+0800	info	bas-game1/server.go:72	WebServer Run with port[8046]	{"app": "bas-admin-api"}
+2019-01-08T17:43:25.963+0800	info	bas-game1/server.go:76	Iris Run[8046] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T17:43:25.964+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T17:43:35.263+0800	info	bas-game1/main.go:26	Config Content[{{8046 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T17:43:36.534+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T17:43:36.534+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T17:43:36.534+0800	info	bas-game1/server.go:72	WebServer Run with port[8046]	{"app": "bas-admin-api"}
+2019-01-08T17:47:02.749+0800	info	bas-game1/server.go:76	Iris Run[8046] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T17:47:02.752+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T18:03:53.190+0800	info	bas-game1/main.go:26	Config Content[{{8046 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T18:03:54.547+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T18:03:54.548+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T18:03:54.548+0800	info	bas-game1/server.go:72	WebServer Run with port[8046]	{"app": "bas-admin-api"}
+2019-01-08T18:19:38.979+0800	info	bas-game1/server.go:76	Iris Run[8046] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T18:19:38.980+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T18:19:52.012+0800	info	bas-game1/main.go:26	Config Content[{{8046 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T18:19:53.327+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T18:19:53.328+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T18:19:53.328+0800	info	bas-game1/server.go:72	WebServer Run with port[8046]	{"app": "bas-admin-api"}
+2019-01-08T18:22:15.600+0800	info	bas-game1/server.go:76	Iris Run[8046] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T18:22:15.601+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T18:22:23.203+0800	info	bas-game1/main.go:26	Config Content[{{8046 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T18:22:24.757+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T18:22:24.757+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T18:22:24.758+0800	info	bas-game1/server.go:72	WebServer Run with port[8046]	{"app": "bas-admin-api"}
+2019-01-08T18:27:45.578+0800	info	bas-game1/server.go:76	Iris Run[8046] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T18:27:45.581+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T18:54:42.499+0800	info	bas-game1/main.go:26	Config Content[{{8046 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T18:54:44.027+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T18:54:44.027+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T18:54:44.027+0800	info	bas-game1/server.go:72	WebServer Run with port[8046]	{"app": "bas-admin-api"}
+2019-01-08T18:55:14.793+0800	info	bas-game1/server.go:76	Iris Run[8046] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T18:55:14.793+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-08T18:55:18.870+0800	info	bas-game1/main.go:26	Config Content[{{8046 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-08T18:55:20.375+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-08T18:55:20.376+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-08T18:55:20.376+0800	info	bas-game1/server.go:72	WebServer Run with port[8046]	{"app": "bas-admin-api"}
+2019-01-08T18:55:24.380+0800	info	bas-game1/server.go:76	Iris Run[8046] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-08T18:55:24.380+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}
+2019-01-09T09:24:45.788+0800	info	bas-game1/main.go:26	Config Content[{{8046 false zap.conf :21000} {tcp 127.0.0.1 6379  0 0 10 5 } {pay-testdb.ckbyno63cpkt.us-east-1.rds.amazonaws.com 3306 TestDBAdmin bastionpay.123 bastionpay utf8 0 5 true false}}]	{"app": "bas-admin-api"}
+2019-01-09T09:24:47.780+0800	info	bas-game1/server.go:67	WebServer Init ok	{"app": "bas-admin-api"}
+2019-01-09T09:24:47.780+0800	info	bas-game1/main.go:31	WebServer Start Runing...	{"app": "bas-admin-api"}
+2019-01-09T09:24:47.780+0800	info	bas-game1/server.go:72	WebServer Run with port[8046]	{"app": "bas-admin-api"}
+2019-01-09T09:40:20.592+0800	info	bas-game1/server.go:76	Iris Run[8046] Stoped[http: Server closed]	{"app": "bas-admin-api"}
+2019-01-09T09:40:20.593+0800	info	bas-game1/main.go:36	WebServer Stop	{"app": "bas-admin-api"}

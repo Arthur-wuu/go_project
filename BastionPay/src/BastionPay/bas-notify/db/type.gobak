@@ -1,0 +1,174 @@
+package db
+
+type NotifyTemplateHistory struct {
+	Id        *uint   `gorm:"primary_key"`
+	CreatedAt *int64  `gorm:"type:bigint(20)"`
+	UpdatedAt *int64  `gorm:"type:bigint(20)"`
+	Day       *int64  `gorm:"type:bigint(20)" `
+	DaySucc   *int    `gorm:"type:int(11)" `
+	DayFail   *int    `gorm:"type:int(11)" `
+	GroupId   *uint    `gorm:"type:int(11)" `
+	RateFail  *float32 `gorm:"type:float(11)"`
+	Inform    *int       `gorm:"type:int(11)"`
+	Type      *int    `gorm:"type:int(11)"`
+}
+
+func (this * NotifyTemplateHistory) SetType(tp int) {
+	if this.Type == nil {
+		this.Type = new(int)
+	}
+	*this.Type = tp
+}
+
+func (this * NotifyTemplateHistory) GetRateFail() float32 {
+	if this.RateFail == nil {
+		return 0
+	}
+	return *this.RateFail
+}
+
+func (this * NotifyTemplateHistory) GetInfom() int {
+	if this.Inform == nil {
+		return 0
+	}
+	return *this.Inform
+}
+
+func (this * NotifyTemplateHistory) SetInfom(i int) {
+	if this.Inform == nil {
+		this.Inform = new(int)
+	}
+	*this.Inform = i
+}
+
+func (this * NotifyTemplateHistory) CalAddDaySucc(s int) {
+	if this.DaySucc == nil {
+		this.DaySucc = new(int)
+	}
+	*this.DaySucc += s
+}
+
+func (this * NotifyTemplateHistory) GetDaySucc() int {
+	if this.DaySucc == nil {
+		return 0
+	}
+	return *this.DaySucc
+}
+
+func (this * NotifyTemplateHistory) CalAddDayFail(s int) {
+	if this.DayFail == nil {
+		this.DayFail = new(int)
+	}
+	*this.DayFail += s
+}
+
+func (this * NotifyTemplateHistory) GetDayFail() int {
+	if this.DayFail == nil {
+		return 0
+	}
+	return *this.DayFail
+}
+
+func (this * NotifyTemplateHistory) SetRateFail(f float32){
+	if this.RateFail == nil {
+		this.RateFail = new(float32)
+	}
+	*this.RateFail = f
+}
+
+func (this * NotifyTemplateHistory)SetGroupId(id uint) {
+	if this.GroupId == nil {
+		this.GroupId = new(uint)
+	}
+	*this.GroupId = id
+}
+
+func (this * NotifyTemplateHistory)SetDay(d int64){
+	if this.Day == nil {
+		this.Day = new(int64)
+	}
+	*this.Day = d
+}
+
+func (this * NotifyTemplateHistory) SetDaySucc(d int){
+	if this.DaySucc == nil {
+		this.DaySucc = new(int)
+	}
+	*this.DaySucc = d
+}
+
+func (this * NotifyTemplateHistory) SetDayFail(d int){
+	if this.DayFail == nil {
+		this.DayFail = new(int)
+	}
+	*this.DayFail = d
+}
+
+type NotifyTemplate struct {
+	Id        *uint   `gorm:"primary_key"`
+	CreatedAt *int64  `gorm:"type:bigint(20)"`
+	UpdatedAt *int64  `gorm:"type:bigint(20)"`
+	Name      *string `gorm:"type:varchar(50)"`
+	Title     *string `gorm:"type:varchar(50)"`
+	Type      *int    `gorm:"type:int(11)" `
+	Content   *string `gorm:"type:text" `
+	Lang      *string `gorm:"type:varchar(20)" `
+	Sign      *string `gorm:"type:varchar(50)" `
+	GroupId   *uint    `gorm:"type:int(11)" `
+	Alive     *int    `gorm:"type:int(11)" `
+	Alias     *string `gorm:"type:varchar(30)" `
+	DefaultRecipient *string `gorm:"type:varchar(100)"`
+	SmsPlatform *uint `gorm:"type:int(11)"`
+}
+
+func (this *NotifyTemplate) SetGroupId(id uint) {
+	if this.GroupId == nil {
+		this.GroupId = new(uint)
+	}
+	*this.GroupId = id
+}
+
+func (this *NotifyTemplate) SetAlive(a int) {
+	if this.Alive == nil {
+		this.Alive = new(int)
+	}
+	*this.Alive = a
+}
+
+func (this *NotifyTemplate) GetId() uint {
+	if this.Id == nil {
+		return 0
+	}
+	return *this.Id
+}
+
+type NotifyTemplateGroup struct {
+	Id        *uint   `gorm:"primary_key"`
+	CreatedAt *int64  `gorm:"type:bigint(20)"`
+	UpdatedAt *int64  `gorm:"type:bigint(20)"`
+	Name      *string `gorm:"type:varchar(50)"`
+	Detail    *string `gorm:"type:varchar(50)"`
+	Alive     *int    `gorm:"type:int(11)" `
+	Type      *int    `gorm:"type:int(11)" `
+	Author    *string `gorm:"type:varchar(30)"`
+	Editor    *string `gorm:"type:varchar(30)"`
+	DefaultRecipient *string `gorm:"type:varchar(100)"`
+	SmsPlatform *uint `gorm:"type:int(11)"`
+}
+
+func (this *NotifyTemplateGroup) GetId() uint {
+	if this.Id == nil {
+		return 0
+	}
+	return *this.Id
+}
+
+type DbOptions struct {
+	Host        string
+	Port        string
+	User        string
+	Pass        string
+	DbName      string
+	MaxIdleConn int
+	MaxOpenConn int
+}

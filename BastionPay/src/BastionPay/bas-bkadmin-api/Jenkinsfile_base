@@ -1,0 +1,81 @@
+#!/usr/bin/env groovy
+pipeline {
+    agent any
+    environment { 
+        def PROJECT_TYPE='BASE_GO_API'
+        def PROJECT_NAME='bas-bkadmin-api'
+        def MY_DOMAIN='src/BastionPay'
+        def REGION='us-east-1'
+    }
+    stages {
+        stage('clone'){
+            steps{
+                deleteDir()
+                script{
+                    env.GOPATH="${WORKSPACE}"
+                    env.PATH="${GOPATH}:${PATH}"
+                    env.CODE_DIR="${MY_DOMAIN}/${PROJECT_NAME}"
+                    env.RELEASE=env.GIT_BRANCH
+                    env.GIT_COMMIT_SHORT=env.GIT_COMMIT.substring(0,5)
+                    env.BUILD_TIME=new Date().format( 'yyyyMMddHHmm' )
+                }
+                dir("$CODE_DIR") {
+                    // some block
+                    git branch: "$RELEASE", credentialsId: '325bd343-f984-4cb0-b6b8-91480ad81068', url: "https://github.com/BastionPay/${PROJECT_NAME}.git"
+                }
+                sh '''# 准备编译环境                    
+                    ## 手动拉取日志模块
+                    cd $GOPATH/$MY_DOMAIN
+                    git clone https://github.com/BastionPay/bas-base.git
+                    
+                    ## 手动拉取bas-api公共模块
+                    cd $GOPATH/$MY_DOMAIN
+                    git clone -b dev https://github.com/BastionPay/bas-api.git
+                    
+                    ## github上谷歌验证模块更改了，暂时指定分支
+                    mkdir -p $GOPATH/src/github.com/rsc/ 
+                    cd $GOPATH/src/github.com/rsc/
+                    git clone https://github.com/rsc/qr
+                    cd $GOPATH/src/github.com/rsc/qr
+                    git checkout 48b2ede4844e13f1a2b7ce4d2529c9af7e359fc5
+                    
+                    ## 创建软连接
+                    ln -s $GOPATH/$MY_DOMAIN $GOPATH/src/github.com/BastionPay
+                '''
+            }
+        }
+        stage('init'){
+            steps{
+                dir('bas-ops-public') {
+                    // some block
+                    git branch: 'master', credentialsId: '325bd343-f984-4cb0-b6b8-91480ad81068', url: 'https://github.com/BastionPay/bas-ops-public.git'
+                }
+                sh '''
+                    cp -rp bas-ops-public/init/base_init.py ./
+                    ./base_init.py
+                '''
+                script{
+                    env.REPOSITORY_URI = readFile encoding: 'utf-8', file: 'environment.tmp'
+                    env.RELEASE_REPOSITORY_TAG = "$REPOSITORY_URI".split(':',2)[1]
+                    manager.addShortText(RELEASE_REPOSITORY_TAG)
+                }
+            }
+        }
+        stage('build'){
+            steps{
+                sh '''
+                    cd ${CODE_DIR} && go get && go build -o ${PROJECT_NAME}
+                    mkdir -p ${GOPATH}/tmp
+                    mv ${PROJECT_NAME} ${GOPATH}/tmp
+                '''
+            }
+        }
+        stage('pull dockerimage') {
+            steps{
+                sh '''
+                    ./pull_image_to_base.sh
+                '''
+            }
+        }
+    }
+}

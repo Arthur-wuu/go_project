@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package rpc.account;
+
+message RequestGetPosns 
+{
+uint64 tid = 1;                   // trading account id.
+repeated string assets = 2;       // array of assets to List, empty to list all.
+}
+
+message Position
+{
+string asset = 1;
+string available = 2;
+string frozen = 3;
+}
+
+message ResponseGetPosns
+{
+uint64 tid = 1;                   // trading account id.
+repeated Position posns = 2;      // array of assets to List, empty to list all.
+}
+
+message RequestDeposit
+{
+uint64 tid = 1;
+uint64 payment_id = 2;            // unique payment id
+string asset = 3;
+string amount = 4;
+string type = 5;                  // valid values: 'available' , 'frozen'. (default 'available')
+}
+
+message ResponseDeposit
+{
+uint64 tid = 1;
+uint64 payment_id = 2;            // unique payment id
+string asset = 3;
+string available = 4;             // available after deposit
+string frozen = 5;                // frozen after deposit
+}
+
+message RequestWithdrawal
+{
+uint64 tid = 1;
+uint64 payment_id = 2;            // unique payment id
+string asset = 3;
+string amount = 4;
+string type = 5;                  // valid values: 'available' , 'frozen'. . (default 'available')
+}
+
+message ResponseWithdrawal
+{
+uint64 tid = 1;
+uint64 payment_id = 2;            // unique payment id
+string asset = 3;
+string available = 4;             // available after withdrawal
+string frozen = 5;                // frozen after withdrawal
+}
+
+service Accounts {
+// List Positions.
+rpc ListPositions(RequestGetPosns) returns (ResponseGetPosns) {}
+
+// Deposits.
+rpc Deposits(RequestDeposit) returns (ResponseDeposit) {}
+
+// Withdrawals.
+rpc Withdrawals(RequestWithdrawal) returns (ResponseWithdrawal) {}
+}

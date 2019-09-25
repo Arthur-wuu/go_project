@@ -1,0 +1,32 @@
+server:
+  #ENV SERVER_PORT
+  port: 8097
+  #ENV SERVER_DEBUG
+  debug: false
+  log: zap.conf
+coinmerit:
+  secret_key: 37bc9ec9e92edbc91ac74b48f28da89e
+  api_key: cb210bb8fde025e45d8bd1c207e3f1b6
+  ws_url: ws://gw.api.coinmerit.com/websocket
+  http_url:  http://gw.api.coinmerit.com
+btcexa:
+  secret_key: 63094903-be27-4602-bf32-d8587387a43b
+  api_key: d07fb202-a26f-4ada-8aa2-9ec05a44fd20
+  ws_url: wss://ws.btcexa.com/api/market/ws
+  http_url: https://www.btcexa.com
+
+market:
+  - abb:       BTE,
+    name:      BTCEXA,
+    zh_name:   比特币交易,
+    web_info:  www.btcexa.com,
+
+coin_detail:
+  - name:      BTC,    XRP
+    zh_name:   比特币,  瑞波币
+    pinyin:    BTB,    RBB
+
+
+
+
+
