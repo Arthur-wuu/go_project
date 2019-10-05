@@ -5,7 +5,7 @@ import (
 	"github.com/streadway/amqp"
 	"log"
 	"time"
-	"webfront/receive"
+	//"webfront/receive"
 )
 
 //声明变量
