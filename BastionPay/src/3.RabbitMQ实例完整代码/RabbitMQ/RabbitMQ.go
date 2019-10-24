@@ -7,7 +7,7 @@ import (
 )
 
 //连接信息
-const MQURL = "amqp://imoocuser:imoocuser@127.0.0.1:5672/imooc"
+const MQURL = "amqp://guest:guest@127.0.0.1:5672/imooc"
 
 //rabbitMQ结构体
 type RabbitMQ struct {
@@ -183,8 +183,7 @@ func (r *RabbitMQ) PublishPub(message string) {
 		nil,
 	)
 
-	r.failOnErr(err, "Failed to declare an excha"+
-		"nge")
+	r.failOnErr(err, "Failed to declare an exchange")
 
 	//2.发送消息
 	err = r.channel.Publish(

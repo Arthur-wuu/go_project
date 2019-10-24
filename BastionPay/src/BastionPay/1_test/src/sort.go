@@ -15,8 +15,11 @@ import (
 
 func main() {
 	arr := []int{9, 4, 5, 1, 22, 8, 4, 7, 0, 2}
+	//quick(arr,0,len(arr)-1)
+	arr = mergeSort(arr)
+	//t()
 	//S(arr)
-	InsertSort(arr)
+	//InsertSort2(arr)
 	//	bubbleSort(arr, len(arr))
 	//	fmt.Println(arr)
 	//
@@ -84,57 +87,110 @@ func selectSort(arr []int) {
 	}
 }
 
+//   []int{9, 4, 5, 1, 22, 8, 4, 7, 0, 2}
+//         0                           9
+//        low                         high
 
-func quickSort(arr []int, start, end int) {
-	if start < end {
-		i, j := start, end
-		key := arr[(start+end)/2]
-		fmt.Println("key",key)
-		for i <= j {                     // 0  14
-			for arr[i] < key {           // 3 < 42
-				i++                      // 1
-			}
-			for arr[j] > key {           //
-				j--
-			}
-			if i <= j {
-				fmt.Println(i,j)
-				arr[i], arr[j] = arr[j], arr[i]
-				i++
-				j--
-			}
-		}
-
-		if start < j {
-			fmt.Println("start j *******", start, j )
-			quickSort(arr, start, j)
-		}
-		if end > i {
-			fmt.Println("end i #######", end ,i )
-			quickSort(arr, i, end)
-		}
+//快速排序
+func quick(arr []int, start, end int)  {
+	if start >= end {
+		return
 	}
+	low := start
+	high := end
+	lv := arr[start]
+
+	for low < high {
+		for low < high && arr[high] >= lv {
+			high --
+		}
+		//出了循环说明 high 小于等于 mid 则需要交换位置
+		arr[high], arr[low] = arr[low], arr[high]
+
+		for low < high && arr[low] < lv{
+			low ++
+		}
+		// 出了循环说明 low 大于等于mid 则需要交换位置
+		arr[high], arr[low] = arr[low], arr[high]
+	}
+	// 大的循环退出以后就找到了 mid的位置,此时mid 左边的都小于mid, 右边都大于mid,以 mid 为界限再排序左右两边
+	arr[low] = lv
+	quick(arr, start, low - 1) // 排序左边的
+	quick(arr, low + 1, end ) // 排序右边的
+
 }
 
-/*
-  插入排序 ： []int{9, 4, 5, 1, 22, 8, 4, 7, 0, 2}
+
+//归并排序
+func mergeSort(arr []int) []int {
+	if len(arr) < 2 {
+		return arr
+	}
+	i := len(arr) / 2
+	left := mergeSort(arr[0:i])
+	right := mergeSort(arr[i:])
+	result := merge(left, right)
+	return result
+}
+
+func merge(left, right []int) []int {
+	result := make([]int, 0)
+	m, n := 0, 0 // left和right的index位置
+	l, r := len(left), len(right)
+	for m < l && n < r {
+		if left[m] > right[n] {
+			result = append(result, right[n])
+			n++
+			continue
+		}
+		result = append(result, left[m])
+		m++
+	}
+	result = append(result, right[n:]...) // 这里竟然没有报数组越界的异常？
+	result = append(result, left[m:]...)
+	return result
+}
+
+
+/*      //a[j-1]  a[j]  temp
+  插入排序 ： []int {9,     4,      5,   1, 22, 8, 4, 7, 0, 2}
  */
-func InsertSort(a []int) {
-	var j int
-	for i := 1; i < len(a); i++ {
-		temp := a[i]
-		for j = i - 1; j >= 0 && a[j] > temp; j-- {
-			a[j+1] = a[j]
+//插入排序 ： []int{9,       4, 5, 1, 22, 8, 4, 7, 0, 2}
+
+func InsertSort2(values []int) {
+	length := len(values)
+	//if length <= 1 {
+	//	return
+	//}
+
+	for i := 1; i < length; i++ {
+		tmp := values[i] // 从第二个数开始，从左向右依次取数
+		key := i - 1     // 下标从0开始，依次从左向右
+		// 每次取到的数都跟左侧的数做比较，如果左侧的数比取的数大，就将左侧的数右移一位，直至左侧没有数字比取的数大为止
+		for key >= 0 &&  values[key] > tmp {
+			values[key+1] = values[key]
+			key--
+			//fmt.Println(values)
 		}
-		fmt.Println("a[j+1]",j+1,a[j+1])
-		a[j+1] = temp
-		fmt.Println(a)
+
+		// 将取到的数插入到不小于左侧数的位置
+			values[key+1] = tmp
+
 	}
-	fmt.Println(a)
+
 }
+
+
+
 
 func t(){
 	chans := make([]int,10)
+	for i, v := range chans{
+		fmt.Println(i,v)
+	}
+	for i := range chans{
+		fmt.Println(i)
+	}
 	s  := cap(chans)
 	fmt.Println(s)
 }

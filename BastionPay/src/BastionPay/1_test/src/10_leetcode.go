@@ -21,6 +21,8 @@ func main() {
 //leetcode387 : 找第一个不重复的字符的下标
 
 func firstUniqChar(s string) int {
+	var bb = []int{1}
+	var ss = []interface{}{1}
 	stmp:=[]byte(s)//字符串转字节数组
 	fmt.Println(stmp)
 	sMap:=make(map[byte]int)

@@ -2,7 +2,9 @@ package mains
 
 import (
 	"fmt"
+	"reflect"
 	"time"
+	"container/heap"
 
 	//	"os"
 )
@@ -228,6 +230,38 @@ return node
 
 
 }
+
+func SanSum(arr []int)  {
+	//[-1,1,2,0,1,2,-3]
+	smap := make(map[int]int)
+	for i:= 0; i < len(arr); i++  {
+		for j:= i+1; j < len(arr)-1; j++  {
+			a := 0 - (arr[i] + arr[j] )
+			smap[a]
+		}
+	}
+
+}
+
+func isAnagram(s string, t string) bool {
+	m1 := make(map[rune]int)
+	m2 := make(map[rune]int)
+
+	for _, v := range s {
+		m1[v] += 1
+	}
+	for _, v := range t {
+		m2[v] += 1
+	}
+
+	return reflect.DeepEqual(m1, m2)
+}
+
+
+
+
+
+
 
 
 

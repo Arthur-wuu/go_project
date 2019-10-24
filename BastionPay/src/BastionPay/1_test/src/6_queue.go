@@ -16,6 +16,7 @@ type Item interface {}
 // 队列结构体
 type Queue struct {
 	Items []Item
+	//ITems []interface{}
 }
 
 //type IQueue interface {
@@ -28,8 +29,8 @@ type Queue struct {
 
 // 新建
 func (q *Queue)New() *Queue  {
-	q.Items = []Item{}
-	//q.Items = make([]Item,0)
+	//q.Items = []Item{}
+	q.Items = make([]Item,0)
 	return q
 }
 

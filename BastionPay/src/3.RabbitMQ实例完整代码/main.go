@@ -20,7 +20,7 @@ const (
 	//队列名称
 	queueName = "imooc"
 	exchange  = ""
-	mqurl     = "amqp://guest:guest@127.0.0.1:5673"
+	mqurl     = "amqp://guest:guest@127.0.0.1:5672"
 )
 
 //错误处理函数
@@ -112,9 +112,10 @@ func receive() {
 	//消费逻辑
 	go func() {
 		for d := range msg {
-			s := queue.BytesToString(&d.Body)
+			s :=fmt.Sprintf("%x", &d.Body)
+			//s := queue.BytesToString(&d.Body)
 			count++
-			fmt.Println("接收信息是%s-- %d\n", *s, count)
+			fmt.Println("接收信息是%s-- %d\n", s, count)
 		}
 	}()
 

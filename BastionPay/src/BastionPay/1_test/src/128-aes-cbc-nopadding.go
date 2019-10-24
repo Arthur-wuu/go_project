@@ -7,7 +7,7 @@ import(
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
-	"time"
+	//"time"
 
 	//"time"
 
@@ -84,13 +84,13 @@ func Base64Encode1(src []byte) []byte {
 func Base64Decode1(src []byte) ([]byte, error) {
 	return coder1.DecodeString(string(src))
 }
-
-func Base58ss (src []byte) ([]byte, error) {
-	fmt.Println(base.(src))
-	s , _ := Base58(src)
-	fmt.Println("string", string(s))
-	return Base58(src)
-}
+//
+//func Base58ss (src []byte) ([]byte, error) {
+//	//fmt.Println(base.(src))
+//	//s , _ := Base58(src)
+//	//fmt.Println("string", string(s))
+//	//return Base58(src)
+//}
 
 
 func Aes128Decrypt(crypted, key []byte) ([]byte, error) {
@@ -186,7 +186,9 @@ func main() {
 	//
 	//
 	//time.Sleep( time.Second * 12)
-	Base58([]byte("ss"))
+	//Base58([]byte("ss"))
+	err := GenRsaKeys(RsaBits2048)
+	fmt.Println(err)
 
 }
 
