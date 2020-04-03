@@ -19,14 +19,14 @@ func (this *UserHelp) Add(ctx iris.Context) {
 	err := Tools.ShouldBindJSON(ctx, param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
 	result, err := param.Add()
 	if err != nil {
-		ZapLog().Error( "Add param to mysql err", zap.Error(err))
-		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(),  err.Error())
+		ZapLog().Error("Add param to mysql err", zap.Error(err))
+		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), err.Error())
 		return
 	}
 
@@ -60,12 +60,12 @@ func (this *UserHelp) Update(ctx iris.Context) {
 	err := Tools.ShouldBindJSON(ctx, param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
-	 data ,err := param.Update()
-	 if  err != nil {
+	data, err := param.Update()
+	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
 		return
 	}

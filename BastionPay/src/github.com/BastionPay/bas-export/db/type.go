@@ -1,6 +1,5 @@
 package db
 
-
 type DbOptions struct {
 	Host        string
 	Port        string
@@ -10,6 +9,3 @@ type DbOptions struct {
 	MaxIdleConn int
 	MaxOpenConn int
 }
-
-
-

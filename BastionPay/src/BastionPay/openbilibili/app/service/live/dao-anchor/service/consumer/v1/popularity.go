@@ -35,7 +35,7 @@ func (s *ConsumerService) internalPopularityStatistics(ctx context.Context, msg 
 		req := &v1pb.RoomExtendUpdateReq{
 			RoomId:          roomId,
 			PopularityCount: value,
-			Fields:		[]string{"popularity_count"},
+			Fields:          []string{"popularity_count"},
 		}
 		s.dao.RoomExtendUpdate(ctx, req)
 		return

@@ -1,28 +1,28 @@
 package controllers
 
 import (
-	"go.uber.org/zap"
-	"github.com/kataras/iris"
-	"strings"
-	"errors"
-	. "BastionPay/bas-base/log/zap"
-	apiquote "BastionPay/bas-api/quote"
 	"BastionPay/bas-api/apibackend"
-	"BastionPay/bas-quote/quote"
+	apiquote "BastionPay/bas-api/quote"
+	. "BastionPay/bas-base/log/zap"
 	"BastionPay/bas-quote/collect"
-	"BastionPay/bas-quote/utils"
 	"BastionPay/bas-quote/config"
-	"strconv"
+	"BastionPay/bas-quote/quote"
+	"BastionPay/bas-quote/utils"
+	"errors"
 	"fmt"
+	"github.com/kataras/iris"
+	"go.uber.org/zap"
+	"strconv"
+	"strings"
 )
 
 func NewQuoteCtl(q *quote.QuoteMgr) *QuoteCtl {
 	return &QuoteCtl{
-		mQuote:q,
+		mQuote: q,
 	}
 }
 
-type QuoteCtl struct{
+type QuoteCtl struct {
 	mQuote *quote.QuoteMgr
 }
 
@@ -40,7 +40,7 @@ func (this *QuoteCtl) Ticker(ctx iris.Context) {
 		to = "USD"
 	}
 
-	fromArr := strings.Split(strings.Replace(from, " ", "", -1),",")
+	fromArr := strings.Split(strings.Replace(from, " ", "", -1), ",")
 	toArr := strings.Split(strings.Replace(to, " ", "", -1), ",")
 
 	//if len(fromArr) * len(toArr) > 300 {
@@ -52,7 +52,7 @@ func (this *QuoteCtl) Ticker(ctx iris.Context) {
 	resMsg := apiquote.NewResMsg(apibackend.BASERR_SUCCESS.Code(), "")
 	var moneyInfo *apiquote.MoneyInfo
 	var err error
-	for i:=0; i < len(fromArr); i++ {
+	for i := 0; i < len(fromArr); i++ {
 		if len(fromArr[i]) == 0 {
 			continue
 		}
@@ -64,14 +64,14 @@ func (this *QuoteCtl) Ticker(ctx iris.Context) {
 		QuoteDetailInfo := resMsg.GenQuoteDetailInfo()
 		QuoteDetailInfo.Id = codeInfo.Id
 		QuoteDetailInfo.Symbol = codeInfo.Symbol
-		for j:=0; j < len(toArr); j++{
+		for j := 0; j < len(toArr); j++ {
 			if len(toArr[j]) == 0 {
 				continue
 			}
 			if codeInfo.GetId() >= 100000 {
-				moneyInfo,err = this.getHighTicker(codeInfo.GetId(), fromArr[i], toArr[j])
-			}else{
-				moneyInfo,err = this.getLowTicker(codeInfo.GetId(), toArr[j])
+				moneyInfo, err = this.getHighTicker(codeInfo.GetId(), fromArr[i], toArr[j])
+			} else {
+				moneyInfo, err = this.getLowTicker(codeInfo.GetId(), toArr[j])
 			}
 			if err != nil {
 				continue
@@ -83,7 +83,7 @@ func (this *QuoteCtl) Ticker(ctx iris.Context) {
 	ZapLog().Debug("deal handleTicker ok")
 }
 
-func (this *QuoteCtl) getLowTicker(from int, to string) (*apiquote.MoneyInfo, error){
+func (this *QuoteCtl) getLowTicker(from int, to string) (*apiquote.MoneyInfo, error) {
 	moneyInfo := new(collect.MoneyInfo)
 	moneyInfo2, err := this.mQuote.GetQuoteUseId(from, "USD")
 	if err != nil {
@@ -97,7 +97,7 @@ func (this *QuoteCtl) getLowTicker(from int, to string) (*apiquote.MoneyInfo, er
 		return nil, err
 	}
 
-	moneyInfo.SetPrice((moneyInfo2.GetPrice())*(moneyInfo3.GetPrice()))
+	moneyInfo.SetPrice((moneyInfo2.GetPrice()) * (moneyInfo3.GetPrice()))
 	moneyInfo.SetSymbol(to)
 	moneyInfo.SetLast_updated(moneyInfo2.GetLast_updated())
 	return utils.ToApiMoneyInfo(moneyInfo), nil
@@ -105,10 +105,10 @@ func (this *QuoteCtl) getLowTicker(from int, to string) (*apiquote.MoneyInfo, er
 
 func (this *QuoteCtl) getHighTicker(from int, fromStr, to string) (*apiquote.MoneyInfo, error) {
 	SrcInfo, ok := config.GPreConfig.FromCollects[fromStr]
-	if !ok{
+	if !ok {
 		SrcInfo, ok = config.GPreConfig.IdsCollects[fmt.Sprintf("%d", from)]
 		if !ok {
-			ZapLog().Error(fromStr+" config not set")
+			ZapLog().Error(fromStr + " config not set")
 			return nil, errors.New("config not set")
 		}
 	}
@@ -116,7 +116,7 @@ func (this *QuoteCtl) getHighTicker(from int, fromStr, to string) (*apiquote.Mon
 	moneyInfo1, err := this.mQuote.GetQuoteUseId(from, SrcInfo.Coin_to)
 	if err != nil {
 		ZapLog().Info("get qt_from[i]_BTC err", zap.Error(err), zap.Int("id", from))
-		return nil,err
+		return nil, err
 	}
 	codeInfo := this.mQuote.GetSymbol(SrcInfo.Coin_to)
 	if codeInfo == nil {
@@ -128,17 +128,17 @@ func (this *QuoteCtl) getHighTicker(from int, fromStr, to string) (*apiquote.Mon
 		ZapLog().Info("get qt_BTC_USD err", zap.Error(err))
 		return nil, err
 	}
-	moneyInfo3, err := this.mQuote.GetQuoteHuilv( to)
+	moneyInfo3, err := this.mQuote.GetQuoteHuilv(to)
 	if err != nil {
 		ZapLog().Info("get qt_USD_to[i] err", zap.Error(err), zap.String("huilv", to))
-		return nil,err
+		return nil, err
 	}
 
-	moneyInfo.SetPrice((moneyInfo1.GetPrice())*(moneyInfo2.GetPrice())*(moneyInfo3.GetPrice()))
+	moneyInfo.SetPrice((moneyInfo1.GetPrice()) * (moneyInfo2.GetPrice()) * (moneyInfo3.GetPrice()))
 	moneyInfo.SetSymbol(to)
 	moneyInfo.SetLast_updated(moneyInfo1.GetLast_updated())
 
-	return utils.ToApiMoneyInfo(moneyInfo),nil
+	return utils.ToApiMoneyInfo(moneyInfo), nil
 }
 
 func (this *QuoteCtl) Exchange(ctx iris.Context) {
@@ -160,7 +160,7 @@ func (this *QuoteCtl) Exchange(ctx iris.Context) {
 	var err error
 	amountStr := strings.ToUpper(ctx.URLParam("amount"))
 	if len(amountStr) != 0 {
-		amount,err = strconv.ParseFloat(amountStr, 64)
+		amount, err = strconv.ParseFloat(amountStr, 64)
 		if err != nil {
 			ZapLog().With(zap.String("amount", amountStr)).Error("param err")
 			ctx.JSON(*apiquote.NewResMsg(apibackend.BASERR_INVALID_PARAMETER.Code(), "param err"))
@@ -173,7 +173,7 @@ func (this *QuoteCtl) Exchange(ctx iris.Context) {
 		return
 	}
 
-	fromArr := strings.Split(strings.Replace(from, " ", "", -1),",")
+	fromArr := strings.Split(strings.Replace(from, " ", "", -1), ",")
 	toArr := strings.Split(strings.Replace(to, " ", "", -1), ",")
 
 	//if len(fromArr) * len(toArr) > 300 {
@@ -184,14 +184,14 @@ func (this *QuoteCtl) Exchange(ctx iris.Context) {
 
 	resMsg := apiquote.NewResMsg(apibackend.BASERR_SUCCESS.Code(), "")
 	var moneyInfo *apiquote.MoneyInfo
-	for i:=0; i < len(fromArr); i++ {
+	for i := 0; i < len(fromArr); i++ {
 		if len(fromArr[i]) == 0 {
 			continue
 		}
 
 		QuoteDetailInfo := resMsg.GenQuoteDetailInfo()
 		QuoteDetailInfo.Symbol = &fromArr[i]
-		for j:=0; j < len(toArr); j++{
+		for j := 0; j < len(toArr); j++ {
 			if len(toArr[j]) == 0 {
 				continue
 			}
@@ -201,9 +201,9 @@ func (this *QuoteCtl) Exchange(ctx iris.Context) {
 				continue
 			}
 			if codeInfo.GetId() >= 100000 {
-				moneyInfo,err = this.getHighTicker(codeInfo.GetId(),  toArr[j], fromArr[i])
-			}else{
-				moneyInfo,err = this.getLowTicker(codeInfo.GetId(), fromArr[i])
+				moneyInfo, err = this.getHighTicker(codeInfo.GetId(), toArr[j], fromArr[i])
+			} else {
+				moneyInfo, err = this.getLowTicker(codeInfo.GetId(), fromArr[i])
 			}
 			if err != nil {
 				continue

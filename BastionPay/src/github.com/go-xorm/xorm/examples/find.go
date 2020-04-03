@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/go-xorm/xorm"
-        _ "github.com/mattn/go-sqlite3"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 // User describes a user

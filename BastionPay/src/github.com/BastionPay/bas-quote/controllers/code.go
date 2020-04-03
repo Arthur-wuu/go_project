@@ -1,37 +1,36 @@
 package controllers
 
 import (
-
-	"sort"
-	"go.uber.org/zap"
-	"github.com/kataras/iris"
-	"strings"
-	. "BastionPay/bas-base/log/zap"
-	apiquote "BastionPay/bas-api/quote"
 	"BastionPay/bas-api/apibackend"
+	apiquote "BastionPay/bas-api/quote"
+	. "BastionPay/bas-base/log/zap"
+	"BastionPay/bas-quote/config"
 	"BastionPay/bas-quote/quote"
 	. "BastionPay/bas-quote/utils"
-	"BastionPay/bas-quote/config"
+	"github.com/kataras/iris"
+	"go.uber.org/zap"
+	"sort"
+	"strings"
 )
 
 func NewCodeCtl(q *quote.QuoteMgr) *CodeCtl {
-	cc:= &CodeCtl{
-		mQuote:q,
-		mLegals :   make([]*apiquote.CodeInfo,0),
+	cc := &CodeCtl{
+		mQuote:  q,
+		mLegals: make([]*apiquote.CodeInfo, 0),
 	}
-	for i:=0; i< len(config.GPreConfig.CountryCodeArr); i++ {
+	for i := 0; i < len(config.GPreConfig.CountryCodeArr); i++ {
 		info := &apiquote.CodeInfo{
 			Symbol: &config.GPreConfig.CountryCodeArr[i],
-			Name: &config.GPreConfig.CountryNameArr[i],
+			Name:   &config.GPreConfig.CountryNameArr[i],
 		}
 		cc.mLegals = append(cc.mLegals, info)
 	}
 	return cc
 }
 
-type CodeCtl struct{
-	mQuote *quote.QuoteMgr
-	mLegals    []*apiquote.CodeInfo
+type CodeCtl struct {
+	mQuote  *quote.QuoteMgr
+	mLegals []*apiquote.CodeInfo
 }
 
 func (this *CodeCtl) ListSymbols(ctx iris.Context) {
@@ -46,12 +45,12 @@ func (this *CodeCtl) ListSymbols(ctx iris.Context) {
 	codes := make([]*apiquote.CodeInfo, 0)
 	if len(symbols) == 0 {
 		symbols := this.mQuote.ListSymbols()
-		for i:=0; i < len(symbols); i++{
+		for i := 0; i < len(symbols); i++ {
 			codes = append(codes, ToApiCodeInfo(&symbols[i]))
 		}
-	}else{
+	} else {
 		symbolsArr := strings.Split(symbols, ",")
-		for i:=0; i< len(symbolsArr); i++ {
+		for i := 0; i < len(symbolsArr); i++ {
 			if len(symbolsArr[i]) == 0 {
 				continue
 			}
@@ -60,7 +59,7 @@ func (this *CodeCtl) ListSymbols(ctx iris.Context) {
 				ZapLog().With(zap.String("symbol", symbolsArr[i])).Warn("GetSymbol nofind err")
 				continue
 			}
-			codes = append(codes,  ToApiCodeInfo(info))
+			codes = append(codes, ToApiCodeInfo(info))
 		}
 	}
 	sort.Sort(CodeInfoList(codes))
@@ -72,9 +71,11 @@ func (this *CodeCtl) ListSymbols(ctx iris.Context) {
 }
 
 type CodeInfoList []*apiquote.CodeInfo
-func (d CodeInfoList) Len() int           { return len(d) }
+
+func (d CodeInfoList) Len() int { return len(d) }
+
 //func (d CodeInfoList) Less(i, j int) bool { return uintptr(unsafe.Pointer(d[i].Id))< uintptr(unsafe.Pointer(d[j].Id)) }
-func (d CodeInfoList) Less(i, j int) bool { return d[i].GetId()< d[j].GetId()}
+func (d CodeInfoList) Less(i, j int) bool { return d[i].GetId() < d[j].GetId() }
 func (d CodeInfoList) Swap(i, j int)      { d[i], d[j] = d[j], d[i] }
 
 func (this *CodeCtl) ListCoinAndFx(ctx iris.Context) {
@@ -83,9 +84,9 @@ func (this *CodeCtl) ListCoinAndFx(ctx iris.Context) {
 
 	resMsg := apiquote.NewResMsg(apibackend.BASERR_SUCCESS.Code(), "")
 	coins := new(apiquote.CoinInfo)
-	Digitals  := make([]*apiquote.CodeInfo, 0)
+	Digitals := make([]*apiquote.CodeInfo, 0)
 	symbols := this.mQuote.ListSymbols()
-	for i:=0; i < len(symbols); i++{
+	for i := 0; i < len(symbols); i++ {
 		Digitals = append(Digitals, ToApiCodeInfo(&symbols[i]))
 	}
 	sort.Sort(CodeInfoList(Digitals))
@@ -96,4 +97,3 @@ func (this *CodeCtl) ListCoinAndFx(ctx iris.Context) {
 	ZapLog().Debug("deal handleListSymbols")
 	return
 }
-

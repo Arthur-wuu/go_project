@@ -20,7 +20,7 @@ func TestNew(t *testing.T) {
 		args  args
 		wantD *Dao
 	}{
-	// TODO: Add test cases.
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		Convey(tt.name, t, func() {
@@ -49,7 +49,7 @@ func TestDao_Info(t *testing.T) {
 		wantInfo *shop.Info
 		wantErr  error
 	}{
-	// TODO: Add test cases.
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		Convey(tt.name, t, func() {

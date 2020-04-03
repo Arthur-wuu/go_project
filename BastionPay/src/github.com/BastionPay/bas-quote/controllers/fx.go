@@ -1,25 +1,24 @@
 package controllers
 
 import (
-	"github.com/kataras/iris"
-	"BastionPay/bas-quote/quote"
-	"strings"
-	"go.uber.org/zap"
-	"BastionPay/bas-quote/utils"
-	. "BastionPay/bas-base/log/zap"
-	apiquote "BastionPay/bas-api/quote"
 	"BastionPay/bas-api/apibackend"
+	apiquote "BastionPay/bas-api/quote"
+	. "BastionPay/bas-base/log/zap"
 	"BastionPay/bas-quote/collect"
-
+	"BastionPay/bas-quote/quote"
+	"BastionPay/bas-quote/utils"
+	"github.com/kataras/iris"
+	"go.uber.org/zap"
+	"strings"
 )
 
 func NewFxCtl(q *quote.QuoteMgr) *FxCtl {
 	return &FxCtl{
-		mQuote:q,
+		mQuote: q,
 	}
 }
 
-type FxCtl struct{
+type FxCtl struct {
 	mQuote *quote.QuoteMgr
 }
 
@@ -47,7 +46,7 @@ func (this *FxCtl) Ticker(ctx iris.Context) {
 	fromArr := strings.Split(from, ",")
 
 	resMsg := apiquote.NewResMsg(apibackend.BASERR_SUCCESS.Code(), "")
-	for i:=0; i < len(fromArr); i++ {
+	for i := 0; i < len(fromArr); i++ {
 		if len(fromArr[i]) == 0 {
 			continue
 		}
@@ -59,7 +58,7 @@ func (this *FxCtl) Ticker(ctx iris.Context) {
 
 		QuoteDetailInfo := resMsg.GenQuoteDetailInfo()
 		QuoteDetailInfo.Symbol = &fromArr[i]
-		for j:=0; j < len(toArr); j++{
+		for j := 0; j < len(toArr); j++ {
 			if len(toArr[j]) == 0 {
 				continue
 			}
@@ -69,11 +68,11 @@ func (this *FxCtl) Ticker(ctx iris.Context) {
 				ZapLog().Error("get qt_USD_to[i] err", zap.Error(err), zap.String("huilv", toArr[j]))
 				continue
 			}
-			moneyInfo.SetPrice(toInfo.GetPrice()/fromInfo.GetPrice())
+			moneyInfo.SetPrice(toInfo.GetPrice() / fromInfo.GetPrice())
 			moneyInfo.SetSymbol(toArr[j])
 			if toInfo.GetLast_updated() != 0 {
 				moneyInfo.SetLast_updated(toInfo.GetLast_updated())
-			}else{
+			} else {
 				moneyInfo.SetLast_updated(fromInfo.GetLast_updated())
 			}
 

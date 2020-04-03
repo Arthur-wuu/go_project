@@ -1,71 +1,69 @@
 package models
 
 import (
-	"BastionPay/bas-notify/models/table"
 	"BastionPay/bas-notify/db"
-	"strings"
+	"BastionPay/bas-notify/models/table"
 	"github.com/jinzhu/gorm"
+	"strings"
 )
 
 type (
-
 	TemplateGroupAdd struct {
-		Id        *int       `valid:"optional" json:"id,omitempty"`
-		Name     *string      `valid:"required" json:"name,omitempty"`
-		SubName  *string      `valid:"optional" json:"sub_name,omitempty"`
-		Detail    *string     `valid:"optional" json:"detail,omitempty"`
-		Alive     *int        `valid:"optional" json:"alive,omitempty"`
-		Type      *int        `valid:"optional" json:"type,omitempty"`
-		CreatedAt *int64      `valid:"optional" json:"createdat,omitempty"`
-		UpdatedAt *int64      `valid:"optional" json:"updatedat,omitempty"`
-		Author    *string     `valid:"optional" json:"author,omitempty"`
-		Editor    *string     `valid:"optional" json:"editor,omitempty"`
+		Id               *int    `valid:"optional" json:"id,omitempty"`
+		Name             *string `valid:"required" json:"name,omitempty"`
+		SubName          *string `valid:"optional" json:"sub_name,omitempty"`
+		Detail           *string `valid:"optional" json:"detail,omitempty"`
+		Alive            *int    `valid:"optional" json:"alive,omitempty"`
+		Type             *int    `valid:"optional" json:"type,omitempty"`
+		CreatedAt        *int64  `valid:"optional" json:"createdat,omitempty"`
+		UpdatedAt        *int64  `valid:"optional" json:"updatedat,omitempty"`
+		Author           *string `valid:"optional" json:"author,omitempty"`
+		Editor           *string `valid:"optional" json:"editor,omitempty"`
 		DefaultRecipient *string `valid:"optional" json:"default_recipient,omitempty"`
-		SmsPlatform *int  		`valid:"optional" json:"sms_platform,omitempty"`
+		SmsPlatform      *int    `valid:"optional" json:"sms_platform,omitempty"`
 	}
 
-	 TemplateGroup struct {
-		Id        *int       `valid:"required" json:"id,omitempty"`
-		Name     *string      `valid:"optional" json:"name,omitempty"`
-		SubName         *string          `valid:"optional" json:"sub_name,omitempty"`
-		Detail    *string     `valid:"optional" json:"detail,omitempty"`
-		Alive     *int        `valid:"optional" json:"alive,omitempty"`
-		Type      *int        `valid:"optional" json:"type,omitempty"`
-		CreatedAt *int64      `valid:"optional" json:"createdat,omitempty"`
-		UpdatedAt *int64      `valid:"optional" json:"updatedat,omitempty"`
-		Author    *string     `valid:"optional" json:"author,omitempty"`
-		Editor    *string     `valid:"optional" json:"editor,omitempty"`
+	TemplateGroup struct {
+		Id               *int    `valid:"required" json:"id,omitempty"`
+		Name             *string `valid:"optional" json:"name,omitempty"`
+		SubName          *string `valid:"optional" json:"sub_name,omitempty"`
+		Detail           *string `valid:"optional" json:"detail,omitempty"`
+		Alive            *int    `valid:"optional" json:"alive,omitempty"`
+		Type             *int    `valid:"optional" json:"type,omitempty"`
+		CreatedAt        *int64  `valid:"optional" json:"createdat,omitempty"`
+		UpdatedAt        *int64  `valid:"optional" json:"updatedat,omitempty"`
+		Author           *string `valid:"optional" json:"author,omitempty"`
+		Editor           *string `valid:"optional" json:"editor,omitempty"`
 		DefaultRecipient *string `valid:"optional" json:"default_recipient,omitempty"`
-		SmsPlatform *int  		`valid:"optional" json:"sms_platform,omitempty"`
+		SmsPlatform      *int    `valid:"optional" json:"sms_platform,omitempty"`
 	}
 
-	TemplateGroupList struct{
-		Type            *int             `valid:"optional" json:"type,omitempty"`
-		Name            *string          `valid:"optional" json:"name,omitempty"`
-		SubName         *string          `valid:"optional" json:"sub_name,omitempty"`
-		Total_lines     int              `valid:"optional" json:"total_lines,omitempty"`
-		Page_index      int              `valid:"optional" json:"page_index,omitempty"`
-		Max_disp_lines  int              `valid:"optional" json:"max_disp_lines,omitempty"`
+	TemplateGroupList struct {
+		Type           *int    `valid:"optional" json:"type,omitempty"`
+		Name           *string `valid:"optional" json:"name,omitempty"`
+		SubName        *string `valid:"optional" json:"sub_name,omitempty"`
+		Total_lines    int     `valid:"optional" json:"total_lines,omitempty"`
+		Page_index     int     `valid:"optional" json:"page_index,omitempty"`
+		Max_disp_lines int     `valid:"optional" json:"max_disp_lines,omitempty"`
 	}
 
 	TemplateGroupCopy struct {
-		Id        *int       `valid:"required" json:"id,omitempty"`
-		SubName   []*string          `valid:"optional" json:"sub_name,omitempty"`
+		Id      *int      `valid:"required" json:"id,omitempty"`
+		SubName []*string `valid:"optional" json:"sub_name,omitempty"`
 	}
-
 )
 
-func (this * TemplateGroupAdd) Add() (*table.TemplateGroup, error) {
+func (this *TemplateGroupAdd) Add() (*table.TemplateGroup, error) {
 	t := &table.TemplateGroup{
-		Name: this.Name,
-		SubName: this.SubName,
-		Detail: this.Detail,
-		Alive: this.Alive,
-		Type: this.Type,
-		Author: this.Author,
-		Editor: this.Editor,
+		Name:             this.Name,
+		SubName:          this.SubName,
+		Detail:           this.Detail,
+		Alive:            this.Alive,
+		Type:             this.Type,
+		Author:           this.Author,
+		Editor:           this.Editor,
 		DefaultRecipient: this.DefaultRecipient,
-		SmsPlatform: this.SmsPlatform,
+		SmsPlatform:      this.SmsPlatform,
 	}
 	if t.Alive == nil {
 		t.Alive = new(int)
@@ -83,14 +81,14 @@ func (this * TemplateGroupAdd) Add() (*table.TemplateGroup, error) {
 
 	}
 	err := db.GDbMgr.Get().Create(t).Error
-	return t,err
+	return t, err
 }
 
-func (this * TemplateGroupAdd) Unique() (bool, error) {
+func (this *TemplateGroupAdd) Unique() (bool, error) {
 	mod := &table.TemplateGroup{
-		Name:  this.Name,
+		Name:    this.Name,
 		SubName: this.SubName,
-		Type:  this.Type,
+		Type:    this.Type,
 	}
 
 	count := 0
@@ -101,11 +99,11 @@ func (this * TemplateGroupAdd) Unique() (bool, error) {
 	return count == 0, err
 }
 
-func (this * TemplateGroup) Unique() (bool, error) {
+func (this *TemplateGroup) Unique() (bool, error) {
 	mod := &table.TemplateGroup{
-		Name:  this.Name,
+		Name:    this.Name,
 		SubName: this.SubName,
-		Type:  this.Type,
+		Type:    this.Type,
 	}
 
 	count := 0
@@ -116,19 +114,18 @@ func (this * TemplateGroup) Unique() (bool, error) {
 	return count == 0, err
 }
 
-
-func (this * TemplateGroup) Update() error {
+func (this *TemplateGroup) Update() error {
 	group := &table.TemplateGroup{
-		Id: this.Id,
-		Name: this.Name,
-		SubName: this.SubName,
-		Detail: this.Detail,
-		Alive: this.Alive,
-		Type: this.Type,
-		Author: this.Author,
-		Editor: this.Editor,
+		Id:               this.Id,
+		Name:             this.Name,
+		SubName:          this.SubName,
+		Detail:           this.Detail,
+		Alive:            this.Alive,
+		Type:             this.Type,
+		Author:           this.Author,
+		Editor:           this.Editor,
 		DefaultRecipient: this.DefaultRecipient,
-		SmsPlatform: this.SmsPlatform,
+		SmsPlatform:      this.SmsPlatform,
 	}
 	if group.DefaultRecipient != nil {
 		*group.DefaultRecipient = strings.Replace(*group.DefaultRecipient, " ", "", -1)
@@ -137,18 +134,18 @@ func (this * TemplateGroup) Update() error {
 	return db.GDbMgr.Get().Model(group).Updates(group).Error
 }
 
-func (this * TemplateGroup) TxUpdate(db *gorm.DB) error {
+func (this *TemplateGroup) TxUpdate(db *gorm.DB) error {
 	group := &table.TemplateGroup{
-		Id: this.Id,
-		Name: this.Name,
-		SubName: this.SubName,
-		Detail: this.Detail,
-		Alive: this.Alive,
-		Type: this.Type,
-		Author: this.Author,
-		Editor: this.Editor,
+		Id:               this.Id,
+		Name:             this.Name,
+		SubName:          this.SubName,
+		Detail:           this.Detail,
+		Alive:            this.Alive,
+		Type:             this.Type,
+		Author:           this.Author,
+		Editor:           this.Editor,
 		DefaultRecipient: this.DefaultRecipient,
-		SmsPlatform: this.SmsPlatform,
+		SmsPlatform:      this.SmsPlatform,
 	}
 	if group.DefaultRecipient != nil {
 		*group.DefaultRecipient = strings.Replace(*group.DefaultRecipient, " ", "", len(*group.DefaultRecipient))
@@ -157,7 +154,7 @@ func (this * TemplateGroup) TxUpdate(db *gorm.DB) error {
 	return db.Model(group).Updates(group).Error
 }
 
-func (this * TemplateGroup) TxDel(db *gorm.DB) error {
+func (this *TemplateGroup) TxDel(db *gorm.DB) error {
 	return db.Where("id = ?", *this.Id).Delete(&table.TemplateGroup{}).Error
 }
 
@@ -165,38 +162,37 @@ func (this * TemplateGroup) TxDel(db *gorm.DB) error {
 //	return db.GDbMgr.Get().Model(&table.TemplateGroup{}).Where("id = ?", id).Update("alive", alive).Error
 //}
 
-func (this * TemplateGroup) GetByNameAndType(name string, tp int, subName *string) (*table.TemplateGroup, error) {
+func (this *TemplateGroup) GetByNameAndType(name string, tp int, subName *string) (*table.TemplateGroup, error) {
 	t := new(table.TemplateGroup)
-	err :=  db.GDbMgr.Get().Model(&table.TemplateGroup{}).Where("name = ? and type = ? and sub_name = ?", name, tp, subName).Last(t).Error
+	err := db.GDbMgr.Get().Model(&table.TemplateGroup{}).Where("name = ? and type = ? and sub_name = ?", name, tp, subName).Last(t).Error
 	if err == gorm.ErrRecordNotFound {
-		return nil,nil
+		return nil, nil
 	}
-	return t,err
+	return t, err
 }
 
-func (this * TemplateGroup) GetByid(id int) (*table.TemplateGroup, error) {
+func (this *TemplateGroup) GetByid(id int) (*table.TemplateGroup, error) {
 	t := new(table.TemplateGroup)
-	err :=  db.GDbMgr.Get().Model(&table.TemplateGroup{}).Where("id = ?", id).Last(t).Error
+	err := db.GDbMgr.Get().Model(&table.TemplateGroup{}).Where("id = ?", id).Last(t).Error
 	if err == gorm.ErrRecordNotFound {
-		return nil,nil
+		return nil, nil
 	}
-	return t,err
+	return t, err
 }
 
-func (this * TemplateGroup) GetAlive() (*table.TemplateGroup, error) {
+func (this *TemplateGroup) GetAlive() (*table.TemplateGroup, error) {
 	t := new(table.TemplateGroup)
-	err :=  db.GDbMgr.Get().Model(&table.TemplateGroup{}).Where("alive = 1").Last(t).Error
+	err := db.GDbMgr.Get().Model(&table.TemplateGroup{}).Where("alive = 1").Last(t).Error
 	if err == gorm.ErrRecordNotFound {
-		return nil,nil
+		return nil, nil
 	}
-	return t,err
+	return t, err
 }
 
-
-func (this * TemplateGroupList) LikeCount() (int,error) {
+func (this *TemplateGroupList) LikeCount() (int, error) {
 	temp := &table.TemplateGroup{
-		Type: this.Type,
-		Name: this.Name,
+		Type:    this.Type,
+		Name:    this.Name,
 		SubName: this.SubName,
 	}
 	newQb := db.GDbMgr.Get().Model(temp).Where(temp)
@@ -206,9 +202,8 @@ func (this * TemplateGroupList) LikeCount() (int,error) {
 	}
 
 	err := newQb.Count(&count).Error
-	return count,err
+	return count, err
 }
-
 
 func (this *TemplateGroupList) LikeList() ([]*table.TemplateGroup, error) {
 	temp := &table.TemplateGroup{
@@ -219,7 +214,7 @@ func (this *TemplateGroupList) LikeList() ([]*table.TemplateGroup, error) {
 	}
 	Page_index := this.Max_disp_lines * (this.Page_index - 1)
 	list := make([]*table.TemplateGroup, 0)
-	newDb :=  db.GDbMgr.Get().Model(temp).Where(temp)
+	newDb := db.GDbMgr.Get().Model(temp).Where(temp)
 	if this.Name != nil {
 		newDb = newDb.Where("name LIKE ?", "%"+*this.Name+"%")
 
@@ -231,8 +226,8 @@ func (this *TemplateGroupList) LikeList() ([]*table.TemplateGroup, error) {
 
 func (this *TemplateGroupList) List() ([]*table.TemplateGroup, error) {
 	temp := &table.TemplateGroup{
-		Type: this.Type,
-		Name: this.Name,
+		Type:    this.Type,
+		Name:    this.Name,
 		SubName: this.SubName,
 	}
 	if this.Max_disp_lines < 1 || this.Max_disp_lines > 100 {
@@ -240,7 +235,7 @@ func (this *TemplateGroupList) List() ([]*table.TemplateGroup, error) {
 	}
 	Page_index := this.Max_disp_lines * (this.Page_index - 1)
 	list := make([]*table.TemplateGroup, 0)
-	newDb :=  db.GDbMgr.Get().Model(temp).Where(temp)
+	newDb := db.GDbMgr.Get().Model(temp).Where(temp)
 	if this.Name != nil {
 		newDb = newDb.Where("name LIKE ?", "%"+*this.Name+"%")
 	}

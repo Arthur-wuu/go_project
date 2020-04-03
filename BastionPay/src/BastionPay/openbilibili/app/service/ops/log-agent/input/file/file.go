@@ -2,13 +2,13 @@ package file
 
 import (
 	"context"
-	"fmt"
-	"time"
-	"path"
 	"crypto/sha1"
 	"encoding/base64"
 	"errors"
+	"fmt"
 	"os"
+	"path"
+	"time"
 
 	"go-common/app/service/ops/log-agent/event"
 	"go-common/app/service/ops/log-agent/input"
@@ -93,7 +93,7 @@ func (f *File) Stop() {
 	f.cancel()
 }
 
-func (f *File) Ctx() (context.Context) {
+func (f *File) Ctx() context.Context {
 	return f.ctx
 }
 

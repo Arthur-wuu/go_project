@@ -2,11 +2,11 @@ package main
 
 import "github.com/BastionPay/bas-base/l4gmgr"
 import (
-	l4g "github.com/alecthomas/log4go"
 	"fmt"
+	l4g "github.com/alecthomas/log4go"
 )
 
-func main(){
+func main() {
 	fmt.Println("start1")
 
 	workPath := "/Users/yy/Desktop/all/BastionPay/src/github.com/BastionPay/bas-base/l4gmgr/test"

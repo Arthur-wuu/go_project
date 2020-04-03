@@ -3,21 +3,21 @@ package quote
 import (
 	"flag"
 	"fmt"
-	"github.com/BastionPay/bas-export/db"
 	"github.com/BastionPay/bas-export/config"
+	"github.com/BastionPay/bas-export/db"
 	"strconv"
 	"sync"
 )
 
 type DataMgr struct {
-	mSqlDb      db.DbMgr
-	mExitCh    chan bool
-	mRunFlag   bool
+	mSqlDb   db.DbMgr
+	mExitCh  chan bool
+	mRunFlag bool
 	sync.WaitGroup
 	sync.Mutex
 }
 
-func (this *DataMgr) Init() (string) {
+func (this *DataMgr) Init() string {
 
 	this.mExitCh = make(chan bool)
 	//err = this.mSqlDb.Init(&db.DbOptions{
@@ -30,7 +30,7 @@ func (this *DataMgr) Init() (string) {
 	//	MaxOpenConn: config.GConfig.Db.Max_open_conn,
 	//})
 
-	intport,err := strconv.Atoi(config.GConfig.Db.Port)
+	intport, err := strconv.Atoi(config.GConfig.Db.Port)
 	if err != nil {
 		return "string to int error"
 	}
@@ -46,13 +46,10 @@ func (this *DataMgr) Init() (string) {
 	return dataSourceName
 }
 
-
 func (this *DataMgr) Stop() error {
 
 	this.mSqlDb.Close()
 	return nil
 }
 
-
 /***********************内部接口分割线*************************/
-

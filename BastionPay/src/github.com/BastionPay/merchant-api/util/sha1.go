@@ -47,20 +47,19 @@ func (this *SHAwithRSA) Sign(data string) (string, error) {
 		fmt.Println("Error from signing: %s\n", err)
 		return "", err
 	}
-	s :=base64.StdEncoding.EncodeToString(signature)
+	s := base64.StdEncoding.EncodeToString(signature)
 
-	sReplace1 :=strings.Replace(s, "\n","",-1)
-	sReplace2 :=strings.Replace(sReplace1, "[","",-1)
-	sReplace3 :=strings.Replace(sReplace2, "]","",-1)
-	sReplace4 :=strings.Replace(sReplace3, "\r","",-1)
+	sReplace1 := strings.Replace(s, "\n", "", -1)
+	sReplace2 := strings.Replace(sReplace1, "[", "", -1)
+	sReplace3 := strings.Replace(sReplace2, "]", "", -1)
+	sReplace4 := strings.Replace(sReplace3, "\r", "", -1)
 
 	ss := url.QueryEscape(sReplace4)
 
 	return ss, nil
 }
 
-
-func VerifySign (signingPubKey, data,sign []byte) {
+func VerifySign(signingPubKey, data, sign []byte) {
 	block, _ := pem.Decode(signingPubKey)
 	if block == nil {
 

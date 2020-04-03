@@ -1,8 +1,8 @@
 package common
 
 import (
-	"math/big"
 	"fmt"
+	"math/big"
 )
 
 type Calc struct {
@@ -13,28 +13,28 @@ func NewCalc(x *big.Int) *Calc {
 	return &Calc{x}
 }
 
-func (c *Calc) Add(xs... *big.Int) *Calc {
+func (c *Calc) Add(xs ...*big.Int) *Calc {
 	for _, x := range xs {
 		c.num = big.NewInt(0).Add(c.num, x)
 	}
 	return c
 }
 
-func (c *Calc) Sub(xs... *big.Int) *Calc {
+func (c *Calc) Sub(xs ...*big.Int) *Calc {
 	for _, x := range xs {
 		c.num = big.NewInt(0).Sub(c.num, x)
 	}
 	return c
 }
 
-func (c *Calc) Mul(xs... *big.Int) *Calc {
+func (c *Calc) Mul(xs ...*big.Int) *Calc {
 	for _, x := range xs {
 		c.num = big.NewInt(0).Mul(c.num, x)
 	}
 	return c
 }
 
-func (c *Calc) Div(xs... *big.Int) *Calc {
+func (c *Calc) Div(xs ...*big.Int) *Calc {
 	for _, x := range xs {
 		c.num = big.NewInt(0).Div(c.num, x)
 	}
@@ -59,10 +59,9 @@ func (c *Calc) Get() *big.Int {
 	return c.num
 }
 
-func fc()  {
+func fc() {
 	fmt.Printf("%#v", NewCalc(big.NewInt(10)).Pow(8).Get())
 }
-
 
 //
 //func Mul(x, y *big.Int) *big.Int {
@@ -76,5 +75,3 @@ func fc()  {
 //	28 }
 //29 func Div(x, y *big.Int) *big.Int {
 //	30     return big.NewInt(0).Div(x, y)
-
-

@@ -35,9 +35,9 @@ type UserLevel struct {
 	AuditeStatus int    `json:"audite_status"`
 	UserName     string
 	CountryCode  string
-	UserMobile  string
-	UserEmail   string
-	Language    string
+	UserMobile   string
+	UserEmail    string
+	Language     string
 }
 
 func Init(configPath string) {

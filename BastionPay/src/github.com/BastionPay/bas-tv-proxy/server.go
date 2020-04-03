@@ -2,28 +2,28 @@ package main
 
 import (
 	. "BastionPay/bas-base/log/zap"
+	"BastionPay/bas-tv-proxy/api"
+	"BastionPay/bas-tv-proxy/base"
+	"BastionPay/bas-tv-proxy/common"
+	"BastionPay/bas-tv-proxy/config"
+	"BastionPay/bas-tv-proxy/controllers"
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/logger"
 	"github.com/kataras/iris/middleware/pprof"
 	"github.com/kataras/iris/middleware/recover"
-	"go.uber.org/zap"
 	"github.com/kataras/iris/websocket"
-	"BastionPay/bas-tv-proxy/controllers"
-	"BastionPay/bas-tv-proxy/config"
-	"BastionPay/bas-tv-proxy/api"
-	"BastionPay/bas-tv-proxy/base"
-	"BastionPay/bas-tv-proxy/common"
+	"go.uber.org/zap"
 )
 
 const (
-	//ErrCode_Success    = 0
-	//ErrCode_Param      = 10001
-	//ErrCode_InerServer = 10002
+//ErrCode_Success    = 0
+//ErrCode_Param      = 10001
+//ErrCode_InerServer = 10002
 )
 
 type WebServer struct {
-	mIris  *iris.Application
+	mIris *iris.Application
 }
 
 func NewWebServer() *WebServer {
@@ -49,7 +49,7 @@ func (this *WebServer) Init() error {
 }
 
 func (this *WebServer) Run() error {
-	ZapLog().Info("WebServer Run with port["+config.GConfig.Server.Port+"]")
+	ZapLog().Info("WebServer Run with port[" + config.GConfig.Server.Port + "]")
 	err := this.mIris.Run(iris.Addr(":" + config.GConfig.Server.Port)) //阻塞模式
 	if err != nil {
 		if err == iris.ErrServerClosed {
@@ -61,7 +61,7 @@ func (this *WebServer) Run() error {
 	return nil
 }
 
-func (this *WebServer) Stop() error {//这里要处理下，全部锁得再看看，还有就是qid
+func (this *WebServer) Stop() error { //这里要处理下，全部锁得再看看，还有就是qid
 	return nil
 }
 
@@ -89,17 +89,16 @@ func (a *WebServer) controller() {
 	controllers.GBtcExa.Init(&config.GConfig)
 	controllers.GKBSpirit.Init()
 
-
 	/********http***********/
 	v1 := app.Party("/api/v1/tvproxy", crs, func(ctx iris.Context) { ctx.Next() }).AllowMethods(iris.MethodOptions)
 	{
-		v1.Get("/coinmerit/quote/kxian",  controllers.GCoinMerit.HandleHttpKXian)
+		v1.Get("/coinmerit/quote/kxian", controllers.GCoinMerit.HandleHttpKXian)
 		v1.Get("/coinmerit/quote/market", controllers.GCoinMerit.HandleHttpExa)
-		v1.Get("/coinmerit/quote/objs",   controllers.GCoinMerit.HandleHttpObjList)
-		v1.Get("/btcexa/quote/kxian",   controllers.GBtcExa.HandleHttpKXian)
-		v1.Get("/btcexa/quote/objs",controllers.GBtcExa.HandleHttpObjList)
-		v1.Get("/quote/kxian",   controllers.GQuoteCtrl.HandleHttpKXian)
-		v1.Get("/quote/kbspirit",   controllers.GKBSpirit.HandleGetObjs)
+		v1.Get("/coinmerit/quote/objs", controllers.GCoinMerit.HandleHttpObjList)
+		v1.Get("/btcexa/quote/kxian", controllers.GBtcExa.HandleHttpKXian)
+		v1.Get("/btcexa/quote/objs", controllers.GBtcExa.HandleHttpObjList)
+		v1.Get("/quote/kxian", controllers.GQuoteCtrl.HandleHttpKXian)
+		v1.Get("/quote/kbspirit", controllers.GKBSpirit.HandleGetObjs)
 		v1.Any("/", a.defaultRoot)
 	}
 

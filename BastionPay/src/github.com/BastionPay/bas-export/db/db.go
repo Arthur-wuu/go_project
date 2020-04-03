@@ -11,7 +11,6 @@ type DbMgr struct {
 	mConn *gorm.DB
 }
 
-
 func (this *DbMgr) Init(options *DbOptions) (err error) {
 	this.mConn, err = gorm.Open("mysql",
 		options.User+":"+options.Pass+"@tcp("+options.Host+":"+options.Port+")/"+options.DbName+"?charset=utf8&parseTime=True&loc=Local")
@@ -36,9 +35,6 @@ func (this *DbMgr) Init(options *DbOptions) (err error) {
 func (this *DbMgr) Close() {
 	this.mConn.Close()
 }
-
-
-
 
 func (d *DbMgr) updateTimeStampForCreateCallback(scope *gorm.Scope) {
 	if !scope.HasError() {

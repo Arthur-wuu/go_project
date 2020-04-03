@@ -146,7 +146,7 @@ func (b *Reader) Peek(n int) ([]byte, error) {
 			err = ErrBufferFull
 		}
 	}
-	return b.buf[b.r: b.r+n], err
+	return b.buf[b.r : b.r+n], err
 }
 
 // Discard skips the next n bytes, returning the number of bytes discarded.
@@ -317,7 +317,7 @@ func (b *Reader) ReadSlice(delim byte) (line []byte, err error) {
 	for {
 		// Search buffer.
 		if i := bytes.IndexByte(b.buf[b.r:b.w], delim); i >= 0 {
-			line = b.buf[b.r: b.r+i+1]
+			line = b.buf[b.r : b.r+i+1]
 			b.r += i + 1
 			break
 		}

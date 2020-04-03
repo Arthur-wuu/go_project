@@ -1,12 +1,12 @@
 package monitor
 
 import (
+	. "BastionPay/bas-base/log/zap"
 	"BastionPay/bas-monitor/common"
-	"BastionPay/bas-monitor/rpc"
 	"BastionPay/bas-monitor/defaultrpc"
 	"BastionPay/bas-monitor/logger"
+	"BastionPay/bas-monitor/rpc"
 	"fmt"
-	. "BastionPay/bas-base/log/zap"
 	"go.uber.org/zap"
 )
 
@@ -56,7 +56,7 @@ func NewNode(cfg *common.ConfigNode, meta string) (*rpc.Node, error) {
 	return nodeInst, nil
 }
 
-func BeginNodeMonitor()  {
+func BeginNodeMonitor() {
 	initCaller()
 	initNotifier()
 }

@@ -27,29 +27,29 @@ func PreProcess() {
 }
 
 type Config struct {
-	Server  System      `yaml:"system"`
-	Redis   Redis       `yaml:"redis"`
-	Db     Mysql       `yaml:"mysql"`
-	Aws     Aws          `yaml:"aws"`
+	Server System `yaml:"system"`
+	Redis  Redis  `yaml:"redis"`
+	Db     Mysql  `yaml:"mysql"`
+	Aws    Aws    `yaml:"aws"`
 }
 
 type System struct {
-	Port    string      `yaml:"port"`
-	Debug   bool        `yaml:"debug"`
-	LogPath string      `yaml:"log_path"`
-	Monitor string      `yaml:"monitor"`
+	Port    string `yaml:"port"`
+	Debug   bool   `yaml:"debug"`
+	LogPath string `yaml:"log_path"`
+	Monitor string `yaml:"monitor"`
 }
 
 type Redis struct {
-	Network     string  `yaml:"network"`
-	Host        string  `yaml:"host"`
-	Port        string  `yaml:"port"`
-	Password    string  `yaml:"password"`
-	Database    string  `yaml:"database"`
-	MaxIdle     int     `yaml:"maxIdle"`
-	MaxActive   int     `yaml:"maxActive"`
-	IdleTimeout int     `yaml:"idleTimeout"`
-	Prefix      string  `yaml:"prefix"`
+	Network     string `yaml:"network"`
+	Host        string `yaml:"host"`
+	Port        string `yaml:"port"`
+	Password    string `yaml:"password"`
+	Database    string `yaml:"database"`
+	MaxIdle     int    `yaml:"maxIdle"`
+	MaxActive   int    `yaml:"maxActive"`
+	IdleTimeout int    `yaml:"idleTimeout"`
+	Prefix      string `yaml:"prefix"`
 }
 
 type Mysql struct {
@@ -65,12 +65,11 @@ type Mysql struct {
 	ParseTime     bool   `yaml:"parseTime"`
 }
 
-type Aws struct{
-	AccessKeyId string   `yaml:"accesskeyid"`
-	AccessKey  string    `yaml:"accesskey"`
-	AccessToken string   `yaml:"accesstoken"`
-	PicRegion  string    `yaml:"picregion"`
-	PicBucket  string    `yaml:"picbucket"`
-	PicTimeout int    `yaml:"pictimeout"`
-
+type Aws struct {
+	AccessKeyId string `yaml:"accesskeyid"`
+	AccessKey   string `yaml:"accesskey"`
+	AccessToken string `yaml:"accesstoken"`
+	PicRegion   string `yaml:"picregion"`
+	PicBucket   string `yaml:"picbucket"`
+	PicTimeout  int    `yaml:"pictimeout"`
 }

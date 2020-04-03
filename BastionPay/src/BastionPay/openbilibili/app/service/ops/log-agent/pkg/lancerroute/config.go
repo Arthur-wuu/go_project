@@ -1,8 +1,8 @@
 package lancerroute
 
 import (
-	"time"
 	"fmt"
+	"time"
 
 	"go-common/app/service/ops/log-agent/conf/configcenter"
 	"go-common/library/log"

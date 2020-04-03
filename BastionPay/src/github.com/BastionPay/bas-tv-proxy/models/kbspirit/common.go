@@ -1,15 +1,15 @@
 package kbspirit
 
 import (
-	"strings"
-	"runtime/debug"
-	"time"
-	"github.com/mozillazg/go-pinyin"
-	"encoding/binary"
-	"unicode/utf16"
-	"BastionPay/bas-tv-proxy/api"
 	. "BastionPay/bas-base/log/zap"
+	"BastionPay/bas-tv-proxy/api"
+	"encoding/binary"
+	"github.com/mozillazg/go-pinyin"
 	"go.uber.org/zap"
+	"runtime/debug"
+	"strings"
+	"time"
+	"unicode/utf16"
 )
 
 // FirstLetter 获取拼音首字母组成的字符串
@@ -83,16 +83,16 @@ func Subrunes(s []rune) []string {
 
 	for len(s) > 0 {
 		bhave := 0
-		for mapstr,_ := range m {
+		for mapstr, _ := range m {
 			if strings.HasPrefix(mapstr, string(s)) {
 				bhave = 1
 				break
 			}
 		}
-		if 0 == bhave{
+		if 0 == bhave {
 			m[string(s)] = null
 		}
-		
+
 		s = s[1:]
 	}
 
@@ -109,7 +109,7 @@ func Int32ToBytes(i int32) []byte {
 	return buf
 }
 
-func DeleteNotLetter(name string) (string,int) {
+func DeleteNotLetter(name string) (string, int) {
 	// name = strings.ToUpper(name)
 	// num := 0
 	// by := []byte(name)
@@ -126,32 +126,32 @@ func DeleteNotLetter(name string) (string,int) {
 	name = strings.ToUpper(name)
 	num := 0
 	by := []byte(name)
-	tembys := make([]byte,0)
-	if len(name) > 0{
-		for _,data := range by{
-			if data>='A' && data<='Z'{
-				tembys = append(tembys,data)
-			}else{
+	tembys := make([]byte, 0)
+	if len(name) > 0 {
+		for _, data := range by {
+			if data >= 'A' && data <= 'Z' {
+				tembys = append(tembys, data)
+			} else {
 				num = 1
 			}
 		}
 	}
-	if num == 0{
-		return name,0
+	if num == 0 {
+		return name, 0
 	}
-	return string(tembys[:]),num
+	return string(tembys[:]), num
 }
 
 //键盘宝排
 type JPBShuJuList []*api.JPBShuJu
 
 func (list JPBShuJuList) Len() int {
-    return len(list)
-} 
+	return len(list)
+}
 
 func (list JPBShuJuList) Less(i, j int) bool {
-    return list[i].GetDaiMa() < list[j].GetDaiMa()
-} 
+	return list[i].GetDaiMa() < list[j].GetDaiMa()
+}
 
 func (list JPBShuJuList) Swap(i, j int) {
 	list[i], list[j] = list[j], list[i]
@@ -159,30 +159,30 @@ func (list JPBShuJuList) Swap(i, j int) {
 
 func Half(input string) string {
 	bFull := false
-	for _,inputu := range utf16.Encode([]rune(input)){
-		if inputu >= 0xFF21 && inputu <= 0xFF3A{
+	for _, inputu := range utf16.Encode([]rune(input)) {
+		if inputu >= 0xFF21 && inputu <= 0xFF3A {
 			bFull = true
 			break
 		}
 	}
-	if bFull{ 
-		temprune := make([]rune,0)
-		for _,indexdata := range []rune(input){
+	if bFull {
+		temprune := make([]rune, 0)
+		for _, indexdata := range []rune(input) {
 			temu := utf16.Encode([]rune(string(indexdata)))
-			if len(temu) == 1{
-				if temu[0] >= 0xFF21 && temu[0] <= 0xFF3A{
-					uu := uint8((temu[0] & 0x00FF)+0x0020)
-					temprune = append(temprune,rune(uu))
+			if len(temu) == 1 {
+				if temu[0] >= 0xFF21 && temu[0] <= 0xFF3A {
+					uu := uint8((temu[0] & 0x00FF) + 0x0020)
+					temprune = append(temprune, rune(uu))
 					// logger.Info("common Half input:%v",input)
-				}else{
-					temprune = append(temprune,indexdata)
+				} else {
+					temprune = append(temprune, indexdata)
 				}
-			}else{
-				ZapLog().Info(" common Half else input:"+input)
+			} else {
+				ZapLog().Info(" common Half else input:" + input)
 			}
 		}
 		return string(temprune)
-	}else{
+	} else {
 		return input
 	}
 }

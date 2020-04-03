@@ -6,13 +6,14 @@ import (
 )
 
 var GDeviceMgr DeviceMgr
-type  DeviceMgr struct{
+
+type DeviceMgr struct {
 	mDeviceMap map[string]Device
 }
 
 func (this *DeviceMgr) Init() error {
 	this.mDeviceMap = make(map[string]Device)
-	for i:=0; i < len(config.GConfig.Devices); i++ {
+	for i := 0; i < len(config.GConfig.Devices); i++ {
 
 		devconf := config.GConfig.Devices[i]
 		switch strings.ToLower(devconf.Name) {
@@ -36,12 +37,11 @@ func (this *DeviceMgr) Init() error {
 	return nil
 }
 
-
-func (this *DeviceMgr) Add(id string, d Device){
+func (this *DeviceMgr) Add(id string, d Device) {
 	this.mDeviceMap[id] = d
 }
 
-func (this *DeviceMgr) Get(id string)Device{
+func (this *DeviceMgr) Get(id string) Device {
 	return this.mDeviceMap[id]
 }
 

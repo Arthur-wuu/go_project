@@ -2,13 +2,13 @@ package main
 
 import (
 	//"BastionPay/bas-service/base/service"
-	service "BastionPay/bas-base/service2"
-	"fmt"
-	"time"
-	"context"
-	l4g "github.com/alecthomas/log4go"
-	"BastionPay/bas-base/config"
 	"BastionPay/bas-api/utils"
+	"BastionPay/bas-base/config"
+	service "BastionPay/bas-base/service2"
+	"context"
+	"fmt"
+	l4g "github.com/alecthomas/log4go"
+	"time"
 )
 
 const ServiceGatewayConfig = "gateway.json"
@@ -35,15 +35,15 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	service.StartCenter(ctx, gatewayInstance)
 
-	time.Sleep(time.Second*1)
-	for ; ;  {
+	time.Sleep(time.Second * 1)
+	for {
 		fmt.Println("Input 'q' to quit...")
 		var input string
 		fmt.Scanln(&input)
 
 		if input == "q" {
 			cancel()
-			break;
+			break
 		}
 	}
 
@@ -51,4 +51,3 @@ func main() {
 	service.StopCenter(gatewayInstance)
 	l4g.Info("All routine is quit...")
 }
-

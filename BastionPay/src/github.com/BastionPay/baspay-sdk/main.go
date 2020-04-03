@@ -3,8 +3,8 @@ package main
 import (
 	. "BastionPay/bas-base/log/zap"
 	"BastionPay/baspay-sdk/base"
-	"BastionPay/baspay-sdk/util"
 	"BastionPay/baspay-sdk/go-sdk"
+	"BastionPay/baspay-sdk/util"
 	"bytes"
 	"crypto/sha256"
 	"encoding/csv"
@@ -19,7 +19,7 @@ import (
 	"time"
 )
 
-func main()  {
+func main() {
 
 	//config := new(go_sdk.Config)
 	//config.KeyPath = "baspay-sdk/go-sdk/pem"
@@ -32,50 +32,50 @@ func main()  {
 	//}
 	uidAndNum := ReadCsv("1.csv")
 
-		//a :="[[1,98],[2,78],[3,45]]"
-		succNum := 0
-		failNum := 0
-		for j:=0; j <len(uidAndNum); j ++ {
-			time.Sleep(4 * time.Second)
+	//a :="[[1,98],[2,78],[3,45]]"
+	succNum := 0
+	failNum := 0
+	for j := 0; j < len(uidAndNum); j++ {
+		time.Sleep(4 * time.Second)
 
-			uid := uidAndNum[j][0]
-			amount := uidAndNum[j][1]
-			//fmt.Println("amount",amount)
-			if amount == "0" {
-				continue
-			}
-
-			//requestNo := time.Now().UnixNano()
-			//requestNoStr := strconv.FormatInt(requestNo, 10)
-			//status, err := TransferCoin("SHINE", "201808", token, uid, requestNoStr, amount)
-			status, err := trans.Transfer(amount,"SHINE", "12", uid, "满一年的6个的shine","http://test.com")
-
-			if err != nil {
-				ZapLog().Error("send req to bastion err", zap.Error(err))
-				fmt.Println("transfer err")
-			}
-
-			if status == "succ" {
-				//fmt.sPrintf("转给", uid, amount)
-				s := fmt.Sprintf("转给 [%v] [%v] 个 SHINE", uid, amount)
-				fmt.Println(s)
-				succNum ++
-				//ZapLog().Info("",)
-			}
-			if status == "fail" {
-				s := fmt.Sprintf("失败 [%v]", uid)
-				fmt.Println(s)
-				failNum++
-			}
-			if status == "unpay" {
-				s := fmt.Sprintf("失败 [%v]", uid)
-				fmt.Println(s)
-				failNum++
-
-			}
+		uid := uidAndNum[j][0]
+		amount := uidAndNum[j][1]
+		//fmt.Println("amount",amount)
+		if amount == "0" {
+			continue
 		}
-		fmt.Println("success num", succNum)
-		fmt.Println("fail num", failNum)
+
+		//requestNo := time.Now().UnixNano()
+		//requestNoStr := strconv.FormatInt(requestNo, 10)
+		//status, err := TransferCoin("SHINE", "201808", token, uid, requestNoStr, amount)
+		status, err := trans.Transfer(amount, "SHINE", "12", uid, "满一年的6个的shine", "http://test.com")
+
+		if err != nil {
+			ZapLog().Error("send req to bastion err", zap.Error(err))
+			fmt.Println("transfer err")
+		}
+
+		if status == "succ" {
+			//fmt.sPrintf("转给", uid, amount)
+			s := fmt.Sprintf("转给 [%v] [%v] 个 SHINE", uid, amount)
+			fmt.Println(s)
+			succNum++
+			//ZapLog().Info("",)
+		}
+		if status == "fail" {
+			s := fmt.Sprintf("失败 [%v]", uid)
+			fmt.Println(s)
+			failNum++
+		}
+		if status == "unpay" {
+			s := fmt.Sprintf("失败 [%v]", uid)
+			fmt.Println(s)
+			failNum++
+
+		}
+	}
+	fmt.Println("success num", succNum)
+	fmt.Println("fail num", failNum)
 	////转账测试
 	//status, _ := trans.Transfer("4998","SHINE", "10", "11", "测试11okg","http://test.com")
 	//time.Sleep(time.Second * 5)
@@ -101,8 +101,6 @@ func main()  {
 	//查询订单交易信息
 	//res , _ := trans.SearchTradeInfo("8","5aa32a38-4214-4e52-a384-5ad8e3b54fb0","test")
 	//fmt.Println("res",res)
-
-
 
 }
 
@@ -165,26 +163,25 @@ func main()  {
 //
 //}
 
-
-const(
-	RsaBits1024 = 1024
-	RsaBits2048 = 2048
-	RsaEncodeLimit1024 = RsaBits1024 / 8 - 11
+const (
+	RsaBits1024        = 1024
+	RsaBits2048        = 2048
+	RsaEncodeLimit1024 = RsaBits1024/8 - 11
 	RsaDecodeLimit1024 = RsaBits1024 / 8
-	RsaEncodeLimit2048 = RsaBits2048 / 8 - 11
+	RsaEncodeLimit2048 = RsaBits2048/8 - 11
 	RsaDecodeLimit2048 = RsaBits2048 / 8
 )
 
-const   (
+const (
 	serverRsaUrl = "/wallet/api/security/handshake/server"
 	clientRsaUrl = "/wallet/api/security/handshake/client"
-	Login_Url = "/wallet/api/user/oauth/login"
+	Login_Url    = "/wallet/api/user/oauth/login"
 	Transfer_Url = "/wallet/api/user/assets/pay/transfer"
-	Refresh_Url = "/wallet/api/user/oauth/refresh_token"
-	GetUid_Url = "/wallet/api/user/list_by_phone"
-	Check_Url = "/wallet/api/user/assets/pay/confirm_safety"
-
+	Refresh_Url  = "/wallet/api/user/oauth/refresh_token"
+	GetUid_Url   = "/wallet/api/user/list_by_phone"
+	Check_Url    = "/wallet/api/user/assets/pay/confirm_safety"
 )
+
 //商户8号的
 var privateKey = []byte(`
 -----BEGIN RSA PRIVATE KEY-----
@@ -215,6 +212,7 @@ dArT9yVYco35HJd0nxBm/UOzEptNUuAeX41AVeN9o0UYoJomt/l07cyY77HtrnIb
 ZpqTdTAmvK7JaZooBF736k+gTMmX0qdzfmoJSDNqHZaoq4tmuojZZg==
 -----END RSA PRIVATE KEY-----
 `)
+
 //商户8号的
 var publicKey = []byte(`
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuW30rrCPsvjtXMtCEV7e
@@ -225,7 +223,6 @@ xYTSQJHeXm2jcOA13XJsO5/RcJrZ8Xod81/6T0sHTt3Rpq/YAVldz/mMf+pjTmTc
 7Ga3wf6X4Dfjop4ahwssn8KUGkZH0LVJYUsoTL6Z1XF2HLjuFk8gOgHF1QqcrAMX
 lQIDAQAB
 `)
-
 
 //商户10号的
 var privateKey10 = []byte(`
@@ -257,6 +254,7 @@ uchEixbp9Oe43zDzw8r/dIcCPPRw44A7voWfrAQKhyUjMVVki+ovGSQBZ5I6n9/7
 AV5pE9Mk3YF7sLozbtKGyZev1YxnV3poC1DS+hTbcJdLFPCj3TQC1A==
 -----END RSA PRIVATE KEY-----
 `)
+
 //商户10号的
 var publicKey10 = []byte(`
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArQ+bLJlYR4dn0l8yRGdN2
@@ -267,111 +265,105 @@ QF2B7SDdGHoJ5AxRjcSP+rd5qck99iGF1aAT+MYDFsBDBg5jZl8z6y1XccOQ50EVa
 NW7Gt6E+7951rZFA5RgAZqO0lJtKFeKC3TSIuWsDhioGJ6m0aLqK7SDGz3FhwIDAQAB
 `)
 
-
 //登录去拿token 为转账做准备
-func LoginBastionPay (phone, pwd string) (string,string, error){
-	times :=time.Now().Unix()
-	timeStr :=strconv.FormatInt(times,10)
-	nonce:= "dhsjkf"
+func LoginBastionPay(phone, pwd string) (string, string, error) {
+	times := time.Now().Unix()
+	timeStr := strconv.FormatInt(times, 10)
+	nonce := "dhsjkf"
 
 	//aes的cbc加密数据
-	secretKey, err :=GetServerSecretKey()
-	fmt.Println("[--- login start ---]:",string(secretKey))
+	secretKey, err := GetServerSecretKey()
+	fmt.Println("[--- login start ---]:", string(secretKey))
 	push_id := "1"
 	data := "{\"timestamp\":\"" + timeStr + "\", \"nonce\":\"" + nonce + "\", \"phone\":\"" + phone + "\", \"password\":\"" + pwd + "\",\"push_id\":\"" + push_id + "\"}"
 	encyData, err := utils.Aes128Encrypt([]byte(data), []byte(secretKey))
 
 	//fmt.Println("****encyData**",string(encyData))
 	//签名
-	signStr := "url=/wallet/api/user/oauth/login&timestamp="+timeStr+"&nonce="+nonce+"&data="+string(encyData)+"&"+string(secretKey)
+	signStr := "url=/wallet/api/user/oauth/login&timestamp=" + timeStr + "&nonce=" + nonce + "&data=" + string(encyData) + "&" + string(secretKey)
 	//fmt.Println("***sign***",signStr)
 
-
-	signString :=GetSHA256HashCode([]byte(signStr))
+	signString := GetSHA256HashCode([]byte(signStr))
 	//将数据加密
 	reqBody, _ := json.Marshal(map[string]interface{}{
 		"timestamp": timeStr,
-		"nonce": nonce,
-		"data": string(encyData),
+		"nonce":     nonce,
+		"data":      string(encyData),
 		"signature": signString,
 	})
-	fmt.Println("**timeStr**",timeStr)
-	fmt.Println("**nonce**",nonce)
-	fmt.Println("**data**",string(encyData))
-	fmt.Println("**signString**",signString)
+	fmt.Println("**timeStr**", timeStr)
+	fmt.Println("**nonce**", nonce)
+	fmt.Println("**data**", string(encyData))
+	fmt.Println("**signString**", signString)
 	//请求bastion
 	result, err := SendToBastion(reqBody, Login_Url)
-	if err != nil  {
-		ZapLog().Error( "send req to bastion err", zap.Error(err))
+	if err != nil {
+		ZapLog().Error("send req to bastion err", zap.Error(err))
 
 		return "get token err1", "refresh token err1", err
 	}
-	fmt.Println("[** result login ** ] :",result.Signature,result.Nonce,result.Code,result.Timestamp)
-	if result.Code == 1001  {
-		return "get token err2","refresh token err2", err
+	fmt.Println("[** result login ** ] :", result.Signature, result.Nonce, result.Code, result.Timestamp)
+	if result.Code == 1001 {
+		return "get token err2", "refresh token err2", err
 	}
 
-
 	//验证签名参数
-	timestpStr := strconv.FormatInt(result.Timestamp,10)
+	timestpStr := strconv.FormatInt(result.Timestamp, 10)
 	var verifySign string
 	if result.EncryptData != "" {
-		verifySign = "url="+Login_Url+"&timestamp="+timestpStr+"&nonce="+result.Nonce+"&data="+result.EncryptData+"&"+string(secretKey)
+		verifySign = "url=" + Login_Url + "&timestamp=" + timestpStr + "&nonce=" + result.Nonce + "&data=" + result.EncryptData + "&" + string(secretKey)
 	}
 
 	if result.EncryptData == "" {
-		verifySign = "url="+Login_Url+"&timestamp="+timestpStr+"&nonce="+result.Nonce+"&"+string(secretKey)
+		verifySign = "url=" + Login_Url + "&timestamp=" + timestpStr + "&nonce=" + result.Nonce + "&" + string(secretKey)
 	}
 	//有的没有返回签名
-	if result.Signature == ""{
-		return "get token err3","refresh token err3", err
+	if result.Signature == "" {
+		return "get token err3", "refresh token err3", err
 	}
-	sign2 :=GetSHA256HashCode([]byte(verifySign))
+	sign2 := GetSHA256HashCode([]byte(verifySign))
 	//fmt.Println("**two sign login **",result.Signature,sign2)
 
 	if result.Signature == sign2 {
-		if result.EncryptData != ""{
+		if result.EncryptData != "" {
 			//将加密数据解密，返回给H5
-			decrpData, err := utils.Aes128Decrypt([]byte(result.EncryptData),[]byte(secretKey))
+			decrpData, err := utils.Aes128Decrypt([]byte(result.EncryptData), []byte(secretKey))
 			if err != nil {
-				ZapLog().Error( "decry return data err", zap.Error(err))
+				ZapLog().Error("decry return data err", zap.Error(err))
 
-				return "get token err4","refresh token err4", err
+				return "get token err4", "refresh token err4", err
 			}
 
 			var index int
 
 			for k, v := range decrpData {
 				if v == 0 {
-					index = k; break;
+					index = k
+					break
 				}
 			}
 
 			dataInfo := new(ResDataInfo)
-			err = json.Unmarshal(decrpData[:index],dataInfo)
+			err = json.Unmarshal(decrpData[:index], dataInfo)
 
 			if err != nil {
-				ZapLog().Error( "unmarshal return data err", zap.Error(err))
+				ZapLog().Error("unmarshal return data err", zap.Error(err))
 				//返回token ******
 			}
-			return dataInfo.Token, dataInfo.RefreshToken,  nil
+			return dataInfo.Token, dataInfo.RefreshToken, nil
 		}
-		if result.EncryptData == ""{
-			return "no data back","refresh token err", err
+		if result.EncryptData == "" {
+			return "no data back", "refresh token err", err
 		}
 
 	}
 	if result.Signature != sign2 {
-		ZapLog().Error( "sign not equal", zap.Error(err))
-		return "get token err5","refresh token err5", err
+		ZapLog().Error("sign not equal", zap.Error(err))
+		return "get token err5", "refresh token err5", err
 	}
 
-	return "get token err6","refresh token err6", err
+	return "get token err6", "refresh token err6", err
 }
-
-
-
-
 
 //上传客户端 公钥 并申请SecretKey
 func GetServerSecretKey() ([]byte, error) {
@@ -379,7 +371,7 @@ func GetServerSecretKey() ([]byte, error) {
 	//加密因子
 	//secretKeyRamdom :=GenRandomString(32)
 
-	body :=[]byte("client_public_key="+string(publicKey)+"&secrect_key_ramdom=35321243")
+	body := []byte("client_public_key=" + string(publicKey) + "&secrect_key_ramdom=35321243")
 
 	//fmt.Println("****body body**",string(body))
 	//拿服务端的公钥 加密body
@@ -404,38 +396,37 @@ DwIDAQAB
 	encyBody, err := utils.RsaEncrypt(body, serverPubByte, RsaEncodeLimit2048)
 
 	if err != nil {
-		ZapLog().Error( "rsa encybody  err")
+		ZapLog().Error("rsa encybody  err")
 	}
 	//fmt.Println("****encyBody** 加密body，**",string(encyBody))
 
 	//请求服务端的 得到SecretKey的密文
-	bastionPayRes, err := base.HttpSendSer("https://user-api.bastionpay.io"+clientRsaUrl, bytes.NewBuffer(encyBody),"POST", map[string]string{"Client":"1", "DeviceType":"1", "DeviceName":"huawei","DeviceId":"2585b79fdsgls7aab76c9dd","Version":"1.1.0","Content-Type":"application/json;charset=UTF-8" })//
+	bastionPayRes, err := base.HttpSendSer("https://user-api.bastionpay.io"+clientRsaUrl, bytes.NewBuffer(encyBody), "POST", map[string]string{"Client": "1", "DeviceType": "1", "DeviceName": "huawei", "DeviceId": "2585b79fdsgls7aab76c9dd", "Version": "1.1.0", "Content-Type": "application/json;charset=UTF-8"}) //
 	//fmt.Println("****bastionPayRes** ，**",string(bastionPayRes))
 	if err != nil {
-		ZapLog().Error( "send message to pastionpay get secret key err", zap.Error(err))
+		ZapLog().Error("send message to pastionpay get secret key err", zap.Error(err))
 		return nil, err
 	}
 	json.Unmarshal(bastionPayRes, baspayRes)
 	//fmt.Println("****baspayRes** ，**",baspayRes.Data)
 	//客户端私钥解密 得到SecretKey的密文
-	secretKey, err  := utils.RsaDecrypt3([]byte(baspayRes.Data), privateKey)
+	secretKey, err := utils.RsaDecrypt3([]byte(baspayRes.Data), privateKey)
 
 	//fmt.Println("****secretKey** ，**",string(secretKey))
 	return secretKey, nil
 }
 
-
-func SendToBastion (body []byte  ,url string ) (*ResEncyData, error) {
+func SendToBastion(body []byte, url string) (*ResEncyData, error) {
 	resEncyData := new(ResEncyData)
 	//fmt.Println("[** send to bastion url** ]:",config.GConfig.BastionpayUrl.Bastionurl+url)
-	bastionPayRes, err := base.HttpSendSer("https://user-api.bastionpay.io"+url, bytes.NewBuffer(body),"POST", map[string]string{"Client":"1", "DeviceType":"1", "DeviceName":"huawei","DeviceId":"2585b79fdsgls7aab76c9dd","Version":"1.1.0","Content-Type":"application/json;charset=UTF-8" })
+	bastionPayRes, err := base.HttpSendSer("https://user-api.bastionpay.io"+url, bytes.NewBuffer(body), "POST", map[string]string{"Client": "1", "DeviceType": "1", "DeviceName": "huawei", "DeviceId": "2585b79fdsgls7aab76c9dd", "Version": "1.1.0", "Content-Type": "application/json;charset=UTF-8"})
 	if err != nil {
-		ZapLog().Error( "send message to pastionpay get res ency data err", zap.Error(err))
+		ZapLog().Error("send message to pastionpay get res ency data err", zap.Error(err))
 		return nil, err
 	}
 	json.Unmarshal(bastionPayRes, resEncyData)
 
-	return resEncyData , nil
+	return resEncyData, nil
 }
 
 //
@@ -452,8 +443,7 @@ func SendToBastion (body []byte  ,url string ) (*ResEncyData, error) {
 //	return resEncyData , nil
 //}
 
-
-func GetSHA256HashCode(message []byte)string{
+func GetSHA256HashCode(message []byte) string {
 
 	hash := sha256.New()
 	//输入数据
@@ -467,15 +457,15 @@ func GetSHA256HashCode(message []byte)string{
 
 }
 
-type Data struct{
-	Timestamp  int64   `json:"timestamp,omitempty"`
-	Nonce      string  `json:"nonce,omitempty"`
+type Data struct {
+	Timestamp int64  `json:"timestamp,omitempty"`
+	Nonce     string `json:"nonce,omitempty"`
 }
 
-type Body struct{
-	Code     int         `json:"code,omitempty"`
-	Data     string      `json:"data,omitempty"`
-	Message  string      `json:"message,omitempty"`
+type Body struct {
+	Code    int    `json:"code,omitempty"`
+	Data    string `json:"data,omitempty"`
+	Message string `json:"message,omitempty"`
 }
 
 type ResEncyData struct {
@@ -483,12 +473,12 @@ type ResEncyData struct {
 	Nonce       string `json:"nonce,omitempty"`
 	EncryptData string `json:"data,omitempty"`
 	Signature   string `json:"signature,omitempty"`
-	Code        int64 `json:"code,omitempty"`
+	Code        int64  `json:"code,omitempty"`
 }
 
 type ResDataInfo struct {
 	//Nick              string  `json:"nick,omitempty"`
-	RefreshToken      string  `json:"refresh_token,omitempty"`
+	RefreshToken string `json:"refresh_token,omitempty"`
 	//Country           string  `json:"country,omitempty"`
 	//UserId            int64   `json:"user_id,omitempty"`
 	//PhoneDistrict     string  `json:"phone_district,omitempty"`
@@ -496,83 +486,81 @@ type ResDataInfo struct {
 	//Currency          string  `json:"currency,omitempty"`
 	//Expire_in         int64   `json:"expire_in,omitempty"`
 	//Nonce             string  `json:"nonce,omitempty"`
-	Token             string  `json:"token,omitempty"`
+	Token string `json:"token,omitempty"`
 	//Timestamp         int64   `json:"timestamp,omitempty"`
 }
 
-
-func TransferCoin (assets  ,pay_password,token , payee_id ,request_no , amount string ) (int64, error){
-	times :=time.Now().Unix()
-	timeStr :=strconv.FormatInt(times,10)
-	nonce:= "dhsjkf"
-	remark:= "lucky package"
+func TransferCoin(assets, pay_password, token, payee_id, request_no, amount string) (int64, error) {
+	times := time.Now().Unix()
+	timeStr := strconv.FormatInt(times, 10)
+	nonce := "dhsjkf"
+	remark := "lucky package"
 	//aes的cbc加密数据
-	secretKey, err :=GetServerSecretKey()
+	secretKey, err := GetServerSecretKey()
 	//fmt.Println("[--- transfer start ---]:",string(secretKey))
 
 	data, _ := json.Marshal(map[string]interface{}{
-		"timestamp": timeStr,
-		"nonce": nonce,
-		"assets": assets,
-		"amount": amount,
-		"request_no": request_no,
-		"remark": remark,
+		"timestamp":    timeStr,
+		"nonce":        nonce,
+		"assets":       assets,
+		"amount":       amount,
+		"request_no":   request_no,
+		"remark":       remark,
 		"pay_password": pay_password,
-		"token": token,
-		"payee_id": payee_id,
+		"token":        token,
+		"payee_id":     payee_id,
 	})
 	//fmt.Println("[**transfer data**]",string(data))
 	encyData, err := utils.Aes128Encrypt([]byte(data), []byte(secretKey))
 
 	//fmt.Println("****encyData**",string(encyData))
 	//签名
-	signStr := "url=/wallet/api/user/assets/pay/transfer&timestamp="+timeStr+"&nonce="+nonce+"&data="+string(encyData)+"&"+string(secretKey)
+	signStr := "url=/wallet/api/user/assets/pay/transfer&timestamp=" + timeStr + "&nonce=" + nonce + "&data=" + string(encyData) + "&" + string(secretKey)
 
-	signString :=GetSHA256HashCode([]byte(signStr))
+	signString := GetSHA256HashCode([]byte(signStr))
 	//将数据加密
 	reqBody, _ := json.Marshal(map[string]interface{}{
 		"timestamp": timeStr,
-		"nonce": nonce,
-		"data": string(encyData),
+		"nonce":     nonce,
+		"data":      string(encyData),
 		"signature": signString,
 	})
 	//fmt.Println("**signString**",signString)
 	//请求bastion
 	result, err := SendToBastion(reqBody, Transfer_Url)
-	if err != nil  {
-		ZapLog().Error( "send req to bastion err", zap.Error(err))
+	if err != nil {
+		ZapLog().Error("send req to bastion err", zap.Error(err))
 
 		return 1, err
 	}
-	fmt.Println("[** result transfer** ] :",result.Signature,result.Nonce,result.Code,result.Timestamp)
-	if result.Code == 1001  {
+	fmt.Println("[** result transfer** ] :", result.Signature, result.Nonce, result.Code, result.Timestamp)
+	if result.Code == 1001 {
 		return 1, err
 	}
-
 
 	//验证签名参数
-	timestpStr := strconv.FormatInt(result.Timestamp,10)
+	timestpStr := strconv.FormatInt(result.Timestamp, 10)
 	var verifySign string
 	if result.EncryptData != "" {
-		verifySign = "url="+Transfer_Url+"&timestamp="+timestpStr+"&nonce="+result.Nonce+"&data="+result.EncryptData+"&"+string(secretKey)
+		verifySign = "url=" + Transfer_Url + "&timestamp=" + timestpStr + "&nonce=" + result.Nonce + "&data=" + result.EncryptData + "&" + string(secretKey)
 	}
 
 	if result.EncryptData == "" {
-		verifySign = "url="+Transfer_Url+"&timestamp="+timestpStr+"&nonce="+result.Nonce+"&"+string(secretKey)
+		verifySign = "url=" + Transfer_Url + "&timestamp=" + timestpStr + "&nonce=" + result.Nonce + "&" + string(secretKey)
 	}
 	//有的没有返回签名
-	if result.Signature == ""{
+	if result.Signature == "" {
 		return 5001, err
 	}
-	sign2 :=GetSHA256HashCode([]byte(verifySign))
+	sign2 := GetSHA256HashCode([]byte(verifySign))
 	//fmt.Println("[**two sign transfer**]",result.Signature,sign2)
 
 	if result.Signature == sign2 {
-		if result.EncryptData != ""{
+		if result.EncryptData != "" {
 			//将加密数据解密，返回给H5
-			decrpData, err := utils.Aes128Decrypt([]byte(result.EncryptData),[]byte(secretKey))
+			decrpData, err := utils.Aes128Decrypt([]byte(result.EncryptData), []byte(secretKey))
 			if err != nil {
-				ZapLog().Error( "decry return data err", zap.Error(err))
+				ZapLog().Error("decry return data err", zap.Error(err))
 				return 5002, err
 			}
 
@@ -580,38 +568,37 @@ func TransferCoin (assets  ,pay_password,token , payee_id ,request_no , amount s
 
 			for k, v := range decrpData {
 				if v == 0 {
-					index = k; break;
+					index = k
+					break
 				}
 			}
 
 			dataInfo := new(TransResDataInfo)
-			err = json.Unmarshal(decrpData[:index],dataInfo)
+			err = json.Unmarshal(decrpData[:index], dataInfo)
 
 			if err != nil {
-				ZapLog().Error( "unmarshal return data err", zap.Error(err))
+				ZapLog().Error("unmarshal return data err", zap.Error(err))
 				return 5003, err
 				//返回转账状态 1，处理中，2，成功，3，失败******
 			}
 			return dataInfo.Status, nil
 		}
-		if result.EncryptData == ""{
+		if result.EncryptData == "" {
 			return 5004, err
 		}
 	}
 	if result.Signature != sign2 {
-		ZapLog().Error( "sign not equal", zap.Error(err))
+		ZapLog().Error("sign not equal", zap.Error(err))
 		return 5005, err
 	}
 	return 5006, err
 }
 
 type TransResDataInfo struct {
-	Status    int64  `json:"status,omitempty"`
+	Status int64 `json:"status,omitempty"`
 }
 
-
-
-func ReadCsv(name string) [][]string{
+func ReadCsv(name string) [][]string {
 	file, err := os.Open(name)
 	if err != nil {
 		fmt.Println("open err[%v]", err)
@@ -621,15 +608,15 @@ func ReadCsv(name string) [][]string{
 	reader := csv.NewReader(file)
 	allRecord := make([][]string, 0)
 	//var newRecord []string
-	for i:=0;true;i++{
+	for i := 0; true; i++ {
 		record, err := reader.Read()
 		if err == io.EOF {
 			break
 		} else if err != nil {
-			fmt.Println("Read %v err[%v]",i, err)
+			fmt.Println("Read %v err[%v]", i, err)
 			return nil
 		}
-		for j:=0; j < len(record);j++ {
+		for j := 0; j < len(record); j++ {
 			record[j] = strings.Replace(record[j], " ", "", -1)
 			record[j] = strings.Replace(record[j], "\r", "", -1)
 			record[j] = strings.Replace(record[j], "\n", "", -1)

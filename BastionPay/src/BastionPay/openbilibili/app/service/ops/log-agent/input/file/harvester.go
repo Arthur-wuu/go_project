@@ -1,18 +1,18 @@
 package file
 
 import (
-	"fmt"
-	"os"
-	"errors"
-	"io"
-	"time"
-	"context"
 	"bytes"
-	"strconv"
-	"regexp"
+	"context"
+	"errors"
+	"fmt"
 	"go-common/app/service/ops/log-agent/event"
-	"go-common/library/log"
 	"go-common/app/service/ops/log-agent/pkg/lancerroute"
+	"go-common/library/log"
+	"io"
+	"os"
+	"regexp"
+	"strconv"
+	"time"
 )
 
 type Source interface {

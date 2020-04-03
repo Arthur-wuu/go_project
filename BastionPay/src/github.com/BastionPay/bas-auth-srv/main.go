@@ -2,29 +2,29 @@ package main
 
 import (
 	//"BastionPay/bas-service/base/service"
-	service "BastionPay/bas-base/service2"
-	"BastionPay/bas-auth-srv/handler"
-	"fmt"
-	"context"
-	"time"
-	l4g "github.com/alecthomas/log4go"
-	"BastionPay/bas-auth-srv/db"
-	"BastionPay/bas-base/config"
 	"BastionPay/bas-api/utils"
+	"BastionPay/bas-auth-srv/db"
+	"BastionPay/bas-auth-srv/handler"
+	"BastionPay/bas-base/config"
+	service "BastionPay/bas-base/service2"
+	"context"
+	"fmt"
+	l4g "github.com/alecthomas/log4go"
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 )
 
 const AuthSrvConfig = "auth.json"
 
-func closeLog()  {
+func closeLog() {
 	time.Sleep(time.Second * 3)
 	l4g.Close()
 }
 
 func main() {
-	laxFlag :=config.NewLaxFlagDefault()
+	laxFlag := config.NewLaxFlagDefault()
 	cfgDir := laxFlag.String("conf_path", config.GetBastionPayConfigDir(), "config path")
 	logPath := laxFlag.String("log_path", config.GetBastionPayConfigDir()+"/log.xml", "log conf path")
 	laxFlag.LaxParseDefault()
@@ -40,7 +40,7 @@ func main() {
 
 	// create service node
 	nodeInstance, err := service.NewServiceNode(cfgPath)
-	if nodeInstance == nil || err != nil{
+	if nodeInstance == nil || err != nil {
 		l4g.Error("Create service node failed: %s", err.Error())
 		return
 	}

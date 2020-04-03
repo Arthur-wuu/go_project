@@ -1,13 +1,12 @@
 package base
 
 import (
-	"net/url"
-	"net/http"
 	"errors"
 	"github.com/gorilla/websocket"
+	"net/http"
+	"net/url"
 	"sync"
 )
-
 
 func NewWsMgr() *WsMgr {
 	w := new(WsMgr)
@@ -16,25 +15,25 @@ func NewWsMgr() *WsMgr {
 }
 
 type WsMgr struct {
-	mWsCons map[string] *WsCon
+	mWsCons map[string]*WsCon
 	sync.Mutex
 }
 
 func (this *WsMgr) Init() {
-	this.mWsCons = make(map[string] *WsCon)
+	this.mWsCons = make(map[string]*WsCon)
 }
 
 func (this *WsMgr) AddCon(conId string, wshand WsHandler, ul *url.URL, head http.Header) error {
 	this.Lock()
-	c,ok := this.mWsCons[conId];
+	c, ok := this.mWsCons[conId]
 	this.Unlock()
 	if ok {
 		return errors.New("wscon_id exist")
 	}
 
 	c = new(WsCon)
-//	c.SetHandlers(this.dealResponse, this.mRecvPingHandler, this.mRecvPongHandler, this.mSendPingHandler)
-	if err := c.Init(conId, ul, head, wshand);err != nil {
+	//	c.SetHandlers(this.dealResponse, this.mRecvPingHandler, this.mRecvPongHandler, this.mSendPingHandler)
+	if err := c.Init(conId, ul, head, wshand); err != nil {
 		return err
 	}
 	c.Start()
@@ -46,7 +45,7 @@ func (this *WsMgr) AddCon(conId string, wshand WsHandler, ul *url.URL, head http
 
 func (this *WsMgr) RemoveCon(conId string) error {
 	this.Lock()
-	con,ok := this.mWsCons[conId];
+	con, ok := this.mWsCons[conId]
 	this.Unlock()
 	if !ok {
 		return nil
@@ -58,10 +57,9 @@ func (this *WsMgr) RemoveCon(conId string) error {
 	return nil
 }
 
-
 func (this *WsMgr) Send(conId string, data []byte) error {
 	this.Lock()
-	con, ok := this.mWsCons[conId];
+	con, ok := this.mWsCons[conId]
 	this.Unlock()
 	if !ok {
 		return errors.New("wscon_id nofind")
@@ -75,7 +73,7 @@ func (this *WsMgr) Send(conId string, data []byte) error {
 func (this *WsMgr) Stop() {
 	this.Lock()
 	defer this.Unlock()
-	for _,v :=range this.mWsCons {
+	for _, v := range this.mWsCons {
 		v.stop()
 	}
 }

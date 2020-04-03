@@ -8,7 +8,7 @@ import (
 
 var GCache Cache
 
-type Cache struct{
+type Cache struct {
 	QuoteCache gcache.Cache
 	HuilvCache gcache.Cache
 	//KxianIdCache gcache.Cache
@@ -17,7 +17,7 @@ type Cache struct{
 }
 
 //行情
-func (this * Cache) SetQuoteCacheFunc(f func(key interface{}) (interface{}, *time.Duration, error)) {
+func (this *Cache) SetQuoteCacheFunc(f func(key interface{}) (interface{}, *time.Duration, error)) {
 	this.QuoteCache = gcache.New(500).LRU().LoaderExpireFunc(f).Build()
 }
 
@@ -32,8 +32,6 @@ func (this * Cache) SetQuoteCacheFunc(f func(key interface{}) (interface{}, *tim
 //}
 
 //汇率
-func (this * Cache) SetHuilvCacheFunc(f func(key interface{}) (interface{}, *time.Duration, error)) {
+func (this *Cache) SetHuilvCacheFunc(f func(key interface{}) (interface{}, *time.Duration, error)) {
 	this.HuilvCache = gcache.New(500).LRU().LoaderExpireFunc(f).Build()
 }
-
-

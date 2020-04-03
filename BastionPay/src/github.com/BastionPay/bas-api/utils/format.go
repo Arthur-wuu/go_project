@@ -9,13 +9,13 @@ func FormatSample(data interface{}) string {
 		result string
 	)
 
-	if data == nil{
+	if data == nil {
 		result = ""
 	} else if d, ok := data.([]byte); ok {
 		result = string(d)
 	} else if d, ok := data.(string); ok {
 		result = d
-	} else{
+	} else {
 		example, _ := json.Marshal(data)
 		result = string(example)
 	}

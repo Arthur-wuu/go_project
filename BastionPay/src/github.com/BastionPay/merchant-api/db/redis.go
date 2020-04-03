@@ -1,10 +1,10 @@
 package db
 
 import (
-	"time"
-	"github.com/garyburd/redigo/redis"
 	"errors"
+	"github.com/garyburd/redigo/redis"
 	"reflect"
+	"time"
 )
 
 var GRedis DbRedis
@@ -41,7 +41,7 @@ func (this *DbRedis) Init(host string, port string, password string, db string) 
 		},
 	}
 
-	_,err := this.Do("GET", "test")
+	_, err := this.Do("GET", "test")
 	if err != nil {
 		return err
 	}
@@ -75,15 +75,15 @@ func (this *DbRedis) Scan(args ...interface{}) (int, []string, error) {
 		return 0, nil, err
 	}
 	if repy == nil {
-		return 0,nil, nil
+		return 0, nil, nil
 	}
 	var cur int
 	var keys []string
 	_, err = redis.Scan(repy, &cur, &keys)
 	if err != nil {
-		return 0,nil,err
+		return 0, nil, err
 	}
-	return cur , keys, nil
+	return cur, keys, nil
 }
 
 func (this *DbRedis) Llen(key string) (int64, error) {
@@ -91,7 +91,7 @@ func (this *DbRedis) Llen(key string) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-	len,ok := repy.(int64)
+	len, ok := repy.(int64)
 	if !ok {
 		return 0, errors.New("redis llen type err")
 	}
@@ -113,12 +113,12 @@ func (this *DbRedis) Exist(k string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	exist,ok := repy.(int64)
+	exist, ok := repy.(int64)
 	if !ok {
-		return false, errors.New("redis exist type err "+ reflect.TypeOf(repy).String())
+		return false, errors.New("redis exist type err " + reflect.TypeOf(repy).String())
 	}
 	if exist > 0 {
-		return true,nil
+		return true, nil
 	}
 	return false, err
 }
@@ -129,9 +129,9 @@ func (this *DbRedis) Get(k string) ([]byte, error) {
 		return nil, err
 	}
 	if repy == nil {
-		return nil,nil
+		return nil, nil
 	}
-	data,ok := repy.([]byte)
+	data, ok := repy.([]byte)
 	if !ok {
 		return nil, errors.New("redis get type err")
 	}

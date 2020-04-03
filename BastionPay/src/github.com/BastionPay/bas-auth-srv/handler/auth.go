@@ -8,16 +8,16 @@ import (
 	"BastionPay/bas-api/apibackend/v1/backend"
 	"BastionPay/bas-base/config"
 	service "BastionPay/bas-base/service2"
+	"BastionPay/bas-tools/sdk.notify.mail"
 	l4g "github.com/alecthomas/log4go"
+	"github.com/ulule/limiter"
+	"github.com/ulule/limiter/drivers/store/memory"
 	"io/ioutil"
 	"math"
 	"strconv"
 	"strings"
 	"sync"
 	"time"
-	"github.com/ulule/limiter"
-	"github.com/ulule/limiter/drivers/store/memory"
-	"BastionPay/bas-tools/sdk.notify.mail"
 )
 
 type Auth struct {
@@ -27,10 +27,10 @@ type Auth struct {
 
 	intervalSecond int
 
-	rwmu       sync.RWMutex
-	usersLevel map[string]*db.UserLevel
-	mNoValidIpNotifyLimit     *limiter.Limiter //ip不匹配时，限制短信通知的频率
-	mNoValidIpNotifyTemplateForAdmin  string
+	rwmu                             sync.RWMutex
+	usersLevel                       map[string]*db.UserLevel
+	mNoValidIpNotifyLimit            *limiter.Limiter //ip不匹配时，限制短信通知的频率
+	mNoValidIpNotifyTemplateForAdmin string
 	mNoValidIpNotifyTemplateForUser  string
 }
 
@@ -67,7 +67,7 @@ func (auth *Auth) Init(cfgPath, dir string, node *service.ServiceNode) {
 	err = config.LoadJsonNode(cfgPath, "novalid_ip_notify_rate", &noValidIpRate)
 	if err != nil || noValidIpRate == "" {
 		l4g.Error("config no find novalid_ip_notify_rate err[%v]", err)
-	}else{
+	} else {
 		rate, err := limiter.NewRateFromFormatted(noValidIpRate)
 		if err != nil {
 			l4g.Error("limiter NewRateFromFormatted err[%s]", err.Error())
@@ -90,8 +90,8 @@ func (auth *Auth) Init(cfgPath, dir string, node *service.ServiceNode) {
 	err = config.LoadJsonNode(cfgPath, "bas_notify", &bas_notifyAddr)
 	if err != nil || bas_notifyAddr == "" {
 		l4g.Error("config no find bas_notify err[%v]", err)
-	}else{
-		if err := sdk_notify_mail.GNotifySdk.Init(bas_notifyAddr, "bas-auth-api");err != nil {
+	} else {
+		if err := sdk_notify_mail.GNotifySdk.Init(bas_notifyAddr, "bas-auth-api"); err != nil {
 			l4g.Error("bas_notify Init err[%v]", err)
 		}
 	}
@@ -237,11 +237,11 @@ func (auth *Auth) AuthData(req *data.SrvRequest, res *data.SrvResponse) {
 
 	l4g.Debug("httpIp[%v] DbSourceIP[%s] userkey[%s]", req.Context.SourceIp, ul.SourceIP, req.Argv.UserKey)
 	if req.Context.SourceIp != nil { //兼容老版gateway
-		whiteOk,cleanCtxSrcIp := auth.IsWhiteList(ul.SourceIP, *req.Context.SourceIp)
+		whiteOk, cleanCtxSrcIp := auth.IsWhiteList(ul.SourceIP, *req.Context.SourceIp)
 		if (req.Context.DataFrom == apibackend.DataFromApi) && !whiteOk {
 			l4g.Error("UserSourceIp[%s] reqSourceIp[%s] userkey[%s] err:not equal", ul.SourceIP, *req.Context.SourceIp, req.Argv.UserKey)
 			res.Err = apibackend.ErrAuthSrvIllegalIp
-			go auth.VaildIpNotify(req.Argv.UserKey ,cleanCtxSrcIp)
+			go auth.VaildIpNotify(req.Argv.UserKey, cleanCtxSrcIp)
 			return
 		}
 	}
@@ -305,7 +305,7 @@ func (auth *Auth) IsValidAudite(ul *db.UserLevel) bool {
 	return false
 }
 
-func (auth *Auth) IsWhiteList(whiteLsit, srcIp string) (bool,string) {
+func (auth *Auth) IsWhiteList(whiteLsit, srcIp string) (bool, string) {
 	srcIp = strings.TrimLeft(srcIp, "http://")
 	srcIp = strings.TrimLeft(srcIp, "https://")
 	arr0 := strings.Split(srcIp, ",")
@@ -319,18 +319,18 @@ func (auth *Auth) IsWhiteList(whiteLsit, srcIp string) (bool,string) {
 	}
 	whiteLsit = strings.TrimSpace(whiteLsit)
 	whiteLsitArr := strings.Split(whiteLsit, ",")
-	if (len(whiteLsitArr) == 1) && (whiteLsitArr[0] == "*.*.*.*"){
-		return true,srcIp
+	if (len(whiteLsitArr) == 1) && (whiteLsitArr[0] == "*.*.*.*") {
+		return true, srcIp
 	}
 	for i := 0; i < len(whiteLsitArr); i++ {
 		if srcIp == whiteLsitArr[i] {
-			return true,srcIp
+			return true, srcIp
 		}
 	}
-	return false,srcIp
+	return false, srcIp
 }
 
-func (auth *Auth) VaildIpNotify(userKey ,srcIp string) {
+func (auth *Auth) VaildIpNotify(userKey, srcIp string) {
 	if len(userKey) == 0 {
 		l4g.Error("userkey[%s] err[is nil]", userKey)
 		return
@@ -348,16 +348,16 @@ func (auth *Auth) VaildIpNotify(userKey ,srcIp string) {
 		l4g.Error("(%s) get user level failed: %s", userKey, err.Error())
 		return
 	}
-	l4g.Info("user[%s][%s] start notify ip[%s] mobile[%s]email[%s]", user.UserName, userKey, srcIp,user.CountryCode+user.UserMobile, user.UserEmail)
+	l4g.Info("user[%s][%s] start notify ip[%s] mobile[%s]email[%s]", user.UserName, userKey, srcIp, user.CountryCode+user.UserMobile, user.UserEmail)
 	if len(auth.mNoValidIpNotifyTemplateForAdmin) == 0 {
 		l4g.Error("user[%s][%s] notify err[admin template is nil]", user.UserName, userKey)
-	}else {
+	} else {
 		//发送给管理员的
-		err = sdk_notify_mail.GNotifySdk.SendSmsByGroupName(auth.mNoValidIpNotifyTemplateForAdmin, "zh-CN", nil, map[string]interface{}{"key1":user.UserName, "key2":srcIp})
+		err = sdk_notify_mail.GNotifySdk.SendSmsByGroupName(auth.mNoValidIpNotifyTemplateForAdmin, "zh-CN", nil, map[string]interface{}{"key1": user.UserName, "key2": srcIp})
 		if err != nil {
 			l4g.Error("admin SendSmsByGroupName[%s][%s] err[%s]", user.UserName, userKey, err.Error())
 			//发送给管理员 失败，可能是 手机号错了，不能返回，要继续
-		}else{
+		} else {
 			l4g.Info("admin SendSmsByGroupName[%s][%s] success", user.UserName, userKey)
 		}
 	}
@@ -368,30 +368,30 @@ func (auth *Auth) VaildIpNotify(userKey ,srcIp string) {
 
 	//发送给用户的
 	if (len(user.CountryCode) != 0) && (len(user.UserMobile) != 0) {
-		err = sdk_notify_mail.GNotifySdk.SendSmsByGroupName(auth.mNoValidIpNotifyTemplateForUser, "en-US", []string{user.CountryCode+user.UserMobile}, map[string]interface{}{"key1":user.UserName, "key2":srcIp})
+		err = sdk_notify_mail.GNotifySdk.SendSmsByGroupName(auth.mNoValidIpNotifyTemplateForUser, "en-US", []string{user.CountryCode + user.UserMobile}, map[string]interface{}{"key1": user.UserName, "key2": srcIp})
 		if err != nil {
-			l4g.Error("user SendSmsByGroupName[%s][%s][%s] err[%s]", user.UserName, userKey,user.CountryCode+user.UserMobile, err.Error())
-		}else{
+			l4g.Error("user SendSmsByGroupName[%s][%s][%s] err[%s]", user.UserName, userKey, user.CountryCode+user.UserMobile, err.Error())
+		} else {
 			l4g.Info("user SendSmsByGroupName[%s][%s][%s] success", user.UserName, userKey, user.CountryCode+user.UserMobile)
 		}
 	}
 	if len(user.UserEmail) != 0 {
-		err = sdk_notify_mail.GNotifySdk.SendMailByGroupName(auth.mNoValidIpNotifyTemplateForUser, "en-US", []string{user.UserEmail}, map[string]interface{}{"key1":user.UserName, "key2":srcIp})
+		err = sdk_notify_mail.GNotifySdk.SendMailByGroupName(auth.mNoValidIpNotifyTemplateForUser, "en-US", []string{user.UserEmail}, map[string]interface{}{"key1": user.UserName, "key2": srcIp})
 		if err != nil {
-			l4g.Error("user SendMailByGroupName[%s][%s][%s] err[%s]", user.UserName, userKey,user.UserEmail, err.Error())
-		}else{
+			l4g.Error("user SendMailByGroupName[%s][%s][%s] err[%s]", user.UserName, userKey, user.UserEmail, err.Error())
+		} else {
 			l4g.Info("user SendMailByGroupName[%s][%s][%s] success", user.UserName, userKey, user.UserEmail)
 		}
 	}
 }
 
-func (auth *Auth) OverNoVaildIpNotifyLimit(key string) (bool,error) {
+func (auth *Auth) OverNoVaildIpNotifyLimit(key string) (bool, error) {
 	ctx, err := auth.mNoValidIpNotifyLimit.Get(nil, key)
 	if err != nil {
 		return true, err
 	}
 	if ctx.Reached {
-		return true,nil
+		return true, nil
 	}
-	return false,nil
+	return false, nil
 }

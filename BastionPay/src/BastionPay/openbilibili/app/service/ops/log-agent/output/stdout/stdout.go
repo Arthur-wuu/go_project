@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"go-common/app/service/ops/log-agent/output"
 	"go-common/app/service/ops/log-agent/event"
+	"go-common/app/service/ops/log-agent/output"
 )
 
 type Stdout struct {
@@ -61,6 +61,6 @@ func (s *Stdout) Stop() {
 	s.cancel()
 }
 
-func (s *Stdout) InputChan() (chan *event.ProcessorEvent) {
+func (s *Stdout) InputChan() chan *event.ProcessorEvent {
 	return s.i
 }

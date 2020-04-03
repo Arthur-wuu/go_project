@@ -1,21 +1,21 @@
 package service2
 
 import (
+	"BastionPay/bas-api/apibackend"
 	"BastionPay/bas-base/data"
-	"sync"
-	"sync/atomic"
 	l4g "github.com/alecthomas/log4go"
 	"github.com/cenkalti/rpc2"
-	"BastionPay/bas-api/apibackend"
+	"sync"
+	"sync/atomic"
 )
 
 // service node group
-type SrvNodeGroup struct{
-	registerData data.SrvRegisterData 	// register data
+type SrvNodeGroup struct {
+	registerData data.SrvRegisterData // register data
 
-	rwmu sync.RWMutex					// read/write lock
-	index int64							// index for use
-	nodes []*rpc2.Client					// service nodes [] for use
+	rwmu  sync.RWMutex   // read/write lock
+	index int64          // index for use
+	nodes []*rpc2.Client // service nodes [] for use
 }
 
 // register a service node
@@ -54,7 +54,7 @@ func (sng *SrvNodeGroup) GetSrvInfo() (data.SrvRegisterData, int) {
 	return sng.registerData, len(sng.nodes)
 }
 
-func (sng *SrvNodeGroup) GetSrvNodes() (int) {
+func (sng *SrvNodeGroup) GetSrvNodes() int {
 	sng.rwmu.RLock()
 	defer sng.rwmu.RUnlock()
 
@@ -67,7 +67,7 @@ func (sng *SrvNodeGroup) Call(req *data.SrvRequest, res *data.SrvResponse) {
 
 	// get a free srv node
 	node := sng.getFreeNode()
-	if node == nil{
+	if node == nil {
 		res.Err = apibackend.ErrNotFindSrv
 		return
 	}
@@ -102,11 +102,11 @@ func (sng *SrvNodeGroup) getFreeNode() *rpc2.Client {
 	// TODO:根据算法获取空闲的
 	// NOTE:go map 多次range会从随机位置开始迭代
 	/*
-		for _, v := range sng.AddrMapSrvNode{
-		srvNode = v
-		break
-	}
-	 */
+			for _, v := range sng.AddrMapSrvNode{
+			srvNode = v
+			break
+		}
+	*/
 	length := int64(len(sng.nodes))
 	if length == 0 {
 		return nil

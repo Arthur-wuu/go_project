@@ -58,7 +58,7 @@ func renewToken(c *bm.Context) {
 func getCookieByToken(c *bm.Context) {
 	var (
 		data *v1.CreateCookieReply
-		err error
+		err  error
 	)
 	p := new(v1.CreateCookieReq)
 	if err = c.Bind(p); err != nil {

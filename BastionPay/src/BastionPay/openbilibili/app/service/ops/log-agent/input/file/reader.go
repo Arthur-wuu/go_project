@@ -1,9 +1,9 @@
 package file
 
 import (
-	"io"
 	"bufio"
 	"bytes"
+	"io"
 )
 
 // Message represents a reader event with timestamp, content and actual number
@@ -68,12 +68,12 @@ func (r *LineReader) Next() ([]byte, int, error) {
 	//}
 	// remove '\n'
 	if len(body) > 0 && body[len(body)-1] == '\n' {
-		body = body[0:len(body)-1]
+		body = body[0 : len(body)-1]
 	}
 
 	// remove '\r'
 	if len(body) > 0 && body[len(body)-1] == '\r' {
-		body = body[0: len(body)-1]
+		body = body[0 : len(body)-1]
 	}
 
 	return body, advance, err

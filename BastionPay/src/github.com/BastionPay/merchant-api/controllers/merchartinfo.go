@@ -20,14 +20,14 @@ func (this *MerchantConfig) Add(ctx iris.Context) {
 	err := Tools.ShouldBindJSON(ctx, param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
 	err = param.Add()
 	if err != nil {
-		ZapLog().Error( "Add param to mysql err", zap.Error(err))
-		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(),  err.Error())
+		ZapLog().Error("Add param to mysql err", zap.Error(err))
+		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), err.Error())
 		return
 	}
 
@@ -61,18 +61,17 @@ func (this *MerchantConfig) Update(ctx iris.Context) {
 	err := Tools.ShouldBindJSON(ctx, param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
 	err = param.Update()
-	if  err != nil {
+	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
 		return
 	}
 	this.Response(ctx, "update succ")
 }
-
 
 func (this *MerchantConfig) Delete(ctx iris.Context) {
 	param := new(models.MerchantDel)
@@ -80,18 +79,17 @@ func (this *MerchantConfig) Delete(ctx iris.Context) {
 	err := Tools.ShouldBindJSON(ctx, param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
 	err = param.Delete()
-	if  err != nil {
+	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
 		return
 	}
 	this.Response(ctx, "del succ")
 }
-
 
 func (this *MerchantConfig) List(ctx iris.Context) {
 	param := new(models.MerchantList)

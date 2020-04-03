@@ -107,16 +107,15 @@ type Optional struct {
 
 // 已读公告表
 
-
 type (
 	UserLevel struct {
-		Id             *int64     `json:"id,omitempty"                gorm:"AUTO_INCREMENT:1;column:id"`
-		UserKey         *string     `json:"user_key,omitempty"           gorm:"column:user_key;type:varchar(100);primary_key"`
-		ExpireAt       *int64     `json:"expire_at,omitempty"         gorm:"column:expire_at;type:bigint(20)"`
-		Level          *int     `json:"level,omitempty"           gorm:"column:level;type:int(11)"`
+		Id        *int64  `json:"id,omitempty"                gorm:"AUTO_INCREMENT:1;column:id"`
+		UserKey   *string `json:"user_key,omitempty"           gorm:"column:user_key;type:varchar(100);primary_key"`
+		ExpireAt  *int64  `json:"expire_at,omitempty"         gorm:"column:expire_at;type:bigint(20)"`
+		Level     *int    `json:"level,omitempty"           gorm:"column:level;type:int(11)"`
 		Valid     *int    `json:"valid,omitempty" gorm:"column:valid"`
-		CreatedAt *int64 `json:"created_at,omitempty" gorm:"column:created_at"`
-		UpdatedAt *int64 `json:"updated_at,omitempty" gorm:"column:updated_at"`
+		CreatedAt *int64  `json:"created_at,omitempty" gorm:"column:created_at"`
+		UpdatedAt *int64  `json:"updated_at,omitempty" gorm:"column:updated_at"`
 		Author    *string `json:"author,omitempty" gorm:"column:author"`
 	}
 )

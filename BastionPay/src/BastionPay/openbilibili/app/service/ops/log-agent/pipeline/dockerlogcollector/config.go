@@ -8,13 +8,13 @@ import (
 )
 
 type Config struct {
-	ConfigEnv    string        `toml:"configEnv"`
-	ConfigSuffix string        `toml:"configSuffix"`
-	MetaPath     string        `toml:"metaPath"`
+	ConfigEnv    string         `toml:"configEnv"`
+	ConfigSuffix string         `toml:"configSuffix"`
+	MetaPath     string         `toml:"metaPath"`
 	ScanInterval xtime.Duration `toml:"scanInterval"`
 }
 
-func (c *Config) ConfigValidate() (error) {
+func (c *Config) ConfigValidate() error {
 	if c == nil {
 		return errors.New("config of docker log collector can't be nil")
 	}

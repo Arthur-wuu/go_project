@@ -27,7 +27,7 @@ func TestService_ArchivesWithPlayer(t *testing.T) {
 		wantRes map[int64]*archive.ArchiveWithPlayer
 		wantErr bool
 	}{
-	// TODO: Add test cases.
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		Convey(tt.name, t, func() {

@@ -2,16 +2,16 @@ package conf
 
 import (
 	"errors"
-	"time"
-	"go-common/app/service/ops/log-agent/pkg/flowmonitor"
-	"go-common/library/log"
-	"go-common/app/service/ops/log-agent/pkg/limit"
 	"go-common/app/service/ops/log-agent/conf/configcenter"
+	"go-common/app/service/ops/log-agent/pipeline/dockerlogcollector"
+	"go-common/app/service/ops/log-agent/pipeline/hostlogcollector"
+	"go-common/app/service/ops/log-agent/pkg/flowmonitor"
 	"go-common/app/service/ops/log-agent/pkg/httpstream"
 	"go-common/app/service/ops/log-agent/pkg/lancermonitor"
-	"go-common/app/service/ops/log-agent/pipeline/hostlogcollector"
-	"go-common/app/service/ops/log-agent/pipeline/dockerlogcollector"
+	"go-common/app/service/ops/log-agent/pkg/limit"
+	"go-common/library/log"
 	"go-common/library/naming/discovery"
+	"time"
 
 	"github.com/BurntSushi/toml"
 )
@@ -46,7 +46,7 @@ type Config struct {
 	DockerLogCollector *dockerlogcollector.Config `toml:"dockerLogCollector"`
 }
 
-func (c *Config) ConfigValidate() (error) {
+func (c *Config) ConfigValidate() error {
 	if c == nil {
 		return errors.New("config of log agent can't be nil")
 	}

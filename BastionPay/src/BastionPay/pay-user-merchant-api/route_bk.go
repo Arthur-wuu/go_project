@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/kataras/iris"
-	"github.com/iris-contrib/middleware/cors"
 	"BastionPay/pay-user-merchant-api/controllers"
+	"github.com/iris-contrib/middleware/cors"
+	"github.com/kataras/iris"
 )
 
-func (this *WebServer) bkroutes()  {
+func (this *WebServer) bkroutes() {
 	app := this.mBkIris
 	crs := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
@@ -26,7 +26,7 @@ func (this *WebServer) bkroutes()  {
 	{
 		userBkParty := v1InnerUser.Party("/login", crs)
 		{
-			userCtrl     := controllers.NewUserController()
+			userCtrl := controllers.NewUserController()
 
 			//accountBkParty.Get("/getuserinfo", infoCtrl.GetUserInfo)
 			userBkParty.Post("/qr_callback", userCtrl.BkLoginQrCallBack)

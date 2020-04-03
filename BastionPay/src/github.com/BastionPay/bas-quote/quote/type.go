@@ -3,9 +3,9 @@ package quote
 import "BastionPay/bas-quote/collect"
 
 const (
-	DB_Quote_prefix     = "qt"
-//	DB_Code_prefix      = "cd"
-//	DB_Code_Time_prefix = "code_lasttime"
+	DB_Quote_prefix = "qt"
+	//	DB_Code_prefix      = "cd"
+	//	DB_Code_Time_prefix = "code_lasttime"
 	CONST_KXIAN_1Day_Prefix = "kxian_1day"
 )
 
@@ -66,9 +66,9 @@ func (this *SymbolInfo) SetSymbol(s string) {
 }
 
 type HistoryDetailInfo struct {
-	Symbol     *string              `json:"symbol,omitempty" doc:"币简称"`
-	Id         *int                 `json:"id,omitempty" doc:"币id"`
-	KXianDetail  []*KXianDetail        `json:"kxian,omitempty" doc:"币行情数据"`
+	Symbol      *string        `json:"symbol,omitempty" doc:"币简称"`
+	Id          *int           `json:"id,omitempty" doc:"币id"`
+	KXianDetail []*KXianDetail `json:"kxian,omitempty" doc:"币行情数据"`
 }
 
 func (this *HistoryDetailInfo) AddKXianDetail() *KXianDetail {
@@ -80,120 +80,119 @@ func (this *HistoryDetailInfo) AddKXianDetail() *KXianDetail {
 	return k
 }
 
-func (this * HistoryDetailInfo) GetSymbol() string {
+func (this *HistoryDetailInfo) GetSymbol() string {
 	if this.Symbol == nil {
 		return ""
 	}
 	return *this.Symbol
 }
 
-func (this * HistoryDetailInfo) GetId() int {
+func (this *HistoryDetailInfo) GetId() int {
 	if this.Id == nil {
 		return 0
 	}
 	return *this.Id
 }
 
-type KXianDetail struct{
-	Symbol     *string              `json:"symbol,omitempty" doc:"币简称"`
-	KXians     []*KXian             `json:"detail,omitempty" doc:"币历史kxian数据"`
+type KXianDetail struct {
+	Symbol *string  `json:"symbol,omitempty" doc:"币简称"`
+	KXians []*KXian `json:"detail,omitempty" doc:"币历史kxian数据"`
 }
 
-func (this *KXianDetail)SetSymbol(s string){
+func (this *KXianDetail) SetSymbol(s string) {
 	if this.Symbol == nil {
 		this.Symbol = new(string)
 	}
 	*this.Symbol = s
 }
 
-
-type KXian struct{
-	Timestamp *int64   `json:"timestamp,omitempty"` //日期
-	OpenPrice *float64  `json:"open_price,omitempty"` //开盘价
+type KXian struct {
+	Timestamp  *int64   `json:"timestamp,omitempty"`   //日期
+	OpenPrice  *float64 `json:"open_price,omitempty"`  //开盘价
 	ClosePrice *float64 `json:"close_price,omitempty"` //收盘价
-	LastPrice *float64  `json:"last_price,omitempty"` //最新价
-	HighPrice *float64  `json:"high_price,omitempty"` //最高
-	LowPrice  *float64  `json:"low_price,omitempty"` //最低
+	LastPrice  *float64 `json:"last_price,omitempty"`  //最新价
+	HighPrice  *float64 `json:"high_price,omitempty"`  //最高
+	LowPrice   *float64 `json:"low_price,omitempty"`   //最低
 }
 
-func (this * KXian) GetTimestamp() int64 {
+func (this *KXian) GetTimestamp() int64 {
 	if this.Timestamp == nil {
 		return 0
 	}
 	return *this.Timestamp
 }
 
-func (this * KXian) SetTimestamp(i int64) {
+func (this *KXian) SetTimestamp(i int64) {
 	if this.Timestamp == nil {
 		this.Timestamp = new(int64)
 	}
 	*this.Timestamp = i
 }
 
-func (this * KXian) GetOpenPrice() float64 {
+func (this *KXian) GetOpenPrice() float64 {
 	if this.OpenPrice == nil {
 		return 0
 	}
 	return *this.OpenPrice
 }
 
-func (this * KXian) SetOpenPrice(p float64)  {
+func (this *KXian) SetOpenPrice(p float64) {
 	if this.OpenPrice == nil {
 		this.OpenPrice = new(float64)
 	}
 	*this.OpenPrice = p
 }
 
-func (this * KXian) GetClosePrice() float64 {
+func (this *KXian) GetClosePrice() float64 {
 	if this.ClosePrice == nil {
 		return 0
 	}
 	return *this.ClosePrice
 }
 
-func (this * KXian) SetClosePrice(p float64) {
+func (this *KXian) SetClosePrice(p float64) {
 	if this.ClosePrice == nil {
 		this.ClosePrice = new(float64)
 	}
 	*this.ClosePrice = p
 }
 
-func (this * KXian) GetLastPrice() float64 {
+func (this *KXian) GetLastPrice() float64 {
 	if this.LastPrice == nil {
 		return 0
 	}
 	return *this.LastPrice
 }
 
-func (this * KXian) SetLastPrice(p float64) {
+func (this *KXian) SetLastPrice(p float64) {
 	if this.LastPrice == nil {
 		this.LastPrice = new(float64)
 	}
 	*this.LastPrice = p
 }
 
-func (this * KXian) GetHighPrice() float64 {
+func (this *KXian) GetHighPrice() float64 {
 	if this.HighPrice == nil {
 		return 0
 	}
 	return *this.HighPrice
 }
 
-func (this * KXian) SetHighPrice(p float64) {
+func (this *KXian) SetHighPrice(p float64) {
 	if this.HighPrice == nil {
 		this.HighPrice = new(float64)
 	}
 	*this.HighPrice = p
 }
 
-func (this * KXian) GetLowPrice() float64 {
+func (this *KXian) GetLowPrice() float64 {
 	if this.LowPrice == nil {
 		return 0
 	}
 	return *this.LowPrice
 }
 
-func (this * KXian) SetLowPrice(p float64)  {
+func (this *KXian) SetLowPrice(p float64) {
 	if this.LowPrice == nil {
 		this.LowPrice = new(float64)
 	}

@@ -112,7 +112,7 @@ func receive() {
 	//消费逻辑
 	go func() {
 		for d := range msg {
-			s :=fmt.Sprintf("%x", &d.Body)
+			s := fmt.Sprintf("%x", &d.Body)
 			//s := queue.BytesToString(&d.Body)
 			count++
 			fmt.Println("接收信息是%s-- %d\n", s, count)

@@ -16,7 +16,7 @@ var (
 
 // New new a bm server.
 func New(s *service.Service) (engine *bm.Engine) {
-	var(
+	var (
 		hc struct {
 			Server *bm.ServerConfig
 		}

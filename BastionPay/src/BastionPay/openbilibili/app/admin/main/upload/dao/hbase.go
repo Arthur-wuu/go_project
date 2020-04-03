@@ -22,12 +22,12 @@ func (d *Dao) CreateTable(c context.Context, table string) error {
 		"IN_MEMORY":           "false",
 		"KEEP_DELETED_CELLS":  "false",
 		"DATA_BLOCK_ENCODING": "NONE",
-		"TTL":               "2147483647", // NOTE: 2147483647 is forever
-		"COMPRESSION":       "NONE",
-		"MIN_VERSIONS":      "0",
-		"BLOCKCACHE":        "true",
-		"BLOCKSIZE":         "65536",
-		"REPLICATION_SCOPE": "0",
+		"TTL":                 "2147483647", // NOTE: 2147483647 is forever
+		"COMPRESSION":         "NONE",
+		"MIN_VERSIONS":        "0",
+		"BLOCKCACHE":          "true",
+		"BLOCKSIZE":           "65536",
+		"REPLICATION_SCOPE":   "0",
 	}
 	b := [][]byte{[]byte("1"), []byte("2"), []byte("3"), []byte("4"), []byte("5"), []byte("6"), []byte("7"),
 		[]byte("8"), []byte("9"), []byte("a"), []byte("b"), []byte("c"), []byte("d"), []byte("e"), []byte("f")}

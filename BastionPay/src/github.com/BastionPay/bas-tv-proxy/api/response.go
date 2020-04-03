@@ -1,6 +1,6 @@
 package api
 
-import(
+import (
 	"encoding/json"
 )
 
@@ -20,10 +20,10 @@ func NewResponse(qid string) *Response {
 }
 
 type Response struct {
-	Qid              *string `json:"Qid,omitempty"`     //请求id，流水号, 单次请求唯一
-	Err              *int32  `json:"Err,omitempty"`     //错误号
-	Counter          *uint64 `json:"Counter,omitempty"` //推送序号, 0表示正常请求，>=1 表示推送
-	Data             interface{}    `json:"Data,omitempty"`    //数据
+	Qid     *string     `json:"Qid,omitempty"`     //请求id，流水号, 单次请求唯一
+	Err     *int32      `json:"Err,omitempty"`     //错误号
+	Counter *uint64     `json:"Counter,omitempty"` //推送序号, 0表示正常请求，>=1 表示推送
+	Data    interface{} `json:"Data,omitempty"`    //数据
 }
 
 func (this *Response) SetCounter(e uint64) {
@@ -40,7 +40,7 @@ func (this *Response) SetErr(e int32) {
 	*this.Err = e
 }
 
-func (this *Response) Marshal(msg interface{})([]byte, error){
+func (this *Response) Marshal(msg interface{}) ([]byte, error) {
 	if msg != nil {
 		this.Data = msg
 	}

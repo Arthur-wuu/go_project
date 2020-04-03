@@ -246,12 +246,12 @@ func (d *Dao) CrmUpMidsSum(c context.Context, upMids []int64) (count int64, err 
 // McnSignPayDues .
 func (d *Dao) McnSignPayDues(c context.Context) (sps []*model.SignPayInfo, err error) {
 	var (
-		rows     *xsql.Rows
-		now, future   time.Time
-		nowDate        = time.Now()
-		date     = nowDate.AddDate(0, 0, 7)
-		template = date.Format(model.TimeFormatDay)
-		nowTemplate    = nowDate.Format(model.TimeFormatDay)
+		rows        *xsql.Rows
+		now, future time.Time
+		nowDate     = time.Now()
+		date        = nowDate.AddDate(0, 0, 7)
+		template    = date.Format(model.TimeFormatDay)
+		nowTemplate = nowDate.Format(model.TimeFormatDay)
 	)
 	if now, err = time.ParseInLocation(model.TimeFormatDay, nowTemplate, time.Local); err != nil {
 		err = errors.Errorf("time.ParseInLocation(%s) now error(%+v)", nowTemplate, err)

@@ -1,11 +1,11 @@
 package file
 
 import (
-	"time"
-	"os"
 	"fmt"
+	"os"
 	"path/filepath"
 	"syscall"
+	"time"
 )
 
 type State struct {

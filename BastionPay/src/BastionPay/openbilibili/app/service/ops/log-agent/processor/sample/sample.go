@@ -1,13 +1,13 @@
 package sample
 
 import (
-	"math/rand"
 	"context"
+	"math/rand"
 
 	"go-common/app/service/ops/log-agent/event"
-	"go-common/app/service/ops/log-agent/processor"
 	"go-common/app/service/ops/log-agent/pkg/common"
 	"go-common/app/service/ops/log-agent/pkg/flowmonitor"
+	"go-common/app/service/ops/log-agent/processor"
 )
 
 type Sample struct {

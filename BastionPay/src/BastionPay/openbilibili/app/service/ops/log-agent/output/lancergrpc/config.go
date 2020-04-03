@@ -2,10 +2,10 @@ package lancergrpc
 
 import (
 	"errors"
-	"time"
 	"go-common/app/service/ops/log-agent/output/cache/file"
 	streamEvent "go-common/app/service/ops/log-agent/output/lancergrpc/lancergateway"
 	xtime "go-common/library/time"
+	"time"
 
 	"github.com/BurntSushi/toml"
 )
@@ -25,7 +25,7 @@ type Config struct {
 	MaxRetryDuration     xtime.Duration      `tome:"maxRetryDuration"`
 }
 
-func (c *Config) ConfigValidate() (error) {
+func (c *Config) ConfigValidate() error {
 	if c == nil {
 		return errors.New("config of Lancer Output is nil")
 	}

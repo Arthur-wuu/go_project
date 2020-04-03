@@ -19,9 +19,9 @@ func HttpSend(url string, body io.Reader, method string, headers map[string][]st
 	//fmt.Println("***headers***",headers["map"])
 	req.Header.Set("Content-Type", "application/json")
 
-	for k,v := range headers {
+	for k, v := range headers {
 		//fmt.Println("**k-v**",k, v[0])
-		req.Header.Set(k,v[0])
+		req.Header.Set(k, v[0])
 		//slice := v
 		//
 		//for _, sliceV := range slice {
@@ -39,7 +39,7 @@ func HttpSend(url string, body io.Reader, method string, headers map[string][]st
 
 	content, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 
 	if resp.StatusCode != 200 {

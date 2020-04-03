@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"testing"
 
-	"xorm.io/builder"
 	"github.com/stretchr/testify/assert"
+	"xorm.io/builder"
 )
 
 func isFloatEq(i, j float64, precision int) bool {

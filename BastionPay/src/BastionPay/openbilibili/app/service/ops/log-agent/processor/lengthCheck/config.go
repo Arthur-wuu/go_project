@@ -10,7 +10,7 @@ type Config struct {
 	MaxLength int `toml:"maxLength"`
 }
 
-func (c *Config) ConfigValidate() (error) {
+func (c *Config) ConfigValidate() error {
 	if c == nil {
 		return fmt.Errorf("Error can't be nil")
 	}

@@ -606,9 +606,9 @@ func (s *Service) QueryMobileMachineLendOutLogs(c context.Context, username stri
 	}
 
 	p = &model.PaginateMobileMachineLendOutLog{
-		PageNum:  queryRequest.PageNum,
-		PageSize: queryRequest.PageSize,
-		Total:    total,
+		PageNum:               queryRequest.PageNum,
+		PageSize:              queryRequest.PageSize,
+		Total:                 total,
 		MachineLendOutRecords: machineLendOutRecords,
 	}
 	return

@@ -1,17 +1,17 @@
 package controllers
 
 import (
-	"github.com/kataras/iris"
 	"BastionPay/bas-tv-proxy/models/kbspirit"
+	"github.com/kataras/iris"
 
-	"strings"
-	"strconv"
-	"BastionPay/bas-tv-proxy/api"
-	"BastionPay/bas-tv-proxy/models"
-	"BastionPay/bas-tv-proxy/common"
 	. "BastionPay/bas-base/log/zap"
-	"go.uber.org/zap"
+	"BastionPay/bas-tv-proxy/api"
+	"BastionPay/bas-tv-proxy/common"
 	"BastionPay/bas-tv-proxy/config"
+	"BastionPay/bas-tv-proxy/models"
+	"go.uber.org/zap"
+	"strconv"
+	"strings"
 )
 
 var GKBSpirit KBSpirit
@@ -20,20 +20,20 @@ type KBSpirit struct {
 	Controllers
 }
 
-func (this * KBSpirit) Init() error {
+func (this *KBSpirit) Init() error {
 	models.GKBSpirit.Init()
 	models.GKBSpirit.Start()
 	return nil
 }
 
 // input&type(暂时不用)&market(空或者*为全部，否则匹配指定市场)&viplevel
-func (this * KBSpirit) HandleGetObjs(ctx iris.Context) {
-	env,err := this.paraseGetObjsParam(ctx)
-	if  err != nil {
+func (this *KBSpirit) HandleGetObjs(ctx iris.Context) {
+	env, err := this.paraseGetObjsParam(ctx)
+	if err != nil {
 		this.ExceptionSerive(ctx, api.ErrCode_Param)
 		return
 	}
-	ZapLog().Info("HandleGetObjs",zap.Any("env", *env))
+	ZapLog().Info("HandleGetObjs", zap.Any("env", *env))
 
 	data := models.GKBSpirit.GetObjs(env)
 
@@ -66,25 +66,25 @@ func (this * KBSpirit) HandleGetObjs(ctx iris.Context) {
 				GuanJianZi: &env.Input,
 				JieGuo:     data,
 			},
-		}...
+		}...,
 	)
 
 	this.Response(ctx, bigMsg)
 }
 
-func (this *KBSpirit) paraseGetObjsParam(ctx iris.Context) (*kbspirit.Env,error) {
+func (this *KBSpirit) paraseGetObjsParam(ctx iris.Context) (*kbspirit.Env, error) {
 	env := kbspirit.NewSearchEnv()
 
 	input := strings.ToUpper(ctx.URLParam("input"))
-	if strings.HasPrefix(input, "_") || strings.Contains(input, " _"){
+	if strings.HasPrefix(input, "_") || strings.Contains(input, " _") {
 		env.SuffixFlag = true
 	}
 	env.Input = strings.Replace(input, " ", "", -1)
 	env.Input = strings.Replace(env.Input, "_", "", -1)
 	strMarkets := strings.Replace(strings.ToUpper(ctx.URLParam("market")), " ", "", -1)
-	if len(strMarkets) == 0 || strMarkets[0] == '*'{
+	if len(strMarkets) == 0 || strMarkets[0] == '*' {
 		env.Markets = config.GPreConfig.Markets
-	}else{
+	} else {
 		env.Markets = strings.Split(strMarkets, ",")
 	}
 
@@ -96,7 +96,7 @@ func (this *KBSpirit) paraseGetObjsParam(ctx iris.Context) (*kbspirit.Env,error)
 	}
 
 	vipStr := ctx.URLParam("viplevel")
-	env.VipLevel,_ = strconv.Atoi(vipStr)
+	env.VipLevel, _ = strconv.Atoi(vipStr)
 
 	//// 是否退市
 	//delist := true
@@ -106,10 +106,10 @@ func (this *KBSpirit) paraseGetObjsParam(ctx iris.Context) (*kbspirit.Env,error)
 	//}
 	//env.Delist = delist
 	if len(env.Input) >= 6 {
-		env.ChineseFlag =  common.IsChineseChar(env.Input[:6])
+		env.ChineseFlag = common.IsChineseChar(env.Input[:6])
 	}
 
-	return env,nil
+	return env, nil
 }
 
 // intSlice 将字符串分割为整型数组

@@ -2,9 +2,9 @@ package limit
 
 import (
 	"errors"
-	"os"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strconv"
 )
 

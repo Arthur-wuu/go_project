@@ -15,14 +15,15 @@ type (
 		Controllers
 	}
 )
+
 //atm 有手续费的 订单
 func (this *Atm) CreateAtmQr(ctx iris.Context) {
 	param := new(api.QrTrade)
 
-	err :=ctx.ReadJSON(param)
+	err := ctx.ReadJSON(param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err")
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 	param.MerchantTradeNo = common.GenerateUuid()
@@ -30,7 +31,7 @@ func (this *Atm) CreateAtmQr(ctx iris.Context) {
 
 	res, err := new(baspay.QrTrade).QrParse(param).SendDiscountQr()
 	if err != nil {
-		ZapLog().Error( "baspay Send err", zap.Error(err))
+		ZapLog().Error("baspay Send err", zap.Error(err))
 		ctx.JSON(Response{Code: apibackend.BASERR_INTERNAL_SERVICE_ACCESS_ERROR.Code(), Message: err.Error()})
 		return
 	}
@@ -41,7 +42,3 @@ func (this *Atm) CreateAtmQr(ctx iris.Context) {
 
 	this.Response(ctx, res.Data)
 }
-
-
-
-

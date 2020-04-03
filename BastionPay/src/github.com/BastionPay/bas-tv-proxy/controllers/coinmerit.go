@@ -1,20 +1,18 @@
 package controllers
 
 import (
-	"BastionPay/bas-tv-proxy/config"
-	"github.com/kataras/iris"
-	"BastionPay/bas-tv-proxy/models"
-	"BastionPay/bas-tv-proxy/api"
 	. "BastionPay/bas-base/log/zap"
-	"go.uber.org/zap"
+	"BastionPay/bas-tv-proxy/api"
+	"BastionPay/bas-tv-proxy/base"
+	"BastionPay/bas-tv-proxy/common"
+	"BastionPay/bas-tv-proxy/config"
+	"BastionPay/bas-tv-proxy/models"
 	"BastionPay/bas-tv-proxy/type"
 	"fmt"
-	"BastionPay/bas-tv-proxy/common"
-	"BastionPay/bas-tv-proxy/base"
+	"github.com/kataras/iris"
+	"go.uber.org/zap"
 	"strings"
 )
-
-
 
 var GCoinMerit CoinMerit
 
@@ -24,11 +22,11 @@ type CoinMerit struct {
 
 func (this *CoinMerit) Init(c *config.Config) error {
 	this.mConf = c
-	if err := models.GCoinMeritModels.Init(&base.GWsServerMgr); err != nil{
+	if err := models.GCoinMeritModels.Init(&base.GWsServerMgr); err != nil {
 		return err
 	}
 	if err := models.GCoinMeritModels.Start(); err != nil {
-		ZapLog().Error("models.GCoinMeritModels.Start() err:"+ err.Error())
+		ZapLog().Error("models.GCoinMeritModels.Start() err:" + err.Error())
 	} //不需要任何错误处理
 	ZapLog().Sugar().Infof("Ctrl CoinMerit Init ok")
 	return nil
@@ -95,7 +93,7 @@ func (this *CoinMerit) HandleWsKXian(request base.Requester) {
 func (this *CoinMerit) HandleHttpKXian(ctx iris.Context) {
 	qid := ctx.URLParam("qid")
 	exa := strings.ToLower(ctx.URLParam("market"))
-	objs := strings.Split(strings.ToLower(ctx.URLParam("obj")),",")
+	objs := strings.Split(strings.ToLower(ctx.URLParam("obj")), ",")
 	period := strings.ToLower(ctx.URLParam("period"))
 	start := ctx.URLParam("start")
 	count := ctx.URLParam("count")
@@ -112,8 +110,8 @@ func (this *CoinMerit) HandleHttpKXian(ctx iris.Context) {
 	exa = strings.ToLower(info.Name)
 
 	quotekxians := make([]*api.QuoteKlineSingle, 0, len(objs))
-	for i:=0; i < len(objs); i++ {
-		cmKline,err := models.GCoinMeritModels.HttpKXian(exa, objs[i], period, count, start)
+	for i := 0; i < len(objs); i++ {
+		cmKline, err := models.GCoinMeritModels.HttpKXian(exa, objs[i], period, count, start)
 		if err != nil {
 			ZapLog().Error("GCoinMeritModels HttpKXian err", zap.Error(err))
 			ctx.JSON(api.NewErrResponse(qid, api.ErrCode_InerServer))
@@ -122,7 +120,7 @@ func (this *CoinMerit) HandleHttpKXian(ctx iris.Context) {
 		quotekxians = append(quotekxians, api.NewQuoteKlineSingle(objs[i], CoinMeritKXianToApiKXian(cmKline)))
 	}
 
-//	ZapLog().Info("cm_res", zap.Any("cmres", *cmKline), zap.Any("apires", apiKLine))
+	//	ZapLog().Info("cm_res", zap.Any("cmres", *cmKline), zap.Any("apires", apiKLine))
 	resmsg := new(api.MSG)
 	resmsg.AddQuoteKlineSingle(quotekxians...)
 	common.CtxJson(ctx, qid, resmsg)
@@ -130,7 +128,7 @@ func (this *CoinMerit) HandleHttpKXian(ctx iris.Context) {
 
 func (this *CoinMerit) HandleHttpExa(ctx iris.Context) {
 	qid := ctx.URLParam("qid")
-	cmExa ,err := models.GCoinMeritModels.HttpExa()
+	cmExa, err := models.GCoinMeritModels.HttpExa()
 	if err != nil {
 		ZapLog().Error("GCoinMeritModels HttpExa err", zap.Error(err))
 		ctx.JSON(api.NewErrResponse(qid, api.ErrCode_InerServer))
@@ -151,7 +149,7 @@ func (this *CoinMerit) HandleHttpObjList(ctx iris.Context) {
 		ctx.JSON(api.NewErrResponse(qid, api.ErrCode_Param))
 		return
 	}
-	cmObjs,err := models.GCoinMeritModels.HttpObjList(exa)
+	cmObjs, err := models.GCoinMeritModels.HttpObjList(exa)
 	if err != nil {
 		ZapLog().Error("GCoinMeritModels HttpObjList err", zap.Error(err))
 		ctx.JSON(api.NewErrResponse(qid, api.ErrCode_InerServer))
@@ -164,45 +162,42 @@ func (this *CoinMerit) HandleHttpObjList(ctx iris.Context) {
 	common.CtxJson(ctx, qid, resmsg)
 }
 
-
-
 func CoinMeritKXianToApiKXian(k1 *_type.ResCoinMeritKLine) []*api.KXian {
 	k2 := make([]*api.KXian, 0)
-	for j:=0; j < len(k1.Data); j++ {
+	for j := 0; j < len(k1.Data); j++ {
 		tmp := new(api.KXian)
 
+		for i := 0; i < len(k1.Data[j]); i++ {
+			switch i {
+			case 0:
+				tmp.SetShiJian(int64(k1.Data[j][0]))
+				break
+			case 1:
+				tmp.SetKaiPanJia(fmt.Sprintf("%f", k1.Data[j][1]))
+				break
+			case 2:
+				tmp.SetZuiGaoJia(fmt.Sprintf("%f", k1.Data[j][2]))
+				break
+			case 3:
+				tmp.SetZuiDiJia(fmt.Sprintf("%f", k1.Data[j][3]))
+				break
+			case 4:
+				tmp.SetShouPanJia(fmt.Sprintf("%f", k1.Data[j][4]))
+				break
+			case 5:
+				tmp.SetChengJiaoLiang(fmt.Sprintf("%f", k1.Data[j][5]))
+				break
+			}
 
-	for i:=0; i < len(k1.Data[j]); i++ {
-		switch i {
-		case 0:
-			tmp.SetShiJian(int64(k1.Data[j][0]))
-			break
-		case 1:
-			tmp.SetKaiPanJia(fmt.Sprintf("%f", k1.Data[j][1]))
-			break
-		case 2:
-			tmp.SetZuiGaoJia(fmt.Sprintf("%f",k1.Data[j][2]))
-			break
-		case 3:
-			tmp.SetZuiDiJia(fmt.Sprintf("%f",k1.Data[j][3]))
-			break
-		case 4:
-			tmp.SetShouPanJia(fmt.Sprintf("%f",k1.Data[j][4]))
-			break
-		case 5:
-			tmp.SetChengJiaoLiang(fmt.Sprintf("%f",k1.Data[j][5]))
-			break
 		}
-
-	}
-		k2 =append(k2, tmp)
+		k2 = append(k2, tmp)
 	}
 	return k2
 }
 
 func CoinMeritExchangesToApiMarket(c1 *_type.ResCoinMeritExchanges) []*api.Market {
-	c2 :=make([]*api.Market, 0)
-	for i:=0; i < len(c1.Data); i++ {
+	c2 := make([]*api.Market, 0)
+	for i := 0; i < len(c1.Data); i++ {
 		tmp := new(api.Market)
 		tmp.SetName(c1.Data[i])
 		c2 = append(c2, tmp)
@@ -211,7 +206,7 @@ func CoinMeritExchangesToApiMarket(c1 *_type.ResCoinMeritExchanges) []*api.Marke
 }
 
 func CoinMeritCurrencyPairsToApiMarket(c1 *_type.ResCoinMeritCurrencyPairs) *api.Market {
-	c2 :=new(api.Market)
+	c2 := new(api.Market)
 	c2.SetName(c1.Data.Exchange)
 	c2.Objs = c1.Data.CurrencyPairs
 	return c2

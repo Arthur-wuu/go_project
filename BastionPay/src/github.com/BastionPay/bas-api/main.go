@@ -1,9 +1,8 @@
 package main
 
-import (
-)
+import ()
 
-func main()  {
+func main() {
 	//t1 := time.Now()
 	//time.Sleep(time.Second*2)
 	//t2 := time.Now()

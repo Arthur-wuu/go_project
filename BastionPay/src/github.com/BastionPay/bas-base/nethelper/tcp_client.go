@@ -1,8 +1,8 @@
 package nethelper
 
 import (
-	"net/rpc"
 	l4g "github.com/alecthomas/log4go"
+	"net/rpc"
 )
 
 // Call a JRPC to Tcp server

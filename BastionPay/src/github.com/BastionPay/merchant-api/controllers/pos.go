@@ -19,24 +19,25 @@ type (
 		Controllers
 	}
 )
+
 //Pos机 创建订单
 func (this *Pos) CreatePos(ctx iris.Context) {
 	param := new(api.PosTrade)
 	times := time.Now().Local().Format("2006-01-02 15:04:05")
 	param.TimeStamp = &times
 
-	err :=ctx.ReadJSON(param)
+	err := ctx.ReadJSON(param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err")
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
 	param.MerchantPosNo = common.GenerateUuid()
-									//传的是各种法币的币种，法币的数量，还有数字货币的币种
-	amount, err := baspay.GetAmount( *param.Legal, *param.Amount ,*param.Assets)
+	//传的是各种法币的币种，法币的数量，还有数字货币的币种
+	amount, err := baspay.GetAmount(*param.Legal, *param.Amount, *param.Assets)
 	if err != nil {
-		ZapLog().Error( "amount err", zap.Error(err))
+		ZapLog().Error("amount err", zap.Error(err))
 		this.ExceptionSerive(ctx, 100501, "amount err")
 		return
 	}
@@ -53,7 +54,7 @@ func (this *Pos) CreatePos(ctx iris.Context) {
 
 	res, err := new(baspay.PosTrade).PosParse(param).PosSend()
 	if err != nil {
-		ZapLog().Error( "baspay Send err", zap.Error(err))
+		ZapLog().Error("baspay Send err", zap.Error(err))
 		this.ExceptionSerive(ctx, 100571, "pos err")
 		return
 	}
@@ -62,9 +63,9 @@ func (this *Pos) CreatePos(ctx iris.Context) {
 		return
 	}
 
-	err = new(models.PosTrade).UpdateByPosTradeNo( param.MerchantPosNo, 1)
+	err = new(models.PosTrade).UpdateByPosTradeNo(param.MerchantPosNo, 1)
 	if err != nil {
-		ZapLog().Error( "UpdateByPosTradeNo err", zap.Error(err))
+		ZapLog().Error("UpdateByPosTradeNo err", zap.Error(err))
 		ctx.JSON(Response{Code: 100591, Message: err.Error()})
 		return
 	}
@@ -79,15 +80,15 @@ func (this *Pos) CreatePos(ctx iris.Context) {
 }
 
 //pos机的订单查询
-func (this *Pos) PosOrders (ctx iris.Context) {
+func (this *Pos) PosOrders(ctx iris.Context) {
 	param := new(api.PosOrders)
 	times := time.Now().Local().Format("2006-01-02 15:04:05")
 	param.TimeStamp = &times
 
-	err :=ctx.ReadJSON(param)
+	err := ctx.ReadJSON(param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err")
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
@@ -104,7 +105,7 @@ func (this *Pos) PosOrders (ctx iris.Context) {
 
 	res, err := new(baspay.PosOrders).PosOrderParse(param).PosOrdersSend()
 	if err != nil {
-		ZapLog().Error( "baspay Send err", zap.Error(err))
+		ZapLog().Error("baspay Send err", zap.Error(err))
 		this.ExceptionSerive(ctx, 100551, "pos err")
 		return
 	}
@@ -118,20 +119,17 @@ func (this *Pos) PosOrders (ctx iris.Context) {
 	this.PosOrdersRes(ctx, *res)
 }
 
-
-
-
 func (this *Pos) List(ctx iris.Context) {
 	param := new(models.PosList)
 
 	err := Tools.ShouldBindJSON(ctx, param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "get pos list err:"+err.Error())
-		ZapLog().Error( "get pos list err", zap.Error(err))
+		ZapLog().Error("get pos list err", zap.Error(err))
 		return
 	}
 
-	data, err := param.ListWithConds(param.Page, param.Size,param.TimeStart, param.TimeEnd)
+	data, err := param.ListWithConds(param.Page, param.Size, param.TimeStart, param.TimeEnd)
 	if err != nil {
 		//l4g.Error("AddRole username[%s] param[%v] err[%s]", utils.GetValueUserName(ctx), param, err.Error())
 		ctx.JSON(Response{Code: apibackend.BASERR_OBJECT_EXISTS.Code(), Message: err.Error()})
@@ -141,13 +139,12 @@ func (this *Pos) List(ctx iris.Context) {
 	this.Response(ctx, data)
 }
 
-
 func Decimal8(value string) string {
-	float,err := strconv.ParseFloat(value,64)
+	float, err := strconv.ParseFloat(value, 64)
 	if err != nil {
 		return ""
 	}
 	f64, _ := strconv.ParseFloat(fmt.Sprintf("%.8f", float), 64)
-	s2 := strconv.FormatFloat(f64, 'g', -1, 64)//float64
+	s2 := strconv.FormatFloat(f64, 'g', -1, 64) //float64
 	return s2
 }

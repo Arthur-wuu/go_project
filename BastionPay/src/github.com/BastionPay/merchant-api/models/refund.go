@@ -23,8 +23,8 @@ type (
 		OriginalMerchantTradeNo *string `json:"original_merchant_trade_no,omitempty"    gorm:"column:original_merchant_trade_no;type:varchar(64)"`
 		Remark                  *string `json:"remark,omitempty"                        gorm:"column:remark;type:varchar(120)"`
 		PayeeId                 *string `json:"payee_id,omitempty"                      gorm:"column:payee_id;type:varchar(64)"`
-		Assets   				*string `json:"assets,omitempty"                        gorm:"column:assets;type:varchar(16)"`
-		Amount 				    *string `json:"amount,omitempty"                        gorm:"column:amount;type:varchar(20)"`
+		Assets                  *string `json:"assets,omitempty"                        gorm:"column:assets;type:varchar(16)"`
+		Amount                  *string `json:"amount,omitempty"                        gorm:"column:amount;type:varchar(20)"`
 		Table
 	}
 )
@@ -45,8 +45,7 @@ func (this *ReFund) Parse(p *api.RefundTrade) *ReFund {
 	}
 }
 
-
-func (this *ReFundWithInfo) Parse(p  *ReFund) *ReFundWithInfo {
+func (this *ReFundWithInfo) Parse(p *ReFund) *ReFundWithInfo {
 	return &ReFundWithInfo{
 		MerchantId:              p.MerchantId,
 		MerchantRefundNo:        p.MerchantRefundNo,
@@ -55,7 +54,6 @@ func (this *ReFundWithInfo) Parse(p  *ReFund) *ReFundWithInfo {
 		Remark:                  p.Remark,
 	}
 }
-
 
 func (this *ReFund) ParseList(p *api.RefundTradeList) *ReFund {
 	return &ReFund{
@@ -71,7 +69,7 @@ func (this *ReFund) Add() error {
 	return nil
 }
 
-func (this *ReFund) List(merchantId string,page, size int64) ([]*ReFund, []string, error) {
+func (this *ReFund) List(merchantId string, page, size int64) ([]*ReFund, []string, error) {
 	var list []*ReFund
 	condition := &ReFund{MerchantId: &merchantId}
 
@@ -88,7 +86,7 @@ func (this *ReFund) List(merchantId string,page, size int64) ([]*ReFund, []strin
 		originOrders = append(originOrders, *list[i].OriginalMerchantTradeNo)
 	}
 
-	return list , originOrders, nil
+	return list, originOrders, nil
 }
 
 //func (this *ReFund) UpdateStatusByTradeNo(merchant_refund_no string, status int, trade_no string) ( error) {

@@ -3,8 +3,8 @@ package main
 import (
 	"BastionPay/bas-base/config"
 	. "BastionPay/bas-base/log/zap"
-	. "github.com/BastionPay/bas-export/config"
 	"fmt"
+	. "github.com/BastionPay/bas-export/config"
 	"go.uber.org/zap"
 	"runtime/debug"
 )

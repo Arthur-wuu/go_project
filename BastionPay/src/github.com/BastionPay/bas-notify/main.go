@@ -35,5 +35,5 @@ func main() {
 	//	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 	//	<-c
 	ZapLog().Sugar().Info("WebServer Stop")
-	time.Sleep(time.Second*1)
+	time.Sleep(time.Second * 1)
 }

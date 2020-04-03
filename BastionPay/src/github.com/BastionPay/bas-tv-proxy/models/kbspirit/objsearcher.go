@@ -5,22 +5,22 @@ import (
 	"strings"
 	//"time"
 	//"os"
-	qs "BastionPay/bas-tv-proxy/base/quicksearch"
-	"BastionPay/bas-tv-proxy/api"
-	"time"
 	"BastionPay/bas-base/log/zap"
+	"BastionPay/bas-tv-proxy/api"
+	qs "BastionPay/bas-tv-proxy/base/quicksearch"
 	"go.uber.org/zap"
+	"time"
 )
 
 // 证券搜索器
 type ObjSearcher struct {
-	prefixTree     map[string]qs.IQuickSearch //全代码、去掉市场的代码、去掉市场的拼音 建前缀树 (无法区分拼音还是obj代码)
-	suffixTree     map[string]qs.IQuickSearch //去掉市场代码, 取反， 后缀树
+	prefixTree map[string]qs.IQuickSearch //全代码、去掉市场的代码、去掉市场的拼音 建前缀树 (无法区分拼音还是obj代码)
+	suffixTree map[string]qs.IQuickSearch //去掉市场代码, 取反， 后缀树
 	//pingyinTree    map[string]qs.IQuickSearch //拼音,无市场，前缀树
-	hanziTree      map[string]qs.IQuickSearch //汉子 无市场，前缀树
+	hanziTree map[string]qs.IQuickSearch //汉子 无市场，前缀树
 
 	stocks      map[string][]*api.JPBShuJu
-	updateTimes  map[string] int64
+	updateTimes map[string]int64
 }
 
 // NewObjSearcher 新建证券搜索器
@@ -35,11 +35,11 @@ func NewObjSearcher() *ObjSearcher {
 	updateTimes := make(map[string]int64)
 
 	return &ObjSearcher{
-		prefixTree:prefixTree,
-		suffixTree:suffixTree,
-		hanziTree:hanziTree,
-		stocks:stocks,
-		updateTimes:updateTimes,
+		prefixTree:  prefixTree,
+		suffixTree:  suffixTree,
+		hanziTree:   hanziTree,
+		stocks:      stocks,
+		updateTimes: updateTimes,
 	}
 }
 
@@ -47,16 +47,17 @@ func NewObjSearcher() *ObjSearcher {
 func (this *ObjSearcher) Init() error {
 	return nil
 }
+
 //这是云平台的方式，存在的问题是 无序，并且需要各种去重。
 //优化 不区分市场建树，前缀树，后缀树（_USDT）,汉字树 三颗即可。并且采用数组形式。 树的节点包含儿子及子孙节点并且无重复。
-func (this * ObjSearcher) Update(market string, arrs []*api.JPBShuJu) {
+func (this *ObjSearcher) Update(market string, arrs []*api.JPBShuJu) {
 	prefixTree := qs.New(qs.QSType_Trie)
 	suffixTree := qs.New(qs.QSType_Trie)
 	hanziTree := qs.New(qs.QSType_Trie)
 
 	market = strings.ToUpper(market)
 
-	for i:=0; i < len(arrs); i++ {
+	for i := 0; i < len(arrs); i++ {
 		objInfo := arrs[i]
 		daima := strings.Replace(objInfo.GetDaiMa(), " ", "", -1)
 		daima = strings.ToUpper(strings.Replace(daima, "_", "", -1))
@@ -94,16 +95,16 @@ func (this * ObjSearcher) Update(market string, arrs []*api.JPBShuJu) {
 }
 
 //
-func (this * ObjSearcher) Search(key string, env *Env) []*api.JPBShuChu {
+func (this *ObjSearcher) Search(key string, env *Env) []*api.JPBShuChu {
 	prefixTree := this.prefixTree
 	suffixTree := this.suffixTree
 	hanziTree := this.hanziTree
 	updateTimes := this.updateTimes
 
-	result := make([]*api.JPBShuChu,0, int(env.Count)+20)
+	result := make([]*api.JPBShuChu, 0, int(env.Count)+20)
 	needCount := env.Count
 	for _, market := range env.Markets {
-		stockArr,ok := this.stocks[market]
+		stockArr, ok := this.stocks[market]
 		if !ok {
 			continue
 		}

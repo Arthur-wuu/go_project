@@ -1,16 +1,15 @@
 package controllers
 
 import (
-	"github.com/kataras/iris/context"
 	"BastionPay/pay-user-merchant-api/common"
+	"github.com/kataras/iris/context"
 	//"gopkg.exa.center/blockshine-ex/api-article/config"
-	"github.com/kataras/iris/middleware/i18n"
 	"BastionPay/pay-user-merchant-api/config"
+	"github.com/kataras/iris/middleware/i18n"
 )
 
 type (
 	Controllers struct {
-
 	}
 
 	OrderResponse struct {
@@ -21,7 +20,7 @@ type (
 
 	Response struct {
 		Status struct {
-			Code int `json:"code"`
+			Code    int    `json:"code"`
 			Message string `json:"msg"`
 		} `json:"status"`
 		Result interface{} `json:"result,omitempty"`
@@ -29,10 +28,10 @@ type (
 )
 
 func Init() error {
-	phoneSmsLimiter =  common.NewBusLimiter(&common.GRedis, "buslimit_sms_phone_", config.GPreConfig.PhoneSmsLimits)
+	phoneSmsLimiter = common.NewBusLimiter(&common.GRedis, "buslimit_sms_phone_", config.GPreConfig.PhoneSmsLimits)
 	ipSmsLimiter = common.NewBusLimiter(&common.GRedis, "buslimit_sms_ip_", config.GPreConfig.IpSmsLimits)
 	phoneEmailLimiter = common.NewBusLimiter(&common.GRedis, "buslimit_email_phone_", config.GPreConfig.PhoneSmsLimits)
-	ipEmailLimiter  = common.NewBusLimiter(&common.GRedis, "buslimit_email_ip_", config.GPreConfig.IpSmsLimits)
+	ipEmailLimiter = common.NewBusLimiter(&common.GRedis, "buslimit_email_ip_", config.GPreConfig.IpSmsLimits)
 
 	if err := phoneSmsLimiter.Init(); err != nil {
 		return err
@@ -61,7 +60,7 @@ func (c *Controllers) Response(
 	ctx context.Context,
 	data interface{}) {
 	res := &Response{
-		Result:    data,
+		Result: data,
 	}
 	res.Status.Code = 0
 	res.Status.Message = "Success"
@@ -97,7 +96,7 @@ func (c *Controllers) ExceptionSeriveWithParams(
 	ctx.JSON(res)
 }
 
-func (r *Controllers) ResponsePage(ctx context.Context, result interface{}, total interface{}, page interface{})  {
+func (r *Controllers) ResponsePage(ctx context.Context, result interface{}, total interface{}, page interface{}) {
 
 	tmp := &struct {
 		Total interface{} `json:"total"`
@@ -106,7 +105,7 @@ func (r *Controllers) ResponsePage(ctx context.Context, result interface{}, tota
 	}{total, page, result}
 
 	res := &Response{
-		Result:    tmp,
+		Result: tmp,
 	}
 	res.Status.Code = 0
 	res.Status.Message = "Success"

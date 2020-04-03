@@ -1,12 +1,12 @@
 package base
 
 import (
+	"BastionPay/bas-tv-proxy/api"
 	"net/url"
 	"strings"
-	"BastionPay/bas-tv-proxy/api"
 )
 
-type WsHandler interface{
+type WsHandler interface {
 	RecvPingHander(message string) string
 	RecvPongHander(message string) string
 	SendPingHander() []byte
@@ -20,21 +20,21 @@ type WsHandler interface{
 
 type ClearHanderType func(conId, qid string)
 type PackPushHanderType func(reqster Requester, data interface{}) ([]byte, error)
-type PackResHanderType func(reqster Requester, errCode int32, data interface{}) ([]byte,error)
+type PackResHanderType func(reqster Requester, errCode int32, data interface{}) ([]byte, error)
 
 type Requester interface {
 	SetUuid(uuid string)
 	GetUuid() string
 	GetCounter() uint64
-	GetFirstPath()string
+	GetFirstPath() string
 	GetPath() string
-	GetParamValue(param string) (string)
+	GetParamValue(param string) string
 	IsSimpleReq() bool
 	IsSub() bool
 	IsUnSub() bool
 	CancelSub()
 	OnResponseWithPack(errCode int32, apiMag interface{}) error
-	OnResponse(errCode int32, data []byte ) error
+	OnResponse(errCode int32, data []byte) error
 	SubErrClear(errCode int32)
 	OnPushResponseWithPack(data interface{}) error
 	OnPushResponse(data []byte) error
@@ -43,19 +43,19 @@ type Requester interface {
 	GetSub() string
 }
 
-type NewRequesterHandler func(wsServer *WsServer, urlReq *url.URL, reqUUID string, clearHand ClearHanderType, packPushHand PackPushHanderType ,packResHand PackResHanderType) Requester
+type NewRequesterHandler func(wsServer *WsServer, urlReq *url.URL, reqUUID string, clearHand ClearHanderType, packPushHand PackPushHanderType, packResHand PackResHanderType) Requester
 
 type DefaultRequester struct {
-	Qid       string    //同一连接 唯一，请求推送的会话id
-	Uuid      string    //程序唯一
-	Url       *url.URL
-	Values    url.Values
-	ConId     string     //程序唯一
-	Sub       string
-	counter   uint64       //会话递增，0表示首次，>=1表示推送
-	WsServer  *WsServer
-	clearHander func(conId, qid string)
-	packPushHandler  PackPushHanderType
+	Qid             string //同一连接 唯一，请求推送的会话id
+	Uuid            string //程序唯一
+	Url             *url.URL
+	Values          url.Values
+	ConId           string //程序唯一
+	Sub             string
+	counter         uint64 //会话递增，0表示首次，>=1表示推送
+	WsServer        *WsServer
+	clearHander     func(conId, qid string)
+	packPushHandler PackPushHanderType
 	packResHandler  PackResHanderType
 }
 
@@ -71,7 +71,7 @@ func (this *DefaultRequester) GetQid() string {
 	return this.Qid
 }
 
-func (this *DefaultRequester) SetUuid(uuid string){
+func (this *DefaultRequester) SetUuid(uuid string) {
 	this.Uuid = uuid
 }
 
@@ -84,7 +84,7 @@ func (this *DefaultRequester) GetCounter() uint64 {
 	return this.counter
 }
 
-func (this *DefaultRequester) GetFirstPath()string {
+func (this *DefaultRequester) GetFirstPath() string {
 	paths := strings.Split(this.Url.Path, "/")
 	if len(paths) >= 4 {
 		return paths[3]
@@ -96,7 +96,7 @@ func (this *DefaultRequester) GetPath() string {
 	return this.Url.Path
 }
 
-func (this *DefaultRequester) GetParamValue(param string) (string) {
+func (this *DefaultRequester) GetParamValue(param string) string {
 	return this.Values.Get(param) //这个效率很低啊
 }
 
@@ -130,7 +130,7 @@ func (this *DefaultRequester) OnResponseWithPack(errCode int32, apiMag interface
 	return nil
 }
 
-func (this *DefaultRequester) OnResponse(errCode int32, data []byte ) error {
+func (this *DefaultRequester) OnResponse(errCode int32, data []byte) error {
 	if errCode != api.ErrCode_Success {
 		this.SubErrClear(errCode)
 	}
@@ -139,7 +139,7 @@ func (this *DefaultRequester) OnResponse(errCode int32, data []byte ) error {
 }
 
 func (this *DefaultRequester) SubErrClear(errCode int32) {
-	if this.IsSub() && errCode != api.ErrCode_Success && this.clearHander != nil{
+	if this.IsSub() && errCode != api.ErrCode_Success && this.clearHander != nil {
 		this.clearHander(this.ConId, this.Qid)
 	}
 }

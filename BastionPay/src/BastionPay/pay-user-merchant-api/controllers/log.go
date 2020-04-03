@@ -1,16 +1,16 @@
 package controllers
 
 import (
+	"BastionPay/bas-api/apibackend"
+	. "BastionPay/bas-base/log/zap"
+	"BastionPay/pay-user-merchant-api/api"
 	"BastionPay/pay-user-merchant-api/common"
 	"BastionPay/pay-user-merchant-api/config"
 	"BastionPay/pay-user-merchant-api/models"
 	"BastionPay/pay-user-merchant-api/utils"
-	. "BastionPay/bas-base/log/zap"
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/i18n"
 	"go.uber.org/zap"
-	"BastionPay/bas-api/apibackend"
-	"BastionPay/pay-user-merchant-api/api"
 )
 
 type LogController struct {
@@ -18,8 +18,7 @@ type LogController struct {
 }
 
 func NewLogController() *LogController {
-	return &LogController{
-	}
+	return &LogController{}
 }
 
 func (l *LogController) RecodeLog(ctx iris.Context) {
@@ -100,7 +99,7 @@ func (l *LogController) RecodeLoginLog(userId int, ip string, device string) {
 		device = "web"
 	}
 
-	 err = new(models.LogLogin).ParseAdd(userId, ip, country, city, device).Add()
+	err = new(models.LogLogin).ParseAdd(userId, ip, country, city, device).Add()
 	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("CreateLoginLog err")
 		return
@@ -144,7 +143,6 @@ func (this *LogController) GetLoginLog(ctx iris.Context) {
 		err    error
 
 		params api.PageParams
-
 	)
 
 	common.GetParams(ctx, &params)
@@ -169,17 +167,17 @@ func (this *LogController) GetLoginLog(ctx iris.Context) {
 	respData := make([]*api.ResLoginLog, len(data))
 
 	for k, v := range data {
-		respData[k] = &api.ResLoginLog {
-			Id: v.Id,
-			Ip: v.Ip,
-			Country: v.Country,
-			City:    v.City,
-			Device:  v.Device,
+		respData[k] = &api.ResLoginLog{
+			Id:        v.Id,
+			Ip:        v.Ip,
+			Country:   v.Country,
+			City:      v.City,
+			Device:    v.Device,
 			CreatedAt: v.CreatedAt,
 		}
 	}
 
-	this.ResponsePage(ctx, respData,count, params.Page)
+	this.ResponsePage(ctx, respData, count, params.Page)
 }
 
 func (this *LogController) GetOperationLog(ctx iris.Context) {
@@ -219,12 +217,12 @@ func (this *LogController) GetOperationLog(ctx iris.Context) {
 		respData[k] = &api.ResOperationLog{
 			Id:        v.Id,
 			Operation: &v.Operation,
-			Ip :       &v.Ip,
+			Ip:        &v.Ip,
 			Country:   &v.Country,
 			City:      &v.City,
 			CreatedAt: v.CreatedAt,
 		}
 	}
 
-	this.ResponsePage(ctx, respData,count, params.Page)
+	this.ResponsePage(ctx, respData, count, params.Page)
 }

@@ -2,8 +2,8 @@ package common
 
 import (
 	"bytes"
-	"fmt"
 	"crypto/md5"
+	"fmt"
 	"io/ioutil"
 )
 

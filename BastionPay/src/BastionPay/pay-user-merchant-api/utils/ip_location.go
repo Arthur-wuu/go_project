@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"encoding/json"
 	"BastionPay/pay-user-merchant-api/common"
+	"encoding/json"
 )
 
 const (
@@ -10,9 +10,9 @@ const (
 	ipLocationUrl = "https://ipfind.co/"
 )
 
-var(
+var (
 	// 修正政治正确
-	FixedCountry = map[string]string{"Hong Kong":"China", "Macao":"China","Taiwan":"China"}
+	FixedCountry = map[string]string{"Hong Kong": "China", "Macao": "China", "Taiwan": "China"}
 )
 
 //type IpLocationResult struct {
@@ -32,7 +32,6 @@ var(
 //		IspId     string `json:"isp_id"`
 //	}
 //}
-
 
 //{"ip_address":"60.249.116.191","country":"Taiwan","country_code":"TW","continent":"Asia","continent_code":"AS",
 // "city":"Taichung","county":"Taichung City","region":"Taiwan", "region_code":"04","timezone":"Asia\/Taipei",
@@ -56,7 +55,7 @@ type IpLocationResult struct {
 
 func IpLocation(auth string, ip string) (*IpLocationResult, error) {
 	var (
-		res= &IpLocationResult{}
+		res = &IpLocationResult{}
 		err error
 	)
 	result, err := common.NewHttp().Get(ipLocationUrl + "?auth=" + auth + "&ip=" + ip)

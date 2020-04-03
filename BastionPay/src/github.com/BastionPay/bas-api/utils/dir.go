@@ -2,10 +2,10 @@ package utils
 
 import (
 	"os"
-	"path/filepath"
-	"strings"
 	"os/user"
+	"path/filepath"
 	"runtime"
+	"strings"
 )
 
 // Get the app running directory

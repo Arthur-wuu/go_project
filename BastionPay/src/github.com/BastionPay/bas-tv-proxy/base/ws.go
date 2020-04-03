@@ -1,26 +1,26 @@
 package base
 
 import (
-	"sync"
+	. "BastionPay/bas-base/log/zap"
 	"github.com/gorilla/websocket"
-	"time"
+	"go.uber.org/zap"
 	"net/http"
 	"net/url"
-	. "BastionPay/bas-base/log/zap"
-	"go.uber.org/zap"
+	"sync"
+	"time"
 )
 
-type WsMsg struct{
-	Type int
-	Data []byte
+type WsMsg struct {
+	Type     int
+	Data     []byte
 	ExpireAt int64
 }
 
 type WsCon struct {
-	mId     string
-	mUrl    *url.URL
-	mHeader http.Header
-	conn   *websocket.Conn
+	mId       string
+	mUrl      *url.URL
+	mHeader   http.Header
+	conn      *websocket.Conn
 	exitCh    chan bool
 	waitGroup sync.WaitGroup
 	isAlive   bool
@@ -37,14 +37,14 @@ func (this *WsCon) Init(id string, url *url.URL, header http.Header, wshand WsHa
 	this.mId = id
 	this.mHander = wshand
 	this.exitCh = make(chan bool)
-	this.mSendCh =  make(chan *WsMsg, 1000)
-	this.mRecvCh =  make(chan *WsMsg, 1000)
+	this.mSendCh = make(chan *WsMsg, 1000)
+	this.mRecvCh = make(chan *WsMsg, 1000)
 	this.dialer = &websocket.Dialer{
 		Proxy:            http.ProxyFromEnvironment,
 		HandshakeTimeout: time.Second * 10,
 	}
 
-	if err := this.newCon();err != nil {
+	if err := this.newCon(); err != nil {
 		return err
 	}
 	return nil
@@ -59,15 +59,15 @@ func (this *WsCon) Start() {
 
 func (this *WsCon) Send(messageType int, data []byte) error {
 	this.mHander.BeforeSendHandler()
-	this.mSendCh <- &WsMsg{messageType, data, time.Now().Add(time.Second*25).Unix()}
-	if err := this.mHander.AfterSendHandler();err != nil {
+	this.mSendCh <- &WsMsg{messageType, data, time.Now().Add(time.Second * 25).Unix()}
+	if err := this.mHander.AfterSendHandler(); err != nil {
 		return err
 	}
 	return nil
 }
 
 func (this *WsCon) write(messageType int, data []byte) error {
-	this.conn.SetWriteDeadline(time.Now().Add(time.Second *15))// 这个接口一次有效
+	this.conn.SetWriteDeadline(time.Now().Add(time.Second * 15)) // 这个接口一次有效
 	return this.conn.WriteMessage(messageType, data)
 }
 
@@ -75,15 +75,15 @@ func (this *WsCon) write(messageType int, data []byte) error {
 func (this *WsCon) runWrite() {
 	this.waitGroup.Add(1)
 	defer this.waitGroup.Done()
-	defer this.conn.Close()  //让runRead顺利终止
+	defer this.conn.Close() //让runRead顺利终止
 	pingTick := time.Tick(time.Second * 10)
-	for {//超时错误怎么办
+	for { //超时错误怎么办
 		select {
 		case msg := <-this.mSendCh:
 			nowTime := time.Now().Unix()
-			if msg.ExpireAt <  nowTime{
+			if msg.ExpireAt < nowTime {
 				//消息超时
-				ZapLog().Warn("msg to much timetout", zap.Int64("time", nowTime-msg.ExpireAt),zap.String("conid", this.mId))
+				ZapLog().Warn("msg to much timetout", zap.Int64("time", nowTime-msg.ExpireAt), zap.String("conid", this.mId))
 				break
 			}
 			if err := this.write(msg.Type, msg.Data); err != nil {
@@ -95,7 +95,7 @@ func (this *WsCon) runWrite() {
 		case <-pingTick:
 			ZapLog().Debug("time to send ping", zap.String("conid", this.mId))
 			content := this.mHander.SendPingHander()
-			if err := this.conn.WriteControl(websocket.PingMessage, content, time.Now().Add(time.Second * 6)); err != nil {
+			if err := this.conn.WriteControl(websocket.PingMessage, content, time.Now().Add(time.Second*6)); err != nil {
 				ZapLog().Error("ws WriteControl err", zap.Error(err), zap.String("conid", this.mId))
 				return
 			}
@@ -115,7 +115,7 @@ func (this *WsCon) runRead() {
 		ReadMessage永远阻塞，连接断开后ReadMessage要60+秒（30秒发哦5分钟不等）才能返回，而且报错 timeout，这种方式显然不合适。
 	    ReadMessage带超时，要配合ping pong，在收到ping和pong的时候重新设置读超时。这种方式断开后最终返回是超时。
 	    SetReadDeadline
-	 */
+	*/
 	for {
 		//阻塞模式，不会有超时或者信号打断错误
 		msgType, data, err := this.conn.ReadMessage()
@@ -126,7 +126,7 @@ func (this *WsCon) runRead() {
 		this.conn.SetReadDeadline(time.Now().Add(time.Second * 22)) //=sendPing*2+2, 这个接口一次有效
 		switch msgType {
 		case websocket.CloseMessage:
-			ZapLog().Error("ws ReadMessage CloseMessage",  zap.String("conid", this.mId))
+			ZapLog().Error("ws ReadMessage CloseMessage", zap.String("conid", this.mId))
 			return
 		case websocket.BinaryMessage, websocket.TextMessage:
 			this.mHander.RecvHandler(this.mId, data)
@@ -161,7 +161,7 @@ func (this *WsCon) setPingPongHandler() {
 			return nil
 		})
 	}
-	if this.mHander.IsRecvPongHander(){
+	if this.mHander.IsRecvPongHander() {
 		this.conn.SetPongHandler(func(appData string) error {
 			this.conn.SetReadDeadline(time.Now().Add(time.Second * 22))
 			ZapLog().Debug("recv  pong", zap.String("conid", this.mId))
@@ -177,7 +177,7 @@ func (this *WsCon) reConnect() {
 		return
 	}
 	ZapLog().Info("Find Disconnect and will reConnect", zap.String("conid", this.mId))
-	close(this.exitCh) //这里让 runwrite退出
+	close(this.exitCh)    //这里让 runwrite退出
 	this.waitGroup.Wait() //必须要等到两个线程 退出
 	this.exitCh = make(chan bool)
 
@@ -185,7 +185,7 @@ func (this *WsCon) reConnect() {
 		err := this.newCon()
 		if err != nil {
 			ZapLog().Error("newCon err so sleep 120s", zap.String("conid", this.mId))
-//			logger.Error("PoccSdk:: connect to pocc failed, err(%v)", err)
+			//			logger.Error("PoccSdk:: connect to pocc failed, err(%v)", err)
 			time.Sleep(120 * time.Second)
 		} else {
 			this.Start()
@@ -203,12 +203,12 @@ func (this *WsCon) stop() {
 	if this.conn != nil {
 		this.isAlive = false
 		this.conn.WriteMessage(websocket.CloseMessage, nil)
-//		logger.Info("PoccSdk::send close msg to pocc done.")
+		//		logger.Info("PoccSdk::send close msg to pocc done.")
 		close(this.exitCh)
 		this.waitGroup.Wait()
 		this.conn = nil
 	}
-	ZapLog().Info("wscon stop"+this.mId)
+	ZapLog().Info("wscon stop" + this.mId)
 }
 
 func (this *WsCon) GetId() string {

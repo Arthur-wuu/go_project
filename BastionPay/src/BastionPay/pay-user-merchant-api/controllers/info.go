@@ -3,14 +3,14 @@ package controllers
 import (
 	"BastionPay/pay-user-merchant-api/common"
 	//"BastionPay/pay-user-merchant-api/config"
-	"BastionPay/pay-user-merchant-api/models"
 	"BastionPay/bas-api/apibackend"
 	"BastionPay/bas-api/apibackend/v1/backend"
 	. "BastionPay/bas-base/log/zap"
+	"BastionPay/pay-user-merchant-api/api"
+	"BastionPay/pay-user-merchant-api/models"
 	"encoding/json"
 	"github.com/kataras/iris"
 	"go.uber.org/zap"
-	"BastionPay/pay-user-merchant-api/api"
 )
 
 type InfoController struct {
@@ -18,9 +18,7 @@ type InfoController struct {
 }
 
 func NewInfoController() *InfoController {
-	return &InfoController{
-
-	}
+	return &InfoController{}
 }
 
 func (this *InfoController) GetInformation(ctx iris.Context) {
@@ -47,7 +45,7 @@ func (this *InfoController) GetInformation(ctx iris.Context) {
 	this.Response(ctx, &api.ResUserInfo{user.Id, user.CreateTime, common.SecretPhone(user.Phone), user.PhonneDistrict,
 		common.SecretEmail(user.Email), bindGa, user.VipLevel, user.Country,
 		user.Language, "", "",
-		 user.Company})
+		user.Company})
 
 }
 
@@ -89,7 +87,7 @@ func (this *InfoController) SetInformation(ctx iris.Context) {
 	if params.Language != "" {
 		if err = new(models.User).SetLanguage(userId, params.Language); err != nil {
 			ZapLog().With(zap.Error(err)).Error("SetLanguage err")
-			this.ExceptionSerive(ctx,  apibackend.BASERR_DATABASE_ERROR.Code(), "FAILED_TO_SET_LANGUAGE")
+			this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), "FAILED_TO_SET_LANGUAGE")
 			return
 		}
 	}
@@ -159,7 +157,6 @@ func (this *InfoController) BindEmail(ctx iris.Context) {
 		this.ExceptionSerive(ctx, apibackend.BASERR_OBJECT_EXISTS.Code(), "THE_EMAIL_HAS_ALREADY_EXISTED")
 		return
 	}
-
 
 	if err = new(models.User).SetEmail(userId, params.Email); err != nil {
 		ZapLog().With(zap.Error(err)).Error("SetEmail err")
@@ -297,7 +294,7 @@ func (this *InfoController) RebindPhone(ctx iris.Context) {
 			if err != nil {
 				ZapLog().With(zap.Error(err)).Error("NewVerification err")
 			}
-			this.ExceptionSerive(ctx,  apibackend.BASERR_ADMIN_INVALID_VERIFY_STATUS.Code(), "FAILURE_OF_EMAIL_TOKEN_AUTHENTICATION")
+			this.ExceptionSerive(ctx, apibackend.BASERR_ADMIN_INVALID_VERIFY_STATUS.Code(), "FAILURE_OF_EMAIL_TOKEN_AUTHENTICATION")
 			return
 		}
 	}
@@ -316,7 +313,7 @@ func (this *InfoController) RebindPhone(ctx iris.Context) {
 	}
 
 	// 检测旧手机
-	oldTokenPass, err := common.NewVerification( "rebind_phone", common.VerificationTypeSms).
+	oldTokenPass, err := common.NewVerification("rebind_phone", common.VerificationTypeSms).
 		Check(params.OldSmsToken, userId, user.PhonneDistrict+user.Phone)
 	if err != nil || !oldTokenPass {
 		if err != nil {
@@ -419,7 +416,7 @@ func (this *InfoController) Listusers(ctx iris.Context) {
 	err := ctx.ReadJSON(reqUserList)
 	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("ReadJSON err")
-		this.ExceptionSerive(ctx,apibackend.BASERR_INVALID_PARAMETER.Code(), "FAILED_TO_GET_PARAMETERS")
+		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "FAILED_TO_GET_PARAMETERS")
 		return
 	}
 
@@ -466,7 +463,7 @@ func (this *InfoController) Listusers(ctx iris.Context) {
 	dataAck, err := json.Marshal(ackUserList)
 	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("jsonMarshal err")
-		this.ExceptionSerive(ctx,  apibackend.BASERR_DATA_PACK_ERROR.Code(), "JSON_MUSHAL_ERROR")
+		this.ExceptionSerive(ctx, apibackend.BASERR_DATA_PACK_ERROR.Code(), "JSON_MUSHAL_ERROR")
 		return
 	}
 

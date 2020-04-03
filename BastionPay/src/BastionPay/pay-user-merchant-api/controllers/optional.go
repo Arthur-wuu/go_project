@@ -1,12 +1,12 @@
 package controllers
 
 import (
+	"BastionPay/bas-api/apibackend"
+	. "BastionPay/bas-base/log/zap"
 	"BastionPay/pay-user-merchant-api/common"
 	"BastionPay/pay-user-merchant-api/models"
-	. "BastionPay/bas-base/log/zap"
 	"github.com/kataras/iris"
 	"go.uber.org/zap"
-	"BastionPay/bas-api/apibackend"
 )
 
 type Markets []string
@@ -16,9 +16,7 @@ type OptionalController struct {
 }
 
 func NewOptionalController() *OptionalController {
-	return &OptionalController{
-
-	}
+	return &OptionalController{}
 }
 
 func (this *OptionalController) Get(ctx iris.Context) {

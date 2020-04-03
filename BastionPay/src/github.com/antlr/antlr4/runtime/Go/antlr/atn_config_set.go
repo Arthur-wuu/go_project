@@ -93,9 +93,9 @@ type BaseATNConfigSet struct {
 
 func NewBaseATNConfigSet(fullCtx bool) *BaseATNConfigSet {
 	return &BaseATNConfigSet{
-		cachedHash: -1,
-		configLookup:     NewSet(nil, equalATNConfigs),
-		fullCtx:          fullCtx,
+		cachedHash:   -1,
+		configLookup: NewSet(nil, equalATNConfigs),
+		fullCtx:      fullCtx,
 	}
 }
 

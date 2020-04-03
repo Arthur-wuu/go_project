@@ -1,13 +1,13 @@
 package httpstream
 
 import (
-	"net/http"
-	"sync"
-	"regexp"
 	"bytes"
-	"strconv"
 	"context"
 	"go-common/app/service/ops/log-agent/event"
+	"net/http"
+	"regexp"
+	"strconv"
+	"sync"
 )
 
 type HttpStream struct {

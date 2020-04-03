@@ -1,25 +1,24 @@
 package controllers
 
 import (
-	"github.com/kataras/iris/context"
 	"BastionPay/bas-notify/common"
+	"github.com/kataras/iris/context"
 	//"gopkg.exa.center/blockshine-ex/api-article/config"
+	. "BastionPay/bas-base/log/zap"
 	"BastionPay/bas-notify/models/table"
 	"go.uber.org/zap"
 	"runtime/debug"
-	. "BastionPay/bas-base/log/zap"
 )
 
 type (
 	Controllers struct {
-
 	}
 
 	Response struct {
-		Err               int             `json:"err"`
-		ErrMsg            string          `json:"errmsg"`
-		TemplateGroupList interface{} `json:"templategrouplist,omitempty"`
-		Templates         interface{}      `json:"template,omitempty"`
+		Err                 int         `json:"err"`
+		ErrMsg              string      `json:"errmsg"`
+		TemplateGroupList   interface{} `json:"templategrouplist,omitempty"`
+		Templates           interface{} `json:"template,omitempty"`
 		TemplateHistoryList interface{} `json:"templatehistorylist,omitempty"`
 	}
 )
@@ -38,9 +37,9 @@ func (c *Controllers) ResponseGroupList(
 
 	ctx.JSON(
 		Response{
-			Err:    0,
-			ErrMsg: "Success",
-			TemplateGroupList:    data,
+			Err:               0,
+			ErrMsg:            "Success",
+			TemplateGroupList: data,
 		})
 }
 
@@ -50,9 +49,9 @@ func (c *Controllers) ResponseTemps(
 
 	ctx.JSON(
 		Response{
-			Err:    0,
-			ErrMsg: "Success",
-			Templates:    data,
+			Err:       0,
+			ErrMsg:    "Success",
+			Templates: data,
 		})
 }
 
@@ -62,9 +61,9 @@ func (c *Controllers) ResponseHistoryList(
 
 	ctx.JSON(
 		Response{
-			Err:    0,
-			ErrMsg: "Success",
-			TemplateHistoryList:    data,
+			Err:                 0,
+			ErrMsg:              "Success",
+			TemplateHistoryList: data,
 		})
 }
 
@@ -91,17 +90,17 @@ func (c *Controllers) Response(
 		})
 }
 
-type TemplateGroupList struct{
-	Total_lines     int              `json:"total_lines"`
-	Page_index      int              `json:"page_index"`
-	Max_disp_lines  int              `json:"max_disp_lines"`
+type TemplateGroupList struct {
+	Total_lines    int                    `json:"total_lines"`
+	Page_index     int                    `json:"page_index"`
+	Max_disp_lines int                    `json:"max_disp_lines"`
 	TemplateGroups []*table.TemplateGroup `json:"templategroup,omitempty"`
 }
 
-type TemplateHistoryList struct{
-	Total_lines     int              `json:"total_lines"`
-	Page_index      int              `json:"page_index"`
-	Max_disp_lines  int              `json:"max_disp_lines"`
+type TemplateHistoryList struct {
+	Total_lines      int              `json:"total_lines"`
+	Page_index       int              `json:"page_index"`
+	Max_disp_lines   int              `json:"max_disp_lines"`
 	TemplateHistorys []*table.History `json:"templatehistory,omitempty"`
 }
 

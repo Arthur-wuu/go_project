@@ -16,7 +16,7 @@ type Config struct {
 	PoolConfig      *ConnPoolConfig `tome:"poolConfig"`
 }
 
-func (c *Config) ConfigValidate() (error) {
+func (c *Config) ConfigValidate() error {
 	if c == nil {
 		return errors.New("config of Sock Input is nil")
 	}

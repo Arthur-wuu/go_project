@@ -17,7 +17,7 @@ func NewGrpcService(p *server.BroadcastProxy, d *server.CometDispatcher) (*warde
 	}
 	ws := warden.NewServer(&warden.ServerConfig{
 		Timeout: xtime.Duration(30 * time.Second),
-	}, grpc.MaxRecvMsgSize(1024 * 1024 * 1024), grpc.MaxSendMsgSize(1024 * 1024 * 1024))
+	}, grpc.MaxRecvMsgSize(1024*1024*1024), grpc.MaxSendMsgSize(1024*1024*1024))
 	v1pb.RegisterDanmakuServer(ws.Server(), v1srv.NewDanmakuService(p, d))
 	ws, err := ws.Start()
 	if err != nil {

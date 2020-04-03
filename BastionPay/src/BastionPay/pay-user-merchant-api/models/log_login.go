@@ -6,16 +6,15 @@ import (
 )
 
 type LogLogin struct {
-	Id            *int      `json:"id,omitempty"            gorm:"AUTO_INCREMENT:1;column:id;primary_key;not null"` //加上type:int(11)后AUTO_INCREMENT无效
-	UserId        *int  `json:"user_id,omitempty"        gorm:"column:user_id;type:int(11)"`
-	Ip            *string  `json:"ip,omitempty"        gorm:"column:ip;type:varchar(255)"`
-	Country       *string  `json:"country,omitempty"        gorm:"column:country;type:varchar(255)"`
-	City          *string  `json:"city,omitempty"        gorm:"column:city;type:varchar(255)"`
-	Device        *string  `json:"device,omitempty"        gorm:"column:device;type:varchar(10)"`
-	CreatedAt     *int64 	`json:"created_at,omitempty" gorm:"column:created_at;type:bigint(20)"`
-	UpdatedAt     *int64 	`json:"updated_at,omitempty" gorm:"column:updated_at;type:bigint(20)"`
-	DeletedAt     *int64 	`json:"deleted_at,omitempty" gorm:"column:deleted_at;type:bigint(20)"`
-
+	Id        *int    `json:"id,omitempty"            gorm:"AUTO_INCREMENT:1;column:id;primary_key;not null"` //加上type:int(11)后AUTO_INCREMENT无效
+	UserId    *int    `json:"user_id,omitempty"        gorm:"column:user_id;type:int(11)"`
+	Ip        *string `json:"ip,omitempty"        gorm:"column:ip;type:varchar(255)"`
+	Country   *string `json:"country,omitempty"        gorm:"column:country;type:varchar(255)"`
+	City      *string `json:"city,omitempty"        gorm:"column:city;type:varchar(255)"`
+	Device    *string `json:"device,omitempty"        gorm:"column:device;type:varchar(10)"`
+	CreatedAt *int64  `json:"created_at,omitempty" gorm:"column:created_at;type:bigint(20)"`
+	UpdatedAt *int64  `json:"updated_at,omitempty" gorm:"column:updated_at;type:bigint(20)"`
+	DeletedAt *int64  `json:"deleted_at,omitempty" gorm:"column:deleted_at;type:bigint(20)"`
 }
 
 func (this *LogLogin) TableName() string {
@@ -35,9 +34,9 @@ func (this *LogLogin) Add() error {
 	return db.GDbMgr.Get().Create(this).Error
 }
 
-func (this *LogLogin) List(userId uint, limit int, skip int) ([]*LogLogin, int, error){
+func (this *LogLogin) List(userId uint, limit int, skip int) ([]*LogLogin, int, error) {
 	var (
-		data []*LogLogin
+		data  []*LogLogin
 		count int
 		err   error
 	)
@@ -55,7 +54,6 @@ func (this *LogLogin) List(userId uint, limit int, skip int) ([]*LogLogin, int, 
 	if err != nil {
 		return nil, 0, err
 	}
-
 
 	return data, count, nil
 }

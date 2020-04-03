@@ -1,13 +1,13 @@
 package main
 
 import (
-	. "BastionPay/bas-base/log/zap"
 	apiquote "BastionPay/bas-api/quote"
+	. "BastionPay/bas-base/log/zap"
 	"database/sql"
 	"encoding/csv"
+	"fmt"
 	. "github.com/BastionPay/bas-export/config"
 	"github.com/BastionPay/bas-export/quote"
-	"fmt"
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/logger"
@@ -31,8 +31,8 @@ const (
 )
 
 type WebServer struct {
-	mIris         *iris.Application
-	mExportData    quote.DataMgr
+	mIris       *iris.Application
+	mExportData quote.DataMgr
 }
 
 func NewWebServer() *WebServer {
@@ -108,6 +108,7 @@ func (this *WebServer) defaultRoot(ctx iris.Context) {
 	resMsg := apiquote.NewResMsg(ErrCode_Success, "")
 	ctx.JSON(resMsg)
 }
+
 //带上appid吧，适合以后做次数限制
 func (this *WebServer) handleExport(ctx iris.Context) {
 	defer PanicPrint()
@@ -131,7 +132,7 @@ func (this *WebServer) handleExport(ctx iris.Context) {
 	limit = strings.TrimSpace(limit)
 	table = strings.TrimRight(table, ",")
 	limit = strings.TrimRight(limit, ",")
-	lim,err := strconv.Atoi(limit)
+	lim, err := strconv.Atoi(limit)
 	//fromArr := strings.Split(from, ",")
 	//toArr := strings.Split(to, ",")
 	resMsg := apiquote.NewResMsg(ErrCode_Success, "")
@@ -148,7 +149,7 @@ func (this *WebServer) handleExport(ctx iris.Context) {
 	}
 
 	for _, table := range tables {
-		go querySQL(db, table, ch,lim)
+		go querySQL(db, table, ch, lim)
 	}
 
 	for i := 0; i < count; i++ {
@@ -161,11 +162,9 @@ func (this *WebServer) handleExport(ctx iris.Context) {
 	fmt.Println("done over")
 }
 
-
-
-func querySQL(db *sql.DB, table string, ch chan bool,lim int) {
+func querySQL(db *sql.DB, table string, ch chan bool, lim int) {
 	fmt.Println("开始处理：", table)
-	rows, err := db.Query(fmt.Sprintf("SELECT * from %s limit %d", table,lim))
+	rows, err := db.Query(fmt.Sprintf("SELECT * from %s limit %d", table, lim))
 
 	if err != nil {
 		panic(err)
@@ -211,7 +210,6 @@ func querySQL(db *sql.DB, table string, ch chan bool,lim int) {
 	writeToCSV(table+".csv", columns, totalValues)
 	ch <- true
 }
-
 
 //writeToCSV
 func writeToCSV(file string, columns []string, totalValues [][]string) {

@@ -41,4 +41,3 @@ func (d *Dao) GetUserTagList(ctx context.Context, req *liveUserV1.UserSettingGet
 
 	return
 }
-

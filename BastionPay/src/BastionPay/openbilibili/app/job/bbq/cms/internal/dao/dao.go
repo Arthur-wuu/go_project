@@ -34,11 +34,11 @@ func New() (dao *Dao) {
 			Demo *sql.Config
 		}
 		rc struct {
-			Demo		*redis.Config
+			Demo       *redis.Config
 			DemoExpire xtime.Duration
 		}
 		mc struct {
-			Demo		*memcache.Config
+			Demo       *memcache.Config
 			DemoExpire xtime.Duration
 		}
 	)
@@ -75,7 +75,6 @@ func (d *Dao) Ping(ctx context.Context) (err error) {
 	}
 	return d.db.Ping(ctx)
 }
-
 
 func (d *Dao) pingMC(ctx context.Context) (err error) {
 	conn := d.mc.Get(ctx)

@@ -158,8 +158,6 @@ func (t *Tools) GenerateUserLoginToken(userId int64) string {
 	return token
 }
 
-
-
 func (t *Tools) SnakeString(s string) string {
 	data := make([]byte, 0, len(s)*2)
 	j := false
@@ -195,5 +193,3 @@ func (t *Tools) GetAcceptLanguage(acceptLanguage string) string {
 
 	return language
 }
-
-

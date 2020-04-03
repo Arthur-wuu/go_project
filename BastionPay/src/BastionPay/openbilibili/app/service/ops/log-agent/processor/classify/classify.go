@@ -1,11 +1,11 @@
 package classify
 
 import (
-	"strings"
 	"context"
 	"go-common/app/service/ops/log-agent/event"
-	"go-common/app/service/ops/log-agent/processor"
 	"go-common/app/service/ops/log-agent/pkg/common"
+	"go-common/app/service/ops/log-agent/processor"
+	"strings"
 )
 
 type Classify struct {

@@ -101,9 +101,9 @@ type (
 	}
 	//供前端查询退单列表
 	RefundTradeList struct {
-		MerchantId   *string   `valid:"required" json:"merchant_id,omitempty"`
-		Page         *int64     `valid:"optional" json:"page,omitempty"`
-		Size         *int64     `valid:"optional" json:"size,omitempty"`
+		MerchantId *string `valid:"required" json:"merchant_id,omitempty"`
+		Page       *int64  `valid:"optional" json:"page,omitempty"`
+		Size       *int64  `valid:"optional" json:"size,omitempty"`
 	}
 
 	ResTradeAdd struct {

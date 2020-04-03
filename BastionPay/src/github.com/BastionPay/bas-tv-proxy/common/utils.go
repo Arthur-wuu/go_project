@@ -1,35 +1,35 @@
 package common
 
 import (
+	. "BastionPay/bas-base/log/zap"
 	"BastionPay/bas-tv-proxy/api"
+	"BastionPay/bas-tv-proxy/base"
 	"github.com/kataras/iris"
 	"go.uber.org/zap"
-	. "BastionPay/bas-base/log/zap"
-	"BastionPay/bas-tv-proxy/base"
+	"regexp"
 	"runtime/debug"
 	"unicode"
-	"regexp"
 )
 
-func  PackPushMsg(reqster base.Requester, apiMsg interface{}) ([]byte, error) {
+func PackPushMsg(reqster base.Requester, apiMsg interface{}) ([]byte, error) {
 	apiResponse := api.NewResponse(reqster.GetQid())
 	apiResponse.SetCounter(reqster.GetCounter())
 
 	content, err := apiResponse.Marshal(apiMsg)
 	if err != nil {
 		ZapLog().Error("apiResponse Marshal err", zap.Error(err))
-		return nil,err
+		return nil, err
 	}
 	return content, nil
 }
 
-func  PackResMsg(reqster base.Requester, errCode int32, apiMsg interface{}) ([]byte, error) {
+func PackResMsg(reqster base.Requester, errCode int32, apiMsg interface{}) ([]byte, error) {
 	apiResponse := api.NewResponse(reqster.GetQid())
 	apiResponse.SetErr(errCode)
 	content, err := apiResponse.Marshal(apiMsg)
 	if err != nil {
 		ZapLog().Error("apiResponse Marshal err", zap.Error(err))
-		return nil,err
+		return nil, err
 	}
 	return content, nil
 }
@@ -41,7 +41,7 @@ func CtxJson(ctx iris.Context, qid string, apiMsg *api.MSG) error {
 		ZapLog().Error("apiResponse Marshal err", zap.Error(err))
 		return err
 	}
-	_, err =  ctx.Write(content)
+	_, err = ctx.Write(content)
 	if err != nil {
 		ZapLog().Error("ctx.Write err", zap.Error(err))
 	}
@@ -62,4 +62,3 @@ func IsChineseChar(str string) bool {
 	}
 	return false
 }
-

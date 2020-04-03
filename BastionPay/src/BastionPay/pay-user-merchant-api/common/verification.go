@@ -1,13 +1,13 @@
 package common
 
 import (
-	"encoding/json"
 	. "BastionPay/bas-base/log/zap"
+	"BastionPay/bas-tools/sdk.notify.mail"
+	"encoding/json"
+	"errors"
+	"fmt"
 	"github.com/pborman/uuid"
 	"go.uber.org/zap"
-	"errors"
-	"BastionPay/bas-tools/sdk.notify.mail"
-	"fmt"
 )
 
 const (
@@ -37,7 +37,7 @@ type Verification struct {
 	record      bool   `json:"-"`
 }
 
-func NewVerification( operating string, t string) *Verification {
+func NewVerification(operating string, t string) *Verification {
 	return &Verification{
 		Operating:   operating,
 		Type:        t,
@@ -52,10 +52,10 @@ func (v *Verification) Generate() string {
 	return v.Id
 }
 
-func (v *Verification) GenerateEmail(userId uint,  recipient string, tpl, lang string) (string, error) {
+func (v *Verification) GenerateEmail(userId uint, recipient string, tpl, lang string) (string, error) {
 	var err error
-	if len(recipient) == 0 || len(tpl) == 0 || len(lang) == 0{
-		return "",errors.New(fmt.Sprintf("nil in one of recipient[%s]tpl[%s]lang[%s]",recipient, tpl, lang))
+	if len(recipient) == 0 || len(tpl) == 0 || len(lang) == 0 {
+		return "", errors.New(fmt.Sprintf("nil in one of recipient[%s]tpl[%s]lang[%s]", recipient, tpl, lang))
 	}
 
 	v.UserID = userId
@@ -64,7 +64,7 @@ func (v *Verification) GenerateEmail(userId uint,  recipient string, tpl, lang s
 	v.Recipient = recipient
 	v.Value = RandomDigit(6)
 
-	err = sdk_notify_mail.GNotifySdk.SendMailByGroupName(tpl,lang, []string{recipient} ,map[string]interface{}{"key1":v.Value})
+	err = sdk_notify_mail.GNotifySdk.SendMailByGroupName(tpl, lang, []string{recipient}, map[string]interface{}{"key1": v.Value})
 	//title, body, err := ParseHtmlTemplate(tpl, &struct {
 	//	Value string
 	//}{v.Value})
@@ -91,11 +91,11 @@ func (v *Verification) GenerateEmail(userId uint,  recipient string, tpl, lang s
 	return v.Id, nil
 }
 
-func (v *Verification) GenerateSms(userId uint, recipient string, tpl,lang string) (string, error) {
+func (v *Verification) GenerateSms(userId uint, recipient string, tpl, lang string) (string, error) {
 	var err error
 
-	if len(recipient) == 0 || len(tpl) == 0 || len(lang) == 0{
-		return "",errors.New(fmt.Sprintf("nil in one of recipient[%s]tpl[%s]lang[%s]",recipient, tpl, lang))
+	if len(recipient) == 0 || len(tpl) == 0 || len(lang) == 0 {
+		return "", errors.New(fmt.Sprintf("nil in one of recipient[%s]tpl[%s]lang[%s]", recipient, tpl, lang))
 	}
 
 	v.UserID = userId
@@ -104,7 +104,7 @@ func (v *Verification) GenerateSms(userId uint, recipient string, tpl,lang strin
 	v.Recipient = recipient
 	v.Value = RandomDigit(6)
 
-	err = sdk_notify_mail.GNotifySdk.SendSmsByGroupName(tpl, lang, []string{recipient}, map[string]interface{}{"key1":v.Value})
+	err = sdk_notify_mail.GNotifySdk.SendSmsByGroupName(tpl, lang, []string{recipient}, map[string]interface{}{"key1": v.Value})
 
 	//body, err := ParseTextTemplate(tpl, &struct {
 	//	Value string
@@ -228,7 +228,7 @@ func (v *Verification) Verify(id string, userId uint, value, recipient string) (
 		}
 	}
 
-	ZapLog().With(zap.String("id", id), zap.Uint("userid", userId), zap.String("value", value),zap.String("recipient",recipient), zap.Any("Verification", v)).Info("Verify")
+	ZapLog().With(zap.String("id", id), zap.Uint("userid", userId), zap.String("value", value), zap.String("recipient", recipient), zap.Any("Verification", v)).Info("Verify")
 	//	glog.Info("id:", id, "userid:", userId, "value", value)
 	//	glog.Infof("%+v", v)
 

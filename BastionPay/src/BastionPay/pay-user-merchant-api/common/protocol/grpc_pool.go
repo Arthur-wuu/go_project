@@ -1,13 +1,13 @@
 package protocol
 
 import (
-	"time"
-	"sync"
 	"context"
 	"errors"
 	"fmt"
-	"google.golang.org/grpc/metadata"
 	"github.com/pborman/uuid"
+	"google.golang.org/grpc/metadata"
+	"sync"
+	"time"
 )
 
 // PoolConfig 连接池相关配置
@@ -29,7 +29,7 @@ type GrpcPool struct {
 	serverId    string
 	mu          sync.Mutex
 	conns       chan *idleGrpcConn
-	factory     func() (interface{},  error)
+	factory     func() (interface{}, error)
 	close       func(interface{}) error
 	idleTimeout time.Duration
 }

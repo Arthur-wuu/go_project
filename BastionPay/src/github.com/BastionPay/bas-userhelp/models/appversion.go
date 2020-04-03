@@ -9,48 +9,48 @@ import (
 
 type (
 	AppVersionSet struct {
-		Name          *string     `valid:"optional" json:"name"`
-		LabelId        *uint64   `valid:"required" json:"label_id" `
-		Language      *string `valid:"optional" json:"language"`
-		ShowMode      *int    `valid:"optional" json:"show_mode"`
-		Version       *string `valid:"required" json:"version"`
-		Url           *string `valid:"optional" json:"url"`
-		Instructions  *string `valid:"optional" json:"instructions"`
-		SysType       *string `valid:"required" json:"sys_type"`
-		UpgradeMode   *int    `valid:"optional" json:"upgrade_mode"`
-		UpgradeAt     *int64  `valid:"optional" json:"upgrade_at"`
+		Name         *string `valid:"optional" json:"name"`
+		LabelId      *uint64 `valid:"required" json:"label_id" `
+		Language     *string `valid:"optional" json:"language"`
+		ShowMode     *int    `valid:"optional" json:"show_mode"`
+		Version      *string `valid:"required" json:"version"`
+		Url          *string `valid:"optional" json:"url"`
+		Instructions *string `valid:"optional" json:"instructions"`
+		SysType      *string `valid:"required" json:"sys_type"`
+		UpgradeMode  *int    `valid:"optional" json:"upgrade_mode"`
+		UpgradeAt    *int64  `valid:"optional" json:"upgrade_at"`
 	}
 
 	AppVersionGet struct {
 		//NameId        *int     `valid:"optional" json:"name_id"`
-		Name          *string     `valid:"optional" json:"name"`
-		Language      *string  `valid:"optional" json:"language"`
-		SysType       *string  `valid:"required" json:"sys_type"`
+		Name     *string `valid:"optional" json:"name"`
+		Language *string `valid:"optional" json:"language"`
+		SysType  *string `valid:"required" json:"sys_type"`
 	}
 
 	AppVersionUpdate struct {
-		Id             *uint64 `valid:"required" json:"id"`
-		LabelId        *uint64   `valid:"optional" json:"label_id" `
-		Language      *string `valid:"optional" json:"language"`
-		ShowMode      *int    `valid:"optional" json:"show_mode"`
-		Version       *string `valid:"optional" json:"version"`
-		Url           *string `valid:"optional" json:"url"`
-		Instructions  *string `valid:"optional" json:"instructions"`
-		SysType       *string `valid:"optional" json:"sys_type"`
-		UpgradeMode   *int    `valid:"optional" json:"upgrade_mode"`
-		UpgradeAt     *int64  `valid:"optional" json:"upgrade_at"`
+		Id           *uint64 `valid:"required" json:"id"`
+		LabelId      *uint64 `valid:"optional" json:"label_id" `
+		Language     *string `valid:"optional" json:"language"`
+		ShowMode     *int    `valid:"optional" json:"show_mode"`
+		Version      *string `valid:"optional" json:"version"`
+		Url          *string `valid:"optional" json:"url"`
+		Instructions *string `valid:"optional" json:"instructions"`
+		SysType      *string `valid:"optional" json:"sys_type"`
+		UpgradeMode  *int    `valid:"optional" json:"upgrade_mode"`
+		UpgradeAt    *int64  `valid:"optional" json:"upgrade_at"`
 	}
 
 	AppVersionList struct {
-		LabelId        *uint64   `valid:"optional" json:"label_id" `
-		Language      *string `valid:"optional" json:"language"`
-		ShowMode      *int    `valid:"optional" json:"show_mode"`
-		Version       *string `valid:"optional" json:"version"`
-		Url           *string `valid:"optional" json:"url"`
-		Instructions  *string `valid:"optional" json:"instructions"`
-		SysType       *string `valid:"optional" json:"sys_type"`
-		UpgradeMode   *int    `valid:"optional" json:"upgrade_mode"`
-		UpgradeAt     *int64  `valid:"optional" json:"upgrade_at"`
+		LabelId        *uint64 `valid:"optional" json:"label_id" `
+		Language       *string `valid:"optional" json:"language"`
+		ShowMode       *int    `valid:"optional" json:"show_mode"`
+		Version        *string `valid:"optional" json:"version"`
+		Url            *string `valid:"optional" json:"url"`
+		Instructions   *string `valid:"optional" json:"instructions"`
+		SysType        *string `valid:"optional" json:"sys_type"`
+		UpgradeMode    *int    `valid:"optional" json:"upgrade_mode"`
+		UpgradeAt      *int64  `valid:"optional" json:"upgrade_at"`
 		Id             *uint64 `valid:"optional" json:"id"`
 		StartCreatedAt *int64  `valid:"optional" json:"start_created_at"`
 		EndCreatedAt   *int64  `valid:"optional" json:"end_created_at"`
@@ -67,8 +67,8 @@ func CreateAppvsionTab() error {
 
 func (this *AppVersionSet) Set() (*table.AppVersion, error) {
 	model := &table.AppVersion{
-		Name:   this.Name,
-		LabelId:         this.LabelId,
+		Name:         this.Name,
+		LabelId:      this.LabelId,
 		Version:      this.Version,
 		Url:          this.Url,
 		Instructions: this.Instructions,
@@ -76,7 +76,7 @@ func (this *AppVersionSet) Set() (*table.AppVersion, error) {
 		ShowMode:     this.ShowMode,
 		UpgradeMode:  this.UpgradeMode,
 		SysType:      this.SysType,
-		UpgradeAt :   this.UpgradeAt,
+		UpgradeAt:    this.UpgradeAt,
 	}
 
 	err := db.GDbMgr.Get().Create(model).Error
@@ -86,6 +86,7 @@ func (this *AppVersionSet) Set() (*table.AppVersion, error) {
 
 	return model, nil
 }
+
 //
 //func (this *AppVersionGet) Get() (*table.AppVersion, error) {
 //	model := &table.AppVersion{
@@ -119,8 +120,8 @@ func (this *AppVersionGet) GetForFront(name, SysType *string) (*table.AppVersion
 
 func (this *AppVersionUpdate) Update() (*table.AppVersion, error) {
 	model := &table.AppVersion{
-		Id :          this.Id,
-		LabelId:         this.LabelId,
+		Id:           this.Id,
+		LabelId:      this.LabelId,
 		Version:      this.Version,
 		Url:          this.Url,
 		Instructions: this.Instructions,
@@ -141,8 +142,7 @@ func (this *AppVersionUpdate) Update() (*table.AppVersion, error) {
 	return appVersion, nil
 }
 
-
-func (this *AppVersionSet) RowsAffectNumUpdate()( int64 ,error) {
+func (this *AppVersionSet) RowsAffectNumUpdate() (int64, error) {
 	model := &table.AppVersion{
 		Version:      this.Version,
 		Url:          this.Url,
@@ -156,9 +156,9 @@ func (this *AppVersionSet) RowsAffectNumUpdate()( int64 ,error) {
 	newDB := db.GDbMgr.Get().Model(&table.AppVersion{}).Update(model)
 	fmt.Println("go here up 222****")
 
-	 err := db.GDbMgr.Get().Model(&table.AppVersion{}).Create(model).Error
+	err := db.GDbMgr.Get().Model(&table.AppVersion{}).Create(model).Error
 
-	return  newDB.RowsAffected, err
+	return newDB.RowsAffected, err
 }
 
 func (this *AppVersionList) List() (*common.Result, error) {
@@ -167,7 +167,7 @@ func (this *AppVersionList) List() (*common.Result, error) {
 	query := db.GDbMgr.Get()
 
 	model := &table.AppVersion{
-		LabelId:     this.LabelId,
+		LabelId:      this.LabelId,
 		Version:      this.Version,
 		Url:          this.Url,
 		Instructions: this.Instructions,

@@ -52,9 +52,9 @@ type (
 func New(cfg Config) *Server {
 	cfg = cfg.Validate()
 	return &Server{
-		config:      cfg,
-		connections: sync.Map{}, // ready-to-use, this is not necessary.
-		rooms:       make(map[string][]string),
+		config:                cfg,
+		connections:           sync.Map{}, // ready-to-use, this is not necessary.
+		rooms:                 make(map[string][]string),
 		onConnectionListeners: make([]ConnectionFunc, 0),
 		upgrader: websocket.Upgrader{
 			HandshakeTimeout:  cfg.HandshakeTimeout,

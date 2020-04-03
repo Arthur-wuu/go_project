@@ -18,7 +18,7 @@ func (o *OptionalModel) Get(userId uint) ([]string, error) {
 		err      error
 	)
 
-	if err =db.GDbMgr.Get().Where(&Optional{UserId: userId}).First(&optional).Error; err != nil {
+	if err = db.GDbMgr.Get().Where(&Optional{UserId: userId}).First(&optional).Error; err != nil {
 		return nil, err
 	}
 

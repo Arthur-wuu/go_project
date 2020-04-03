@@ -4,23 +4,23 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"strings"
-	_ "github.com/go-sql-driver/mysql"
-	l4g "github.com/alecthomas/log4go"
-	"github.com/BastionPay/bas-base/config"
 	"github.com/BastionPay/bas-api/apibackend/v1/backend"
+	"github.com/BastionPay/bas-base/config"
+	l4g "github.com/alecthomas/log4go"
+	_ "github.com/go-sql-driver/mysql"
+	"strings"
 )
 
 var (
-	Url      = ""//"root@tcp(127.0.0.1:3306)/wallet"
-	database string
+	Url       = "" //"root@tcp(127.0.0.1:3306)/wallet"
+	database  string
 	usertable = "user_property"
-	db       *sql.DB
+	db        *sql.DB
 
 	q = map[string]string{}
 
 	accountQ = map[string]string{
-		"readProfile":         	  "SELECT public_key, source_ip, callback_url from %s.%s where user_key = ?",
+		"readProfile": "SELECT public_key, source_ip, callback_url from %s.%s where user_key = ?",
 	}
 
 	st = map[string]*sql.Stmt{}

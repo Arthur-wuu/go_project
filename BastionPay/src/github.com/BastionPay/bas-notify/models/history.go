@@ -1,82 +1,82 @@
 package models
 
 import (
-	"BastionPay/bas-notify/models/table"
+	. "BastionPay/bas-base/log/zap"
+	"BastionPay/bas-notify/config"
 	"BastionPay/bas-notify/db"
+	"BastionPay/bas-notify/models/table"
 	"github.com/jinzhu/gorm"
 	"go.uber.org/zap"
-	"BastionPay/bas-notify/config"
-	. "BastionPay/bas-base/log/zap"
 )
 
-type(
-	 TemplateHistoryAdd struct {
-		Id        *int   `valid:"optional" json:"id,omitempty"`
-		CreatedAt *int64  `valid:"optional" json:"createdat,omitempty"`
-		UpdatedAt *int64  `valid:"optional" json:"updatedat,omitempty"`
-		Day       *int64  `valid:"optional" json:"day,omitempty"`
-		DaySucc   *int    `valid:"optional" json:"day_succ,omitempty"`
-		DayFail   *int    `valid:"optional" json:"day_fail,omitempty"`
-		GroupId   *int    `valid:"required" json:"group_id,omitempty"`
+type (
+	TemplateHistoryAdd struct {
+		Id        *int     `valid:"optional" json:"id,omitempty"`
+		CreatedAt *int64   `valid:"optional" json:"createdat,omitempty"`
+		UpdatedAt *int64   `valid:"optional" json:"updatedat,omitempty"`
+		Day       *int64   `valid:"optional" json:"day,omitempty"`
+		DaySucc   *int     `valid:"optional" json:"day_succ,omitempty"`
+		DayFail   *int     `valid:"optional" json:"day_fail,omitempty"`
+		GroupId   *int     `valid:"required" json:"group_id,omitempty"`
 		RateFail  *float32 `valid:"optional" json:"rate_fail,omitempty"`
 		Inform    *int     `valid:"optional" json:"inform,omitempty"`
-		Type      *int    `valid:"optional" json:"type,omitempty"`
-	 }
-
-	TemplateHistory struct {
-		Id        *int   `valid:"required" json:"id,omitempty"`
-		CreatedAt *int64  `valid:"optional" json:"createdat,omitempty"`
-		UpdatedAt *int64  `valid:"optional" json:"updatedat,omitempty"`
-		Day       *int64  `valid:"optional" json:"day,omitempty"`
-		DaySucc   *int    `valid:"optional" json:"day_succ,omitempty"`
-		DayFail   *int    `valid:"optional" json:"day_fail,omitempty"`
-		GroupId   *int    `valid:"optional" json:"group_id,omitempty"`
-		RateFail  *float32 `valid:"optional" json:"rate_fail,omitempty"`
-		Inform    *int     `valid:"optional" json:"inform,omitempty"`
-		Type      *int    `valid:"optional" json:"type,omitempty"`
+		Type      *int     `valid:"optional" json:"type,omitempty"`
 	}
 
-	 TemplateHistoryList struct{
-	 	GroupId         int             `valid:"required" json:"groupid,omitempty"`
-		Total_lines     int              `valid:"optional" json:"total_lines"`
-		Page_index      int              `valid:"optional" json:"page_index"`
-		Max_disp_lines  int              `valid:"optional" json:"max_disp_lines"`
-	 }
+	TemplateHistory struct {
+		Id        *int     `valid:"required" json:"id,omitempty"`
+		CreatedAt *int64   `valid:"optional" json:"createdat,omitempty"`
+		UpdatedAt *int64   `valid:"optional" json:"updatedat,omitempty"`
+		Day       *int64   `valid:"optional" json:"day,omitempty"`
+		DaySucc   *int     `valid:"optional" json:"day_succ,omitempty"`
+		DayFail   *int     `valid:"optional" json:"day_fail,omitempty"`
+		GroupId   *int     `valid:"optional" json:"group_id,omitempty"`
+		RateFail  *float32 `valid:"optional" json:"rate_fail,omitempty"`
+		Inform    *int     `valid:"optional" json:"inform,omitempty"`
+		Type      *int     `valid:"optional" json:"type,omitempty"`
+	}
+
+	TemplateHistoryList struct {
+		GroupId        int `valid:"required" json:"groupid,omitempty"`
+		Total_lines    int `valid:"optional" json:"total_lines"`
+		Page_index     int `valid:"optional" json:"page_index"`
+		Max_disp_lines int `valid:"optional" json:"max_disp_lines"`
+	}
 )
 
-func (this * TemplateHistoryAdd)Add() error {
+func (this *TemplateHistoryAdd) Add() error {
 	his := &table.History{
-		Day: this.Day,
-		DaySucc: this.DaySucc,
-		DayFail: this.DayFail,
-		GroupId: this.GroupId,
+		Day:      this.Day,
+		DaySucc:  this.DaySucc,
+		DayFail:  this.DayFail,
+		GroupId:  this.GroupId,
 		RateFail: this.RateFail,
-		Inform: this.Inform,
+		Inform:   this.Inform,
 	}
 
 	return db.GDbMgr.Get().Create(his).Error
 }
 
-func (this *TemplateHistory)Update() error {
+func (this *TemplateHistory) Update() error {
 	his := &table.History{
-		Id:  this.Id,
-		Day: this.Day,
-		DaySucc: this.DaySucc,
-		DayFail: this.DayFail,
-		GroupId: this.GroupId,
+		Id:       this.Id,
+		Day:      this.Day,
+		DaySucc:  this.DaySucc,
+		DayFail:  this.DayFail,
+		GroupId:  this.GroupId,
 		RateFail: this.RateFail,
-		Inform: this.Inform,
+		Inform:   this.Inform,
 	}
 	return db.GDbMgr.Get().Model(his).Updates(his).Error
 }
 
-func (this *TemplateHistory) Count(groupid int) (int,error) {
+func (this *TemplateHistory) Count(groupid int) (int, error) {
 	cc := 0
 	err := db.GDbMgr.Get().Model(&table.History{}).Where("group_id = ?", groupid).Count(&cc).Error
 	return cc, err
 }
 
-func (this *TemplateHistoryList) List() ([]*table.History ,error){
+func (this *TemplateHistoryList) List() ([]*table.History, error) {
 	his := &table.History{
 		GroupId: &this.GroupId,
 	}
@@ -89,7 +89,7 @@ func (this *TemplateHistoryList) List() ([]*table.History ,error){
 	return list, err
 }
 
-func (this *TemplateHistory) IncrTemplateHistoryCountAndRate( genRateFail func(int, int)float32, firstOverRateFailThd func(oldhis, newhis *table.History, tp int)bool ) (bool, error) {
+func (this *TemplateHistory) IncrTemplateHistoryCountAndRate(genRateFail func(int, int) float32, firstOverRateFailThd func(oldhis, newhis *table.History, tp int) bool) (bool, error) {
 	tx := db.GDbMgr.Get().Begin()
 	defer func() {
 		if r := recover(); r != nil {
@@ -104,13 +104,13 @@ func (this *TemplateHistory) IncrTemplateHistoryCountAndRate( genRateFail func(i
 	err := tx.Model(&table.History{}).Where("group_id = ? and day = ?", this.GroupId, this.Day).Find(oldHis).Error
 	if err == gorm.ErrRecordNotFound {
 		newHis := &table.History{
-			GroupId : this.GroupId,
-			Day : this.Day,
-			Type : this.Type,
-			DaySucc : this.DaySucc,
-			DayFail : this.DayFail,
+			GroupId:  this.GroupId,
+			Day:      this.Day,
+			Type:     this.Type,
+			DaySucc:  this.DaySucc,
+			DayFail:  this.DayFail,
 			RateFail: new(float32),
-			Inform: new(int),
+			Inform:   new(int),
 		}
 		*newHis.Inform = 0
 		*newHis.RateFail = genRateFail(*this.DaySucc, *this.DayFail)
@@ -126,15 +126,15 @@ func (this *TemplateHistory) IncrTemplateHistoryCountAndRate( genRateFail func(i
 		return false, err
 	}
 	newHis := &table.History{
-		GroupId : this.GroupId,
-		Day : this.Day,
-		Type : this.Type,
-		DaySucc : this.DaySucc,
-		DayFail : this.DayFail,
+		GroupId:  this.GroupId,
+		Day:      this.Day,
+		Type:     this.Type,
+		DaySucc:  this.DaySucc,
+		DayFail:  this.DayFail,
 		RateFail: new(float32),
 	}
 	*newHis.DaySucc += *oldHis.DaySucc
-	*newHis.DayFail +=  *oldHis.DayFail
+	*newHis.DayFail += *oldHis.DayFail
 	*newHis.RateFail = genRateFail(*newHis.DaySucc, *newHis.DayFail)
 
 	flag := firstOverRateFailThd(oldHis, newHis, *this.Type)
@@ -150,9 +150,7 @@ func (this *TemplateHistory) IncrTemplateHistoryCountAndRate( genRateFail func(i
 	return flag, tx.Commit().Error
 }
 
-
-
-func  RecordHistory(gid int,tp, succ, fail int, flag bool) {
+func RecordHistory(gid int, tp, succ, fail int, flag bool) {
 	defer PanicPrint()
 	informAdminFlag, err := IncrHistoryCount(gid, tp, succ, fail)
 	if err != nil {
@@ -170,25 +168,25 @@ func  RecordHistory(gid int,tp, succ, fail int, flag bool) {
 	if len(mon.TmpGNameMail) != 0 {
 		req := &EmailMsg{
 			GroupName: &mon.TmpGNameMail,
-			Params :make(map[string]interface{}),
-			Lang: &mon.TmpLangMail,
+			Params:    make(map[string]interface{}),
+			Lang:      &mon.TmpLangMail,
 		}
 		req.Params["key1"] = gid
-		errCode, errMsg := req.Send( false)
+		errCode, errMsg := req.Send(false)
 		if errCode != 0 {
-			ZapLog().With(zap.Error(errMsg), zap.Int("errcode",errCode )).Error("monitor sendMail err")
+			ZapLog().With(zap.Error(errMsg), zap.Int("errcode", errCode)).Error("monitor sendMail err")
 		}
 	}
 	if len(mon.TmpGNameSms) != 0 {
 		req := &SmsMsg{
 			GroupName: &mon.TmpGNameSms,
-			Params :make(map[string]interface{}),
-			Lang: &mon.TmpLangSms,
+			Params:    make(map[string]interface{}),
+			Lang:      &mon.TmpLangSms,
 		}
 		req.Params["key1"] = gid
-		errCode, errMsg := req.Send( false)
+		errCode, errMsg := req.Send(false)
 		if errCode != 0 {
-			ZapLog().With(zap.Error(errMsg), zap.Int("errcode",errCode )).Error("monitor sendSms err")
+			ZapLog().With(zap.Error(errMsg), zap.Int("errcode", errCode)).Error("monitor sendSms err")
 		}
 	}
 

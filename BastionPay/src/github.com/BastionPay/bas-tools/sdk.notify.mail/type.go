@@ -2,42 +2,40 @@ package sdk_notify_mail
 
 const (
 	Notify_Level_Normal = 0
-	Notify_Level_Low   = 0
-	Notify_Level_High  = 1
+	Notify_Level_Low    = 0
+	Notify_Level_High   = 1
 
-	ErrCode_Success    = 0
-	ErrCode_Param      = 10001
-	ErrCode_InerServer = 10002
-	ErrCode_Exist      = 10003
-	ErrCode_NoAlive    = 10004
+	ErrCode_Success             = 0
+	ErrCode_Param               = 10001
+	ErrCode_InerServer          = 10002
+	ErrCode_Exist               = 10003
+	ErrCode_NoAlive             = 10004
 	ErrCode_NoFindAliveTemplate = 10005
-	ErrCode_SubRecipient = 10006
+	ErrCode_SubRecipient        = 10006
 )
 
-
-
 type ReqNotifyMsg struct {
-	GroupName *string                `json:"group_name,omitempty"` //groupname+lang 联合使用
-	GroupId   *uint                  `json:"group_id,omitempty"` //groupid+lang联合使用
-	Lang      *string                `json:"lang,omitempty"`
-	GroupAlias *string               `json:"group_alias,omitempty"`//GroupAlias+lang
-	TempAlias *string                `json:"temp_alias,omitempty"` //可单独使用，重复则选其一
-	TempId    *uint                  `json:"temp_id,omitempty"`    //唯一，可单独使用
-	Params    map[string]interface{} `json:"params,omitempty"`    //optional
-	Recipient []string               `json:"recipient,omitempty"` //require
-	Level     *uint                  `json:"level,omitempty"`     //optional
-	AppName   *string                `json:"app_name,omitempty"`
-	UseDefaultRecipient   *bool      `json:"use_default_recipient,omitempty"` //使用默认收件人，默认是使用的
+	GroupName           *string                `json:"group_name,omitempty"` //groupname+lang 联合使用
+	GroupId             *uint                  `json:"group_id,omitempty"`   //groupid+lang联合使用
+	Lang                *string                `json:"lang,omitempty"`
+	GroupAlias          *string                `json:"group_alias,omitempty"` //GroupAlias+lang
+	TempAlias           *string                `json:"temp_alias,omitempty"`  //可单独使用，重复则选其一
+	TempId              *uint                  `json:"temp_id,omitempty"`     //唯一，可单独使用
+	Params              map[string]interface{} `json:"params,omitempty"`      //optional
+	Recipient           []string               `json:"recipient,omitempty"`   //require
+	Level               *uint                  `json:"level,omitempty"`       //optional
+	AppName             *string                `json:"app_name,omitempty"`
+	UseDefaultRecipient *bool                  `json:"use_default_recipient,omitempty"` //使用默认收件人，默认是使用的
 }
 
-func (this * ReqNotifyMsg) SetUseDefaultRecipient(n bool) {
+func (this *ReqNotifyMsg) SetUseDefaultRecipient(n bool) {
 	if this.UseDefaultRecipient == nil {
 		this.UseDefaultRecipient = new(bool)
 	}
 	*this.UseDefaultRecipient = n
 }
 
-func (this * ReqNotifyMsg) SetGroupName(n string) {
+func (this *ReqNotifyMsg) SetGroupName(n string) {
 	if this.GroupName == nil {
 		this.GroupName = new(string)
 	}
@@ -86,7 +84,7 @@ func (this *ReqNotifyMsg) SetLang(l string) {
 	*this.Lang = l
 }
 
-func (this *ReqNotifyMsg) SetGroupId(id uint){
+func (this *ReqNotifyMsg) SetGroupId(id uint) {
 	if this.GroupId == nil {
 		this.GroupId = new(uint)
 	}
@@ -94,21 +92,21 @@ func (this *ReqNotifyMsg) SetGroupId(id uint){
 }
 
 type ResNotifyMsg struct {
-	Err            *int             `json:"err,omitempty"`
-	ErrMsg         *string          `json:"errmsg,omitempty"`
+	Err    *int    `json:"err,omitempty"`
+	ErrMsg *string `json:"errmsg,omitempty"`
 }
 
-func (this * ResNotifyMsg) IsOk() bool {
+func (this *ResNotifyMsg) IsOk() bool {
 	if this.Err == nil {
 		return true
 	}
-	if *this.Err !=0 {
+	if *this.Err != 0 {
 		return false
 	}
 	return true
 }
 
-func (this * ResNotifyMsg) HaveSubErr() bool {
+func (this *ResNotifyMsg) HaveSubErr() bool {
 	if this.Err == nil {
 		return false
 	}
@@ -118,14 +116,14 @@ func (this * ResNotifyMsg) HaveSubErr() bool {
 	return false
 }
 
-func (this * ResNotifyMsg) GetErr() int {
+func (this *ResNotifyMsg) GetErr() int {
 	if this.Err == nil {
 		return 0
 	}
 	return *this.Err
 }
 
-func (this * ResNotifyMsg) GetErrMsg() string {
+func (this *ResNotifyMsg) GetErrMsg() string {
 	if this.ErrMsg == nil {
 		return ""
 	}

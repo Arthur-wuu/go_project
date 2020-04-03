@@ -1,13 +1,13 @@
 package controllers
 
 import (
+	"BastionPay/bas-api/apibackend"
+	. "BastionPay/bas-base/log/zap"
+	"BastionPay/pay-user-merchant-api/api"
 	"BastionPay/pay-user-merchant-api/common"
 	"BastionPay/pay-user-merchant-api/models"
-	. "BastionPay/bas-base/log/zap"
 	"github.com/kataras/iris"
 	"go.uber.org/zap"
-	"BastionPay/bas-api/apibackend"
-	"BastionPay/pay-user-merchant-api/api"
 )
 
 type GaController struct {
@@ -15,9 +15,7 @@ type GaController struct {
 }
 
 func NewGaController() *GaController {
-	return &GaController{
-
-	}
+	return &GaController{}
 }
 
 func (this *GaController) Generate(ctx iris.Context) {
@@ -41,7 +39,7 @@ func (this *GaController) Generate(ctx iris.Context) {
 	//if user.RegistrationType == "email" {
 	//	username = user.Email
 	//} else {
-		username = user.Phone
+	username = user.Phone
 	//}
 
 	// 生成GA
@@ -95,7 +93,7 @@ func (this *GaController) Bind(ctx iris.Context) {
 		return
 	}
 
-	verification := common.NewVerification( "bind_ga", common.VerificationTypeGa)
+	verification := common.NewVerification("bind_ga", common.VerificationTypeGa)
 
 	bol, err := verification.Verify(params.Id, userId, params.Value, "")
 	if err != nil || !bol {
@@ -192,7 +190,7 @@ func (this *GaController) UnBind(ctx iris.Context) {
 	err = new(models.User).UnBindGa(userId)
 	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("UnBindGa err")
-		this.ExceptionSerive(ctx,  apibackend.BASERR_DATABASE_ERROR.Code(), "SYSTEM_ERROR")
+		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), "SYSTEM_ERROR")
 		return
 	}
 

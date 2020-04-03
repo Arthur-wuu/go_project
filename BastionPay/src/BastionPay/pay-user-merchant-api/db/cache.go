@@ -1,9 +1,8 @@
 package db
 
-
 var GCache Cache
 
-type Cache struct{
+type Cache struct {
 	//SponsorActivityCache   gcache.Cache
 	//SponsorAkCache   gcache.Cache
 	//SponsorIdCache   gcache.Cache
@@ -19,7 +18,7 @@ type Cache struct{
 	//FissionApiActivityListCache    	  gcache.Cache
 }
 
-func (this * Cache)Init(){
+func (this *Cache) Init() {
 }
 
 //**************************************************/

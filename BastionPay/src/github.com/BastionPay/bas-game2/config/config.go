@@ -27,28 +27,28 @@ func PreProcess() {
 }
 
 type Config struct {
-	Server  System      `yaml:"system"`
-	Redis   Redis       `yaml:"redis"`
-	Db     Mysql       `yaml:"mysql"`
+	Server System `yaml:"system"`
+	Redis  Redis  `yaml:"redis"`
+	Db     Mysql  `yaml:"mysql"`
 }
 
 type System struct {
-	Port    string      `yaml:"port"`
-	Debug   bool        `yaml:"debug"`
-	LogPath string      `yaml:"log_path"`
-	Monitor string      `yaml:"monitor"`
+	Port    string `yaml:"port"`
+	Debug   bool   `yaml:"debug"`
+	LogPath string `yaml:"log_path"`
+	Monitor string `yaml:"monitor"`
 }
 
 type Redis struct {
-	Network     string  `yaml:"network"`
-	Host        string  `yaml:"host"`
-	Port        string  `yaml:"port"`
-	Password    string  `yaml:"password"`
-	Database    string  `yaml:"database"`
-	MaxIdle     int     `yaml:"maxIdle"`
-	MaxActive   int     `yaml:"maxActive"`
-	IdleTimeout int     `yaml:"idleTimeout"`
-	Prefix      string  `yaml:"prefix"`
+	Network     string `yaml:"network"`
+	Host        string `yaml:"host"`
+	Port        string `yaml:"port"`
+	Password    string `yaml:"password"`
+	Database    string `yaml:"database"`
+	MaxIdle     int    `yaml:"maxIdle"`
+	MaxActive   int    `yaml:"maxActive"`
+	IdleTimeout int    `yaml:"idleTimeout"`
+	Prefix      string `yaml:"prefix"`
 }
 
 type Mysql struct {

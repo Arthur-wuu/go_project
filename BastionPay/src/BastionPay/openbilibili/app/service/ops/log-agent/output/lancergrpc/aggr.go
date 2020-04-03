@@ -2,8 +2,8 @@ package lancergrpc
 
 import (
 	"bytes"
-	"time"
 	"go-common/app/service/ops/log-agent/event"
+	"time"
 )
 
 const (
@@ -26,7 +26,7 @@ func (l *Lancer) logAggr(e *event.ProcessorEvent) (err error) {
 }
 
 // getlogAggrBuf get logAggrBuf by logId
-func (l *Lancer) getlogAggrBuf(logId string) (*bytes.Buffer) {
+func (l *Lancer) getlogAggrBuf(logId string) *bytes.Buffer {
 	if _, ok := l.logAggrBuf[logId]; !ok {
 		l.logAggrBuf[logId] = new(bytes.Buffer)
 	}

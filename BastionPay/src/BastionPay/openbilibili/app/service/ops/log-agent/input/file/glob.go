@@ -2,8 +2,8 @@ package file
 
 import (
 	"os"
-	"path/filepath"
 	"path"
+	"path/filepath"
 
 	"go-common/library/log"
 )

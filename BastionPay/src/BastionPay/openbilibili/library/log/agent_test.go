@@ -1,8 +1,8 @@
 package log
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestBatchSendSwitch(t *testing.T) {

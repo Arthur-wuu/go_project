@@ -2,8 +2,8 @@ package file
 
 import (
 	"errors"
-	"regexp"
 	"fmt"
+	"regexp"
 )
 
 type MultilineConf struct {
@@ -11,7 +11,7 @@ type MultilineConf struct {
 	MaxLines int    `toml:"maxLines"`
 }
 
-func (c *MultilineConf) ConfigValidate() (error) {
+func (c *MultilineConf) ConfigValidate() error {
 	if c == nil {
 		return errors.New("config of Multiline  is nil")
 	}

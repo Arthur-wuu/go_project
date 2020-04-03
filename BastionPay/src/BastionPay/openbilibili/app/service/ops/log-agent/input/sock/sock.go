@@ -2,23 +2,23 @@ package sock
 
 import (
 	"bufio"
-	"runtime"
+	"context"
 	"errors"
+	"fmt"
+	"io"
 	"net"
 	"os"
-	"time"
-	"io"
 	"path/filepath"
-	"fmt"
-	"context"
+	"runtime"
 	"strings"
+	"time"
 
-	"go-common/library/log"
-	"go-common/app/service/ops/log-agent/input"
 	"go-common/app/service/ops/log-agent/event"
+	"go-common/app/service/ops/log-agent/input"
 	"go-common/app/service/ops/log-agent/pkg/flowmonitor"
 	"go-common/app/service/ops/log-agent/pkg/lancermonitor"
 	"go-common/app/service/ops/log-agent/pkg/lancerroute"
+	"go-common/library/log"
 
 	"github.com/BurntSushi/toml"
 )

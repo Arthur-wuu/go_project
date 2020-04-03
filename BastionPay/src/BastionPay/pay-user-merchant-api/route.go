@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/kataras/iris"
-	"github.com/iris-contrib/middleware/cors"
 	"BastionPay/pay-user-merchant-api/controllers"
+	"github.com/iris-contrib/middleware/cors"
+	"github.com/kataras/iris"
 )
 
 func (this *WebServer) routes() {
@@ -18,8 +18,8 @@ func (this *WebServer) routes() {
 	app.Any("/", func(ctx iris.Context) {
 		ctx.JSON(
 			map[string]interface{}{
-			"code": 0,
-		})
+				"code": 0,
+			})
 	})
 
 	interceptor := new(controllers.Interceptor)
@@ -46,7 +46,7 @@ func (this *WebServer) routes() {
 			v1.Post("/verification", verificationCtrl.Verification)
 		}
 		{
-			userCtrl   := controllers.NewUserController()
+			userCtrl := controllers.NewUserController()
 
 			v1.Get("/refresh", userCtrl.RefreshToken)
 			v1.Post("/login", userCtrl.Login)
@@ -71,7 +71,7 @@ func (this *WebServer) routes() {
 			//v1.Post("/password/reset", passwordCtrl.Reset)
 		}
 		{
-			infoCtrl     := controllers.NewInfoController()
+			infoCtrl := controllers.NewInfoController()
 
 			v1.Get("/info", infoCtrl.GetInformation)
 			v1.Get("/info/nohide", infoCtrl.GetInformationNoHide)
@@ -97,7 +97,6 @@ func (this *WebServer) routes() {
 			//merPty.Post("/save", merchantCtrl.Update)
 		}
 
-
 		orderPty := v1.Party("/order")
 		{
 			orderCtrl := new(controllers.Trade)
@@ -107,4 +106,3 @@ func (this *WebServer) routes() {
 		}
 	}
 }
-

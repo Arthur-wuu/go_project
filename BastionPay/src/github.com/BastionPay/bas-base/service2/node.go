@@ -1,25 +1,25 @@
 package service2
 
 import (
-	"sync"
-	"BastionPay/bas-base/data"
+	"BastionPay/bas-api/apibackend"
 	"BastionPay/bas-base/config"
+	"BastionPay/bas-base/data"
 	"context"
-	"strings"
-	"log"
-	"time"
 	"errors"
-	"net"
 	l4g "github.com/alecthomas/log4go"
 	"github.com/cenkalti/rpc2"
-	"BastionPay/bas-api/apibackend"
+	"log"
+	"net"
+	"strings"
+	"sync"
+	"time"
 )
 
 // node api interface
 type NodeApiHandler func(req *data.SrvRequest, res *data.SrvResponse)
-type NodeApi struct{
-	ApiInfo 	data.ApiInfo
-	ApiHandler 	NodeApiHandler
+type NodeApi struct {
+	ApiInfo    data.ApiInfo
+	ApiHandler NodeApiHandler
 }
 
 func RegisterApi(nap *map[string]NodeApi, name string, level int, handler NodeApiHandler) error {
@@ -27,18 +27,19 @@ func RegisterApi(nap *map[string]NodeApi, name string, level int, handler NodeAp
 		return errors.New("function exist")
 	}
 
-	apiInfo := data.ApiInfo{Name:name, Level:level}
-	(*nap)[name] = NodeApi{ApiHandler:handler, ApiInfo:apiInfo}
+	apiInfo := data.ApiInfo{Name: name, Level: level}
+	(*nap)[name] = NodeApi{ApiHandler: handler, ApiInfo: apiInfo}
 
 	return nil
 }
+
 type NodeApiGroup interface {
-	GetApiGroup()(map[string]NodeApi)
- 	HandleNotify(req *data.SrvRequest)
+	GetApiGroup() map[string]NodeApi
+	HandleNotify(req *data.SrvRequest)
 }
 
 // service node
-type ServiceNode struct{
+type ServiceNode struct {
 	// register data
 	registerData data.SrvRegisterData
 
@@ -52,7 +53,7 @@ type ServiceNode struct{
 	wg sync.WaitGroup
 
 	// connection to center
-	rwmu sync.RWMutex
+	rwmu   sync.RWMutex
 	client *rpc2.Client
 
 	// handler
@@ -60,7 +61,7 @@ type ServiceNode struct{
 }
 
 // New a service node
-func NewServiceNode(confPath string) (*ServiceNode, error){
+func NewServiceNode(confPath string) (*ServiceNode, error) {
 	cfgNode := config.ConfigNode{}
 	cfgNode.Load(confPath)
 
@@ -81,17 +82,17 @@ func NewServiceNode(confPath string) (*ServiceNode, error){
 // register api group
 func RegisterNodeApi(ni *ServiceNode, nodeApiGroup NodeApiGroup) {
 	ni.nodeApiGroup = nodeApiGroup
-	if(nodeApiGroup == nil){
+	if nodeApiGroup == nil {
 		return
 	}
 
 	nam := ni.nodeApiGroup.GetApiGroup()
 
-	for k, v := range nam{
+	for k, v := range nam {
 		if ni.apiHandler[k] != nil {
 			log.Fatal("#Error api repeat:", k)
 		}
-		ni.apiHandler[k] = &NodeApi{ApiInfo:v.ApiInfo, ApiHandler:v.ApiHandler}
+		ni.apiHandler[k] = &NodeApi{ApiInfo: v.ApiInfo, ApiHandler: v.ApiHandler}
 		ni.registerData.Functions = append(ni.registerData.Functions, v.ApiInfo)
 	}
 }
@@ -102,7 +103,7 @@ func StartNode(ctx context.Context, ni *ServiceNode) {
 }
 
 // Stop the service node
-func StopNode(ni *ServiceNode)  {
+func StopNode(ni *ServiceNode) {
 	ni.wg.Wait()
 }
 
@@ -113,7 +114,7 @@ func (ni *ServiceNode) call(client *rpc2.Client, req *data.SrvRequest, res *data
 	h := ni.apiHandler[strings.ToLower(req.Method.Function)]
 	if h != nil {
 		h.ApiHandler(req, res)
-	}else{
+	} else {
 		res.Err = apibackend.ErrNotFindFunction
 	}
 	if res.Err != apibackend.NoErr {
@@ -141,7 +142,7 @@ func (ni *ServiceNode) InnerCall(req *data.SrvRequest, res *data.SrvResponse) er
 	var err error
 	if ni.client != nil {
 		err = ni.client.Call(data.MethodCenterInnerCall, req, res)
-	}else{
+	} else {
 		err = errors.New("client is nil")
 	}
 	return err
@@ -155,13 +156,13 @@ func (ni *ServiceNode) InnerNotify(req *data.SrvRequest, res *data.SrvResponse) 
 	var err error
 	if ni.client != nil {
 		err = ni.client.Notify(data.MethodCenterInnerNotify, req)
-	}else{
+	} else {
 		err = errors.New("client is nil")
 	}
 	return err
 }
 
-func (ni *ServiceNode)connectToCenter() (*rpc2.Client, error){
+func (ni *ServiceNode) connectToCenter() (*rpc2.Client, error) {
 	conn, err := net.Dial("tcp", ni.serviceCenterAddr)
 	if err != nil {
 		return nil, err
@@ -171,30 +172,30 @@ func (ni *ServiceNode)connectToCenter() (*rpc2.Client, error){
 	return clt, nil
 }
 
-func (ni *ServiceNode)registToCenter() error{
+func (ni *ServiceNode) registToCenter() error {
 	var err error
 	var res string
 	if ni.client != nil {
 		err = ni.client.Call(data.MethodCenterRegister, ni.registerData, &res)
-	}else{
+	} else {
 		err = errors.New("client is nil")
 	}
 	return err
 }
 
-func (ni *ServiceNode)unRegistToCenter() error{
+func (ni *ServiceNode) unRegistToCenter() error {
 	var err error
 	var res string
 	if ni.client != nil {
 		ni.client.Call(data.MethodCenterUnRegister, ni.registerData, &res)
-	}else{
+	} else {
 		err = errors.New("client is nil")
 	}
 
 	return err
 }
 
-func (ni *ServiceNode)startToCenter(ctx context.Context) {
+func (ni *ServiceNode) startToCenter(ctx context.Context) {
 	go func() {
 		ni.wg.Add(1)
 		defer ni.wg.Done()
@@ -202,7 +203,7 @@ func (ni *ServiceNode)startToCenter(ctx context.Context) {
 		go func() {
 			for {
 				// connect and regist
-				func(){
+				func() {
 					ni.rwmu.Lock()
 					defer ni.rwmu.Unlock()
 
@@ -222,7 +223,7 @@ func (ni *ServiceNode)startToCenter(ctx context.Context) {
 					}
 
 					if err != nil {
-						if(ni.client != nil){
+						if ni.client != nil {
 							ni.client.Close()
 							ni.client = nil
 						}
@@ -240,14 +241,14 @@ func (ni *ServiceNode)startToCenter(ctx context.Context) {
 					}
 
 					l4g.Info("client run...")
-					<- ni.client.DisconnectNotify()
+					<-ni.client.DisconnectNotify()
 					l4g.Error("client disconnect...")
 				}()
 
 				func() {
 					ni.rwmu.Lock()
 					defer ni.rwmu.Unlock()
-					if(ni.client != nil){
+					if ni.client != nil {
 						ni.client.Close()
 						ni.client = nil
 					}
@@ -255,7 +256,7 @@ func (ni *ServiceNode)startToCenter(ctx context.Context) {
 				}()
 
 				l4g.Info("wait 5 second to connect...")
-				time.Sleep(time.Second*5)
+				time.Sleep(time.Second * 5)
 			}
 		}()
 

@@ -10,7 +10,7 @@ type Config struct {
 	Name string `tome:"name"`
 }
 
-func (c *Config) ConfigValidate() (error) {
+func (c *Config) ConfigValidate() error {
 	if c == nil {
 		return errors.New("config of Stdout Output is nil")
 	}

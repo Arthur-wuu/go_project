@@ -12,7 +12,7 @@ import (
 
 const (
 	_defaultExpiration = 10
-	_tokenNamespace = "upload_token:"
+	_tokenNamespace    = "upload_token:"
 )
 
 // RequestUploadToken generates a token for subsequent upload.

@@ -26,7 +26,7 @@ import (
 )
 
 type WebServer struct {
-	mIris  *iris.Application
+	mIris *iris.Application
 }
 
 func NewWebServer() *WebServer {
@@ -63,13 +63,13 @@ func (this *WebServer) Init() error {
 	}); err != nil {
 		return err
 	}
-	  this.controller()
+	this.controller()
 	ZapLog().Info("WebServer Init ok")
 	return nil
 }
 
 func (this *WebServer) Run() error {
-	ZapLog().Info("WebServer Run with port["+config.GConfig.Server.Port+"]")
+	ZapLog().Info("WebServer Run with port[" + config.GConfig.Server.Port + "]")
 	err := this.mIris.Run(iris.Addr(":" + config.GConfig.Server.Port)) //阻塞模式
 	if err != nil {
 		if err == iris.ErrServerClosed {
@@ -81,17 +81,17 @@ func (this *WebServer) Run() error {
 	return nil
 }
 
-func (this *WebServer) Stop() error {//这里要处理下，全部锁得再看看，还有就是qid
+func (this *WebServer) Stop() error { //这里要处理下，全部锁得再看看，还有就是qid
 	return nil
 }
 
 /********************内部接口************************/
 func (a *WebServer) controller() {
 
-	  go a.get()
+	go a.get()
 }
 
-func (this *WebServer) get()  {
+func (this *WebServer) get() {
 
 	for true {
 
@@ -119,32 +119,30 @@ func (this *WebServer) get()  {
 	}
 }
 
+var addr = flag.String("addr", "iot.bigeapp.com:1883", "http service address")
 
+func c() {
+	flag.Parse()
+	log.SetFlags(0)
 
-	var addr = flag.String("addr", "iot.bigeapp.com:1883", "http service address")
+	interrupt := make(chan os.Signal, 1)
+	signal.Notify(interrupt, os.Interrupt)
 
-	func c() {
-		flag.Parse()
-		log.SetFlags(0)
+	u := url.URL{Scheme: "ws", Host: *addr, Path: "/ws"}
+	log.Printf("connecting to %s", u.String())
 
-		interrupt := make(chan os.Signal, 1)
-		signal.Notify(interrupt, os.Interrupt)
+	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 
-		u := url.URL{Scheme: "ws", Host: *addr, Path: "/ws"}
-		log.Printf("connecting to %s", u.String())
+	if err != nil {
+		log.Fatal("dial:", err)
+	}
+	message2 := []byte("{\"type\":\"admin.coinup\",\"upnumber\":\"2\",\"devid\":\"860344040771835\"}")
+	err = c.WriteMessage(1, message2)
 
-		c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
-
-		if err != nil {
-			log.Fatal("dial:", err)
-		}
-		message2 := []byte("{\"type\":\"admin.coinup\",\"upnumber\":\"2\",\"devid\":\"860344040771835\"}")
-		err = c.WriteMessage(1,message2)
-
-		if err != nil {
-			log.Fatal("message err:", err)
-		}
-		defer c.Close()
+	if err != nil {
+		log.Fatal("message err:", err)
+	}
+	defer c.Close()
 
 	//done := make(chan struct{})
 	//
@@ -194,9 +192,9 @@ func (this *WebServer) get()  {
 
 func sum() string {
 
-	rows, err :=  db.GDbMgr.Get().Table("USER_ACC").Select("sum(BALANCE) as total").Where("USER_ID=?", 35).Group("USER_ID").Rows()
+	rows, err := db.GDbMgr.Get().Table("USER_ACC").Select("sum(BALANCE) as total").Where("USER_ID=?", 35).Group("USER_ID").Rows()
 	if err != nil {
-		fmt.Println("err,***",err)
+		fmt.Println("err,***", err)
 		panic(err.Error()) // proper error handling instead of panic in your app
 	}
 

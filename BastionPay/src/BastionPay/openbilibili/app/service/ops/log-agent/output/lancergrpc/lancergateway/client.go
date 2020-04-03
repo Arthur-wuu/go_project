@@ -1,25 +1,25 @@
 package lancergateway
 
 import (
-	"time"
 	"errors"
 	"fmt"
+	"time"
 
-	"go-common/library/net/rpc/warden/resolver"
-	"go-common/library/net/rpc/warden/balancer/wrr"
 	"go-common/library/naming/discovery"
+	"go-common/library/net/rpc/warden/balancer/wrr"
+	"go-common/library/net/rpc/warden/resolver"
 	xtime "go-common/library/time"
 
 	"google.golang.org/grpc"
 )
 
 type Config struct {
-	AppId   string        `toml:"appId"`
+	AppId   string         `toml:"appId"`
 	Timeout xtime.Duration `toml:"timeout"`
-	Subset  int           `toml:"subset"`
+	Subset  int            `toml:"subset"`
 }
 
-func (c *Config) ConfigValidate() (error) {
+func (c *Config) ConfigValidate() error {
 	if c == nil {
 		return errors.New("config of LancerGateway can't be nil")
 	}

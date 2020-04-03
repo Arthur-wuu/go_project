@@ -488,7 +488,7 @@ func PredictionModegetConflictingAltSubsets(configs ATNConfigSet) []*BitSet {
 	configToAlts := make(map[int]*BitSet)
 
 	for _, c := range configs.GetItems() {
-		key := 31 * c.GetState().GetStateNumber() + c.GetContext().hash()
+		key := 31*c.GetState().GetStateNumber() + c.GetContext().hash()
 
 		alts, ok := configToAlts[key]
 		if !ok {

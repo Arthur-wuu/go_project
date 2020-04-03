@@ -1,13 +1,13 @@
 package controllers
 
 import (
+	"BastionPay/bas-api/apibackend"
+	. "BastionPay/bas-base/log/zap"
+	"BastionPay/pay-user-merchant-api/api"
 	"BastionPay/pay-user-merchant-api/common"
 	"BastionPay/pay-user-merchant-api/models"
-	. "BastionPay/bas-base/log/zap"
 	"github.com/kataras/iris/context"
 	"go.uber.org/zap"
-	"BastionPay/bas-api/apibackend"
-	"BastionPay/pay-user-merchant-api/api"
 )
 
 type PasswordController struct {
@@ -15,8 +15,7 @@ type PasswordController struct {
 }
 
 func NewPasswordController() *PasswordController {
-	return &PasswordController{
-	}
+	return &PasswordController{}
 }
 
 //func (this *PasswordController) Modify(ctx context.Context) {
@@ -96,7 +95,7 @@ func (this *PasswordController) Inquire(ctx context.Context) {
 	}
 
 	// 图形验证码
-	captchaPass, err := common.NewVerification( "forget_password", common.VerificationTypeCaptcha).
+	captchaPass, err := common.NewVerification("forget_password", common.VerificationTypeCaptcha).
 		Check(params.CaptchaToken, 0, "")
 	if err != nil || !captchaPass {
 		if err != nil {
@@ -117,8 +116,8 @@ func (this *PasswordController) Inquire(ctx context.Context) {
 	}
 
 	result := api.ResPasswordInquire{
-		Email : user.Email,
-		Phone: user.Phone,
+		Email:       user.Email,
+		Phone:       user.Phone,
 		CountryCode: user.PhonneDistrict,
 	}
 	if user.Ga != "" {

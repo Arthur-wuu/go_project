@@ -60,7 +60,7 @@ func TestDaoYstOrderState(t *testing.T) {
 		var (
 			c   = context.Background()
 			req = &model.YstOrderStateReq{
-				SeqNo: "08265187190109103054",
+				SeqNo:   "08265187190109103054",
 				TraceNo: "CA20190109102306315819491155",
 			}
 		)

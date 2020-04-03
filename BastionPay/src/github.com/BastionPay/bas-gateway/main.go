@@ -2,27 +2,27 @@ package main
 
 import (
 	//"BastionPay/bas-service/base/service"
-	service "BastionPay/bas-base/service2"
-	"fmt"
-	"time"
-	"context"
-	l4g "github.com/alecthomas/log4go"
-	"BastionPay/bas-base/config"
 	"BastionPay/bas-api/utils"
+	"BastionPay/bas-base/config"
+	service "BastionPay/bas-base/service2"
+	"context"
+	"fmt"
+	l4g "github.com/alecthomas/log4go"
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 )
 
 const ServiceGatewayConfig = "gateway.json"
 
-func closeLog()  {
+func closeLog() {
 	time.Sleep(time.Second * 3)
 	l4g.Close()
 }
 
 func main() {
-	laxFlag :=config.NewLaxFlagDefault()
+	laxFlag := config.NewLaxFlagDefault()
 	cfgDir := laxFlag.String("conf_path", config.GetBastionPayConfigDir(), "config path")
 	logPath := laxFlag.String("log_path", config.GetBastionPayConfigDir()+"/log.xml", "log conf path")
 	laxFlag.LaxParseDefault()
@@ -56,4 +56,3 @@ func main() {
 	service.StopCenter(gatewayInstance)
 	l4g.Info("All routine is quit...")
 }
-

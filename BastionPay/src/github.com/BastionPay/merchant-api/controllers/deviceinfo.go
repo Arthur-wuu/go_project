@@ -19,14 +19,14 @@ func (this *BkConfig) Add(ctx iris.Context) {
 	err := Tools.ShouldBindJSON(ctx, param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
 	err = param.Add()
 	if err != nil {
-		ZapLog().Error( "Add param to mysql err", zap.Error(err))
-		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(),  err.Error())
+		ZapLog().Error("Add param to mysql err", zap.Error(err))
+		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), err.Error())
 		return
 	}
 
@@ -54,8 +54,7 @@ func (this *BkConfig) Get(ctx iris.Context) {
 	this.Response(ctx, data)
 }
 
-
-func (this *BkConfig) GetCoinList (ctx iris.Context) {
+func (this *BkConfig) GetCoinList(ctx iris.Context) {
 	param := new(models.BkConfigGet)
 
 	err := Tools.ShouldBindJSON(ctx, param)
@@ -76,26 +75,23 @@ func (this *BkConfig) GetCoinList (ctx iris.Context) {
 	this.Response(ctx, data)
 }
 
-
-
 func (this *BkConfig) Update(ctx iris.Context) {
 	param := new(models.BkConfigUpdate)
 
 	err := Tools.ShouldBindJSON(ctx, param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
 	err = param.Update()
-	if  err != nil {
+	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
 		return
 	}
 	this.Response(ctx, "update succ")
 }
-
 
 func (this *BkConfig) Delete(ctx iris.Context) {
 	param := new(models.BkConfigDel)
@@ -103,18 +99,17 @@ func (this *BkConfig) Delete(ctx iris.Context) {
 	err := Tools.ShouldBindJSON(ctx, param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
 	err = param.Delete()
-	if  err != nil {
+	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
 		return
 	}
 	this.Response(ctx, "del succ")
 }
-
 
 func (this *BkConfig) List(ctx iris.Context) {
 	param := new(models.BkConfigList)

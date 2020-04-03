@@ -1,14 +1,13 @@
 package main
 
 import (
-
 	"BastionPay/pay-user-merchant-api/config"
 	//"BastionPay/bas-filetransfer-srv/api"
+	"BastionPay/pay-user-merchant-api/common"
 	"BastionPay/pay-user-merchant-api/db"
 	"BastionPay/pay-user-merchant-api/models"
 	"math/rand"
 	"time"
-	"BastionPay/pay-user-merchant-api/common"
 )
 
 func Loader() error {

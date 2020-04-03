@@ -7,29 +7,29 @@ import (
 	"fmt"
 )
 
-type ReqNexmo struct{
-	ApiKey    string        `json:"api_key"`
-	ApiSecret string    `json:"api_secret"`
-	From      string           `json:"from"`
-	To        string         `json:"to"`
-	Text      string          `json:"text"`
-	Type      string           `json:"type"`
+type ReqNexmo struct {
+	ApiKey    string `json:"api_key"`
+	ApiSecret string `json:"api_secret"`
+	From      string `json:"from"`
+	To        string `json:"to"`
+	Text      string `json:"text"`
+	Type      string `json:"type"`
 }
 
-type ResNexmo struct{
+type ResNexmo struct {
 	MessageCount string `json:"message-count"`
 	Messages     []ResNexmoMessages
 }
 
-type ResNexmoMessages struct{
+type ResNexmoMessages struct {
 	To               string `json:"to"`
 	MessageId        string `json:"message-id"`
 	Status           string `json:"status"`
 	RemainingBalance string `json:"remaining-balance"`
 	MessagePrice     string `json:"message-price"`
-	Network          string   `json:"network"`
-	AccountRef       string   `json:"account-ref"`
-	ErrorText        string    `json:"error-text"`
+	Network          string `json:"network"`
+	AccountRef       string `json:"account-ref"`
+	ErrorText        string `json:"error-text"`
 }
 
 func (this *SmsMgr) DirectSendNexmo(body, phone string, senderId *string) error {
@@ -46,12 +46,11 @@ func (this *SmsMgr) DirectSendNexmo(body, phone string, senderId *string) error 
 
 	if senderId != nil {
 		form["from"] = []string{*senderId}
-	}else{
+	} else {
 		form["from"] = []string{config.GConfig.Nexmo.DefaultSender}
 	}
 
-
-	resData,err := common.PostForm(config.GConfig.Nexmo.Url, form)
+	resData, err := common.PostForm(config.GConfig.Nexmo.Url, form)
 	if err != nil {
 		return err
 	}

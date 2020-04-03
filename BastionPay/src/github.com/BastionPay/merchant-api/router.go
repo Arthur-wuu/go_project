@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/kataras/iris"
-	"github.com/iris-contrib/middleware/cors"
 	"BastionPay/merchant-api/controllers"
+	"github.com/iris-contrib/middleware/cors"
+	"github.com/kataras/iris"
 )
 
 func (this *WebServer) routes() {
@@ -117,7 +117,7 @@ func (this *WebServer) routes() {
 			atmTransfer := bas.Party("/atm")
 			{
 				transfer := new(controllers.Transfer)
-				atmTransfer.Post("/transfer", transfer.TransferAtmOpenApi)  //待改
+				atmTransfer.Post("/transfer", transfer.TransferAtmOpenApi) //待改
 			}
 
 			//有价格折扣手续费的 现在有atm
@@ -151,10 +151,7 @@ func (this *WebServer) routes() {
 			configPartyBk.Post("/get-url", param.Get)
 		}
 
-
-
-//v2/bas-merchant-bk/config-device/list    参数 {"page":1}
-
+		//v2/bas-merchant-bk/config-device/list    参数 {"page":1}
 
 		//后台配置
 		basbk := v1.Party("/bas-merchant-bk")
@@ -180,7 +177,6 @@ func (this *WebServer) routes() {
 		//	configParty.Post("/get-url", param.Get)
 		//}
 
-
 		cigMerchantParty := basbk.Party("/config-merchant")
 		{
 			mConfig := new(controllers.MerchantConfig)
@@ -192,7 +188,5 @@ func (this *WebServer) routes() {
 			cigMerchantParty.Post("/list", mConfig.List)
 		}
 	}
-
-
 
 }

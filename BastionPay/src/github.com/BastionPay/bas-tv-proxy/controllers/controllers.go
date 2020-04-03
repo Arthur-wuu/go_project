@@ -7,7 +7,6 @@ import (
 )
 
 type Controllers struct {
-
 }
 
 func (c *Controllers) Response(

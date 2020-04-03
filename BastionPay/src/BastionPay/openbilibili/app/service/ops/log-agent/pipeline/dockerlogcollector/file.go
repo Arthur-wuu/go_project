@@ -2,13 +2,13 @@ package dockerlogcollector
 
 import (
 	"context"
-	"time"
-	"strings"
-	"path"
 	"io/ioutil"
+	"path"
+	"strings"
+	"time"
 
-	"go-common/library/log"
 	"go-common/app/service/ops/log-agent/pipeline"
+	"go-common/library/log"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
@@ -75,7 +75,6 @@ func (collector *DockerLogCollector) getConfigs() ([]*configItem, error) {
 
 		for _, env := range info.Config.Env {
 			if strings.HasPrefix(env, collector.c.
-
 				ConfigEnv) {
 				for _, path := range strings.Split(strings.TrimPrefix(env, collector.c.ConfigEnv+"="), ",") {
 					configItems = append(configItems, &configItem{path, mergedDir})

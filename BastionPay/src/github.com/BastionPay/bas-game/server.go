@@ -27,13 +27,13 @@ import (
 	//"go.uber.org/zap"
 	"BastionPay/bas-game/config"
 	//"BastionPay/bas-filetransfer-srv/api"
-	"BastionPay/bas-game/db"
 	"BastionPay/bas-game/comsumer"
+	"BastionPay/bas-game/db"
 )
 
 type WebServer struct {
 	mIris  *iris.Application
-	wsconn  base.WsCon
+	wsconn base.WsCon
 }
 
 func NewWebServer() *WebServer {
@@ -71,7 +71,7 @@ func (this *WebServer) Init() error {
 		return err
 	}
 
-	this.wsconn =  base.WsCon{}
+	this.wsconn = base.WsCon{}
 	url := "ws://iot.bigeapp.com:1883/ws"
 	err = this.wsconn.Init(url, SendPingHander, RecvPingHander, RecvPongHander)
 	if err != nil {
@@ -81,14 +81,14 @@ func (this *WebServer) Init() error {
 	this.wsconn.Start()
 
 	comsumer.GTasker.Init(&this.wsconn)
-	
-	  this.controller()
+
+	this.controller()
 	ZapLog().Info("WebServer Init ok")
 	return nil
 }
 
 func (this *WebServer) Run() error {
-	ZapLog().Info("WebServer Run with port["+config.GConfig.Server.Port+"]")
+	ZapLog().Info("WebServer Run with port[" + config.GConfig.Server.Port + "]")
 	err := this.mIris.Run(iris.Addr(":" + config.GConfig.Server.Port)) //阻塞模式
 	if err != nil {
 		if err == iris.ErrServerClosed {
@@ -100,24 +100,24 @@ func (this *WebServer) Run() error {
 	return nil
 }
 
-func (this *WebServer) Stop() error {//这里要处理下，全部锁得再看看，还有就是qid
+func (this *WebServer) Stop() error { //这里要处理下，全部锁得再看看，还有就是qid
 	return nil
 }
 
 /********************内部接口************************/
 func (a *WebServer) controller() {
 	comsumer.GTasker.Start()
-	 // go a.get()
+	// go a.get()
 }
 
-func (this *WebServer) get()  {
+func (this *WebServer) get() {
 
 	for true {
 
 		sum1 := sum()
 		sumFloat1, _ := strconv.ParseFloat(sum1, 64)
 		putAllMoneyToRedis(sum1)
-		fmt.Println("first balance...",sumFloat1)
+		fmt.Println("first balance...", sumFloat1)
 
 		time.Sleep(time.Second * time.Duration(6))
 
@@ -126,23 +126,23 @@ func (this *WebServer) get()  {
 		redisAllMoney, _ := getAllMoneyToRedis()
 		putAllMoneyToRedis(sum2)
 
-		fmt.Println("second balance...",sumFloat2)
-		fmt.Println("compare..",sumFloat2 > redisAllMoney,sumFloat2,redisAllMoney)
+		fmt.Println("second balance...", sumFloat2)
+		fmt.Println("compare..", sumFloat2 > redisAllMoney, sumFloat2, redisAllMoney)
 		if sumFloat2 > redisAllMoney {
 			//发送ws
 			message2 := []byte("{\"type\":\"admin.coinup\",\"upnumber\":\"2\",\"devid\":\"860344040771835\"}")
 			this.wsconn.Send(1, message2)
 
-			for i:=0 ;i < 3; i++{
+			for i := 0; i < 3; i++ {
 				msg, err := this.wsconn.Recv()
 				if err != nil {
-					log.Println("err",err)
+					log.Println("err", err)
 					continue
 				}
 				Msg := new(_type.MsgRcv)
-				json.Unmarshal(msg.Data,Msg)
+				json.Unmarshal(msg.Data, Msg)
 
-				if Msg.Message == "success" && Msg.State == "coinup end" && Msg.Type == "coinup"{
+				if Msg.Message == "success" && Msg.State == "coinup end" && Msg.Type == "coinup" {
 					log.Println("up coin succ...")
 					fmt.Println("up coin succ...")
 					break
@@ -158,32 +158,31 @@ func (this *WebServer) get()  {
 	}
 }
 
-
 //var addr = flag.String("addr", "iot.bigeapp.com:1883", "http service address")
 var addr = "iot.bigeapp.com:1883"
 
 func send() {
-		flag.Parse()
-		log.SetFlags(0)
+	flag.Parse()
+	log.SetFlags(0)
 
-		interrupt := make(chan os.Signal, 1)
-		signal.Notify(interrupt, os.Interrupt)
+	interrupt := make(chan os.Signal, 1)
+	signal.Notify(interrupt, os.Interrupt)
 
-		u := url.URL{Scheme: "ws", Host: addr, Path: "/ws"}
-		log.Printf("connecting to %s", u.String())
+	u := url.URL{Scheme: "ws", Host: addr, Path: "/ws"}
+	log.Printf("connecting to %s", u.String())
 
-		c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 
-		if err != nil {
-			log.Fatal("dial:", err)
-		}
-		message2 := []byte("{\"type\":\"admin.coinup\",\"upnumber\":\"2\",\"devid\":\"860344040771835\"}")
-		err = c.WriteMessage(1,message2)
+	if err != nil {
+		log.Fatal("dial:", err)
+	}
+	message2 := []byte("{\"type\":\"admin.coinup\",\"upnumber\":\"2\",\"devid\":\"860344040771835\"}")
+	err = c.WriteMessage(1, message2)
 
-		if err != nil {
-			log.Fatal("message err:", err)
-		}
-		 c.Close()
+	if err != nil {
+		log.Fatal("message err:", err)
+	}
+	c.Close()
 
 	done := make(chan struct{})
 
@@ -193,7 +192,7 @@ func send() {
 			_, message, err := c.ReadMessage()
 			if err != nil {
 				log.Println("read:", err)
-				fmt.Println("recv  message...",string(message))
+				fmt.Println("recv  message...", string(message))
 				return
 			}
 			log.Printf("recv: %s", message)
@@ -235,9 +234,9 @@ func send() {
 
 func sum() string {
 
-	rows, err :=  db.GDbMgr.Get().Table("USER_ACC").Select("sum(BALANCE) as total").Where("USER_ID=?", 35).Group("USER_ID").Rows()
+	rows, err := db.GDbMgr.Get().Table("USER_ACC").Select("sum(BALANCE) as total").Where("USER_ID=?", 35).Group("USER_ID").Rows()
 	if err != nil {
-		fmt.Println("err,***",err)
+		fmt.Println("err,***", err)
 		panic(err.Error())
 	}
 
@@ -274,40 +273,38 @@ func sum() string {
 	return value
 }
 
-func  SendPingHander () []byte{
+func SendPingHander() []byte {
 
-	return  []byte("ping")
+	return []byte("ping")
 }
 
-func  RecvPingHander ( str string) []byte {
+func RecvPingHander(str string) []byte {
 
 	return []byte(str)
 }
 
-func  RecvPongHander ( str string) []byte {
+func RecvPongHander(str string) []byte {
 
 	return []byte(str)
 }
 
-
-func putAllMoneyToRedis (amount string) error {
+func putAllMoneyToRedis(amount string) error {
 	key := "Game_AllMoney"
 	ZapLog().With(zap.String("key", string(key))).Debug("redis put")
-	_,  err := db.GRedis.Do("SET", key, amount)
+	_, err := db.GRedis.Do("SET", key, amount)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func getAllMoneyToRedis () (float64, error ){
+func getAllMoneyToRedis() (float64, error) {
 	key := "Game_AllMoney"
 	ZapLog().With(zap.String("key", string(key))).Debug("redis put")
-	allMoney,  err := db.GRedis.Do("GET", key )
+	allMoney, err := db.GRedis.Do("GET", key)
 	if err != nil {
 		return 0, err
 	}
 	sumFloat1, err := strconv.ParseFloat(string(allMoney.([]byte)), 64)
-	return sumFloat1,err
+	return sumFloat1, err
 }
-

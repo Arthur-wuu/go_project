@@ -1,10 +1,10 @@
 package fileLog
 
 import (
-	"time"
 	"context"
 	"encoding/json"
 	"os"
+	"time"
 
 	"go-common/app/service/ops/log-agent/event"
 	"go-common/app/service/ops/log-agent/processor"

@@ -4,11 +4,11 @@ import (
 	s3 "BastionPay/bas-tools/sdk.aws.s3"
 	"github.com/kataras/iris"
 
-	"strings"
 	"BastionPay/bas-api/apibackend"
+	. "BastionPay/bas-base/log/zap"
 	"BastionPay/bas-userhelp/config"
 	"go.uber.org/zap"
-	. "BastionPay/bas-base/log/zap"
+	"strings"
 )
 
 type UploadFile struct {
@@ -28,20 +28,20 @@ func (this *UploadFile) handleFilesToAwsS3(ctx iris.Context, region, bucket, buc
 	//设置内存大小
 	err := ctx.Request().ParseMultipartForm(32 << 23)
 	if err != nil {
-		ZapLog().Error( "ParseMultipartForm err", zap.Error(err))
+		ZapLog().Error("ParseMultipartForm err", zap.Error(err))
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "ParseMultipartForm_ERRORS")
 		return
 	}
 	files := ctx.Request().MultipartForm.File["file"]
 	if len(files) == 0 {
-		ZapLog().Error( "NoFile err")
+		ZapLog().Error("NoFile err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "NoFind file")
 		return
 	}
 	//暂时s3Sdk作为一个临时的，因为压根很少用到，何必占内存呢
 	s3Sdk := s3.NewS3Sdk(region, config.GConfig.Aws.AccessKeyId, config.GConfig.Aws.AccessKey, config.GConfig.Aws.AccessToken)
 	if s3Sdk == nil {
-		ZapLog().Error( "NewS3Sdk  err[return nil]")
+		ZapLog().Error("NewS3Sdk  err[return nil]")
 		this.ExceptionSerive(ctx, apibackend.BASERR_UNKNOWN_BUG.Code(), "NewS3Sdk_ERRORS")
 		return
 	}
@@ -55,7 +55,7 @@ func (this *UploadFile) handleFilesToAwsS3(ctx iris.Context, region, bucket, buc
 		//l4g.Debug("fileName[%s] ", filename)
 		file, err := files[i].Open()
 		if err != nil {
-			ZapLog().Error( "FileOpen  err", zap.Error(err))
+			ZapLog().Error("FileOpen  err", zap.Error(err))
 			this.ExceptionSerive(ctx, apibackend.BASERR_SYSTEM_INTERNAL_ERROR.Code(), "FileOpen_ERRORS")
 			return
 		}
@@ -68,7 +68,7 @@ func (this *UploadFile) handleFilesToAwsS3(ctx iris.Context, region, bucket, buc
 		//}
 		_, err = file.Seek(0, 0)
 		if err != nil {
-			ZapLog().Error( "FileSeek  err", zap.Error(err))
+			ZapLog().Error("FileSeek  err", zap.Error(err))
 			this.ExceptionSerive(ctx, apibackend.BASERR_SYSTEM_INTERNAL_ERROR.Code(), "File_Seek_ERRORS")
 			return
 		}
@@ -76,7 +76,7 @@ func (this *UploadFile) handleFilesToAwsS3(ctx iris.Context, region, bucket, buc
 		//l4g.Info("S3 start UpLoad[%s]md5[%s] ", filename, filenameMd5)
 		addr, err := s3Sdk.UpLoad(bucket, filename, file, timeout)
 		if err != nil {
-			ZapLog().Error( "S3 UpLoad  err", zap.Error(err))
+			ZapLog().Error("S3 UpLoad  err", zap.Error(err))
 			this.ExceptionSerive(ctx, apibackend.BASERR_INTERNAL_SERVICE_ACCESS_ERROR.Code(), "S3_UpLoad_ERRORS")
 			return
 		}
@@ -92,4 +92,3 @@ func (this *UploadFile) handleFilesToAwsS3(ctx iris.Context, region, bucket, buc
 	this.Response(ctx, results)
 	//l4g.Debug("deal handleFilesToAwsS3 ok, result[%s]",  string(content))
 }
-

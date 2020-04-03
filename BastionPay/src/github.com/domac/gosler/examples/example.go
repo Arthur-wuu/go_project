@@ -1,9 +1,10 @@
 package main
+
 import (
 	"fmt"
-	"study/gosler"
-	"os/signal"
 	"os"
+	"os/signal"
+	"study/gosler"
 )
 
 func task() {

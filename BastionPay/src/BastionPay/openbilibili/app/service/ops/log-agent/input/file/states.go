@@ -1,9 +1,9 @@
 package file
 
 import (
+	"go-common/library/log"
 	"sync"
 	"time"
-	"go-common/library/log"
 )
 
 // States handles list of FileState. One must use NewStates to instantiate a
@@ -39,7 +39,7 @@ func (s *States) Update(newState State) {
 
 // Cleanup cleans up the state array. All states which are older then `older` are removed
 // The number of states that were cleaned up is returned.
-func (s *States) Cleanup() (int) {
+func (s *States) Cleanup() int {
 	s.Lock()
 	defer s.Unlock()
 

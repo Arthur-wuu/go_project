@@ -22,8 +22,8 @@ func LoadConfig(path string) *Config {
 }
 
 type Config struct {
-	Server  Server              `yaml:"server"`
-	Db      Db                  `yaml:"db"`
+	Server Server `yaml:"server"`
+	Db     Db     `yaml:"db"`
 }
 
 type Server struct {
@@ -41,6 +41,3 @@ type Db struct {
 	Max_idle_conn int    `yaml:"max_idle_conn"`
 	Max_open_conn int    `yaml:"max_open_conn"`
 }
-
-
-

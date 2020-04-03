@@ -1,10 +1,10 @@
 package input
 
 import (
-	"fmt"
 	"context"
-	"go-common/library/log"
+	"fmt"
 	"go-common/app/service/ops/log-agent/event"
+	"go-common/library/log"
 )
 
 type Input interface {

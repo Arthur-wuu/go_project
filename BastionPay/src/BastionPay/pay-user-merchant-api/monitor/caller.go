@@ -4,7 +4,7 @@ import (
 	"BastionPay/bas-monitor/defaultrpc"
 )
 
-func initCaller()  {
+func initCaller() {
 	nodeInst := defaultrpc.DefaultNodeInst()
 	if nodeInst == nil {
 		return

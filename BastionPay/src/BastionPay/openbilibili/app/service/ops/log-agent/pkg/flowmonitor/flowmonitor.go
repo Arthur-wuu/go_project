@@ -1,16 +1,16 @@
 package flowmonitor
 
 import (
+	"encoding/json"
 	"errors"
-	"time"
+	"net"
 	"os"
 	"strconv"
-	"encoding/json"
-	"net"
+	"time"
 
-	"go-common/library/log"
-	"go-common/app/service/ops/log-agent/pkg/flowmonitor/counter"
 	"go-common/app/service/ops/log-agent/event"
+	"go-common/app/service/ops/log-agent/pkg/flowmonitor/counter"
+	"go-common/library/log"
 )
 
 type FlowMonitor struct {
@@ -68,7 +68,7 @@ func (fm *FlowMonitor) AddEvent(e *event.ProcessorEvent, source string, kind str
 }
 
 // Add do the metric
-func (fm *FlowMonitor) Add(appId string, source string, timeRangeKey string, kind string, status string) (error) {
+func (fm *FlowMonitor) Add(appId string, source string, timeRangeKey string, kind string, status string) error {
 	if fm == nil {
 		return notInitError
 	}

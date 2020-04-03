@@ -1,9 +1,8 @@
 package email
 
-
 import (
-"BastionPay/bas-notify/config"
-ses "BastionPay/bas-tools/sdk.aws.ses"
+	"BastionPay/bas-notify/config"
+	ses "BastionPay/bas-tools/sdk.aws.ses"
 	"fmt"
 )
 
@@ -24,7 +23,7 @@ func (this *MailMgr) Init() error {
 func (this *MailMgr) DirectSend(subject, body, toEmail string, senderId *string) error {
 	srcMail := this.mSrcMail
 	if senderId != nil && len(*senderId) > 1 {
-		srcMail = fmt.Sprintf("%s <%s>",*senderId, this.mSrcMail)
+		srcMail = fmt.Sprintf("%s <%s>", *senderId, this.mSrcMail)
 	}
 	err := this.mSdk.Send(toEmail, subject, srcMail, "UTF-8", body)
 	if err != nil {
@@ -32,4 +31,3 @@ func (this *MailMgr) DirectSend(subject, body, toEmail string, senderId *string)
 	}
 	return nil
 }
-

@@ -1,8 +1,8 @@
 package common
 
 import (
-	"github.com/satori/go.uuid"
 	"fmt"
+	"github.com/satori/go.uuid"
 )
 
 func (t *Tools) GenerateUuid() string {

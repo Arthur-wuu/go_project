@@ -1,16 +1,16 @@
 package hostlogcollector
 
 import (
-	"os"
+	"context"
+	"fmt"
 	"io/ioutil"
+	"os"
 	"path"
 	"strings"
-	"fmt"
 	"time"
-	"context"
 
-	"go-common/library/log"
 	"go-common/app/service/ops/log-agent/pipeline"
+	"go-common/library/log"
 )
 
 type HostLogCollector struct {

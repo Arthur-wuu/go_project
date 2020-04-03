@@ -1,44 +1,46 @@
 package base
-import(
-	sws "github.com/kataras/iris/websocket"
-	"sync"
-	"github.com/gorilla/websocket"
+
+import (
 	. "BastionPay/bas-base/log/zap"
-	"go.uber.org/zap"
 	"errors"
+	"github.com/gorilla/websocket"
+	sws "github.com/kataras/iris/websocket"
+	"go.uber.org/zap"
 	"net"
+	"sync"
 )
 
 func NewWsServer(c sws.Connection) *WsServer {
 	w := new(WsServer)
 	w.mCon = c
-	w.reqIdMap = make(map[string] Requester)
+	w.reqIdMap = make(map[string]Requester)
 	w.mExitCh = make(chan bool)
 	w.chResp = make(chan []byte, 1000)
 	return w
 }
-type WsServer struct{
-	mCon           sws.Connection
-	reqIdMap       map[string] Requester //qid, request
-	mRunFlag       bool
-	chResp         chan []byte //单个线程 轮训写入多个ws时，采用chan+ws线程速度更快
-	mExitCh        chan bool
-	mWaitGroup     sync.WaitGroup
+
+type WsServer struct {
+	mCon       sws.Connection
+	reqIdMap   map[string]Requester //qid, request
+	mRunFlag   bool
+	chResp     chan []byte //单个线程 轮训写入多个ws时，采用chan+ws线程速度更快
+	mExitCh    chan bool
+	mWaitGroup sync.WaitGroup
 	sync.Mutex
 }
 
 func (this *WsServer) AddReq(req Requester) error {
 	this.Lock()
 	defer this.Unlock()
-	_,ok := this.reqIdMap[req.GetQid()]
+	_, ok := this.reqIdMap[req.GetQid()]
 	if ok {
 		return errors.New("exist qid")
 	}
-	this.reqIdMap[req.GetQid()] =req
+	this.reqIdMap[req.GetQid()] = req
 	return nil
 }
 
-func (this *WsServer) RemoveReq(qid string){
+func (this *WsServer) RemoveReq(qid string) {
 	this.Lock()
 	defer this.Unlock()
 	delete(this.reqIdMap, qid)
@@ -47,14 +49,14 @@ func (this *WsServer) RemoveReq(qid string){
 func (this *WsServer) GetRequester(qid string) Requester {
 	this.Lock()
 	defer this.Unlock()
-	req,_ :=  this.reqIdMap[qid]
+	req, _ := this.reqIdMap[qid]
 	return req
 }
 
 func (this *WsServer) GetAllRequester() map[string]Requester {
 	this.Lock()
 	defer this.Unlock()
-	return  this.reqIdMap
+	return this.reqIdMap
 }
 
 //适合推送
@@ -62,10 +64,10 @@ func (this *WsServer) Send(data []byte) {
 	if this.mRunFlag == false {
 		return
 	}
-	select{
+	select {
 	case this.chResp <- data:
 		break
-	case <-this.mExitCh://防止ws线程退出，chResp没关，然后导致工作线程阻塞
+	case <-this.mExitCh: //防止ws线程退出，chResp没关，然后导致工作线程阻塞
 		break
 	}
 
@@ -96,7 +98,7 @@ func (this *WsServer) run() error { //只需要写，读由框架做
 				return nil
 			}
 			if err := this.mCon.Write(websocket.TextMessage, resp); err != nil {
-				if err != websocket.ErrCloseSent {//或者用this.mRunFlag, wsserverMgr 会判断断开的
+				if err != websocket.ErrCloseSent { //或者用this.mRunFlag, wsserverMgr 会判断断开的
 					ZapLog().Error("write err", zap.Error(err), zap.String("conid", this.GetId()))
 				}
 				return err
@@ -109,7 +111,7 @@ func (this *WsServer) run() error { //只需要写，读由框架做
 				} else if e, ok := err.(net.Error); ok && e.Temporary() {
 					return nil
 				}
-				ZapLog().Error("Write CloseMessage err" , zap.Error(err)  , zap.String("conid", this.GetId()))
+				ZapLog().Error("Write CloseMessage err", zap.Error(err), zap.String("conid", this.GetId()))
 			}
 			return nil
 		}
@@ -126,7 +128,7 @@ func (this *WsServer) Stop() error {
 	close(this.mExitCh)
 	this.mWaitGroup.Wait()
 	close(this.chResp)
-	ZapLog().Info("WsServer stop", zap.String("conid", this.GetId()) )
+	ZapLog().Info("WsServer stop", zap.String("conid", this.GetId()))
 	return nil
 }
 

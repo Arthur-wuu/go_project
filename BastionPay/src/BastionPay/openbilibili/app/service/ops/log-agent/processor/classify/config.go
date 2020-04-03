@@ -1,8 +1,8 @@
 package classify
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 	"time"
 
 	"go-common/app/service/ops/log-agent/conf/configcenter"
@@ -23,7 +23,7 @@ type Config struct {
 	PriorityBlackList map[string]string `toml:"priorityBlackList"`
 }
 
-func (c *Config) ConfigValidate() (error) {
+func (c *Config) ConfigValidate() error {
 	if c == nil {
 		return fmt.Errorf("Error can't be nil")
 	}

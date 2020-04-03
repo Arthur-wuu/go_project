@@ -8,14 +8,14 @@ import (
 )
 
 type Xlsx struct {
-	file    *xlsx.File
-	sheet   *xlsx.Sheet
-	data    []interface{}
+	file     *xlsx.File
+	sheet    *xlsx.Sheet
+	data     []interface{}
 	rowNames []string
-	filters map[string]func(interface{}) interface{}
+	filters  map[string]func(interface{}) interface{}
 }
 
-func NewXlsx(data []interface{},rowNames []string, filters map[string]func(interface{}) interface{}) (*Xlsx, error) {
+func NewXlsx(data []interface{}, rowNames []string, filters map[string]func(interface{}) interface{}) (*Xlsx, error) {
 	file := xlsx.NewFile()
 	sheet, err := file.AddSheet("Sheet1")
 
@@ -24,10 +24,10 @@ func NewXlsx(data []interface{},rowNames []string, filters map[string]func(inter
 	}
 
 	return &Xlsx{
-		data:    data,
-		file:    file,
-		sheet:   sheet,
-		filters: filters,
+		data:     data,
+		file:     file,
+		sheet:    sheet,
+		filters:  filters,
 		rowNames: rowNames,
 	}, nil
 }
@@ -43,7 +43,6 @@ func (e *Xlsx) Generate() error {
 	return nil
 
 }
-
 
 func (e *Xlsx) File(path string) error {
 	if len(e.data) == 0 {
@@ -80,7 +79,7 @@ func (e *Xlsx) header() {
 	)
 	if len(e.rowNames) != 0 {
 		row := e.sheet.AddRow()
-		for i:=0; i < len(e.rowNames); i++ {
+		for i := 0; i < len(e.rowNames); i++ {
 			row.AddCell().Value = e.rowNames[i]
 		}
 	}

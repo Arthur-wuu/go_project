@@ -16,11 +16,11 @@ import (
 func (d *Dao) GetBanner(ctx context.Context, biz int64, position int64, platform string, device string, build int64) (bannerListResp []*roomEx.BannerGetNewBannerResp_NewBanner, err error) {
 	timeOut := time.Duration(conf.GetTimeout("/room_ex/v1/Banner/getNewBanner", 50)) * time.Millisecond
 	bannerListResult, errCode := cDao.RoomExtApi.V1Banner.GetNewBanner(rpcCtx.WithTimeout(ctx, timeOut), &roomEx.BannerGetNewBannerReq{
-		Platform: biz,
-		Position: position,
+		Platform:     biz,
+		Position:     position,
 		UserPlatform: platform,
-		UserDevice: device,
-		Build: build,
+		UserDevice:   device,
+		Build:        build,
 	})
 
 	if errCode != nil {

@@ -2,9 +2,9 @@ package dao
 
 import (
 	"go-common/app/job/live/push-search/conf"
-	userApi "go-common/app/service/live/user/api/liverpc"
 	relationApi "go-common/app/service/live/relation/api/liverpc"
 	roomApi "go-common/app/service/live/room/api/liverpc"
+	userApi "go-common/app/service/live/user/api/liverpc"
 	"go-common/library/net/rpc/liverpc"
 )
 

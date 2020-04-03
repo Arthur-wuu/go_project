@@ -15,8 +15,8 @@ package prometheus
 
 import (
 	"errors"
-	"sync/atomic"
 	"math"
+	"sync/atomic"
 
 	dto "github.com/prometheus/client_model/go"
 )

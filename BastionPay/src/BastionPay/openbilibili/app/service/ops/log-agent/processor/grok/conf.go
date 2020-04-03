@@ -9,7 +9,7 @@ type Config struct {
 	Pattern string `toml:"pattern"`
 }
 
-func (c *Config) ConfigValidate() (error) {
+func (c *Config) ConfigValidate() error {
 	if c == nil {
 		return fmt.Errorf("config of grok can't be nil")
 	}

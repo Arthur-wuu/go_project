@@ -1,25 +1,25 @@
 package file
 
 import (
-	"time"
 	"errors"
 	"path"
+	"time"
 
 	xtime "go-common/library/time"
 )
 
 type Config struct {
 	CacheFlushInterval xtime.Duration `tome:"cacheFlushInterval"`
-	WriteBuffer        int           `tome:"writeBuffer"`
-	Storage            string        `tome:"storage"`
-	StorageMaxMB       int           `tome:"storageMaxMB"`
-	FileBytes          int           `tome:"fileBytes"`
-	Suffix             string        `tome:"suffix"`
-	ReadBuffer         int           `tome:"readBuffer"`
-	Index              string        `tome:"index"`
+	WriteBuffer        int            `tome:"writeBuffer"`
+	Storage            string         `tome:"storage"`
+	StorageMaxMB       int            `tome:"storageMaxMB"`
+	FileBytes          int            `tome:"fileBytes"`
+	Suffix             string         `tome:"suffix"`
+	ReadBuffer         int            `tome:"readBuffer"`
+	Index              string         `tome:"index"`
 }
 
-func (c *Config) ConfigValidate() (error) {
+func (c *Config) ConfigValidate() error {
 	if c == nil {
 		return errors.New("config of fileCache is nil")
 	}

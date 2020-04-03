@@ -43,7 +43,7 @@ func TestService_Followings(t *testing.T) {
 		wantTotal  int
 		wantErr    error
 	}{
-	// TODO: Add test cases.
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		Convey(tt.name, t, func() {
@@ -71,7 +71,7 @@ func TestService_Tag(t *testing.T) {
 		wantT   []*model.Tag
 		wantErr error
 	}{
-	// TODO: Add test cases.
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

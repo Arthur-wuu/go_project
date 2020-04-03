@@ -1,8 +1,8 @@
 package flowmonitor
 
 import (
-	"time"
 	"errors"
+	"time"
 
 	xtime "go-common/library/time"
 )

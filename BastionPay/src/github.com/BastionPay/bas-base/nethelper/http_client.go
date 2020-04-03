@@ -2,9 +2,9 @@ package nethelper
 
 import (
 	"bytes"
+	l4g "github.com/alecthomas/log4go"
 	"io/ioutil"
 	"net/http"
-	l4g "github.com/alecthomas/log4go"
 )
 
 // Do a post to Http server

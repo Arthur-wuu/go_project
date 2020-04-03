@@ -14,7 +14,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-
 )
 
 type Tools struct {
@@ -155,7 +154,7 @@ func (t *Tools) UserRedisKey(userId int64) string {
  */
 func (t *Tools) GenerateUserLoginToken(userId int64) string {
 	key := t.UserRedisKey(userId)
-	sum := sha256.Sum256([]byte(key+t.GetRandomString(10)+fmt.Sprintf("%d", time.Now().Unix())))
+	sum := sha256.Sum256([]byte(key + t.GetRandomString(10) + fmt.Sprintf("%d", time.Now().Unix())))
 	token := fmt.Sprintf("%x", sum)
 
 	return token

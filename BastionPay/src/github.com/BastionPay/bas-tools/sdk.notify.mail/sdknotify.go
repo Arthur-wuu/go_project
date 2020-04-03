@@ -1,12 +1,12 @@
 package sdk_notify_mail
 
 import (
-	"errors"
-	"fmt"
-	"io/ioutil"
 	"bytes"
 	"encoding/json"
+	"errors"
+	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"strings"
 	"sync"
@@ -14,12 +14,13 @@ import (
 
 var GNotifySdk NotifySdk
 
-type NotifySdk struct{
-	mUrl string
+type NotifySdk struct {
+	mUrl     string
 	mAppName string
-	mFlag bool
+	mFlag    bool
 	sync.Mutex
 }
+
 /*
 *	addr: url
 *   appName: 服务调用方名称
@@ -53,7 +54,7 @@ func (this *NotifySdk) SendMailByGroupName(name, lang string, recipient []string
 	if !this.mFlag {
 		return errors.New("not init")
 	}
-	if len(name)==0 || len(lang) == 0 {
+	if len(name) == 0 || len(lang) == 0 {
 		return errors.New("nil name or lang")
 	}
 	req := new(ReqNotifyMsg)
@@ -66,7 +67,7 @@ func (this *NotifySdk) SendMailByGroupName(name, lang string, recipient []string
 	if err != nil {
 		return err
 	}
-	if !res.IsOk(){
+	if !res.IsOk() {
 		return fmt.Errorf("%d %s", res.GetErr(), res.GetErrMsg())
 	}
 	return nil
@@ -77,7 +78,7 @@ func (this *NotifySdk) SendSmsByGroupName(name, lang string, recipient []string,
 	if !this.mFlag {
 		return errors.New("not init")
 	}
-	if len(name)==0 || len(lang) == 0 {
+	if len(name) == 0 || len(lang) == 0 {
 		return errors.New("nil name or lang")
 	}
 	req := new(ReqNotifyMsg)
@@ -93,7 +94,7 @@ func (this *NotifySdk) SendSmsByGroupName(name, lang string, recipient []string,
 	if err != nil {
 		return err
 	}
-	if !res.IsOk(){
+	if !res.IsOk() {
 		return fmt.Errorf("%d %s", res.GetErr(), res.GetErrMsg())
 	}
 	return nil
@@ -108,8 +109,8 @@ func (this *NotifySdk) MSendMail(reqs []*ReqNotifyMsg, level int) (error, []erro
 	if !this.mFlag {
 		return errors.New("not init"), nil
 	}
-	if len(reqs)==0  {
-		return errors.New("nil reqs"),nil
+	if len(reqs) == 0 {
+		return errors.New("nil reqs"), nil
 	}
 	ReqNotifyMsgArrSetAppName(reqs, this.mAppName)
 	resArr, err := this.msend(reqs, "/v1/notify/mail/msend", "POST")
@@ -117,7 +118,7 @@ func (this *NotifySdk) MSendMail(reqs []*ReqNotifyMsg, level int) (error, []erro
 		return err, nil
 	}
 	errArr := make([]error, len(reqs), len(reqs))
-	for i :=0; i < len(resArr); i++ {
+	for i := 0; i < len(resArr); i++ {
 		if !resArr[i].IsOk() {
 			errArr[i] = fmt.Errorf("%d %s", resArr[i].GetErr(), resArr[i].GetErrMsg())
 		}
@@ -128,18 +129,18 @@ func (this *NotifySdk) MSendMail(reqs []*ReqNotifyMsg, level int) (error, []erro
 //参数同上
 func (this *NotifySdk) MSendSms(reqs []*ReqNotifyMsg, level int) (error, []error) {
 	if !this.mFlag {
-		return errors.New("not init"),nil
+		return errors.New("not init"), nil
 	}
-	if len(reqs)==0  {
-		return errors.New("nil reqs"),nil
+	if len(reqs) == 0 {
+		return errors.New("nil reqs"), nil
 	}
 	ReqNotifyMsgArrSetAppName(reqs, this.mAppName)
 	resArr, err := this.msend(reqs, "/v1/notify/sms/msend", "POST")
 	if err != nil {
-		return err,nil
+		return err, nil
 	}
 	errArr := make([]error, len(reqs), len(reqs))
-	for i :=0; i < len(resArr); i++ {
+	for i := 0; i < len(resArr); i++ {
 		if !resArr[i].IsOk() {
 			errArr[i] = fmt.Errorf("%d %s", resArr[i].GetErr(), resArr[i].GetErrMsg())
 		}
@@ -163,7 +164,7 @@ func (this *NotifySdk) SendMailById(id uint, lang string, recipient []string, pa
 	if err != nil {
 		return err
 	}
-	if !res.IsOk(){
+	if !res.IsOk() {
 		return fmt.Errorf("%d %s", res.GetErr(), res.GetErrMsg())
 	}
 	return nil
@@ -185,7 +186,7 @@ func (this *NotifySdk) SendMailLvHighById(id uint, lang string, recipient []stri
 	if err != nil {
 		return err
 	}
-	if !res.IsOk(){
+	if !res.IsOk() {
 		return fmt.Errorf("%d %s", res.GetErr(), res.GetErrMsg())
 	}
 	return nil
@@ -205,7 +206,7 @@ func (this *NotifySdk) SendSmsById(id uint, lang string, recipient []string, par
 	if err != nil {
 		return err
 	}
-	if !res.IsOk(){
+	if !res.IsOk() {
 		return fmt.Errorf("%d %s", res.GetErr(), res.GetErrMsg())
 	}
 	return nil
@@ -226,7 +227,7 @@ func (this *NotifySdk) SendSmsLvHighById(id uint, lang string, recipient []strin
 	if err != nil {
 		return err
 	}
-	if !res.IsOk(){
+	if !res.IsOk() {
 		return fmt.Errorf("%d %s", res.GetErr(), res.GetErrMsg())
 	}
 	return nil
@@ -245,7 +246,7 @@ func (this *NotifySdk) SendMailByTempAlias(alias string, recipient []string, par
 	if err != nil {
 		return err
 	}
-	if !res.IsOk(){
+	if !res.IsOk() {
 		return fmt.Errorf("%d %s", res.GetErr(), res.GetErrMsg())
 	}
 	return nil
@@ -259,7 +260,7 @@ func (this *NotifySdk) SendMail(req *ReqNotifyMsg) error {
 	if err != nil {
 		return err
 	}
-	if !res.IsOk(){
+	if !res.IsOk() {
 		return fmt.Errorf("%d %s", res.GetErr(), res.GetErrMsg())
 	}
 	return nil
@@ -278,13 +279,13 @@ func (this *NotifySdk) SendSmsByTempAlias(alias string, recipient []string, para
 	if err != nil {
 		return err
 	}
-	if !res.IsOk(){
+	if !res.IsOk() {
 		return fmt.Errorf("%d %s", res.GetErr(), res.GetErrMsg())
 	}
 	return nil
 }
 
-func (this *NotifySdk) SendSms(req * ReqNotifyMsg) error {
+func (this *NotifySdk) SendSms(req *ReqNotifyMsg) error {
 	if !this.mFlag {
 		return errors.New("not init")
 	}
@@ -292,7 +293,7 @@ func (this *NotifySdk) SendSms(req * ReqNotifyMsg) error {
 	if err != nil {
 		return err
 	}
-	if !res.IsOk(){
+	if !res.IsOk() {
 		return fmt.Errorf("%d %s", res.GetErr(), res.GetErrMsg())
 	}
 	return nil
@@ -300,7 +301,7 @@ func (this *NotifySdk) SendSms(req * ReqNotifyMsg) error {
 
 /*******************************************************************************/
 
-func (this *NotifySdk) send(req *ReqNotifyMsg, path, method string)(*ResNotifyMsg,error) {
+func (this *NotifySdk) send(req *ReqNotifyMsg, path, method string) (*ResNotifyMsg, error) {
 	content, err := json.Marshal(req)
 	if err != nil {
 		return nil, err
@@ -312,12 +313,12 @@ func (this *NotifySdk) send(req *ReqNotifyMsg, path, method string)(*ResNotifyMs
 	}
 	res := new(ResNotifyMsg)
 	if err = json.Unmarshal(content, res); err != nil {
-		return nil,err
+		return nil, err
 	}
-	return res,nil
+	return res, nil
 }
 
-func (this *NotifySdk) msend(req []*ReqNotifyMsg, path, method string)([]ResNotifyMsg,error) {
+func (this *NotifySdk) msend(req []*ReqNotifyMsg, path, method string) ([]ResNotifyMsg, error) {
 	content, err := json.Marshal(req)
 	if err != nil {
 		return nil, err
@@ -329,9 +330,9 @@ func (this *NotifySdk) msend(req []*ReqNotifyMsg, path, method string)([]ResNoti
 	}
 	res := make([]ResNotifyMsg, 0)
 	if err = json.Unmarshal(content, res); err != nil {
-		return nil,err
+		return nil, err
 	}
-	return res,nil
+	return res, nil
 }
 
 func (this *NotifySdk) curl(path, method string, body io.Reader) ([]byte, error) {
@@ -345,7 +346,7 @@ func (this *NotifySdk) curl(path, method string, body io.Reader) ([]byte, error)
 	req.Header.Set("Content-Type", "application/json")
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
@@ -353,15 +354,14 @@ func (this *NotifySdk) curl(path, method string, body io.Reader) ([]byte, error)
 	}
 	content, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
-
 
 	if len(content) == 0 {
-		return nil,errors.New("res no content")
+		return nil, errors.New("res no content")
 	}
 	if string(content) == "Not Found" {
-		return nil,errors.New("res Not Found")
+		return nil, errors.New("res Not Found")
 	}
-	return content,nil
+	return content, nil
 }

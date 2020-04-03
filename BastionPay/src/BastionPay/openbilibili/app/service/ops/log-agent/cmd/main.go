@@ -1,29 +1,29 @@
 package main
 
 import (
-	"os"
-	"os/signal"
-	"syscall"
-	"time"
 	"context"
 	"flag"
 	"fmt"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"go-common/app/service/ops/log-agent/conf"
-	"go-common/library/log"
 	"go-common/app/service/ops/log-agent/pipeline"
-	"go-common/app/service/ops/log-agent/pipeline/hostlogcollector"
 	"go-common/app/service/ops/log-agent/pipeline/dockerlogcollector"
-	"go-common/app/service/ops/log-agent/pkg/limit"
+	"go-common/app/service/ops/log-agent/pipeline/hostlogcollector"
 	"go-common/app/service/ops/log-agent/pkg/flowmonitor"
 	"go-common/app/service/ops/log-agent/pkg/httpstream"
 	"go-common/app/service/ops/log-agent/pkg/lancermonitor"
 	"go-common/app/service/ops/log-agent/pkg/lancerroute"
+	"go-common/app/service/ops/log-agent/pkg/limit"
 	"go-common/library/conf/env"
-	xip "go-common/library/net/ip"
-	"go-common/library/naming/discovery"
+	"go-common/library/log"
 	"go-common/library/naming"
+	"go-common/library/naming/discovery"
+	xip "go-common/library/net/ip"
 )
 
 const AppVersion = "2.1.0"

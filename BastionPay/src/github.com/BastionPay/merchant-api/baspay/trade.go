@@ -19,13 +19,13 @@ import (
 	"time"
 )
 
-const(
+const (
 	// rsa encode/decode bytes length limited, according to secret key bits
-	RsaBits1024 = 1024
-	RsaBits2048 = 2048
-	RsaEncodeLimit1024 = RsaBits1024 / 8 - 11
+	RsaBits1024        = 1024
+	RsaBits2048        = 2048
+	RsaEncodeLimit1024 = RsaBits1024/8 - 11
 	RsaDecodeLimit1024 = RsaBits1024 / 8
-	RsaEncodeLimit2048 = RsaBits2048 / 8 - 11
+	RsaEncodeLimit2048 = RsaBits2048/8 - 11
 	RsaDecodeLimit2048 = RsaBits2048 / 8
 )
 
@@ -40,7 +40,6 @@ IM/hMlwKP5zv4caLhI6Op3PrG+/6McLhx3j4tRxZhc6IdfSpvzEqO7icD+oRa5Sd
 DwIDAQAB
 -----END PUBLIC KEY-----
 `)
-
 
 var h5PrivateKey = []byte(`
 -----BEGIN RSA PRIVATE KEY-----
@@ -94,7 +93,6 @@ MDowDQYJKoZIhvcNAQEBBQADKQAwJgIfG2j1DLJe+iLhxiIjgPMguxh4fCsb6vJb
 IKM1rhRSJwIDAQAB
 -----END PUBLIC KEY-----`)
 
-
 var CommonPrivateKey = []byte(`
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEArQ+bLJlYR4dn0l8yRGdN2ZSFns9NYLdL/DBLB70twKeRu5nL
@@ -125,89 +123,87 @@ AV5pE9Mk3YF7sLozbtKGyZev1YxnV3poC1DS+hTbcJdLFPCj3TQC1A==
 -----END RSA PRIVATE KEY-----
 `)
 
-
-type(
-	Trade struct{
-		MerchantTradeNo  *string   `valid:"optional" json:"merchant_trade_no,omitempty"`
-		PayeeId          *string   `valid:"optional" json:"payee_id,omitempty"`
-		Assets           *string   `valid:"required" json:"assets,omitempty"`
-		Amount           *string   `valid:"required" json:"amount,omitempty"`
-		ProductName      *string   `valid:"required" json:"product_name,omitempty"`
-		ProductDetail    *string   `valid:"required" json:"product_detail,omitempty"`
-		ExpireTime       *int64    `valid:"required" json:"expire_time,omitempty"`
-		Remark           *string   `valid:"required" json:"remark,omitempty"`
-		ReturnUrl        *string   `valid:"required" json:"return_url,omitempty"`
-		ShowUrl          *string   `valid:"required" json:"show_url,omitempty"`
-		DeviceId         *string   `valid:"optional" json:"device_id,omitempty"`
+type (
+	Trade struct {
+		MerchantTradeNo *string `valid:"optional" json:"merchant_trade_no,omitempty"`
+		PayeeId         *string `valid:"optional" json:"payee_id,omitempty"`
+		Assets          *string `valid:"required" json:"assets,omitempty"`
+		Amount          *string `valid:"required" json:"amount,omitempty"`
+		ProductName     *string `valid:"required" json:"product_name,omitempty"`
+		ProductDetail   *string `valid:"required" json:"product_detail,omitempty"`
+		ExpireTime      *int64  `valid:"required" json:"expire_time,omitempty"`
+		Remark          *string `valid:"required" json:"remark,omitempty"`
+		ReturnUrl       *string `valid:"required" json:"return_url,omitempty"`
+		ShowUrl         *string `valid:"required" json:"show_url,omitempty"`
+		DeviceId        *string `valid:"optional" json:"device_id,omitempty"`
 		Request
 	}
 
-	QrTrade struct{
-		MerchantTradeNo  *string   `valid:"optional" json:"merchant_trade_no,omitempty"`
-		PayeeId          *string   `valid:"optional" json:"payee_id,omitempty"`
-		Assets           *string   `valid:"required" json:"assets,omitempty"`
-		Amount           *string   `valid:"optional" json:"amount,omitempty"`
-		Legal 			*string   `valid:"optional" json:"legal,omitempty"`
-		LegalNum 	    *string   `valid:"optional" json:"legal_num,omitempty"`
-		ProductName      *string   `valid:"required" json:"product_name,omitempty"`
-		ProductDetail    *string   `valid:"optional" json:"product_detail,omitempty"`
-		ExpireTime       *int64    `valid:"optional" json:"expire_time,omitempty"`
-		Remark           *string   `valid:"optional" json:"remark,omitempty"`
-		ReturnUrl        *string   `valid:"optional" json:"return_url,omitempty"`
-		ShowUrl          *string   `valid:"optional" json:"show_url,omitempty"`
+	QrTrade struct {
+		MerchantTradeNo *string `valid:"optional" json:"merchant_trade_no,omitempty"`
+		PayeeId         *string `valid:"optional" json:"payee_id,omitempty"`
+		Assets          *string `valid:"required" json:"assets,omitempty"`
+		Amount          *string `valid:"optional" json:"amount,omitempty"`
+		Legal           *string `valid:"optional" json:"legal,omitempty"`
+		LegalNum        *string `valid:"optional" json:"legal_num,omitempty"`
+		ProductName     *string `valid:"required" json:"product_name,omitempty"`
+		ProductDetail   *string `valid:"optional" json:"product_detail,omitempty"`
+		ExpireTime      *int64  `valid:"optional" json:"expire_time,omitempty"`
+		Remark          *string `valid:"optional" json:"remark,omitempty"`
+		ReturnUrl       *string `valid:"optional" json:"return_url,omitempty"`
+		ShowUrl         *string `valid:"optional" json:"show_url,omitempty"`
 		Request
 	}
 
-
-	CoffeeQrTrade struct{
-		MerchantTradeNo  *string   `valid:"optional" json:"merchant_trade_no,omitempty"`
-		PayeeId          *string   `valid:"optional" json:"payee_id,omitempty"`
-		Assets           *string   `valid:"required" json:"assets,omitempty"`
-		Amount           *string   `valid:"optional" json:"amount,omitempty"`
-		ProductName      *string   `valid:"required" json:"product_name,omitempty"`
-		ProductDetail    *string   `valid:"optional" json:"product_detail,omitempty"`
-		ExpireTime       *int64    `valid:"optional" json:"expire_time,omitempty"`
-		Remark           *string   `valid:"optional" json:"remark,omitempty"`
-		ReturnUrl        *string   `valid:"optional" json:"return_url,omitempty"`
-		ShowUrl          *string   `valid:"optional" json:"show_url,omitempty"`
+	CoffeeQrTrade struct {
+		MerchantTradeNo *string `valid:"optional" json:"merchant_trade_no,omitempty"`
+		PayeeId         *string `valid:"optional" json:"payee_id,omitempty"`
+		Assets          *string `valid:"required" json:"assets,omitempty"`
+		Amount          *string `valid:"optional" json:"amount,omitempty"`
+		ProductName     *string `valid:"required" json:"product_name,omitempty"`
+		ProductDetail   *string `valid:"optional" json:"product_detail,omitempty"`
+		ExpireTime      *int64  `valid:"optional" json:"expire_time,omitempty"`
+		Remark          *string `valid:"optional" json:"remark,omitempty"`
+		ReturnUrl       *string `valid:"optional" json:"return_url,omitempty"`
+		ShowUrl         *string `valid:"optional" json:"show_url,omitempty"`
 		Request
 	}
 
-	PosTrade struct{
-		PosMachineId 	 *string   `valid:"required" json:"pos_machine_id,omitempty"`
-		MerchantPosNo    *string   `valid:"required" json:"merchant_pos_no,omitempty"`
-		PayeeId          *string   `valid:"required" json:"payee_id,omitempty"`
-		Assets           *string   `valid:"required" json:"assets,omitempty"`
-		Amount           *string   `valid:"required" json:"amount,omitempty"`
-		MerchantId       *string   `valid:"required" json:"merchant_id,omitempty"`
-		SignType         *string   `valid:"required" json:"sign_type,omitempty"`
-		Signature        *string   `valid:"required" json:"signature,omitempty"`
-		Timestamp        *string   `valid:"required" json:"timestamp,omitempty"`
-		NotifyUrl        *string   `valid:"optional" json:"notify_url,omitempty"`
-		PayVoucher       *string   `valid:"required" json:"pay_voucher,omitempty"`
-		ProductName      *string   `valid:"required" json:"product_name,omitempty"`
-		ProductDetail    *string   `valid:"optional" json:"product_detail,omitempty"`
-		Remark           *string   `valid:"optional" json:"remark,omitempty"`
+	PosTrade struct {
+		PosMachineId  *string `valid:"required" json:"pos_machine_id,omitempty"`
+		MerchantPosNo *string `valid:"required" json:"merchant_pos_no,omitempty"`
+		PayeeId       *string `valid:"required" json:"payee_id,omitempty"`
+		Assets        *string `valid:"required" json:"assets,omitempty"`
+		Amount        *string `valid:"required" json:"amount,omitempty"`
+		MerchantId    *string `valid:"required" json:"merchant_id,omitempty"`
+		SignType      *string `valid:"required" json:"sign_type,omitempty"`
+		Signature     *string `valid:"required" json:"signature,omitempty"`
+		Timestamp     *string `valid:"required" json:"timestamp,omitempty"`
+		NotifyUrl     *string `valid:"optional" json:"notify_url,omitempty"`
+		PayVoucher    *string `valid:"required" json:"pay_voucher,omitempty"`
+		ProductName   *string `valid:"required" json:"product_name,omitempty"`
+		ProductDetail *string `valid:"optional" json:"product_detail,omitempty"`
+		Remark        *string `valid:"optional" json:"remark,omitempty"`
 	}
 
-	PosOrders struct{
-		TimeStamp       *string   `valid:"required" json:"timestamp,omitempty"`
-		BeginTime 		*string   `valid:"optional" json:"begin_time,omitempty"`
-		EndTime         *string   `valid:"optional" json:"end_time,omitempty"`
-		MerchantId      *string   `valid:"required" json:"merchant_id,omitempty"`
-		MerchantPosNo   *string   `valid:"optional" json:"merchant_pos_no"`
-		NotifyUrl       *string   `valid:"optional" json:"notify_url,omitempty"`
-		Page            *string   `valid:"optional" json:"page,omitempty"`
-		PageSize        *string   `valid:"optional" json:"page_size,omitempty"`
-		PosMachineId 	*string   `valid:"required" json:"pos_machine_id,omitempty"`
-		TradeStatus 	*string   `valid:"optional" json:"trade_status,omitempty"`
-		SignType        *string   `valid:"required" json:"sign_type,omitempty"`
-		Signature       *string   `valid:"required" json:"signature,omitempty"`
+	PosOrders struct {
+		TimeStamp     *string `valid:"required" json:"timestamp,omitempty"`
+		BeginTime     *string `valid:"optional" json:"begin_time,omitempty"`
+		EndTime       *string `valid:"optional" json:"end_time,omitempty"`
+		MerchantId    *string `valid:"required" json:"merchant_id,omitempty"`
+		MerchantPosNo *string `valid:"optional" json:"merchant_pos_no"`
+		NotifyUrl     *string `valid:"optional" json:"notify_url,omitempty"`
+		Page          *string `valid:"optional" json:"page,omitempty"`
+		PageSize      *string `valid:"optional" json:"page_size,omitempty"`
+		PosMachineId  *string `valid:"required" json:"pos_machine_id,omitempty"`
+		TradeStatus   *string `valid:"optional" json:"trade_status,omitempty"`
+		SignType      *string `valid:"required" json:"sign_type,omitempty"`
+		Signature     *string `valid:"required" json:"signature,omitempty"`
 	}
 
-	ResTrade struct{
-		MerchantTradeNo    *string   `json:"merchant_trade_no,omitempty"`
-		TradeNo            *string   `json:"trade_order_no,omitempty"`
+	ResTrade struct {
+		MerchantTradeNo *string `json:"merchant_trade_no,omitempty"`
+		TradeNo         *string `json:"trade_order_no,omitempty"`
 		Response
 	}
 
@@ -217,94 +213,92 @@ type(
 		Data    interface{} `json:"data,omitempty"`
 	}
 
-	TradeQrRes struct{
+	TradeQrRes struct {
 		Code    int         `json:"code"`
 		Message string      `json:"message"`
 		Data    interface{} `json:"data"`
 	}
 
-
-	CoffeeTradeQrRes struct{
-		Code    int         `json:"code"`
-		Message string      `json:"message"`
-		Data    BaspayRes   `json:"data"`
+	CoffeeTradeQrRes struct {
+		Code    int       `json:"code"`
+		Message string    `json:"message"`
+		Data    BaspayRes `json:"data"`
 	}
 
-	 BaspayRes struct {
-		Merchant_trade_no  string  `json:"merchant_trade_no,omitempty"`
-		Qr_code            string  `json:"qr_code,omitempty"`
+	BaspayRes struct {
+		Merchant_trade_no string `json:"merchant_trade_no,omitempty"`
+		Qr_code           string `json:"qr_code,omitempty"`
 	}
 
 	//pos机
-	PosRes struct{
-		Code    int         `json:"code"`
-		Message string      `json:"message"`
-		Data    PosDataRes   `json:"data"`
+	PosRes struct {
+		Code    int        `json:"code"`
+		Message string     `json:"message"`
+		Data    PosDataRes `json:"data"`
 	}
 
 	PosDataRes struct {
-		Assets             string  `json:"assets,omitempty"`
-		Amount             string  `json:"amount,omitempty"`
-		MerchantPosNo      string  `json:"merchant_pos_no,omitempty"`
-		PosNo              string  `json:"pos_no,omitempty"`
-		Status			   string  `json:"status,omitempty"`
-		TimeStamp		   string  `json:"time_stamp,omitempty"`
-		Uid			       string  `json:"uid,omitempty"`
-		Legal		       string  `json:"legal,omitempty"`
-		LegalAmount        string  `json:"lagal_amount,omitempty"`
+		Assets        string `json:"assets,omitempty"`
+		Amount        string `json:"amount,omitempty"`
+		MerchantPosNo string `json:"merchant_pos_no,omitempty"`
+		PosNo         string `json:"pos_no,omitempty"`
+		Status        string `json:"status,omitempty"`
+		TimeStamp     string `json:"time_stamp,omitempty"`
+		Uid           string `json:"uid,omitempty"`
+		Legal         string `json:"legal,omitempty"`
+		LegalAmount   string `json:"lagal_amount,omitempty"`
 	}
 
 	//查询pos订单返回值
-	PosOrdersRes struct{
+	PosOrdersRes struct {
 		Code    int         `json:"code"`
 		Message string      `json:"message"`
 		Data    interface{} `json:"data"`
 	}
 
 	TradeSdkRes struct {
-		Code    int         `json:"code,omitempty"`
-		Message string      `json:"message,omitempty"`
-		Data    DataSdk     `json:"data,omitempty"`
+		Code    int     `json:"code,omitempty"`
+		Message string  `json:"message,omitempty"`
+		Data    DataSdk `json:"data,omitempty"`
 	}
 
 	DataSdk struct {
-		MerchantTradeNo    string   `json:"merchant_trade_no,omitempty"`
-		TradeNo            string   `json:"trade_order_no,omitempty"`
+		MerchantTradeNo string `json:"merchant_trade_no,omitempty"`
+		TradeNo         string `json:"trade_order_no,omitempty"`
 	}
 )
 
 func (this *Trade) Parse(p *api.Trade) *Trade {
 	trade := &Trade{
 		MerchantTradeNo: &p.MerchantTradeNo,
-		PayeeId: p.PayeeId,
-		Assets: p.Assets,
-		Amount: p.Amount,
-		ProductName: p.ProductName,
-		ProductDetail: p.ProductDetail,
-		ExpireTime: &p.ExpireTime,
-		Remark: p.Remark,
-		ReturnUrl: p.ReturnUrl,
-		ShowUrl: p.ShowUrl,
-		DeviceId: p.DeviceId,
+		PayeeId:         p.PayeeId,
+		Assets:          p.Assets,
+		Amount:          p.Amount,
+		ProductName:     p.ProductName,
+		ProductDetail:   p.ProductDetail,
+		ExpireTime:      &p.ExpireTime,
+		Remark:          p.Remark,
+		ReturnUrl:       p.ReturnUrl,
+		ShowUrl:         p.ShowUrl,
+		DeviceId:        p.DeviceId,
 	}
 	trade.MerchantId = p.MerchantId
 	trade.NotifyUrl = p.NotifyUrl
 	return trade
 }
 
-
 func (this *QrTrade) QrParse(p *api.QrTrade) *QrTrade {
 	qrTrade := &QrTrade{
 		MerchantTradeNo: &p.MerchantTradeNo,
-		PayeeId: p.PayeeId,
-		Assets: p.Assets,
-		Amount: p.Amount,
-		Legal: p.Legal,
-		LegalNum: p.LegalNum,
-		ProductName: p.ProductName,
-		ProductDetail: p.ProductDetail,
-		ExpireTime: &p.ExpireTime,
-		Remark: p.Remark,
+		PayeeId:         p.PayeeId,
+		Assets:          p.Assets,
+		Amount:          p.Amount,
+		Legal:           p.Legal,
+		LegalNum:        p.LegalNum,
+		ProductName:     p.ProductName,
+		ProductDetail:   p.ProductDetail,
+		ExpireTime:      &p.ExpireTime,
+		Remark:          p.Remark,
 	}
 	qrTrade.MerchantId = p.MerchantId
 	qrTrade.NotifyUrl = p.NotifyUrl
@@ -314,13 +308,13 @@ func (this *QrTrade) QrParse(p *api.QrTrade) *QrTrade {
 func (this *CoffeeQrTrade) CoffeeQrParse(p *api.CoffeeQrTrade) *CoffeeQrTrade {
 	qrTrade := &CoffeeQrTrade{
 		MerchantTradeNo: &p.MerchantTradeNo,
-		PayeeId: p.PayeeId,
-		Assets: p.Assets,
-		Amount: p.Amount,
-		ProductName: p.ProductName,
-		ProductDetail: p.ProductDetail,
-		ExpireTime: &p.ExpireTime,
-		Remark: p.Remark,
+		PayeeId:         p.PayeeId,
+		Assets:          p.Assets,
+		Amount:          p.Amount,
+		ProductName:     p.ProductName,
+		ProductDetail:   p.ProductDetail,
+		ExpireTime:      &p.ExpireTime,
+		Remark:          p.Remark,
 	}
 	qrTrade.MerchantId = p.MerchantId
 	qrTrade.NotifyUrl = p.NotifyUrl
@@ -330,48 +324,46 @@ func (this *CoffeeQrTrade) CoffeeQrParse(p *api.CoffeeQrTrade) *CoffeeQrTrade {
 func (this *PosTrade) PosParse(p *api.PosTrade) *PosTrade {
 	qrTrade := &PosTrade{
 		MerchantPosNo: &p.MerchantPosNo,
-		PayeeId: p.PayeeId,
-		Assets: p.Assets,
-		Amount: p.Amount,
-		Timestamp: p.TimeStamp,
-		PayVoucher: p.PayVoucher,
+		PayeeId:       p.PayeeId,
+		Assets:        p.Assets,
+		Amount:        p.Amount,
+		Timestamp:     p.TimeStamp,
+		PayVoucher:    p.PayVoucher,
 		ProductDetail: p.ProductDetail,
-		ProductName: p.ProductName,
-		Remark: p.Remark,
-		PosMachineId: p.PosMachineId,
+		ProductName:   p.ProductName,
+		Remark:        p.Remark,
+		PosMachineId:  p.PosMachineId,
 	}
 	qrTrade.MerchantId = p.MerchantId
 	qrTrade.NotifyUrl = p.NotifyUrl
 	return qrTrade
 }
 
-
 func (this *PosOrders) PosOrderParse(p *api.PosOrders) *PosOrders {
 	posOrders := &PosOrders{
 		MerchantPosNo: p.MerchantPosNo,
-		TimeStamp: p.TimeStamp,
-		BeginTime: p.BeginTime,
-		EndTime: p.EndTime,
-		MerchantId: p.MerchantId,
-		NotifyUrl: p.NotifyUrl,
-		Page: p.Page,
-		PageSize: p.PageSize,
-		TradeStatus: p.TradeStatus,
-		PosMachineId: p.PosMachineId,
+		TimeStamp:     p.TimeStamp,
+		BeginTime:     p.BeginTime,
+		EndTime:       p.EndTime,
+		MerchantId:    p.MerchantId,
+		NotifyUrl:     p.NotifyUrl,
+		Page:          p.Page,
+		PageSize:      p.PageSize,
+		TradeStatus:   p.TradeStatus,
+		PosMachineId:  p.PosMachineId,
 	}
 	return posOrders
 }
-
 
 func (this *Trade) Send() (*TradeWebRes, error) {
 	//先去数据库根据设备id找到收款人id
 	payee_id, err := new(models.BkConfig).GetPayeeId(*this.DeviceId)
 	if err != nil {
-		ZapLog().Error( "get payid err", zap.Error(err))
+		ZapLog().Error("get payid err", zap.Error(err))
 		return nil, err
 	}
 
-	payId :=strconv.FormatInt(*payee_id,10)
+	payId := strconv.FormatInt(*payee_id, 10)
 
 	//往baspay 创建交易订单
 	signType := "RSA"
@@ -389,22 +381,22 @@ func (this *Trade) Send() (*TradeWebRes, error) {
 	this.Amount = &amount
 
 	reqBodySign, _ := json.Marshal(map[string]interface{}{
-		"merchant_trade_no": this.MerchantTradeNo,   //商户的订单号 UUID 生成的
-		"payee_id": payId,					         //商户BastionPay 用户Id
-		"assets": this.Assets,                       //数字货币币种
-		"amount": this.Amount,						 //数字货币数量
-		"product_name": this.ProductName,			 //订单标题
-		"product_detail": this.ProductDetail,        //订单描述
-		"expire_time": expireTime,				     //订单超时时间
-		"remark": this.Remark,						 //交易易备注信息
-		"return_url": this.ReturnUrl,				 //⽀付完成后的回调地址
-		"show_url": this.ShowUrl,					 //取消⽀付的回调地址
+		"merchant_trade_no": this.MerchantTradeNo, //商户的订单号 UUID 生成的
+		"payee_id":          payId,                //商户BastionPay 用户Id
+		"assets":            this.Assets,          //数字货币币种
+		"amount":            this.Amount,          //数字货币数量
+		"product_name":      this.ProductName,     //订单标题
+		"product_detail":    this.ProductDetail,   //订单描述
+		"expire_time":       expireTime,           //订单超时时间
+		"remark":            this.Remark,          //交易易备注信息
+		"return_url":        this.ReturnUrl,       //⽀付完成后的回调地址
+		"show_url":          this.ShowUrl,         //取消⽀付的回调地址
 
-		"merchant_id": this.Request.MerchantId,		 //商户在BabstionPay 注册的商户ID
-	//	"sign_type": this.Request.SignType,			 //签名算法类型
-	//	"signature": this.Request.Signature,		 //⽤户请求的签名串
-		"timestamp": this.Request.Timestamp,		 //发送请求的时间
-		"notify_url": this.Request.NotifyUrl,        //回调通知商户服务器器的地址
+		"merchant_id": this.Request.MerchantId, //商户在BabstionPay 注册的商户ID
+		//	"sign_type": this.Request.SignType,			 //签名算法类型
+		//	"signature": this.Request.Signature,		 //⽤户请求的签名串
+		"timestamp":  this.Request.Timestamp, //发送请求的时间
+		"notify_url": this.Request.NotifyUrl, //回调通知商户服务器器的地址
 	})
 
 	signStr := RequestBodyToSignStr(reqBodySign)
@@ -416,37 +408,36 @@ func (this *Trade) Send() (*TradeWebRes, error) {
 
 	//fmt.Println("***final sign***",finalSign)
 	if err != nil {
-		ZapLog().Error( "sign err", zap.Error(err))
+		ZapLog().Error("sign err", zap.Error(err))
 		return nil, err
 	}
 
-
 	reqBody, _ := json.Marshal(map[string]interface{}{
-		"merchant_trade_no": this.MerchantTradeNo,   //商户的订单号 UUID 生成的
-		"payee_id": payId,					         //商户BastionPay 用户Id
-		"assets": this.Assets,                       //数字货币币种
-		"amount": this.Amount,						 //数字货币数量
-		"product_name": this.ProductName,			 //订单标题
-		"product_detail": this.ProductDetail,        //订单描述
-		"expire_time": this.ExpireTime,				 //订单超时时间
-		"remark": this.Remark,						 //交易易备注信息
-		"return_url": this.ReturnUrl,				 //⽀付完成后的回调地址
-		"show_url": this.ShowUrl,					 //取消⽀付的回调地址
+		"merchant_trade_no": this.MerchantTradeNo, //商户的订单号 UUID 生成的
+		"payee_id":          payId,                //商户BastionPay 用户Id
+		"assets":            this.Assets,          //数字货币币种
+		"amount":            this.Amount,          //数字货币数量
+		"product_name":      this.ProductName,     //订单标题
+		"product_detail":    this.ProductDetail,   //订单描述
+		"expire_time":       this.ExpireTime,      //订单超时时间
+		"remark":            this.Remark,          //交易易备注信息
+		"return_url":        this.ReturnUrl,       //⽀付完成后的回调地址
+		"show_url":          this.ShowUrl,         //取消⽀付的回调地址
 
-		"merchant_id": this.Request.MerchantId,		 //商户在BabstionPay 注册的商户ID
-		"sign_type": this.Request.SignType,			 //签名算法类型
-		"signature": finalSign,		                 //⽤户请求的签名串
-		"timestamp": this.Request.Timestamp,		 //发送请求的时间
-		"notify_url": this.Request.NotifyUrl,        //回调通知商户服务器器的地址
+		"merchant_id": this.Request.MerchantId, //商户在BabstionPay 注册的商户ID
+		"sign_type":   this.Request.SignType,   //签名算法类型
+		"signature":   finalSign,               //⽤户请求的签名串
+		"timestamp":   this.Request.Timestamp,  //发送请求的时间
+		"notify_url":  this.Request.NotifyUrl,  //回调通知商户服务器器的地址
 	})
 
-	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/create_wap_trade", bytes.NewBuffer(reqBody),"POST", nil) //map[string]string{"Client":"1", "DeviceType":"1", "DeviceName":"huawei","DeviceId":"ab9dd65725876c597","Version":"1.1.0","Content-Type":"application/json;charset=UTF-8" }
+	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/create_wap_trade", bytes.NewBuffer(reqBody), "POST", nil) //map[string]string{"Client":"1", "DeviceType":"1", "DeviceName":"huawei","DeviceId":"ab9dd65725876c597","Version":"1.1.0","Content-Type":"application/json;charset=UTF-8" }
 	//fmt.Println("**request result**",string(result))
-	ZapLog().Info("create wap order result:",zap.String("web result:",string(result)))
+	ZapLog().Info("create wap order result:", zap.String("web result:", string(result)))
 	if err != nil {
-			ZapLog().Error( "send message to pastionpay create trade err", zap.Error(err))
-			return nil, err
-		}
+		ZapLog().Error("send message to pastionpay create trade err", zap.Error(err))
+		return nil, err
+	}
 
 	//
 	resTrade := new(TradeWebRes)
@@ -460,8 +451,6 @@ func (this *Trade) Send() (*TradeWebRes, error) {
 	return resTrade, nil
 }
 
-
-
 //创建二维码订单
 
 func (this *QrTrade) SendQr() (*TradeQrRes, error) {
@@ -471,16 +460,16 @@ func (this *QrTrade) SendQr() (*TradeQrRes, error) {
 	showUrl := config.GConfig.CallBack.ShowUrl
 	returnUrl := config.GConfig.CallBack.ReturnUrl
 
-	amount,err := GetAmount(*this.Legal, *this.LegalNum, *this.Assets )
+	amount, err := GetAmount(*this.Legal, *this.LegalNum, *this.Assets)
 	//fmt.Println("**amount",*amount)
 	if err != nil {
-		ZapLog().Error( "get amount err", zap.Error(err))
+		ZapLog().Error("get amount err", zap.Error(err))
 		return nil, err
 	}
 
 	amountDec := Decimal(*amount)
 
-	stringAmount := fmt.Sprintf("%v",amountDec)
+	stringAmount := fmt.Sprintf("%v", amountDec)
 
 	this.Amount = &stringAmount
 	expireTime := "900"
@@ -497,26 +486,26 @@ func (this *QrTrade) SendQr() (*TradeQrRes, error) {
 	this.Amount = &amounts
 
 	reqBodySign, _ := json.Marshal(map[string]interface{}{
-		"merchant_trade_no": this.MerchantTradeNo,   //商户的订单号 UUID 生成的
-		"payee_id": this.PayeeId,					 //商户BastionPay 用户Id
-		"assets": this.Assets,                       //数字货币币种
-		"amount": this.Amount,						 //数字货币数量
-		"product_name": this.ProductName,			 //订单标题
-		"product_detail": this.ProductDetail,        //订单描述
-		"expire_time": expireTime,				     //订单超时时间
-		"remark": this.Remark,						 //交易易备注信息
-		"return_url": this.ReturnUrl,				 //⽀付完成后的回调地址
-		"show_url": this.ShowUrl,					 //取消⽀付的回调地址
+		"merchant_trade_no": this.MerchantTradeNo, //商户的订单号 UUID 生成的
+		"payee_id":          this.PayeeId,         //商户BastionPay 用户Id
+		"assets":            this.Assets,          //数字货币币种
+		"amount":            this.Amount,          //数字货币数量
+		"product_name":      this.ProductName,     //订单标题
+		"product_detail":    this.ProductDetail,   //订单描述
+		"expire_time":       expireTime,           //订单超时时间
+		"remark":            this.Remark,          //交易易备注信息
+		"return_url":        this.ReturnUrl,       //⽀付完成后的回调地址
+		"show_url":          this.ShowUrl,         //取消⽀付的回调地址
 
-		"merchant_id": this.Request.MerchantId,		 //商户在BabstionPay 注册的商户ID
+		"merchant_id": this.Request.MerchantId, //商户在BabstionPay 注册的商户ID
 		//"sign_type": this.Request.SignType,			 //签名算法类型
 		//	"signature": this.Request.Signature,		 //⽤户请求的签名串
-		"timestamp": this.Request.Timestamp,		 //发送请求的时间
-		"notify_url": this.Request.NotifyUrl,        //回调通知商户服务器器的地址
+		"timestamp":  this.Request.Timestamp, //发送请求的时间
+		"notify_url": this.Request.NotifyUrl, //回调通知商户服务器器的地址
 	})
 
 	signStr := RequestBodyToSignStr(reqBodySign)
-	fmt.Println("**signStr",signStr)
+	fmt.Println("**signStr", signStr)
 
 	//签名 SHA1
 	sha1 := new(utils.SHAwithRSA)
@@ -524,38 +513,37 @@ func (this *QrTrade) SendQr() (*TradeQrRes, error) {
 	finalSign, err := sha1.Sign(signStr)
 
 	if err != nil {
-		ZapLog().Error( "sign err", zap.Error(err))
+		ZapLog().Error("sign err", zap.Error(err))
 		return nil, err
 	}
-
 
 	reqBody, _ := json.Marshal(map[string]interface{}{
-		"merchant_trade_no": this.MerchantTradeNo,   //商户的订单号 UUID 生成的
-		"payee_id": this.PayeeId,					 //商户BastionPay 用户Id
-		"assets": this.Assets,                       //数字货币币种
-		"amount": this.Amount,						 //数字货币数量
-		"product_name": this.ProductName,			 //订单标题
-		"product_detail": this.ProductDetail,        //订单描述
-		"expire_time": this.ExpireTime,				 //订单超时时间
-		"remark": this.Remark,						 //交易易备注信息
-		"return_url": this.ReturnUrl,				 //⽀付完成后的回调地址
-		"show_url": this.ShowUrl,					 //取消⽀付的回调地址
+		"merchant_trade_no": this.MerchantTradeNo, //商户的订单号 UUID 生成的
+		"payee_id":          this.PayeeId,         //商户BastionPay 用户Id
+		"assets":            this.Assets,          //数字货币币种
+		"amount":            this.Amount,          //数字货币数量
+		"product_name":      this.ProductName,     //订单标题
+		"product_detail":    this.ProductDetail,   //订单描述
+		"expire_time":       this.ExpireTime,      //订单超时时间
+		"remark":            this.Remark,          //交易易备注信息
+		"return_url":        this.ReturnUrl,       //⽀付完成后的回调地址
+		"show_url":          this.ShowUrl,         //取消⽀付的回调地址
 
-		"merchant_id": this.Request.MerchantId,		 //商户在BabstionPay 注册的商户ID
-		"sign_type": this.Request.SignType,			 //签名算法类型
-		"signature": finalSign,		                 //⽤户请求的签名串
-		"timestamp": this.Request.Timestamp,		 //发送请求的时间
-		"notify_url": this.Request.NotifyUrl,        //回调通知商户服务器器的地址
+		"merchant_id": this.Request.MerchantId, //商户在BabstionPay 注册的商户ID
+		"sign_type":   this.Request.SignType,   //签名算法类型
+		"signature":   finalSign,               //⽤户请求的签名串
+		"timestamp":   this.Request.Timestamp,  //发送请求的时间
+		"notify_url":  this.Request.NotifyUrl,  //回调通知商户服务器器的地址
 	})
-	fmt.Println("**reqBody**",string(reqBody))
+	fmt.Println("**reqBody**", string(reqBody))
 
-	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/create_qr_trade", bytes.NewBuffer(reqBody),"POST", nil)
+	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/create_qr_trade", bytes.NewBuffer(reqBody), "POST", nil)
 	if err != nil {
-		ZapLog().Error( "send message to pastionpay create trade err", zap.Error(err))
+		ZapLog().Error("send message to pastionpay create trade err", zap.Error(err))
 		return nil, err
 	}
 
-	ZapLog().Info("create qr order result:",zap.String("qr result:",string(result)))
+	ZapLog().Info("create qr order result:", zap.String("qr result:", string(result)))
 
 	resTradeQr := new(TradeQrRes)
 	json.Unmarshal(result, resTradeQr)
@@ -571,11 +559,11 @@ func (this *QrTrade) SendDiscountQr() (*TradeQrRes, error) {
 	showUrl := config.GConfig.CallBack.ShowUrl
 	returnUrl := config.GConfig.CallBack.ReturnUrl
 
-	amount,err := GetAmount(*this.Legal, *this.LegalNum, *this.Assets )
+	amount, err := GetAmount(*this.Legal, *this.LegalNum, *this.Assets)
 
 	cash2coin_fee, err := strconv.ParseFloat(config.GConfig.Fee.Cash2coin, 64)
 	if err != nil {
-		ZapLog().Error( "string to float err", zap.Error(err))
+		ZapLog().Error("string to float err", zap.Error(err))
 		return nil, err
 	}
 
@@ -583,13 +571,13 @@ func (this *QrTrade) SendDiscountQr() (*TradeQrRes, error) {
 
 	//fmt.Println("**amount",*amount)
 	if err != nil {
-		ZapLog().Error( "get amount err", zap.Error(err))
+		ZapLog().Error("get amount err", zap.Error(err))
 		return nil, err
 	}
 
 	amountDec := Decimal(amounts)
 
-	stringAmount := fmt.Sprintf("%v",amountDec)
+	stringAmount := fmt.Sprintf("%v", amountDec)
 
 	this.Amount = &stringAmount
 	expireTime := "900"
@@ -606,26 +594,26 @@ func (this *QrTrade) SendDiscountQr() (*TradeQrRes, error) {
 	this.Amount = &amount7
 
 	reqBodySign, _ := json.Marshal(map[string]interface{}{
-		"merchant_trade_no": this.MerchantTradeNo,   //商户的订单号 UUID 生成的
-		"payee_id": this.PayeeId,					 //商户BastionPay 用户Id
-		"assets": this.Assets,                       //数字货币币种
-		"amount": this.Amount,						 //数字货币数量
-		"product_name": this.ProductName,			 //订单标题
-		"product_detail": this.ProductDetail,        //订单描述
-		"expire_time": expireTime,				     //订单超时时间
-		"remark": this.Remark,						 //交易易备注信息
-		"return_url": this.ReturnUrl,				 //⽀付完成后的回调地址
-		"show_url": this.ShowUrl,					 //取消⽀付的回调地址
+		"merchant_trade_no": this.MerchantTradeNo, //商户的订单号 UUID 生成的
+		"payee_id":          this.PayeeId,         //商户BastionPay 用户Id
+		"assets":            this.Assets,          //数字货币币种
+		"amount":            this.Amount,          //数字货币数量
+		"product_name":      this.ProductName,     //订单标题
+		"product_detail":    this.ProductDetail,   //订单描述
+		"expire_time":       expireTime,           //订单超时时间
+		"remark":            this.Remark,          //交易易备注信息
+		"return_url":        this.ReturnUrl,       //⽀付完成后的回调地址
+		"show_url":          this.ShowUrl,         //取消⽀付的回调地址
 
-		"merchant_id": this.Request.MerchantId,		 //商户在BabstionPay 注册的商户ID
+		"merchant_id": this.Request.MerchantId, //商户在BabstionPay 注册的商户ID
 		//"sign_type": this.Request.SignType,			 //签名算法类型
 		//	"signature": this.Request.Signature,		 //⽤户请求的签名串
-		"timestamp": this.Request.Timestamp,		 //发送请求的时间
-		"notify_url": this.Request.NotifyUrl,        //回调通知商户服务器器的地址
+		"timestamp":  this.Request.Timestamp, //发送请求的时间
+		"notify_url": this.Request.NotifyUrl, //回调通知商户服务器器的地址
 	})
 
 	signStr := RequestBodyToSignStr(reqBodySign)
-	fmt.Println("**signStr",signStr)
+	fmt.Println("**signStr", signStr)
 
 	//签名 SHA1
 	sha1 := new(utils.SHAwithRSA)
@@ -633,46 +621,43 @@ func (this *QrTrade) SendDiscountQr() (*TradeQrRes, error) {
 	finalSign, err := sha1.Sign(signStr)
 
 	if err != nil {
-		ZapLog().Error( "sign err", zap.Error(err))
+		ZapLog().Error("sign err", zap.Error(err))
 		return nil, err
 	}
-
 
 	reqBody, _ := json.Marshal(map[string]interface{}{
-		"merchant_trade_no": this.MerchantTradeNo,   //商户的订单号 UUID 生成的
-		"payee_id": this.PayeeId,					 //商户BastionPay 用户Id
-		"assets": this.Assets,                       //数字货币币种
-		"amount": this.Amount,						 //数字货币数量
-		"product_name": this.ProductName,			 //订单标题
-		"product_detail": this.ProductDetail,        //订单描述
-		"expire_time": this.ExpireTime,				 //订单超时时间
-		"remark": this.Remark,						 //交易易备注信息
-		"return_url": this.ReturnUrl,				 //⽀付完成后的回调地址
-		"show_url": this.ShowUrl,					 //取消⽀付的回调地址
+		"merchant_trade_no": this.MerchantTradeNo, //商户的订单号 UUID 生成的
+		"payee_id":          this.PayeeId,         //商户BastionPay 用户Id
+		"assets":            this.Assets,          //数字货币币种
+		"amount":            this.Amount,          //数字货币数量
+		"product_name":      this.ProductName,     //订单标题
+		"product_detail":    this.ProductDetail,   //订单描述
+		"expire_time":       this.ExpireTime,      //订单超时时间
+		"remark":            this.Remark,          //交易易备注信息
+		"return_url":        this.ReturnUrl,       //⽀付完成后的回调地址
+		"show_url":          this.ShowUrl,         //取消⽀付的回调地址
 
-		"merchant_id": this.Request.MerchantId,		 //商户在BabstionPay 注册的商户ID
-		"sign_type": this.Request.SignType,			 //签名算法类型
-		"signature": finalSign,		                 //⽤户请求的签名串
-		"timestamp": this.Request.Timestamp,		 //发送请求的时间
-		"notify_url": this.Request.NotifyUrl,        //回调通知商户服务器器的地址
+		"merchant_id": this.Request.MerchantId, //商户在BabstionPay 注册的商户ID
+		"sign_type":   this.Request.SignType,   //签名算法类型
+		"signature":   finalSign,               //⽤户请求的签名串
+		"timestamp":   this.Request.Timestamp,  //发送请求的时间
+		"notify_url":  this.Request.NotifyUrl,  //回调通知商户服务器器的地址
 	})
-	fmt.Println("**reqBody**",string(reqBody))
+	fmt.Println("**reqBody**", string(reqBody))
 
-	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/create_qr_trade", bytes.NewBuffer(reqBody),"POST", nil)
+	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/create_qr_trade", bytes.NewBuffer(reqBody), "POST", nil)
 	if err != nil {
-		ZapLog().Error( "send message to pastionpay create trade err", zap.Error(err))
+		ZapLog().Error("send message to pastionpay create trade err", zap.Error(err))
 		return nil, err
 	}
 
-	ZapLog().Info("create qr order result:",zap.String("qr result:",string(result)))
+	ZapLog().Info("create qr order result:", zap.String("qr result:", string(result)))
 
 	resTradeQr := new(TradeQrRes)
 	json.Unmarshal(result, resTradeQr)
 
 	return resTradeQr, nil
 }
-
-
 
 //coffee 二维码订单
 func (this *CoffeeQrTrade) SendCoffeeQr() (*CoffeeTradeQrRes, error) {
@@ -697,26 +682,26 @@ func (this *CoffeeQrTrade) SendCoffeeQr() (*CoffeeTradeQrRes, error) {
 	this.Amount = &amounts
 
 	reqBodySign, _ := json.Marshal(map[string]interface{}{
-		"merchant_trade_no": this.MerchantTradeNo,   //商户的订单号 UUID 生成的
-		"payee_id": this.PayeeId,					 //商户BastionPay 用户Id
-		"assets": this.Assets,                       //数字货币币种
-		"amount": this.Amount,						 //数字货币数量
-		"product_name": this.ProductName,			 //订单标题
-		"product_detail": this.ProductDetail,        //订单描述
-		"expire_time": expireTime,				     //订单超时时间
-		"remark": this.Remark,						 //交易易备注信息
-		"return_url": this.ReturnUrl,				 //⽀付完成后的回调地址
-		"show_url": this.ShowUrl,					 //取消⽀付的回调地址
+		"merchant_trade_no": this.MerchantTradeNo, //商户的订单号 UUID 生成的
+		"payee_id":          this.PayeeId,         //商户BastionPay 用户Id
+		"assets":            this.Assets,          //数字货币币种
+		"amount":            this.Amount,          //数字货币数量
+		"product_name":      this.ProductName,     //订单标题
+		"product_detail":    this.ProductDetail,   //订单描述
+		"expire_time":       expireTime,           //订单超时时间
+		"remark":            this.Remark,          //交易易备注信息
+		"return_url":        this.ReturnUrl,       //⽀付完成后的回调地址
+		"show_url":          this.ShowUrl,         //取消⽀付的回调地址
 
-		"merchant_id": this.Request.MerchantId,		 //商户在BabstionPay 注册的商户ID
+		"merchant_id": this.Request.MerchantId, //商户在BabstionPay 注册的商户ID
 		//"sign_type": this.Request.SignType,			 //签名算法类型
 		//	"signature": this.Request.Signature,		 //⽤户请求的签名串
-		"timestamp": this.Request.Timestamp,		 //发送请求的时间
-		"notify_url": this.Request.NotifyUrl,        //回调通知商户服务器器的地址
+		"timestamp":  this.Request.Timestamp, //发送请求的时间
+		"notify_url": this.Request.NotifyUrl, //回调通知商户服务器器的地址
 	})
 
 	signStr := RequestBodyToSignStr(reqBodySign)
-	fmt.Println("**signStr",signStr)
+	fmt.Println("**signStr", signStr)
 
 	//签名 SHA1
 	sha1 := new(utils.SHAwithRSA)
@@ -724,45 +709,43 @@ func (this *CoffeeQrTrade) SendCoffeeQr() (*CoffeeTradeQrRes, error) {
 	finalSign, err := sha1.Sign(signStr)
 
 	if err != nil {
-		ZapLog().Error( "sign err", zap.Error(err))
+		ZapLog().Error("sign err", zap.Error(err))
 		return nil, err
 	}
-
 
 	reqBody, _ := json.Marshal(map[string]interface{}{
-		"merchant_trade_no": this.MerchantTradeNo,   //商户的订单号 UUID 生成的
-		"payee_id": this.PayeeId,					 //商户BastionPay 用户Id
-		"assets": this.Assets,                       //数字货币币种
-		"amount": this.Amount,						 //数字货币数量
-		"product_name": this.ProductName,			 //订单标题
-		"product_detail": this.ProductDetail,        //订单描述
-		"expire_time": this.ExpireTime,				 //订单超时时间
-		"remark": this.Remark,						 //交易易备注信息
-		"return_url": this.ReturnUrl,				 //⽀付完成后的回调地址
-		"show_url": this.ShowUrl,					 //取消⽀付的回调地址
+		"merchant_trade_no": this.MerchantTradeNo, //商户的订单号 UUID 生成的
+		"payee_id":          this.PayeeId,         //商户BastionPay 用户Id
+		"assets":            this.Assets,          //数字货币币种
+		"amount":            this.Amount,          //数字货币数量
+		"product_name":      this.ProductName,     //订单标题
+		"product_detail":    this.ProductDetail,   //订单描述
+		"expire_time":       this.ExpireTime,      //订单超时时间
+		"remark":            this.Remark,          //交易易备注信息
+		"return_url":        this.ReturnUrl,       //⽀付完成后的回调地址
+		"show_url":          this.ShowUrl,         //取消⽀付的回调地址
 
-		"merchant_id": this.Request.MerchantId,		 //商户在BabstionPay 注册的商户ID
-		"sign_type": this.Request.SignType,			 //签名算法类型
-		"signature": finalSign,		                 //⽤户请求的签名串
-		"timestamp": this.Request.Timestamp,		 //发送请求的时间
-		"notify_url": this.Request.NotifyUrl,        //回调通知商户服务器器的地址
+		"merchant_id": this.Request.MerchantId, //商户在BabstionPay 注册的商户ID
+		"sign_type":   this.Request.SignType,   //签名算法类型
+		"signature":   finalSign,               //⽤户请求的签名串
+		"timestamp":   this.Request.Timestamp,  //发送请求的时间
+		"notify_url":  this.Request.NotifyUrl,  //回调通知商户服务器器的地址
 	})
-	fmt.Println("**reqBody**",string(reqBody))
+	fmt.Println("**reqBody**", string(reqBody))
 
-	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/create_qr_trade", bytes.NewBuffer(reqBody),"POST", nil)
+	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/create_qr_trade", bytes.NewBuffer(reqBody), "POST", nil)
 	if err != nil {
-		ZapLog().Error( "send message to pastionpay create trade err", zap.Error(err))
+		ZapLog().Error("send message to pastionpay create trade err", zap.Error(err))
 		return nil, err
 	}
 
-	ZapLog().Info("create qr order result:",zap.String("qr result:",string(result)))
+	ZapLog().Info("create qr order result:", zap.String("qr result:", string(result)))
 
 	resTradeQr := new(CoffeeTradeQrRes)
 	json.Unmarshal(result, resTradeQr)
 
 	return resTradeQr, nil
 }
-
 
 //Pos机
 func (this *PosTrade) PosSend() (*PosRes, error) {
@@ -778,24 +761,24 @@ func (this *PosTrade) PosSend() (*PosRes, error) {
 	this.Amount = &amounts
 
 	reqBodySign, _ := json.Marshal(map[string]interface{}{
-		"pos_machine_id": this.PosMachineId,
-		"merchant_pos_no": this.MerchantPosNo,       //商户的订单号 UUID 生成的
-		"payee_id": this.PayeeId,					 //商户BastionPay 用户Id
-		"assets": this.Assets,                       //数字货币币种
-		"amount": this.Amount,						 //数字货币数量
-		"pay_voucher": this.PayVoucher,
-		"merchant_id": this.MerchantId,		         //商户在BabstionPay 注册的商户ID
-		"product_name": this.ProductName,			 //订单标题
-		"product_detail": this.ProductDetail,        //订单描述
-		"remark": this.Remark,						 //交易易备注信息
+		"pos_machine_id":  this.PosMachineId,
+		"merchant_pos_no": this.MerchantPosNo, //商户的订单号 UUID 生成的
+		"payee_id":        this.PayeeId,       //商户BastionPay 用户Id
+		"assets":          this.Assets,        //数字货币币种
+		"amount":          this.Amount,        //数字货币数量
+		"pay_voucher":     this.PayVoucher,
+		"merchant_id":     this.MerchantId,    //商户在BabstionPay 注册的商户ID
+		"product_name":    this.ProductName,   //订单标题
+		"product_detail":  this.ProductDetail, //订单描述
+		"remark":          this.Remark,        //交易易备注信息
 		//"sign_type": this.Request.SignType,	     //签名算法类型
 		//"signature": this.Request.Signature  	 //⽤户请求的签名串
-		"timestamp": this.Timestamp,		 //发送请求的时间
-		"notify_url": this.NotifyUrl,        //回调通知商户服务器器的地址
+		"timestamp":  this.Timestamp, //发送请求的时间
+		"notify_url": this.NotifyUrl, //回调通知商户服务器器的地址
 	})
 
 	signStr := RequestBodyToSignStr(reqBodySign)
-	fmt.Println("**signStr",signStr)
+	fmt.Println("**signStr", signStr)
 
 	//签名 SHA1
 	sha1 := new(utils.SHAwithRSA)
@@ -803,43 +786,41 @@ func (this *PosTrade) PosSend() (*PosRes, error) {
 	finalSign, err := sha1.Sign(signStr)
 
 	if err != nil {
-		ZapLog().Error( "sign err", zap.Error(err))
+		ZapLog().Error("sign err", zap.Error(err))
 		return nil, err
 	}
-
 
 	reqBody, _ := json.Marshal(map[string]interface{}{
-		"pos_machine_id": this.PosMachineId,
-		"merchant_pos_no": this.MerchantPosNo,       //商户的订单号 UUID 生成的
-		"payee_id": this.PayeeId,					 //商户BastionPay 用户Id
-		"assets": this.Assets,                       //数字货币币种
-		"amount": this.Amount,						 //数字货币数量
-		"pay_voucher": this.PayVoucher,
-		"merchant_id": this.MerchantId,		         //商户在BabstionPay 注册的商户ID
-		"product_name": this.ProductName,			 //订单标题
-		"product_detail": this.ProductDetail,        //订单描述
-		"remark": this.Remark,						 //交易易备注信息
-		"sign_type": this.SignType,			         //签名算法类型
-		"signature": finalSign,		                 //⽤户请求的签名串
-		"timestamp": this.Timestamp,		         //发送请求的时间
-		"notify_url": this.NotifyUrl,                //回调通知商户服务器器的地址
+		"pos_machine_id":  this.PosMachineId,
+		"merchant_pos_no": this.MerchantPosNo, //商户的订单号 UUID 生成的
+		"payee_id":        this.PayeeId,       //商户BastionPay 用户Id
+		"assets":          this.Assets,        //数字货币币种
+		"amount":          this.Amount,        //数字货币数量
+		"pay_voucher":     this.PayVoucher,
+		"merchant_id":     this.MerchantId,    //商户在BabstionPay 注册的商户ID
+		"product_name":    this.ProductName,   //订单标题
+		"product_detail":  this.ProductDetail, //订单描述
+		"remark":          this.Remark,        //交易易备注信息
+		"sign_type":       this.SignType,      //签名算法类型
+		"signature":       finalSign,          //⽤户请求的签名串
+		"timestamp":       this.Timestamp,     //发送请求的时间
+		"notify_url":      this.NotifyUrl,     //回调通知商户服务器器的地址
 	})
-	fmt.Println("**reqBody**",string(reqBody))
+	fmt.Println("**reqBody**", string(reqBody))
 
-	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/pos", bytes.NewBuffer(reqBody),"POST", nil)
+	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/pos", bytes.NewBuffer(reqBody), "POST", nil)
 	if err != nil {
-		ZapLog().Error( "send message to pastionpay create pos trade err", zap.Error(err))
+		ZapLog().Error("send message to pastionpay create pos trade err", zap.Error(err))
 		return nil, err
 	}
 
-	ZapLog().Info("create pos order result:",zap.String("pos result:",string(result)))
+	ZapLog().Info("create pos order result:", zap.String("pos result:", string(result)))
 
 	posRes := new(PosRes)
 	json.Unmarshal(result, posRes)
 
 	return posRes, nil
 }
-
 
 //Pos机订单查询
 func (this *PosOrders) PosOrdersSend() (*PosOrdersRes, error) {
@@ -851,24 +832,24 @@ func (this *PosOrders) PosOrdersSend() (*PosOrdersRes, error) {
 	//this.NotifyUrl = &notifyUrl
 
 	reqBodySign, _ := json.Marshal(map[string]interface{}{
-		"pos_machine_id": this.PosMachineId,
-		"merchant_pos_no": this.MerchantPosNo,       //商户的订单号 UUID 生成的
-		"page": this.Page,					         //商户BastionPay 用户Id
-		"page_size": this.PageSize,                  //数字货币币种
+		"pos_machine_id":  this.PosMachineId,
+		"merchant_pos_no": this.MerchantPosNo, //商户的订单号 UUID 生成的
+		"page":            this.Page,          //商户BastionPay 用户Id
+		"page_size":       this.PageSize,      //数字货币币种
 		//"amount": this.Amount,		         	 //数字货币数量
 		//"pay_voucher": this.PayVoucher,
-		"merchant_id": this.MerchantId,		         //商户在BabstionPay 注册的商户ID
-		"begin_time": this.BeginTime,			     //订单标题
-		"end_time": this.EndTime,                    //订单描述
-		"trade_status": this.TradeStatus,		     //交易易备注信息
+		"merchant_id":  this.MerchantId,  //商户在BabstionPay 注册的商户ID
+		"begin_time":   this.BeginTime,   //订单标题
+		"end_time":     this.EndTime,     //订单描述
+		"trade_status": this.TradeStatus, //交易易备注信息
 		//"sign_type": this.Request.SignType,	     //签名算法类型
 		//"signature": this.Request.Signature  	     //⽤户请求的签名串
-		"timestamp": this.TimeStamp,		         //发送请求的时间
-		"notify_url": this.NotifyUrl,                //回调通知商户服务器器的地址
+		"timestamp":  this.TimeStamp, //发送请求的时间
+		"notify_url": this.NotifyUrl, //回调通知商户服务器器的地址
 	})
 
 	signStr := RequestBodyToSignStr(reqBodySign)
-	fmt.Println("**signStr",signStr)
+	fmt.Println("**signStr", signStr)
 
 	//签名 SHA1
 	sha1 := new(utils.SHAwithRSA)
@@ -876,46 +857,43 @@ func (this *PosOrders) PosOrdersSend() (*PosOrdersRes, error) {
 	finalSign, err := sha1.Sign(signStr)
 
 	if err != nil {
-		ZapLog().Error( "sign err", zap.Error(err))
+		ZapLog().Error("sign err", zap.Error(err))
 		return nil, err
 	}
-
 
 	reqBody, _ := json.Marshal(map[string]interface{}{
-		"pos_machine_id": this.PosMachineId,
-		"merchant_pos_no": this.MerchantPosNo,       //商户的订单号 UUID 生成的
-		"page": this.Page,					         //商户BastionPay 用户Id
-		"page_size": this.PageSize,                  //数字货币币种
+		"pos_machine_id":  this.PosMachineId,
+		"merchant_pos_no": this.MerchantPosNo, //商户的订单号 UUID 生成的
+		"page":            this.Page,          //商户BastionPay 用户Id
+		"page_size":       this.PageSize,      //数字货币币种
 		//"amount": this.Amount,		         	 //数字货币数量
 		//"pay_voucher": this.PayVoucher,
-		"merchant_id": this.MerchantId,		         //商户在BabstionPay 注册的商户ID
-		"begin_time": this.BeginTime,			     //订单标题
-		"end_time": this.EndTime,                    //订单描述
-		"trade_status": this.TradeStatus,		     //交易易备注信息
+		"merchant_id":  this.MerchantId,  //商户在BabstionPay 注册的商户ID
+		"begin_time":   this.BeginTime,   //订单标题
+		"end_time":     this.EndTime,     //订单描述
+		"trade_status": this.TradeStatus, //交易易备注信息
 		//"sign_type": this.Request.SignType,	     //签名算法类型
 		//"signature": this.Request.Signature  	     //⽤户请求的签名串
-		"timestamp": this.TimeStamp,		         //发送请求的时间
-		"notify_url": this.NotifyUrl,                //回调通知商户服务器器的地址
-		"sign_type": this.SignType,			         //签名算法类型
-		"signature": finalSign,		                 //⽤户请求的签名串
+		"timestamp":  this.TimeStamp, //发送请求的时间
+		"notify_url": this.NotifyUrl, //回调通知商户服务器器的地址
+		"sign_type":  this.SignType,  //签名算法类型
+		"signature":  finalSign,      //⽤户请求的签名串
 	})
-	fmt.Println("**reqBody**",string(reqBody))
+	fmt.Println("**reqBody**", string(reqBody))
 
-	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/pos_orders", bytes.NewBuffer(reqBody),"POST", nil)
+	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/pos_orders", bytes.NewBuffer(reqBody), "POST", nil)
 	if err != nil {
-		ZapLog().Error( "send message to pastionpay list pos orders trade err", zap.Error(err))
+		ZapLog().Error("send message to pastionpay list pos orders trade err", zap.Error(err))
 		return nil, err
 	}
 
-	ZapLog().Info("create pos order result:",zap.String("pos result:",string(result)))
+	ZapLog().Info("create pos order result:", zap.String("pos result:", string(result)))
 
 	posOrdersRes := new(PosOrdersRes)
 	json.Unmarshal(result, posOrdersRes)
 
 	return posOrdersRes, nil
 }
-
-
 
 //创建sdk订单
 func (this *Trade) SendSdk() (*TradeSdkRes, error) {
@@ -937,22 +915,22 @@ func (this *Trade) SendSdk() (*TradeSdkRes, error) {
 	this.Amount = &amounts
 
 	reqBodySign, _ := json.Marshal(map[string]interface{}{
-		"merchant_trade_no": this.MerchantTradeNo,   //商户的订单号 UUID 生成的
-		"payee_id": this.PayeeId,					 //商户BastionPay 用户Id
-		"assets": this.Assets,                       //数字货币币种
-		"amount": this.Amount,						 //数字货币数量
-		"product_name": this.ProductName,			 //订单标题
-		"product_detail": this.ProductDetail,        //订单描述
-		"expire_time": expireTime,				     //订单超时时间
-		"remark": this.Remark,						 //交易易备注信息
-		"return_url": this.ReturnUrl,				 //⽀付完成后的回调地址
-		"show_url": this.ShowUrl,					 //取消⽀付的回调地址
+		"merchant_trade_no": this.MerchantTradeNo, //商户的订单号 UUID 生成的
+		"payee_id":          this.PayeeId,         //商户BastionPay 用户Id
+		"assets":            this.Assets,          //数字货币币种
+		"amount":            this.Amount,          //数字货币数量
+		"product_name":      this.ProductName,     //订单标题
+		"product_detail":    this.ProductDetail,   //订单描述
+		"expire_time":       expireTime,           //订单超时时间
+		"remark":            this.Remark,          //交易易备注信息
+		"return_url":        this.ReturnUrl,       //⽀付完成后的回调地址
+		"show_url":          this.ShowUrl,         //取消⽀付的回调地址
 
-		"merchant_id": this.Request.MerchantId,		 //商户在BabstionPay 注册的商户ID
+		"merchant_id": this.Request.MerchantId, //商户在BabstionPay 注册的商户ID
 		//	"sign_type": this.Request.SignType,			 //签名算法类型
 		//	"signature": this.Request.Signature,		 //⽤户请求的签名串
-		"timestamp": this.Request.Timestamp,		 //发送请求的时间
-		"notify_url": this.Request.NotifyUrl,        //回调通知商户服务器器的地址
+		"timestamp":  this.Request.Timestamp, //发送请求的时间
+		"notify_url": this.Request.NotifyUrl, //回调通知商户服务器器的地址
 	})
 
 	signStr := RequestBodyToSignStr(reqBodySign)
@@ -967,39 +945,38 @@ func (this *Trade) SendSdk() (*TradeSdkRes, error) {
 
 	//fmt.Println("***final sign***",finalSign)
 	if err != nil {
-		ZapLog().Error( "sign err", zap.Error(err))
+		ZapLog().Error("sign err", zap.Error(err))
 		return nil, err
 	}
 
-
 	reqBody, _ := json.Marshal(map[string]interface{}{
-		"merchant_trade_no": this.MerchantTradeNo,   //商户的订单号 UUID 生成的
-		"payee_id": this.PayeeId,					 //商户BastionPay 用户Id
-		"assets": this.Assets,                       //数字货币币种
-		"amount": this.Amount,						 //数字货币数量
-		"product_name": this.ProductName,			 //订单标题
-		"product_detail": this.ProductDetail,        //订单描述
-		"expire_time": this.ExpireTime,				 //订单超时时间
-		"remark": this.Remark,						 //交易易备注信息
-		"return_url": this.ReturnUrl,				 //⽀付完成后的回调地址
-		"show_url": this.ShowUrl,					 //取消⽀付的回调地址
+		"merchant_trade_no": this.MerchantTradeNo, //商户的订单号 UUID 生成的
+		"payee_id":          this.PayeeId,         //商户BastionPay 用户Id
+		"assets":            this.Assets,          //数字货币币种
+		"amount":            this.Amount,          //数字货币数量
+		"product_name":      this.ProductName,     //订单标题
+		"product_detail":    this.ProductDetail,   //订单描述
+		"expire_time":       this.ExpireTime,      //订单超时时间
+		"remark":            this.Remark,          //交易易备注信息
+		"return_url":        this.ReturnUrl,       //⽀付完成后的回调地址
+		"show_url":          this.ShowUrl,         //取消⽀付的回调地址
 
-		"merchant_id": this.Request.MerchantId,		 //商户在BabstionPay 注册的商户ID
-		"sign_type": this.Request.SignType,			 //签名算法类型
-		"signature": finalSign,		         //⽤户请求的签名串
-		"timestamp": this.Request.Timestamp,		 //发送请求的时间
-		"notify_url": this.Request.NotifyUrl,        //回调通知商户服务器器的地址
+		"merchant_id": this.Request.MerchantId, //商户在BabstionPay 注册的商户ID
+		"sign_type":   this.Request.SignType,   //签名算法类型
+		"signature":   finalSign,               //⽤户请求的签名串
+		"timestamp":   this.Request.Timestamp,  //发送请求的时间
+		"notify_url":  this.Request.NotifyUrl,  //回调通知商户服务器器的地址
 	})
 	//fmt.Println("**reqBody**",string(reqBody))
 
-	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/create_trade", bytes.NewBuffer(reqBody),"POST", nil) //map[string]string{"Client":"1", "DeviceType":"1", "DeviceName":"huawei","DeviceId":"ab9dd65725876c597","Version":"1.1.0","Content-Type":"application/json;charset=UTF-8" }
+	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/create_trade", bytes.NewBuffer(reqBody), "POST", nil) //map[string]string{"Client":"1", "DeviceType":"1", "DeviceName":"huawei","DeviceId":"ab9dd65725876c597","Version":"1.1.0","Content-Type":"application/json;charset=UTF-8" }
 	//fmt.Println("**request result**",string(result))
 	if err != nil {
-		ZapLog().Error( "send message to pastionpay create trade err", zap.Error(err))
+		ZapLog().Error("send message to pastionpay create trade err", zap.Error(err))
 		return nil, err
 	}
 
-	ZapLog().Info("create sdk order result:",zap.String("sdk result:",string(result)))
+	ZapLog().Info("create sdk order result:", zap.String("sdk result:", string(result)))
 
 	//
 	resTrade := new(TradeSdkRes)
@@ -1008,30 +985,26 @@ func (this *Trade) SendSdk() (*TradeSdkRes, error) {
 	return resTrade, nil
 }
 
-
 func GetTimeStamp() string {
 	times := time.Now().Format("2006-01-02 15:04:05")
 	return times
 }
 
-
-
 type (
-
-	AmountResponse struct{
-		Code       int                 `json:"err,omitempty"`
-		Quotes     []QuoteDetailInfo   `json:"quotes,omitempty" doc:"币简称"`
+	AmountResponse struct {
+		Code   int               `json:"err,omitempty"`
+		Quotes []QuoteDetailInfo `json:"quotes,omitempty" doc:"币简称"`
 	}
 
 	AmountDetailInfo struct {
-		Symbol     string              `json:"symbol,omitempty" doc:"币简称"`
-		Id         int                 `json:"id,omitempty" doc:"币id"`
-		MoneyInfos []MoneyInfos         `json:"detail,omitempty" doc:"币行情数据"`
+		Symbol     string       `json:"symbol,omitempty" doc:"币简称"`
+		Id         int          `json:"id,omitempty" doc:"币id"`
+		MoneyInfos []MoneyInfos `json:"detail,omitempty" doc:"币行情数据"`
 	}
 
 	MoneyInfos struct {
 		Symbol             *string  `json:"symbol,omitempty" doc:"币简称"`
-		Price              float64 `json:"price,omitempty" doc:"最新价"`
+		Price              float64  `json:"price,omitempty" doc:"最新价"`
 		Volume_24h         *float64 `json:"volume_24h,omitempty" doc:"24小时成交量"`
 		Market_cap         *float64 `json:"market_cap,omitempty" doc:"总市值"`
 		Percent_change_1h  *float64 `json:"percent_change_1h,omitempty" doc:"1小时涨跌幅"`
@@ -1040,12 +1013,13 @@ type (
 		Last_updated       *int64   `json:"last_updated,omitempty" doc:"最近更新时间"`
 	}
 )
-//http://test-quote.rkuan.com
-func  GetAmount (legal, legalNum, assets string)  (*float64 ,error){
 
-	coinAmountResult, err := base.HttpSend(config.GConfig.BastionpayUrl.QuoteUrl+"/api/v1/coin/exchange?from="+strings.ToLower(legal)+"&to="+ assets+"&amount="+legalNum, nil,"GET", nil)
+//http://test-quote.rkuan.com
+func GetAmount(legal, legalNum, assets string) (*float64, error) {
+
+	coinAmountResult, err := base.HttpSend(config.GConfig.BastionpayUrl.QuoteUrl+"/api/v1/coin/exchange?from="+strings.ToLower(legal)+"&to="+assets+"&amount="+legalNum, nil, "GET", nil)
 	if err != nil {
-		ZapLog().Error( "select quote info err", zap.Error(err))
+		ZapLog().Error("select quote info err", zap.Error(err))
 		return nil, err
 	}
 
@@ -1058,7 +1032,6 @@ func  GetAmount (legal, legalNum, assets string)  (*float64 ,error){
 	return &amountResponse.Quotes[0].MoneyInfos[0].Price, err
 }
 
-
 func Decimal(value float64) float64 {
 	value, _ = strconv.ParseFloat(fmt.Sprintf("%.8f", value), 64)
 	return value
@@ -1069,9 +1042,9 @@ func Decimal7(value string) string {
 		return value
 	}
 	int := strings.IndexAny(value, ".")
-	if len(value) - int <= 8 {
-		return  value
+	if len(value)-int <= 8 {
+		return value
 	}
-	s2 := value[0:int+9]
+	s2 := value[0 : int+9]
 	return s2
 }

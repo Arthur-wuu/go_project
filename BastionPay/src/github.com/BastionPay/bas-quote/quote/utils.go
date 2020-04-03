@@ -3,8 +3,8 @@ package quote
 import (
 	"BastionPay/bas-quote/collect"
 	"BastionPay/bas-quote/db"
-	"time"
 	"math/rand"
+	"time"
 )
 
 func CodeInfoToCodeTable(info *collect.CodeInfo) *db.CodeTable {
@@ -48,7 +48,6 @@ func NowTimestamp() int64 {
 	return time.Now().Unix()
 }
 
-
-func  randInt(min int, max int) int {
+func randInt(min int, max int) int {
 	return min + rand.Intn(max-min)
 }

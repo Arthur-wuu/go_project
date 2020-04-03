@@ -1,13 +1,13 @@
 package account
 
 import (
-    "context"
-    "github.com/pkg/errors"
+	"context"
+	"github.com/pkg/errors"
 	"go-common/app/service/main/account/api"
 	accountM "go-common/app/service/main/account/model"
-    actmdl "go-common/app/service/main/account/model"
-    "go-common/library/ecode"
-    "go-common/library/log"
+	actmdl "go-common/app/service/main/account/model"
+	"go-common/library/ecode"
+	"go-common/library/log"
 )
 
 // GetUserInfoData ...

@@ -47,77 +47,77 @@ func PreProcess() {
 }
 
 type Config struct {
-	Server   System      `yaml:"system"`
-	Redis    Redis       `yaml:"redis"`
-	Db       Mysql       `yaml:"mysql"`
-	Cache    Cache       `yaml:"cache"`
-	CallBack CallBack    `yaml:"callback"`
-	Devices  []Device    `yaml:"device"`
-	BastionpayUrl  BastionpayUrl    `yaml:"bastionpay_url"`
+	Server        System        `yaml:"system"`
+	Redis         Redis         `yaml:"redis"`
+	Db            Mysql         `yaml:"mysql"`
+	Cache         Cache         `yaml:"cache"`
+	CallBack      CallBack      `yaml:"callback"`
+	Devices       []Device      `yaml:"device"`
+	BastionpayUrl BastionpayUrl `yaml:"bastionpay_url"`
 	//DeviceMap  map[string]*Device    `yaml:"-"`
-	Login   Login        `yaml:"login"`
-	PayeeId PayeeId      `yaml:"payeeid"`
-	Fee     Fee          `yaml:"fee"`
+	Login   Login   `yaml:"login"`
+	PayeeId PayeeId `yaml:"payeeid"`
+	Fee     Fee     `yaml:"fee"`
 }
 
-type BastionpayUrl struct{
-	Bastionurl   string          `yaml:"bastionurl"`
-	BastionUser  string          `yaml:"bastionuser"`
-	QuoteUrl     string          `yaml:"quoteurl"`
+type BastionpayUrl struct {
+	Bastionurl  string `yaml:"bastionurl"`
+	BastionUser string `yaml:"bastionuser"`
+	QuoteUrl    string `yaml:"quoteurl"`
 }
 
 //coffee 收款人 和商户
-type PayeeId struct{
-	PayId   string          `yaml:"payid"`
-	MerchantId string       `yaml:"merchantid"`
+type PayeeId struct {
+	PayId      string `yaml:"payid"`
+	MerchantId string `yaml:"merchantid"`
 }
 
 type Login struct {
-	Uid           string `yaml:"pre_uid"`
-	Pwd           string `yaml:"password"`
-	Phone         string `yaml:"phone"`
-	ZfPwd         string `yaml:"zf_pwd"`
-	DeviceId      string `yaml:"device_id"`
+	Uid      string `yaml:"pre_uid"`
+	Pwd      string `yaml:"password"`
+	Phone    string `yaml:"phone"`
+	ZfPwd    string `yaml:"zf_pwd"`
+	DeviceId string `yaml:"device_id"`
 }
 
-type Device struct{
-	Id   string          `yaml:"id"`
-	Name string          `yaml:"name"`
-	Addr string          `yaml:"addr"`
+type Device struct {
+	Id   string `yaml:"id"`
+	Name string `yaml:"name"`
+	Addr string `yaml:"addr"`
 }
 
 type CallBack struct {
-	ReturnUrl    string      `yaml:"return_url"`
-	ShowUrl      string      `yaml:"show_url"`
-	NotifyUrl    string      `yaml:"notify_url"`
+	ReturnUrl string `yaml:"return_url"`
+	ShowUrl   string `yaml:"show_url"`
+	NotifyUrl string `yaml:"notify_url"`
 }
 
 type System struct {
-	Port    string      `yaml:"port"`
-	Debug   bool        `yaml:"debug"`
-	LogPath string      `yaml:"log_path"`
-	Monitor string      `yaml:"monitor"`
+	Port    string `yaml:"port"`
+	Debug   bool   `yaml:"debug"`
+	LogPath string `yaml:"log_path"`
+	Monitor string `yaml:"monitor"`
 }
 
 type Cache struct {
-	VipAuthMaxKey    int      `yaml:"vipauth_max_key"`
-	VipAuthTimeout   int      `yaml:"vipauth_timeout"`
-	VipListMaxKey    int      `yaml:"viplist_max_key"`
-	VipListTimeout   int      `yaml:"viplist_timeout"`
-	VipDisableMaxKey    int      `yaml:"vipdisable_max_key"`
-	VipDisableTimeout   int      `yaml:"vipdisable_timeout"`
+	VipAuthMaxKey     int `yaml:"vipauth_max_key"`
+	VipAuthTimeout    int `yaml:"vipauth_timeout"`
+	VipListMaxKey     int `yaml:"viplist_max_key"`
+	VipListTimeout    int `yaml:"viplist_timeout"`
+	VipDisableMaxKey  int `yaml:"vipdisable_max_key"`
+	VipDisableTimeout int `yaml:"vipdisable_timeout"`
 }
 
 type Redis struct {
-	Network     string  `yaml:"network"`
-	Host        string  `yaml:"host"`
-	Port        string  `yaml:"port"`
-	Password    string  `yaml:"password"`
-	Database    string  `yaml:"database"`
-	MaxIdle     int     `yaml:"maxIdle"`
-	MaxActive   int     `yaml:"maxActive"`
-	IdleTimeout int     `yaml:"idleTimeout"`
-	Prefix      string  `yaml:"prefix"`
+	Network     string `yaml:"network"`
+	Host        string `yaml:"host"`
+	Port        string `yaml:"port"`
+	Password    string `yaml:"password"`
+	Database    string `yaml:"database"`
+	MaxIdle     int    `yaml:"maxIdle"`
+	MaxActive   int    `yaml:"maxActive"`
+	IdleTimeout int    `yaml:"idleTimeout"`
+	Prefix      string `yaml:"prefix"`
 }
 
 type Mysql struct {
@@ -133,8 +133,7 @@ type Mysql struct {
 	ParseTime     bool   `yaml:"parseTime"`
 }
 
-
 type Fee struct {
-	Cash2coin   string      `yaml:"cash2coin"`
-	Coin2cash   string      `yaml:"coin2cash"`
+	Cash2coin string `yaml:"cash2coin"`
+	Coin2cash string `yaml:"coin2cash"`
 }

@@ -1,9 +1,9 @@
 package utils
 
 import (
+	. "BastionPay/bas-base/log/zap"
 	"go.uber.org/zap"
 	"runtime/debug"
-	. "BastionPay/bas-base/log/zap"
 )
 
 func PanicPrint() {

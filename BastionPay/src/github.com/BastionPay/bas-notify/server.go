@@ -3,18 +3,19 @@ package main
 import (
 	. "BastionPay/bas-base/log/zap"
 	"BastionPay/bas-notify/config"
+	"BastionPay/bas-notify/controllers"
+	"BastionPay/bas-notify/db"
+	"BastionPay/bas-notify/email"
+	"BastionPay/bas-notify/models"
+	"BastionPay/bas-notify/sms"
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/logger"
 	"github.com/kataras/iris/middleware/pprof"
 	"github.com/kataras/iris/middleware/recover"
 	"go.uber.org/zap"
-	"BastionPay/bas-notify/controllers"
-	"BastionPay/bas-notify/sms"
-	"BastionPay/bas-notify/email"
-	"BastionPay/bas-notify/db"
-	"BastionPay/bas-notify/models"
 )
+
 //
 //const (
 //	ErrCode_Success    = 0
@@ -29,7 +30,7 @@ import (
 //)
 
 type WebServer struct {
-	mIris        *iris.Application
+	mIris *iris.Application
 	//mTemplateMgr TemplateMgr
 	//mSmsMgr      sms.GSmsMgr
 	//mMailMgr     MailMgr
@@ -151,9 +152,9 @@ func (a *WebServer) controller() {
 			tmpPy.Post("/add", temp.Add)
 			tmpPy.Post("/alive", temp.Update)
 			tmpPy.Post("/update", temp.Update)
-			tmpPy.Post("/madd", temp.Adds) //批量添加
+			tmpPy.Post("/madd", temp.Adds)       //批量添加
 			tmpPy.Post("/mupdate", temp.Updates) //批量更新
-			tmpPy.Post("/saves", temp.Saves) //批量更新
+			tmpPy.Post("/saves", temp.Saves)     //批量更新
 		}
 
 		hisPy := v1.Party("/templatehistory")
@@ -1084,8 +1085,8 @@ func (a *WebServer) controller() {
 //
 //func (this *WebServer) ReqNotifyMsgIsValid(req *ReqNotifyMsg) bool {
 //	//if req.Recipient == nil {
-	//	return false
-	//}
+//	return false
+//}
 //	if req.TempId != nil {
 //		return true
 //	}

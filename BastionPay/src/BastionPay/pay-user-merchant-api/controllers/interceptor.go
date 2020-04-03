@@ -1,15 +1,15 @@
 package controllers
 
 import (
-	"BastionPay/pay-user-merchant-api/common"
-	"github.com/kataras/iris/context"
-	"go.uber.org/zap"
 	"BastionPay/bas-api/apibackend"
 	. "BastionPay/bas-base/log/zap"
-	"BastionPay/pay-user-merchant-api/config"
-	"github.com/go-redis/redis"
-	"encoding/json"
 	"BastionPay/pay-user-merchant-api/api"
+	"BastionPay/pay-user-merchant-api/common"
+	"BastionPay/pay-user-merchant-api/config"
+	"encoding/json"
+	"github.com/go-redis/redis"
+	"github.com/kataras/iris/context"
+	"go.uber.org/zap"
 	"time"
 )
 
@@ -43,21 +43,20 @@ func (this *Interceptor) VerifyAccess(ctx context.Context) {
 		return
 	}
 
-	basErr,userInfo := this.GetUserInfoByToken(tokenString)
+	basErr, userInfo := this.GetUserInfoByToken(tokenString)
 	if basErr.Code() != 0 {
 		return
 	}
 
-
 	ctx.Values().Set(CONST_CTX_APPUSERINFO, userInfo)
 
 	//可以放在单独队列里，增加速度
-	common.GRedis.GetConn().Expire(CONNST_TOKEN_Prefix +tokenString, time.Duration(config.GConfig.Token.Expirat)*time.Minute)
+	common.GRedis.GetConn().Expire(CONNST_TOKEN_Prefix+tokenString, time.Duration(config.GConfig.Token.Expirat)*time.Minute)
 	ctx.Next()
 }
 
-func (this *Interceptor) GetUserInfoByToken(tokenString string) (apibackend.EnumBasErr, *api.BkLoginUserInfo){
-	userInfoBytes, err := common.GRedis.GetConn().Get(CONNST_TOKEN_Prefix +tokenString).Bytes()
+func (this *Interceptor) GetUserInfoByToken(tokenString string) (apibackend.EnumBasErr, *api.BkLoginUserInfo) {
+	userInfoBytes, err := common.GRedis.GetConn().Get(CONNST_TOKEN_Prefix + tokenString).Bytes()
 	if err == redis.Nil {
 		return apibackend.BASERR_TOKEN_EXPIRED, nil
 	}
@@ -72,7 +71,7 @@ func (this *Interceptor) GetUserInfoByToken(tokenString string) (apibackend.Enum
 	userInnfo := new(api.BkLoginUserInfo)
 	if err := json.Unmarshal(userInfoBytes, userInnfo); err != nil {
 		ZapLog().With(zap.Error(err)).Error("json.Unmarshal err")
-		return apibackend.BASERR_DATA_UNPACK_ERROR,nil
+		return apibackend.BASERR_DATA_UNPACK_ERROR, nil
 	}
 
 	if userInnfo.Status == nil || *userInnfo.Status != 1 {

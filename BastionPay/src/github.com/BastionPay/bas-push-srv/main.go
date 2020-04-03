@@ -2,22 +2,22 @@ package main
 
 import (
 	//"github.com/BastionPay/bas-service/base/service"
-	service "github.com/BastionPay/bas-base/service2"
-	"BastionPay/bas-push-srv/handler"
-	"fmt"
-	"context"
-	"time"
-	l4g "github.com/alecthomas/log4go"
 	"BastionPay/bas-push-srv/db"
-	"github.com/BastionPay/bas-base/config"
+	"BastionPay/bas-push-srv/handler"
+	"context"
+	"fmt"
 	"github.com/BastionPay/bas-api/utils"
+	"github.com/BastionPay/bas-base/config"
+	service "github.com/BastionPay/bas-base/service2"
+	l4g "github.com/alecthomas/log4go"
 	"os"
 	"os/signal"
+	"time"
 )
 
 const PushSrvConfig = "push.json"
 
-func closeLog()  {
+func closeLog() {
 	time.Sleep(time.Second * 3)
 	defer l4g.Close()
 }
@@ -39,7 +39,7 @@ func main() {
 	// create service node
 	fmt.Println("config path:", cfgPath)
 	nodeInstance, err := service.NewServiceNode(cfgPath)
-	if nodeInstance == nil || err != nil{
+	if nodeInstance == nil || err != nil {
 		l4g.Error("Create service node failed: %s", err.Error())
 		return
 	}

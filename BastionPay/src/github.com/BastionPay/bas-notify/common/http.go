@@ -1,10 +1,10 @@
 package common
 
 import (
-	"io"
-	"net/http"
-	"io/ioutil"
 	"errors"
+	"io"
+	"io/ioutil"
+	"net/http"
 )
 
 func HttpSend(url string, body io.Reader, method string, headers map[string]string) ([]byte, error) {
@@ -17,7 +17,7 @@ func HttpSend(url string, body io.Reader, method string, headers map[string]stri
 	}
 
 	//req.Header.Set("Content-Type", "application/json")
-	for k,v := range headers {
+	for k, v := range headers {
 		//fmt.Println(k, v)
 		req.Header.Set(k, v)
 	}
@@ -33,7 +33,7 @@ func HttpSend(url string, body io.Reader, method string, headers map[string]stri
 
 	content, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 
 	if len(content) == 0 {
@@ -55,7 +55,7 @@ func PostForm(url string, form map[string][]string) ([]byte, error) {
 
 	content, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 
 	if len(content) == 0 {

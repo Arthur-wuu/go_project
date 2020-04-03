@@ -1,21 +1,20 @@
 package models
 
-
 import (
-"sync"
-"BastionPay/bas-tv-proxy/common"
-"time"
-"BastionPay/bas-tv-proxy/models/kbspirit"
-"BastionPay/bas-tv-proxy/api"
+	"BastionPay/bas-tv-proxy/api"
+	"BastionPay/bas-tv-proxy/common"
+	"BastionPay/bas-tv-proxy/models/kbspirit"
+	"sync"
+	"time"
 
+	. "BastionPay/bas-base/log/zap"
 	"BastionPay/bas-tv-proxy/config"
 	"BastionPay/bas-tv-proxy/type"
-	"strings"
-	. "BastionPay/bas-base/log/zap"
 	"go.uber.org/zap"
+	"strings"
 )
 
-const(
+const (
 	NAME_OBJ_SEARCHER = "obj_search"
 )
 
@@ -46,7 +45,7 @@ func (this *KBSpirit) run() {
 	}
 }
 
-func (this * KBSpirit) GetObjs(env *kbspirit.Env) []*api.JPBShuChu {
+func (this *KBSpirit) GetObjs(env *kbspirit.Env) []*api.JPBShuChu {
 	this.Lock()
 	searcher := this.objSearcher
 	this.Unlock()
@@ -76,8 +75,8 @@ func (this *KBSpirit) loadMarkets() {
 	searcher.Init()
 	markets := config.GPreConfig.MarketMap
 	for _, info := range markets {
-		if  strings.ToUpper(info.Name) == "BTCEXA" {
-			btcexaObjList ,err := GBtcExaModels.HttpObjList()
+		if strings.ToUpper(info.Name) == "BTCEXA" {
+			btcexaObjList, err := GBtcExaModels.HttpObjList()
 			if err != nil {
 				ZapLog().Error("GBtcexaModels.HttpObjList err", zap.String("market", info.Name), zap.Error(err))
 				continue
@@ -103,11 +102,11 @@ func (this *KBSpirit) loadMarkets() {
 
 func CoinMeritExaCurrencyPairs2ApiJPBShuJu(p *_type.CoinMeritExaCurrencyPairs) []*api.JPBShuJu {
 	arr := make([]*api.JPBShuJu, len(p.CurrencyPairs), len(p.CurrencyPairs))
-	for i:=0; i <len(p.CurrencyPairs); i++ {
+	for i := 0; i < len(p.CurrencyPairs); i++ {
 		p.CurrencyPairs[i] = strings.ToUpper(p.CurrencyPairs[i])
 		pairs := strings.Split(p.CurrencyPairs[i], "_")
 		zhName := ""
-		for j:=0; j < len(pairs); j++ {
+		for j := 0; j < len(pairs); j++ {
 			if len(pairs[j]) == 0 {
 				continue
 			}
@@ -116,33 +115,32 @@ func CoinMeritExaCurrencyPairs2ApiJPBShuJu(p *_type.CoinMeritExaCurrencyPairs) [
 				continue
 			}
 			if len(zhName) != 0 {
-				zhName += "_"+detail.ZhName
-			}else{
+				zhName += "_" + detail.ZhName
+			} else {
 				zhName += detail.ZhName
 			}
 		}
 		arr[i] = &api.JPBShuJu{
-			DaiMa: &p.CurrencyPairs[i],
+			DaiMa:     &p.CurrencyPairs[i],
 			MingCheng: &zhName,
 		}
 	}
 	return arr
 }
 
-
 func BtcexaExaCurrencyPairs2ApiJPBShuJu(p *_type.ResBtcExaObjList) []*api.JPBShuJu {
 	arr := make([]*api.JPBShuJu, len(p.Result), len(p.Result))
 	result := p.Result
-	CurrencyPairs := make([]string,0)
+	CurrencyPairs := make([]string, 0)
 
-	for _ , detailInfo := range  result{
-		CurrencyPairs = append(CurrencyPairs,detailInfo.Name)
+	for _, detailInfo := range result {
+		CurrencyPairs = append(CurrencyPairs, detailInfo.Name)
 	}
-	for i:=0; i <len(CurrencyPairs); i++ {
+	for i := 0; i < len(CurrencyPairs); i++ {
 		CurrencyPairs[i] = strings.ToUpper(CurrencyPairs[i])
 		pairs := strings.Split(CurrencyPairs[i], "_")
 		zhName := ""
-		for j:=0; j < len(pairs); j++ {
+		for j := 0; j < len(pairs); j++ {
 			if len(pairs[j]) == 0 {
 				continue
 			}
@@ -151,19 +149,16 @@ func BtcexaExaCurrencyPairs2ApiJPBShuJu(p *_type.ResBtcExaObjList) []*api.JPBShu
 				continue
 			}
 			if len(zhName) != 0 {
-				zhName += "_"+detail.ZhName
-			}else{
+				zhName += "_" + detail.ZhName
+			} else {
 				zhName += detail.ZhName
 			}
 		}
 		arr[i] = &api.JPBShuJu{
-			DaiMa: &CurrencyPairs[i],
+			DaiMa:     &CurrencyPairs[i],
 			MingCheng: &zhName,
 		}
 	}
 	return arr
-
-
-
 
 }

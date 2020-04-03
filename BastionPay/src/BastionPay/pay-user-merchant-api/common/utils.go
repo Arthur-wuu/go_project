@@ -1,8 +1,8 @@
 package common
 
 import (
-	"bytes"
 	. "BastionPay/bas-base/log/zap"
+	"bytes"
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/core/errors"
 	"go.uber.org/zap"
@@ -228,7 +228,7 @@ func SecretPhone(phone string) string {
 }
 
 func GetRealIp(ctx iris.Context) string {
-	if ctx==nil {
+	if ctx == nil {
 		return ""
 	}
 	var (

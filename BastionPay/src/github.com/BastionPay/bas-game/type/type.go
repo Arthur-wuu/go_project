@@ -13,11 +13,10 @@ package _type
 //	State       string    `yaml:"state"`
 //}
 
-
 type MsgRcv struct {
-	Type        string    `yaml:"type"`
-	UpNumber    string    `yaml:"upnumber"`
-	Message     string    `yaml:"message"`
-	State       string    `yaml:"state"`
-	Count       string    `yaml:"count"`
+	Type     string `yaml:"type"`
+	UpNumber string `yaml:"upnumber"`
+	Message  string `yaml:"message"`
+	State    string `yaml:"state"`
+	Count    string `yaml:"count"`
 }

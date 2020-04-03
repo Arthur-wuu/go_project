@@ -12,14 +12,14 @@ type RuleProtocol struct {
 }
 
 type RecPoolConf struct {
-	Id         int     `json:"id"`
-	Name       string  `json:"name"`
-	ConfType   int     `json:"type"`
-	Rules      string  `json:"rules"`
-	Priority   int64   `json:"priority"`
-	Percent    int64 `json:"percent"`
-	ModuleType int64   `json:"module_type"`
-	Position   int64   `json:"position"`
+	Id         int    `json:"id"`
+	Name       string `json:"name"`
+	ConfType   int    `json:"type"`
+	Rules      string `json:"rules"`
+	Priority   int64  `json:"priority"`
+	Percent    int64  `json:"percent"`
+	ModuleType int64  `json:"module_type"`
+	Position   int64  `json:"position"`
 }
 
 type RecWhiteList struct {

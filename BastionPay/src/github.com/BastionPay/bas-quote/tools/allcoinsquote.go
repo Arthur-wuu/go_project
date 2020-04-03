@@ -1,19 +1,19 @@
 package main
 
 import (
-	"BastionPay/bas-quote/common"
-	"fmt"
 	"BastionPay/bas-api/quote"
+	"BastionPay/bas-quote/common"
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
 func createXlsFile(filePath string, rowArr []interface{}, colNames []string) error {
-	xlsObj,err := common.NewXlsx(rowArr,colNames, nil)
+	xlsObj, err := common.NewXlsx(rowArr, colNames, nil)
 	if err != nil {
 		return err
 	}
-	if err = xlsObj.Generate() ; err != nil {
+	if err = xlsObj.Generate(); err != nil {
 		return err
 	}
 	if err = xlsObj.File(filePath); err != nil {
@@ -22,9 +22,8 @@ func createXlsFile(filePath string, rowArr []interface{}, colNames []string) err
 	return nil
 }
 
-
-func main(){
-	codesBytes,err := common.HttpSend("http://quote.rkuan.com/api/v1/coin/code", nil, "GET", nil)
+func main() {
+	codesBytes, err := common.HttpSend("http://quote.rkuan.com/api/v1/coin/code", nil, "GET", nil)
 	if err != nil {
 		fmt.Println("err=", err)
 		return
@@ -40,22 +39,22 @@ func main(){
 		return
 	}
 	rowArr := make([]interface{}, 0)
-	colNames := make([]string,0 )
-	colNames =append(colNames, "symbol")
-	colNames =append(colNames, "usd_price")
-	colNames =append(colNames, "valid")
-	colNames =append(colNames, "last_update_time")
-	for i:=0; i < len(codeList.Codes); i++ {
+	colNames := make([]string, 0)
+	colNames = append(colNames, "symbol")
+	colNames = append(colNames, "usd_price")
+	colNames = append(colNames, "valid")
+	colNames = append(colNames, "last_update_time")
+	for i := 0; i < len(codeList.Codes); i++ {
 		if codeList.Codes[i].Symbol == nil {
 			continue
 		}
-		fmt.Println("start ",i, *codeList.Codes[i].Symbol)
+		fmt.Println("start ", i, *codeList.Codes[i].Symbol)
 		symbol := *codeList.Codes[i].Symbol
 		valid := "valid"
 		if codeList.Codes[i].Valid == nil || *codeList.Codes[i].Valid == 0 {
 			valid = "in-valid"
 		}
-		quoteBytes,err := common.HttpSend("http://quote.rkuan.com/api/v1/coin/quote?from="+symbol+"&to=USD", nil, "GET", nil)
+		quoteBytes, err := common.HttpSend("http://quote.rkuan.com/api/v1/coin/quote?from="+symbol+"&to=USD", nil, "GET", nil)
 		if err != nil {
 			fmt.Println("err=", err)
 			return
@@ -70,15 +69,15 @@ func main(){
 			continue
 		}
 		if len(codequote.Quotes) <= 0 {
-			fmt.Println("err= noquote",symbol)
+			fmt.Println("err= noquote", symbol)
 			continue
 		}
-		if len(codequote.Quotes[0].MoneyInfos) == 0  {
+		if len(codequote.Quotes[0].MoneyInfos) == 0 {
 			fmt.Println("err= noquote", symbol)
 			continue
 		}
 		if codequote.Quotes[0].MoneyInfos[0].Price == nil {
-			fmt.Println("err= noquote",symbol)
+			fmt.Println("err= noquote", symbol)
 			continue
 		}
 		UpdateTime := ""

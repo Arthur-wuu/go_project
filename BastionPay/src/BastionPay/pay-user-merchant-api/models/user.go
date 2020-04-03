@@ -2,18 +2,18 @@ package models
 
 import (
 	backend "BastionPay/bas-api/apibackend/v1/backend"
-	"github.com/jinzhu/gorm"
 	"BastionPay/pay-user-merchant-api/db"
+	"github.com/jinzhu/gorm"
 )
 
 type User struct {
-	Id    *int64       `json:"ID,omitempty"  gorm:"AUTO_INCREMENT:1;column:ID;primary_key;not null"` //加上type:int(11)后AUTO_INCREMENT无效
+	Id *int64 `json:"ID,omitempty"  gorm:"AUTO_INCREMENT:1;column:ID;primary_key;not null"` //加上type:int(11)后AUTO_INCREMENT无效
 	//钱包服务uuid绑定
 	NickName string `gorm:"column:NICK_NAME;type:varchar(32)"`
 	// 公司名称
 	Company string `gorm:"column:COUNTRY;type:varchar(20)"`
 	// 手机
-	Phone string `gorm:"column:PHONE;type:varchar(50)"`
+	Phone   string `gorm:"column:PHONE;type:varchar(50)"`
 	Country string `gorm:"column:COUNTRY;type:varchar(20)"`
 	// 国家代码 国际电信联盟的国际电话区号(E.164)
 	PhonneDistrict string `gorm:"column:PHONE_DISTRICT;type:varchar(20)"`
@@ -24,14 +24,13 @@ type User struct {
 	// 语言
 	Language string `gorm:"column:LANGUA;type:varchar(20)"`
 	// 时区
-	Channnel  string  `gorm:"column:CHANNEL;type:varchar(30)"`
-	Ga        string  `gorm:"column:CHANNEL;type:varchar(30)"`
-	Email string `gorm:"-"`
-	VipLevel  uint8 `gorm:"-"`
-	CreateTime       *int64          `json:"create_time,omitempty"        gorm:"column:CREATE_TIME;type:varchar(255)"`
-	LastUpdateTime   *int64         `json:"last_update_time,omitempty"        gorm:"column:LAST_UPDATE_TIME;type:varchar(255)"`
+	Channnel       string `gorm:"column:CHANNEL;type:varchar(30)"`
+	Ga             string `gorm:"column:CHANNEL;type:varchar(30)"`
+	Email          string `gorm:"-"`
+	VipLevel       uint8  `gorm:"-"`
+	CreateTime     *int64 `json:"create_time,omitempty"        gorm:"column:CREATE_TIME;type:varchar(255)"`
+	LastUpdateTime *int64 `json:"last_update_time,omitempty"        gorm:"column:LAST_UPDATE_TIME;type:varchar(255)"`
 }
-
 
 func (this *User) GetById(id int64) (*User, error) {
 	user := &User{Id: &id}
@@ -65,7 +64,7 @@ func (this *User) GetByName(username string) (*User, error) {
 	user := &User{}
 	err := db.GDbMgr.Get().Where("email = ? OR phone = ?", username, username).First(&user).Error
 	if err == gorm.ErrRecordNotFound {
-		return nil,nil
+		return nil, nil
 	}
 	if err != nil {
 		return nil, err
@@ -78,12 +77,12 @@ func (this *User) GetByName(username string) (*User, error) {
 
 func (this *User) GetByPhone(countryCode, phone string) (*User, error) {
 	user := &User{
-		PhonneDistrict:countryCode,
-		Phone:phone,
+		PhonneDistrict: countryCode,
+		Phone:          phone,
 	}
 	err := db.GDbMgr.Get().Where(user).First(user).Error
 	if err == gorm.ErrRecordNotFound {
-		return nil,nil
+		return nil, nil
 	}
 	if err != nil {
 		return nil, err
@@ -148,7 +147,6 @@ func (u *User) UserExisted(username string) (bool, error) {
 //		return false, nil
 //	}
 //}
-
 
 func (u *User) SetLanguage(userId uint, language string) error {
 	if err := db.GDbMgr.Get().Model(&User{}).Where("ID = ?", userId).Update("language", language).Error; err != nil {
@@ -222,9 +220,9 @@ func (u *User) SetLevel(user_key string, vipLevel, valid int, expireAt int64) er
 		return err
 	}
 	ulv := &UserLevel{
-		UserKey: &user_key,
-		Level:  &vipLevel,
-		Valid:  &valid,
+		UserKey:  &user_key,
+		Level:    &vipLevel,
+		Valid:    &valid,
 		ExpireAt: &expireAt,
 	}
 	if err := tx.Model(&UserLevel{}).Save(ulv).Error; err != nil {

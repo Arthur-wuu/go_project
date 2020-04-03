@@ -15,8 +15,8 @@ import (
 
 const _sql = "select roomid, short_id,uid,uname,area,title,tags, mtime,a.ctime,try_time,user_cover,a.lock_status,hidden_status,attentions,live_time,area_v2_id,area_v2_parent_id,b.name as area_v2_name, virtual,round_status,on_flag,online, cover from ap_room a left join ap_room_area_v2 b on a.area_v2_id=b.id where roomid > %d order by roomid asc limit 100 "
 
-const hbaseTable   = "live:PushSearch"
-const hbaseFamily  = "search"
+const hbaseTable = "live:PushSearch"
+const hbaseFamily = "search"
 
 type message struct {
 	rowKey string
@@ -24,21 +24,20 @@ type message struct {
 }
 
 type MService struct {
-	c                  *conf.Config
-	dao                *migrate.Dao
-	hChan			   []chan *message
-	waiterChan			*sync.WaitGroup
-	mainWaiter			*sync.WaitGroup
+	c          *conf.Config
+	dao        *migrate.Dao
+	hChan      []chan *message
+	waiterChan *sync.WaitGroup
+	mainWaiter *sync.WaitGroup
 }
-
 
 func NewMigrateS(c *conf.Config) (s *MService) {
 	s = &MService{
-		c:   c,
-		dao: migrate.NewMigrate(c),
-		hChan: make([]chan *message, c.MigrateNum),
-		waiterChan:  new(sync.WaitGroup),
-		mainWaiter:  new(sync.WaitGroup),
+		c:          c,
+		dao:        migrate.NewMigrate(c),
+		hChan:      make([]chan *message, c.MigrateNum),
+		waiterChan: new(sync.WaitGroup),
+		mainWaiter: new(sync.WaitGroup),
 	}
 
 	//ap room 表 binlog qps 高, hash roomId 并行
@@ -51,7 +50,7 @@ func NewMigrateS(c *conf.Config) (s *MService) {
 	return s
 }
 
-func (ms *MService) Migrate (roomid string, isTest string) {
+func (ms *MService) Migrate(roomid string, isTest string) {
 
 	id, err := strconv.Atoi(roomid)
 	if err != nil {
@@ -94,7 +93,7 @@ func (ms *MService) Migrate (roomid string, isTest string) {
 				rowKey: rowKey,
 				values: values,
 			}
-			ms.hChan[r.RoomId % ms.c.MigrateNum] <- m
+			ms.hChan[r.RoomId%ms.c.MigrateNum] <- m
 			fmt.Println(r.RoomId)
 			if isTest == "1" {
 				return
@@ -127,11 +126,11 @@ func (ms *MService) Close() {
 	ms.waiterChan.Wait()
 	ms.dao.SearchHBase.Close()
 }
-func (ms *MService) rowKey(roomId int) string{
-	key := fmt.Sprintf("%d_%d", roomId % 10, roomId)
+func (ms *MService) rowKey(roomId int) string {
+	key := fmt.Sprintf("%d_%d", roomId%10, roomId)
 	return key
 }
-func (ms *MService) generateSearchInfo(new *model.TableField) (retByte map[string][]byte){
+func (ms *MService) generateSearchInfo(new *model.TableField) (retByte map[string][]byte) {
 	newByteMap := make(map[string][]byte)
 	newByteMap["id"] = []byte(strconv.Itoa(new.RoomId))
 	newByteMap["short_id"] = []byte(strconv.Itoa(new.ShortId))
@@ -188,14 +187,14 @@ func (ms *MService) generateSearchInfo(new *model.TableField) (retByte map[strin
 	cTimeStr := cTime.Format("2006-01-02 15:04:05")
 	if cTimeStr == "0001-01-01 00:00:00" {
 		new.CTime = "0000-00-00 00:00:00"
-	}else{
+	} else {
 		new.CTime = cTimeStr
 	}
 	mTime, _ := time.ParseInLocation("2006-01-02T15:04:05+08:00", new.MTime, time.Local)
 	mTimeStr := mTime.Format("2006-01-02 15:04:05")
 	if mTimeStr == "0001-01-01 00:00:00" {
 		new.MTime = "0000-00-00 00:00:00"
-	}else{
+	} else {
 		new.MTime = mTimeStr
 	}
 	newByteMap["lastupdate"] = []byte(ms.getLastUpdate(new))
@@ -205,12 +204,12 @@ func (ms *MService) generateSearchInfo(new *model.TableField) (retByte map[strin
 }
 
 //获取直播状态
-func (ms *MService) getLiveStatus(roomInfo *model.TableField) int{
+func (ms *MService) getLiveStatus(roomInfo *model.TableField) int {
 	if roomInfo.LiveTime != "0000-00-00 00:00:00" {
 		return 1
 	}
 
-	if roomInfo.RoundStatus == 1 && roomInfo.OnFlag == 1{
+	if roomInfo.RoundStatus == 1 && roomInfo.OnFlag == 1 {
 		return 2
 	}
 
@@ -218,14 +217,14 @@ func (ms *MService) getLiveStatus(roomInfo *model.TableField) int{
 }
 
 //获取房间最后更新时间
-func (ms *MService) getLastUpdate(roomInfo *model.TableField) string{
+func (ms *MService) getLastUpdate(roomInfo *model.TableField) string {
 	if roomInfo.MTime != "0000-00-00 00:00:00" {
 		return roomInfo.MTime
 	}
 	return roomInfo.CTime
 }
 
-func (ms *MService) getLockStatus(lockStatus string) int{
+func (ms *MService) getLockStatus(lockStatus string) int {
 	status := 0
 	if lockStatus != "0000-00-00 00:00:00" {
 		status = 1
@@ -233,11 +232,10 @@ func (ms *MService) getLockStatus(lockStatus string) int{
 	return status
 }
 
-func (ms *MService) getHiddenStatus(HiddenStatus string) int{
+func (ms *MService) getHiddenStatus(HiddenStatus string) int {
 	status := 0
 	if HiddenStatus != "0000-00-00 00:00:00" {
 		status = 1
 	}
 	return status
 }
-

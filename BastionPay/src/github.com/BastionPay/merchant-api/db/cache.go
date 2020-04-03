@@ -6,20 +6,19 @@ import (
 	"time"
 )
 
-
 var GCache Cache
 
-type Cache struct{
+type Cache struct {
 	AccountCache gcache.Cache
 	//VipListCache gcache.Cache
 	//VipDisableCache gcache.Cache
 }
 
-func (this * Cache)Init(){
-	GCache.AccountCache = gcache.New(config.GConfig.Cache.VipAuthMaxKey).LRU().Expiration(time.Duration(config.GConfig.Cache.VipAuthTimeout)*time.Second ).Build()
+func (this *Cache) Init() {
+	GCache.AccountCache = gcache.New(config.GConfig.Cache.VipAuthMaxKey).LRU().Expiration(time.Duration(config.GConfig.Cache.VipAuthTimeout) * time.Second).Build()
 }
 
-func (this * Cache) GetAccountCache(name string) (interface{}, error) {
+func (this *Cache) GetAccountCache(name string) (interface{}, error) {
 	//if this.AccountCache == nil {
 	//	return nil, errors.New("not init")
 	//}
@@ -31,9 +30,8 @@ func (this * Cache) GetAccountCache(name string) (interface{}, error) {
 	return value, nil
 }
 
-
-func (this * Cache) SetAccountCache(account, statu string ) {
-	this.AccountCache.SetWithExpire(account, statu, time.Second * time.Duration(config.GConfig.Cache.VipAuthMaxKey))
+func (this *Cache) SetAccountCache(account, statu string) {
+	this.AccountCache.SetWithExpire(account, statu, time.Second*time.Duration(config.GConfig.Cache.VipAuthMaxKey))
 }
 
 //func (this * Cache) GetVipList(key string) (interface{}, error) {

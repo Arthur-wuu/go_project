@@ -33,7 +33,7 @@ type WhiteList struct {
 func (this *WhiteList) Get(ctx iris.Context) {
 	param := new(models.WhiteListGet)
 
-	err := ctx.ReadJSON( param)
+	err := ctx.ReadJSON(param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
 		//ZapLog().Error( "param err", zap.Error(err))
@@ -47,11 +47,12 @@ func (this *WhiteList) Get(ctx iris.Context) {
 		ctx.JSON(Response{Code: apibackend.BASERR_OBJECT_EXISTS.Code(), Message: err.Error()})
 		return
 	}
-	arr := make([]string,0)
+	arr := make([]string, 0)
 	arr = append(arr, *data)
 
 	this.Response(ctx, arr)
 }
+
 //
 //
 //func (this *BkConfig) GetCoinList (ctx iris.Context) {

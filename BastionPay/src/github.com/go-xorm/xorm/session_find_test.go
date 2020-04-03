@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"xorm.io/core"
 	"github.com/stretchr/testify/assert"
+	"xorm.io/core"
 )
 
 func TestJoinLimit(t *testing.T) {

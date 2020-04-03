@@ -23,32 +23,31 @@ func ChangeLocalTime(localtime *time.Location) {
 }
 
 type Job struct {
-
-	funcs     map[string]interface{}
+	funcs map[string]interface{}
 
 	//函数参数集合
-	fparams   map[string]([]interface{})
+	fparams map[string]([]interface{})
 
 	//运行间隔 interval * unit 的时间段
-	interval  uint64
+	interval uint64
 
 	//作业调度的方法
-	job_func  string
+	job_func string
 
 	//时间单元
-	unit      string
+	unit string
 
 	//在什么时间调度运行
-	at_time   string
+	at_time string
 
 	//最近一次的执行时间
-	last_run  time.Time
+	last_run time.Time
 
 	//下一次的执行时间
-	next_run  time.Time
+	next_run time.Time
 
 	//运行周期
-	period    time.Duration
+	period time.Duration
 
 	//定义星期几开始
 	start_day time.Weekday
@@ -56,8 +55,8 @@ type Job struct {
 
 func NewJob(interval uint64) *Job {
 	return &Job{
-		funcs :  map[string]interface{}{},
-		fparams: map[string]([]interface{}){},
+		funcs:     map[string]interface{}{},
+		fparams:   map[string]([]interface{}){},
 		interval:  interval,
 		job_func:  "",
 		unit:      "",

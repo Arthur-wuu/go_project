@@ -1,15 +1,16 @@
 package search
 
 import (
-	"os"
 	"flag"
-	"testing"
 	"go-common/app/interface/main/reply/conf"
+	"os"
+	"testing"
 )
 
 var (
 	d *Dao
 )
+
 func TestMain(m *testing.M) {
 	if os.Getenv("DEPLOY_ENV") != "" {
 		flag.Set("app_id", "")
@@ -21,7 +22,7 @@ func TestMain(m *testing.M) {
 		flag.Set("conf_path", "/tmp")
 		flag.Set("region", "sh")
 		flag.Set("zone", "sh001")
-	}else{
+	} else {
 		flag.Set("conf", "../../cmd/reply-test.toml")
 	}
 	flag.Parse()

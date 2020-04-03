@@ -1,18 +1,18 @@
 package quote
 
 type MoneyInfo struct {
-	Id         *int             `json:"id,omitempty" doc:"币id"`
-	Symbol             *string `json:"symbol,omitempty" doc:"币简称"`
+	Id                 *int     `json:"id,omitempty" doc:"币id"`
+	Symbol             *string  `json:"symbol,omitempty" doc:"币简称"`
 	Price              *float64 `json:"price,omitempty" doc:"最新价"`
 	Volume_24h         *float64 `json:"volume_24h,omitempty" doc:"24小时成交量"`
 	Market_cap         *float64 `json:"market_cap,omitempty" doc:"总市值"`
 	Percent_change_1h  *float64 `json:"percent_change_1h,omitempty" doc:"1小时涨跌幅"`
 	Percent_change_24h *float64 `json:"percent_change_24h,omitempty" doc:"24小时涨跌幅"`
 	Percent_change_7d  *float64 `json:"percent_change_7d,omitempty" doc:"7天涨跌幅"`
-	Last_updated       *int64  `json:"last_updated,omitempty" doc:"最近更新时间"`
+	Last_updated       *int64   `json:"last_updated,omitempty" doc:"最近更新时间"`
 }
 
-func (this * MoneyInfo)GetSymbol()string {
+func (this *MoneyInfo) GetSymbol() string {
 	if this.Symbol == nil {
 		return ""
 	}
@@ -39,17 +39,17 @@ type CodeInfo struct {
 	Symbol       *string `json:"symbol,omitempty" doc:"币简称，行情查询采用该字段"`
 	Website_slug *string `json:"website_slug,omitempty" doc:"币相关网站信息"`
 	Timestamp    *int64  `json:"timestamp,omitempty" doc:"最近更新时间"`
-	Valid        *int  `json:"valid,omitempty"  doc:"是否有效"`
+	Valid        *int    `json:"valid,omitempty"  doc:"是否有效"`
 }
 
-func (this * CodeInfo)GetSymbol() string{
+func (this *CodeInfo) GetSymbol() string {
 	if this.Symbol == nil {
 		return ""
 	}
 	return *this.Symbol
 }
 
-func (this * CodeInfo)GetId() int{
+func (this *CodeInfo) GetId() int {
 	if this.Id == nil {
 		return 0
 	}
@@ -57,9 +57,9 @@ func (this * CodeInfo)GetId() int{
 }
 
 type QuoteDetailInfo struct {
-	Symbol     *string              `json:"symbol,omitempty" doc:"币简称"`
-	Id         *int                 `json:"id,omitempty" doc:"币id"`
-	MoneyInfos []*MoneyInfo         `json:"detail,omitempty" doc:"币行情数据"`
+	Symbol     *string      `json:"symbol,omitempty" doc:"币简称"`
+	Id         *int         `json:"id,omitempty" doc:"币id"`
+	MoneyInfos []*MoneyInfo `json:"detail,omitempty" doc:"币行情数据"`
 }
 
 func (this *QuoteDetailInfo) SetSymbol(s string) {
@@ -83,18 +83,18 @@ func (this *QuoteDetailInfo) AddMoneyInfo(info *MoneyInfo) {
 	this.MoneyInfos = append(this.MoneyInfos, info)
 }
 
-type ResMsg struct{
-	Err      int                 `json:"err" doc:"错误码。0成功；10001参数错误；其余错误"`
-	ErrMsg   *string             `json:"errmsg,omitempty" doc:"错误相关信息"`
-	Quotes   []*QuoteDetailInfo  `json:"quotes,omitempty" doc:"行情信息"`
-	Codes    []*CodeInfo         `json:"codes,omitempty" doc:"码表信息"`
+type ResMsg struct {
+	Err      int                  `json:"err" doc:"错误码。0成功；10001参数错误；其余错误"`
+	ErrMsg   *string              `json:"errmsg,omitempty" doc:"错误相关信息"`
+	Quotes   []*QuoteDetailInfo   `json:"quotes,omitempty" doc:"行情信息"`
+	Codes    []*CodeInfo          `json:"codes,omitempty" doc:"码表信息"`
 	Historys []*HistoryDetailInfo `json:"historys,omitempty" doc:"K线信息"`
-	Coins    *CoinInfo         `json:"coins,omitempty" doc:"码表信息"`
+	Coins    *CoinInfo            `json:"coins,omitempty" doc:"码表信息"`
 }
 
-type CoinInfo struct{
-	Digitals  []*CodeInfo         `json:"digital_coin,omitempty" doc:"码表信息"`
-	Legals    []*CodeInfo           `json:"legal_coin,omitempty" doc:"码表信息"`
+type CoinInfo struct {
+	Digitals []*CodeInfo `json:"digital_coin,omitempty" doc:"码表信息"`
+	Legals   []*CodeInfo `json:"legal_coin,omitempty" doc:"码表信息"`
 }
 
 func NewResMsg(e int, msg string) *ResMsg {
@@ -133,9 +133,9 @@ func (this *ResMsg) GenHistoryDetailInfo() *HistoryDetailInfo {
 }
 
 type HistoryDetailInfo struct {
-	Symbol     *string              `json:"symbol,omitempty" doc:"币简称"`
-	Id         *int                 `json:"id,omitempty" doc:"币id"`
-	KXianDetail  []*KXianDetail        `json:"kxian,omitempty" doc:"币行情数据"`
+	Symbol      *string        `json:"symbol,omitempty" doc:"币简称"`
+	Id          *int           `json:"id,omitempty" doc:"币id"`
+	KXianDetail []*KXianDetail `json:"kxian,omitempty" doc:"币行情数据"`
 }
 
 func (this *HistoryDetailInfo) AddKXianDetail() *KXianDetail {
@@ -147,78 +147,77 @@ func (this *HistoryDetailInfo) AddKXianDetail() *KXianDetail {
 	return k
 }
 
-func (this * HistoryDetailInfo) GetSymbol() string {
+func (this *HistoryDetailInfo) GetSymbol() string {
 	if this.Symbol == nil {
 		return ""
 	}
 	return *this.Symbol
 }
 
-func (this * HistoryDetailInfo) GetId() int {
+func (this *HistoryDetailInfo) GetId() int {
 	if this.Id == nil {
 		return 0
 	}
 	return *this.Id
 }
 
-type KXianDetail struct{
-	Symbol     *string              `json:"symbol,omitempty" doc:"币简称"`
-	KXians     []*KXian             `json:"detail,omitempty" doc:"币历史kxian数据"`
+type KXianDetail struct {
+	Symbol *string  `json:"symbol,omitempty" doc:"币简称"`
+	KXians []*KXian `json:"detail,omitempty" doc:"币历史kxian数据"`
 }
 
-func (this *KXianDetail)SetSymbol(s string){
+func (this *KXianDetail) SetSymbol(s string) {
 	if this.Symbol == nil {
 		this.Symbol = new(string)
 	}
 	*this.Symbol = s
 }
 
-
-type KXian struct{
-	Timestamp *int64   `json:"timestamp,omitempty"` //日期
-	OpenPrice *float64  `json:"open_price,omitempty"` //开盘价
+type KXian struct {
+	Timestamp  *int64   `json:"timestamp,omitempty"`   //日期
+	OpenPrice  *float64 `json:"open_price,omitempty"`  //开盘价
 	ClosePrice *float64 `json:"close_price,omitempty"` //收盘价
-	LastPrice *float64  `json:"last_price,omitempty"` //最新价
-	HighPrice *float64  `json:"high_price,omitempty"` //最高
-	LowPrice  *float64  `json:"low_price,omitempty"` //最低
+	LastPrice  *float64 `json:"last_price,omitempty"`  //最新价
+	HighPrice  *float64 `json:"high_price,omitempty"`  //最高
+	LowPrice   *float64 `json:"low_price,omitempty"`   //最低
 }
 
-func (this * KXian) GetTimestamp() int64 {
+func (this *KXian) GetTimestamp() int64 {
 	if this.Timestamp == nil {
 		return 0
 	}
 	return *this.Timestamp
 }
 
-func (this * KXian) GetOpenPrice() float64 {
+func (this *KXian) GetOpenPrice() float64 {
 	if this.OpenPrice == nil {
 		return 0
 	}
 	return *this.OpenPrice
 }
 
-func (this * KXian) GetClosePrice() float64 {
+func (this *KXian) GetClosePrice() float64 {
 	if this.ClosePrice == nil {
 		return 0
 	}
 	return *this.ClosePrice
 }
 
-func (this * KXian) GetLastPrice() float64 {
+func (this *KXian) GetLastPrice() float64 {
 	if this.LastPrice == nil {
 		return 0
 	}
 	return *this.LastPrice
 }
 
-func (this * KXian) GetHighPrice() float64 {
+func (this *KXian) GetHighPrice() float64 {
 	if this.HighPrice == nil {
 		return 0
 	}
 	return *this.HighPrice
 }
 
-func (this * KXian) GetLowPrice() float64 {
+func (this *KXian) GetLowPrice() float64 {
 	if this.Timestamp == nil {
 		return 0
 	}

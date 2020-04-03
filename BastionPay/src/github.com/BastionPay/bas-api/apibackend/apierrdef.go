@@ -96,65 +96,63 @@ const (
 	BASERR_ADMIN_INCORRECT_VERIFYCODE  EnumBasErr = BasMoreErrBegin + 2 //错误的验证码
 
 	//50-99
-	BASERR_BASNOTIFY_AWS_ERR                   EnumBasErr = BasMoreErrBegin + 50
-	BASERR_BASNOTIFY_LANCHUANG_ERR             EnumBasErr = BasMoreErrBegin + 51
-	BASERR_BASNOTIFY_TWL_ERR                   EnumBasErr = BasMoreErrBegin + 52
-	BASERR_BASNOTIFY_TEMPLATE_DEAD             EnumBasErr = BasMoreErrBegin + 53
-	BASERR_BASNOTIFY_RECIPIENT_EMPTY           EnumBasErr = BasMoreErrBegin + 54
-	BASERR_BASNOTIFY_TEMPLATE_PARSE_FAIL          EnumBasErr = BasMoreErrBegin + 55
-	BASERR_BASNOTIFY_Nexmo_ERR                   EnumBasErr = BasMoreErrBegin + 56
-	BASERR_BASNOTIFY_RongLianYun_ERR                   EnumBasErr = BasMoreErrBegin + 57
+	BASERR_BASNOTIFY_AWS_ERR                        EnumBasErr = BasMoreErrBegin + 50
+	BASERR_BASNOTIFY_LANCHUANG_ERR                  EnumBasErr = BasMoreErrBegin + 51
+	BASERR_BASNOTIFY_TWL_ERR                        EnumBasErr = BasMoreErrBegin + 52
+	BASERR_BASNOTIFY_TEMPLATE_DEAD                  EnumBasErr = BasMoreErrBegin + 53
+	BASERR_BASNOTIFY_RECIPIENT_EMPTY                EnumBasErr = BasMoreErrBegin + 54
+	BASERR_BASNOTIFY_TEMPLATE_PARSE_FAIL            EnumBasErr = BasMoreErrBegin + 55
+	BASERR_BASNOTIFY_Nexmo_ERR                      EnumBasErr = BasMoreErrBegin + 56
+	BASERR_BASNOTIFY_RongLianYun_ERR                EnumBasErr = BasMoreErrBegin + 57
 	BASERR_BASNOTIFY_DingDing_ERR                   EnumBasErr = BasMoreErrBegin + 58
-	BASERR_BASNOTIFY_DingDing_QunName_NotSet_ERR          EnumBasErr = BasMoreErrBegin + 59
-	BASERR_BASNOTIFY_DingDing_QunName_NotConfig_ERR          EnumBasErr = BasMoreErrBegin + 60
-
-
+	BASERR_BASNOTIFY_DingDing_QunName_NotSet_ERR    EnumBasErr = BasMoreErrBegin + 59
+	BASERR_BASNOTIFY_DingDing_QunName_NotConfig_ERR EnumBasErr = BasMoreErrBegin + 60
 
 	//1000-1049 红包裂变
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_NO_ON        EnumBasErr = BasMoreErrBegin + 1000 //活动未上线
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_HAS_OFF      EnumBasErr = BasMoreErrBegin + 1001 //活动已下线
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_NOFOUND      EnumBasErr = BasMoreErrBegin + 1002 //活动未上线
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_ZERO     EnumBasErr = BasMoreErrBegin + 1003 //活动红包抢完
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_EXISTS   EnumBasErr = BasMoreErrBegin + 1004 //活动红包已存在
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_NOFOUND  EnumBasErr = BasMoreErrBegin + 1005 //活动红包已存在
-	BASERR_ACTIVITY_FISSIONSHARE_RED_ROB_ZERO          EnumBasErr = BasMoreErrBegin + 1006 //红包名额抢完
-	BASERR_ACTIVITY_FISSIONSHARE_RED_TIMEOUT           EnumBasErr = BasMoreErrBegin + 1007 //红包过期
-	BASERR_ACTIVITY_FISSIONSHARE_RED_ROBBER_EXISTS     EnumBasErr = BasMoreErrBegin + 1008 //红包名额已存在
-	BASERR_ACTIVITY_FISSIONSHARE_ROBBER_TIMEOUT        EnumBasErr = BasMoreErrBegin + 1009 //红包抢到已过期
-	BASERR_ACTIVITY_FISSIONSHARE_ROBBER_NOFOUND        EnumBasErr = BasMoreErrBegin + 1010 //红包抢到已过期
-	BASERR_ACTIVITY_FISSIONSHARE_INCORRECT_PRECISION   EnumBasErr = BasMoreErrBegin + 1011 //活动精度设置有误
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_INVALID      EnumBasErr = BasMoreErrBegin + 1012 //活动无效
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_INVALID      EnumBasErr = BasMoreErrBegin + 1013 //活动红包无效
-	BASERR_ACTIVITY_FISSIONSHARE_SMS_INCORRECT_VERIFYCODE      EnumBasErr = BasMoreErrBegin + 1014 //错误的验证码
-	BASERR_ACTIVITY_FISSIONSHARE_SMS_VERIFYID_INVALID      EnumBasErr = BasMoreErrBegin + 1015 //无效验证ID
-	BASERR_ACTIVITY_FISSIONSHARE_ILLEGAL_APIKEY      EnumBasErr = BasMoreErrBegin + 1016 //非法APIKEY
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_NO_ON                   EnumBasErr = BasMoreErrBegin + 1000 //活动未上线
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_HAS_OFF                 EnumBasErr = BasMoreErrBegin + 1001 //活动已下线
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_NOFOUND                 EnumBasErr = BasMoreErrBegin + 1002 //活动未上线
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_ZERO                EnumBasErr = BasMoreErrBegin + 1003 //活动红包抢完
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_EXISTS              EnumBasErr = BasMoreErrBegin + 1004 //活动红包已存在
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_NOFOUND             EnumBasErr = BasMoreErrBegin + 1005 //活动红包已存在
+	BASERR_ACTIVITY_FISSIONSHARE_RED_ROB_ZERO                     EnumBasErr = BasMoreErrBegin + 1006 //红包名额抢完
+	BASERR_ACTIVITY_FISSIONSHARE_RED_TIMEOUT                      EnumBasErr = BasMoreErrBegin + 1007 //红包过期
+	BASERR_ACTIVITY_FISSIONSHARE_RED_ROBBER_EXISTS                EnumBasErr = BasMoreErrBegin + 1008 //红包名额已存在
+	BASERR_ACTIVITY_FISSIONSHARE_ROBBER_TIMEOUT                   EnumBasErr = BasMoreErrBegin + 1009 //红包抢到已过期
+	BASERR_ACTIVITY_FISSIONSHARE_ROBBER_NOFOUND                   EnumBasErr = BasMoreErrBegin + 1010 //红包抢到已过期
+	BASERR_ACTIVITY_FISSIONSHARE_INCORRECT_PRECISION              EnumBasErr = BasMoreErrBegin + 1011 //活动精度设置有误
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_INVALID                 EnumBasErr = BasMoreErrBegin + 1012 //活动无效
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_INVALID             EnumBasErr = BasMoreErrBegin + 1013 //活动红包无效
+	BASERR_ACTIVITY_FISSIONSHARE_SMS_INCORRECT_VERIFYCODE         EnumBasErr = BasMoreErrBegin + 1014 //错误的验证码
+	BASERR_ACTIVITY_FISSIONSHARE_SMS_VERIFYID_INVALID             EnumBasErr = BasMoreErrBegin + 1015 //无效验证ID
+	BASERR_ACTIVITY_FISSIONSHARE_ILLEGAL_APIKEY                   EnumBasErr = BasMoreErrBegin + 1016 //非法APIKEY
 	BASERR_ACTIVITY_FISSIONSHARE_ROBBER_TRANSFERFLAG_NOT_AFFECTED EnumBasErr = BasMoreErrBegin + 1017 //转账状态未改变
-	BASERR_ACTIVITY_FISSIONSHARE_RED_ROB_ZERO_AND_ROBED EnumBasErr = BasMoreErrBegin + 1018 //红包抢完，并且本人抢到
-	BASERR_ACTIVITY_FISSIONSHARE_SPONSOR_NOFOUND       EnumBasErr = BasMoreErrBegin + 1019 //未找到营销号
-	BASERR_ACTIVITY_FISSIONSHARE_ILLEGAL_IP      EnumBasErr = BasMoreErrBegin + 1020 //未找到营销号
+	BASERR_ACTIVITY_FISSIONSHARE_RED_ROB_ZERO_AND_ROBED           EnumBasErr = BasMoreErrBegin + 1018 //红包抢完，并且本人抢到
+	BASERR_ACTIVITY_FISSIONSHARE_SPONSOR_NOFOUND                  EnumBasErr = BasMoreErrBegin + 1019 //未找到营销号
+	BASERR_ACTIVITY_FISSIONSHARE_ILLEGAL_IP                       EnumBasErr = BasMoreErrBegin + 1020 //未找到营销号
 
 	//1050-1099 //抽奖
-	BASERR_MARKETING_LUCKDRAW_SPONSOR_NOFOUND       EnumBasErr = BasMoreErrBegin + 1050 //未找到营销号
-	BASERR_MARKETING_LUCKDRAW_SPONSOR_INVALID       EnumBasErr = BasMoreErrBegin + 1051 //未找到营销号
-	BASERR_MARKETING_LUCKDRAW_ILLEGAL_IP      		EnumBasErr = BasMoreErrBegin + 1052 //非法IP
-	BASERR_MARKETING_LUCKDRAW_ILLEGAL_APIKEY     	EnumBasErr = BasMoreErrBegin + 1053 //非法APIKEY
-	BASERR_MARKETING_LUCKDRAW_SMS_INCORRECT_VERIFYCODE      EnumBasErr = BasMoreErrBegin + 1054 //错误的验证码
-	BASERR_MARKETING_LUCKDRAW_SMS_VERIFYID_INVALID      EnumBasErr = BasMoreErrBegin + 1055 //无效验证ID
-	BASERR_MARKETING_LUCKDRAW_ACTIVITY_NO_ON        EnumBasErr = BasMoreErrBegin + 1060 //活动未上线
-	BASERR_MARKETING_LUCKDRAW_ACTIVITY_HAS_OFF      EnumBasErr = BasMoreErrBegin + 1061 //活动已下线
-	BASERR_MARKETING_LUCKDRAW_ACTIVITY_NOFOUND      EnumBasErr = BasMoreErrBegin + 1062 //活动未找到
-	BASERR_MARKETING_LUCKDRAW_ACTIVITY_INVALID      EnumBasErr = BasMoreErrBegin + 1063 //活动无效
-	BASERR_MARKETING_LUCKDRAW_INCORRECT_PRECISION   EnumBasErr = BasMoreErrBegin + 1064 //活动精度设置有误
-	BASERR_MARKETING_LUCKDRAW_AWARD_EXISTS   		EnumBasErr = BasMoreErrBegin + 1070 //活动奖品已存在
-	BASERR_MARKETING_LUCKDRAW_AWARD_NOFOUND  		EnumBasErr = BasMoreErrBegin + 1071 //活动奖品未找到
-	BASERR_MARKETING_LUCKDRAW_AWARD_INVALID         EnumBasErr = BasMoreErrBegin + 1072 //活动精度设置有误
-	BASERR_MARKETING_LUCKDRAW_DRAWER_ZERO           EnumBasErr = BasMoreErrBegin + 1075 //名额抢完
-	BASERR_MARKETING_LUCKDRAW_DRAWER_EXISTS         EnumBasErr = BasMoreErrBegin + 1076 //已抽过了
-	BASERR_MARKETING_LUCKDRAW_DRAWER_TIMEOUT        EnumBasErr = BasMoreErrBegin + 1077 //抽到的奖品过期
-	BASERR_MARKETING_LUCKDRAW_DRAWER_NOFOUND        EnumBasErr = BasMoreErrBegin + 1078 //未找到找到的奖品
-	BASERR_MARKETING_LUCKDRAW_DRAWER_INVALID        EnumBasErr = BasMoreErrBegin + 1079 //奖品无效
+	BASERR_MARKETING_LUCKDRAW_SPONSOR_NOFOUND                  EnumBasErr = BasMoreErrBegin + 1050 //未找到营销号
+	BASERR_MARKETING_LUCKDRAW_SPONSOR_INVALID                  EnumBasErr = BasMoreErrBegin + 1051 //未找到营销号
+	BASERR_MARKETING_LUCKDRAW_ILLEGAL_IP                       EnumBasErr = BasMoreErrBegin + 1052 //非法IP
+	BASERR_MARKETING_LUCKDRAW_ILLEGAL_APIKEY                   EnumBasErr = BasMoreErrBegin + 1053 //非法APIKEY
+	BASERR_MARKETING_LUCKDRAW_SMS_INCORRECT_VERIFYCODE         EnumBasErr = BasMoreErrBegin + 1054 //错误的验证码
+	BASERR_MARKETING_LUCKDRAW_SMS_VERIFYID_INVALID             EnumBasErr = BasMoreErrBegin + 1055 //无效验证ID
+	BASERR_MARKETING_LUCKDRAW_ACTIVITY_NO_ON                   EnumBasErr = BasMoreErrBegin + 1060 //活动未上线
+	BASERR_MARKETING_LUCKDRAW_ACTIVITY_HAS_OFF                 EnumBasErr = BasMoreErrBegin + 1061 //活动已下线
+	BASERR_MARKETING_LUCKDRAW_ACTIVITY_NOFOUND                 EnumBasErr = BasMoreErrBegin + 1062 //活动未找到
+	BASERR_MARKETING_LUCKDRAW_ACTIVITY_INVALID                 EnumBasErr = BasMoreErrBegin + 1063 //活动无效
+	BASERR_MARKETING_LUCKDRAW_INCORRECT_PRECISION              EnumBasErr = BasMoreErrBegin + 1064 //活动精度设置有误
+	BASERR_MARKETING_LUCKDRAW_AWARD_EXISTS                     EnumBasErr = BasMoreErrBegin + 1070 //活动奖品已存在
+	BASERR_MARKETING_LUCKDRAW_AWARD_NOFOUND                    EnumBasErr = BasMoreErrBegin + 1071 //活动奖品未找到
+	BASERR_MARKETING_LUCKDRAW_AWARD_INVALID                    EnumBasErr = BasMoreErrBegin + 1072 //活动精度设置有误
+	BASERR_MARKETING_LUCKDRAW_DRAWER_ZERO                      EnumBasErr = BasMoreErrBegin + 1075 //名额抢完
+	BASERR_MARKETING_LUCKDRAW_DRAWER_EXISTS                    EnumBasErr = BasMoreErrBegin + 1076 //已抽过了
+	BASERR_MARKETING_LUCKDRAW_DRAWER_TIMEOUT                   EnumBasErr = BasMoreErrBegin + 1077 //抽到的奖品过期
+	BASERR_MARKETING_LUCKDRAW_DRAWER_NOFOUND                   EnumBasErr = BasMoreErrBegin + 1078 //未找到找到的奖品
+	BASERR_MARKETING_LUCKDRAW_DRAWER_INVALID                   EnumBasErr = BasMoreErrBegin + 1079 //奖品无效
 	BASERR_MARKETING_LUCKDRAW_DRAWER_TRANSFERFLAG_NOT_AFFECTED EnumBasErr = BasMoreErrBegin + 1080 //转账状态未改变
-	BASERR_MARKETING_LUCKDRAW_ACTIVITY_HAS_ON      EnumBasErr = BasMoreErrBegin + 1081 //活动已开始
+	BASERR_MARKETING_LUCKDRAW_ACTIVITY_HAS_ON                  EnumBasErr = BasMoreErrBegin + 1081 //活动已开始
 
 )
 
@@ -208,7 +206,7 @@ var EnumBasErr_desc = map[EnumBasErr]string{
 	BASERR_OBJECT_DATA_NOT_FOUND: "SpecifiedObjectDataCannotBeFound",
 	BASERR_ACCOUNT_NOT_FOUND:     "AccountNotFound",
 	BASERR_OBJECT_DATA_SAME:      "ObjectDataSameAsOld",
-	BASERR_OBJECT_DATA_NULL:   	  "ObjectDataNull",
+	BASERR_OBJECT_DATA_NULL:      "ObjectDataNull",
 	BASERR_OBJECT_ZERO:           "ObjectIsZero",
 	BASERR_OPERATE_FREQUENT:      "OperateFrequentLimit",
 	BASERR_INCORRECT_FORMAT:      "IncorrectFormat",
@@ -236,64 +234,62 @@ var EnumBasErr_desc = map[EnumBasErr]string{
 	BASERR_ADMIN_INCORRECT_VERIFYCODE:  "IncorrectVerifyCode",
 
 	//短信邮件模板程序
-	BASERR_BASNOTIFY_AWS_ERR:                     "BasNotifyAwsErr",
-	BASERR_BASNOTIFY_LANCHUANG_ERR:               "BasNotifyLanChuangErr",
-	BASERR_BASNOTIFY_TWL_ERR:                     "BasNotifyTwiliErr",
-	BASERR_BASNOTIFY_TEMPLATE_DEAD:               "BasNotifyTemplateDead",
-	BASERR_BASNOTIFY_RECIPIENT_EMPTY:             "BasNotifyRecipientEmpty",
-	BASERR_BASNOTIFY_TEMPLATE_PARSE_FAIL:         "BasNotifyTemplateParseFail",
-	BASERR_BASNOTIFY_Nexmo_ERR:                   "BasNotifyNexmoErr",
-	BASERR_BASNOTIFY_RongLianYun_ERR:             "BasNotifyRongLianYunErr",
-	BASERR_BASNOTIFY_DingDing_ERR:                "BasNotifyDingDingErr",
-	BASERR_BASNOTIFY_DingDing_QunName_NotSet_ERR:        "BasNotifyDingDingQunNameNotSetErr",
-	BASERR_BASNOTIFY_DingDing_QunName_NotConfig_ERR:      "BasNotifyDingDingQunNameNotConfigErr",
-
-
+	BASERR_BASNOTIFY_AWS_ERR:                        "BasNotifyAwsErr",
+	BASERR_BASNOTIFY_LANCHUANG_ERR:                  "BasNotifyLanChuangErr",
+	BASERR_BASNOTIFY_TWL_ERR:                        "BasNotifyTwiliErr",
+	BASERR_BASNOTIFY_TEMPLATE_DEAD:                  "BasNotifyTemplateDead",
+	BASERR_BASNOTIFY_RECIPIENT_EMPTY:                "BasNotifyRecipientEmpty",
+	BASERR_BASNOTIFY_TEMPLATE_PARSE_FAIL:            "BasNotifyTemplateParseFail",
+	BASERR_BASNOTIFY_Nexmo_ERR:                      "BasNotifyNexmoErr",
+	BASERR_BASNOTIFY_RongLianYun_ERR:                "BasNotifyRongLianYunErr",
+	BASERR_BASNOTIFY_DingDing_ERR:                   "BasNotifyDingDingErr",
+	BASERR_BASNOTIFY_DingDing_QunName_NotSet_ERR:    "BasNotifyDingDingQunNameNotSetErr",
+	BASERR_BASNOTIFY_DingDing_QunName_NotConfig_ERR: "BasNotifyDingDingQunNameNotConfigErr",
 
 	//裂变活动
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_NO_ON:       "ActivityFissionShareActivityNotOn",
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_HAS_OFF:     "ActivityFissionShareActivityHasOff",
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_ZERO:    "ActivityFissionShareActivityRedZero",
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_NOFOUND:     "ActivityFissionShareActivityNoFound",
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_EXISTS:  "ActivityFissionShareActivityRedExists",
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_NOFOUND: "ActivityFissionShareActivityRedNoFound",
-	BASERR_ACTIVITY_FISSIONSHARE_RED_ROB_ZERO:      "ActivityFissionShareRedRobZero",
-	BASERR_ACTIVITY_FISSIONSHARE_RED_TIMEOUT:       "ActivityFissionShareRedTimeout",
-	BASERR_ACTIVITY_FISSIONSHARE_RED_ROBBER_EXISTS: "ActivityFissionShareRedRobberExists",
-	BASERR_ACTIVITY_FISSIONSHARE_ROBBER_TIMEOUT:    "ActivityFissionShareRobberTimeout",
-	BASERR_ACTIVITY_FISSIONSHARE_ROBBER_NOFOUND:   "ActivityFissionShareRobberNoFound",
-	BASERR_ACTIVITY_FISSIONSHARE_INCORRECT_PRECISION : "ActivityFissionShareIncorrectPrecision",
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_INVALID: "ActivityFissionShareActivityInvalid",
-	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_INVALID: "ActivityFissionShareActivityRedInvalid",
-	BASERR_ACTIVITY_FISSIONSHARE_SMS_INCORRECT_VERIFYCODE: "ActivityFissionShareSmsIncorrectVerifyCode",
-	BASERR_ACTIVITY_FISSIONSHARE_SMS_VERIFYID_INVALID: "ActivityFissionShareSmsVerifyIdInvalid",
-	BASERR_ACTIVITY_FISSIONSHARE_ILLEGAL_APIKEY: "ActivityFissionShareIllegalApiKey",
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_NO_ON:                   "ActivityFissionShareActivityNotOn",
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_HAS_OFF:                 "ActivityFissionShareActivityHasOff",
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_ZERO:                "ActivityFissionShareActivityRedZero",
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_NOFOUND:                 "ActivityFissionShareActivityNoFound",
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_EXISTS:              "ActivityFissionShareActivityRedExists",
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_NOFOUND:             "ActivityFissionShareActivityRedNoFound",
+	BASERR_ACTIVITY_FISSIONSHARE_RED_ROB_ZERO:                     "ActivityFissionShareRedRobZero",
+	BASERR_ACTIVITY_FISSIONSHARE_RED_TIMEOUT:                      "ActivityFissionShareRedTimeout",
+	BASERR_ACTIVITY_FISSIONSHARE_RED_ROBBER_EXISTS:                "ActivityFissionShareRedRobberExists",
+	BASERR_ACTIVITY_FISSIONSHARE_ROBBER_TIMEOUT:                   "ActivityFissionShareRobberTimeout",
+	BASERR_ACTIVITY_FISSIONSHARE_ROBBER_NOFOUND:                   "ActivityFissionShareRobberNoFound",
+	BASERR_ACTIVITY_FISSIONSHARE_INCORRECT_PRECISION:              "ActivityFissionShareIncorrectPrecision",
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_INVALID:                 "ActivityFissionShareActivityInvalid",
+	BASERR_ACTIVITY_FISSIONSHARE_ACTIVITY_RED_INVALID:             "ActivityFissionShareActivityRedInvalid",
+	BASERR_ACTIVITY_FISSIONSHARE_SMS_INCORRECT_VERIFYCODE:         "ActivityFissionShareSmsIncorrectVerifyCode",
+	BASERR_ACTIVITY_FISSIONSHARE_SMS_VERIFYID_INVALID:             "ActivityFissionShareSmsVerifyIdInvalid",
+	BASERR_ACTIVITY_FISSIONSHARE_ILLEGAL_APIKEY:                   "ActivityFissionShareIllegalApiKey",
 	BASERR_ACTIVITY_FISSIONSHARE_ROBBER_TRANSFERFLAG_NOT_AFFECTED: "ActivityFissionShareRobberTransferFlagNotAffected",
-	BASERR_ACTIVITY_FISSIONSHARE_RED_ROB_ZERO_AND_ROBED: "ActivityFissionShareRedRobZeroAndSelfRobed",
-	BASERR_ACTIVITY_FISSIONSHARE_SPONSOR_NOFOUND: "ActivityFissionShareSponsorNoFound",
-	BASERR_ACTIVITY_FISSIONSHARE_ILLEGAL_IP: "ActivityFissionShareIllegalIp",
+	BASERR_ACTIVITY_FISSIONSHARE_RED_ROB_ZERO_AND_ROBED:           "ActivityFissionShareRedRobZeroAndSelfRobed",
+	BASERR_ACTIVITY_FISSIONSHARE_SPONSOR_NOFOUND:                  "ActivityFissionShareSponsorNoFound",
+	BASERR_ACTIVITY_FISSIONSHARE_ILLEGAL_IP:                       "ActivityFissionShareIllegalIp",
 
 	//抽奖活动
-	BASERR_MARKETING_LUCKDRAW_SPONSOR_NOFOUND: "MarketingLuckDrawSponsorNoFound",
-	BASERR_MARKETING_LUCKDRAW_SPONSOR_INVALID: "MarketingLuckDrawSponsorInvalid",
-	BASERR_MARKETING_LUCKDRAW_ILLEGAL_IP: "MarketingLuckDrawIllegalIp",
-	BASERR_MARKETING_LUCKDRAW_ILLEGAL_APIKEY: "MarketingLuckDrawIllegalApikey",
-	BASERR_MARKETING_LUCKDRAW_SMS_INCORRECT_VERIFYCODE: "MarketingLuckDrawSmsIncorrectVerifycode",
-	BASERR_MARKETING_LUCKDRAW_SMS_VERIFYID_INVALID: "MarketingLuckDrawSmsVerifyIdInvalid",
-	BASERR_MARKETING_LUCKDRAW_ACTIVITY_NO_ON: "MarketingLuckDrawActivityNoOn",
-	BASERR_MARKETING_LUCKDRAW_ACTIVITY_HAS_OFF: "MarketingLuckDrawActivityHasOff",
-	BASERR_MARKETING_LUCKDRAW_ACTIVITY_NOFOUND: "MarketingLuckDrawActivityNoFound",
-	BASERR_MARKETING_LUCKDRAW_AWARD_EXISTS: "MarketingLuckDrawAwardExists",
-	BASERR_MARKETING_LUCKDRAW_AWARD_NOFOUND: "MarketingLuckDrawAwardNoFound",
-	BASERR_MARKETING_LUCKDRAW_ACTIVITY_INVALID: "MarketingLuckDrawActivityInValid",
-	BASERR_MARKETING_LUCKDRAW_INCORRECT_PRECISION: "MarketingLuckDrawIncorrectPrecision",
-	BASERR_MARKETING_LUCKDRAW_DRAWER_ZERO: "MarketingLuckDrawDrawerZero",
-	BASERR_MARKETING_LUCKDRAW_DRAWER_EXISTS: "MarketingLuckDrawDrawerExists",
-	BASERR_MARKETING_LUCKDRAW_DRAWER_TIMEOUT: "MarketingLuckDrawDrawerTimeout",
-	BASERR_MARKETING_LUCKDRAW_DRAWER_NOFOUND: "MarketingLuckDrawDrawerNoFound",
-	BASERR_MARKETING_LUCKDRAW_DRAWER_INVALID: "MarketingLuckDrawDrawerInvalid",
+	BASERR_MARKETING_LUCKDRAW_SPONSOR_NOFOUND:                  "MarketingLuckDrawSponsorNoFound",
+	BASERR_MARKETING_LUCKDRAW_SPONSOR_INVALID:                  "MarketingLuckDrawSponsorInvalid",
+	BASERR_MARKETING_LUCKDRAW_ILLEGAL_IP:                       "MarketingLuckDrawIllegalIp",
+	BASERR_MARKETING_LUCKDRAW_ILLEGAL_APIKEY:                   "MarketingLuckDrawIllegalApikey",
+	BASERR_MARKETING_LUCKDRAW_SMS_INCORRECT_VERIFYCODE:         "MarketingLuckDrawSmsIncorrectVerifycode",
+	BASERR_MARKETING_LUCKDRAW_SMS_VERIFYID_INVALID:             "MarketingLuckDrawSmsVerifyIdInvalid",
+	BASERR_MARKETING_LUCKDRAW_ACTIVITY_NO_ON:                   "MarketingLuckDrawActivityNoOn",
+	BASERR_MARKETING_LUCKDRAW_ACTIVITY_HAS_OFF:                 "MarketingLuckDrawActivityHasOff",
+	BASERR_MARKETING_LUCKDRAW_ACTIVITY_NOFOUND:                 "MarketingLuckDrawActivityNoFound",
+	BASERR_MARKETING_LUCKDRAW_AWARD_EXISTS:                     "MarketingLuckDrawAwardExists",
+	BASERR_MARKETING_LUCKDRAW_AWARD_NOFOUND:                    "MarketingLuckDrawAwardNoFound",
+	BASERR_MARKETING_LUCKDRAW_ACTIVITY_INVALID:                 "MarketingLuckDrawActivityInValid",
+	BASERR_MARKETING_LUCKDRAW_INCORRECT_PRECISION:              "MarketingLuckDrawIncorrectPrecision",
+	BASERR_MARKETING_LUCKDRAW_DRAWER_ZERO:                      "MarketingLuckDrawDrawerZero",
+	BASERR_MARKETING_LUCKDRAW_DRAWER_EXISTS:                    "MarketingLuckDrawDrawerExists",
+	BASERR_MARKETING_LUCKDRAW_DRAWER_TIMEOUT:                   "MarketingLuckDrawDrawerTimeout",
+	BASERR_MARKETING_LUCKDRAW_DRAWER_NOFOUND:                   "MarketingLuckDrawDrawerNoFound",
+	BASERR_MARKETING_LUCKDRAW_DRAWER_INVALID:                   "MarketingLuckDrawDrawerInvalid",
 	BASERR_MARKETING_LUCKDRAW_DRAWER_TRANSFERFLAG_NOT_AFFECTED: "MarketingLuckDrawDrawerTransferflagNotAffected",
-	BASERR_MARKETING_LUCKDRAW_AWARD_INVALID: "MarketingLuckDrawAwardInvalid",
+	BASERR_MARKETING_LUCKDRAW_AWARD_INVALID:                    "MarketingLuckDrawAwardInvalid",
 }
 
 func (x EnumBasErr) Code() int {
@@ -525,13 +521,13 @@ const (
 	ErrAccountSrvBindChildUser = 11108
 
 	// custodian info
-	ErrAccountSrvListUserCustodianInfo = 11109
+	ErrAccountSrvListUserCustodianInfo              = 11109
 	ErrAccountSrvUserAssetCustodianInfoAlreadyExist = 11110
-	ErrAccountSrvUserAssetCustodianInfoNotExist = 11111
-	ErrAccountSrvUserAssetCustodianFeeLimit = 11112
-	ErrAccountSrvAddUserAssetCustodianInfo = 11113
-	ErrAccountSrvUpdateUserAssetCustodianInfo = 11114
-	ErrAccountSrvDelUserAssetCustodianInfo = 11115
+	ErrAccountSrvUserAssetCustodianInfoNotExist     = 11111
+	ErrAccountSrvUserAssetCustodianFeeLimit         = 11112
+	ErrAccountSrvAddUserAssetCustodianInfo          = 11113
+	ErrAccountSrvUpdateUserAssetCustodianInfo       = 11114
+	ErrAccountSrvDelUserAssetCustodianInfo          = 11115
 
 	// /////////////////////////////////////////////////////
 	// 11201-11300 auth_srv errors

@@ -1,21 +1,21 @@
 package lancerlogstream
 
 import (
-	"context"
-	"fmt"
 	"bytes"
-	"sync"
+	"context"
 	"encoding/binary"
+	"fmt"
 	"strconv"
+	"sync"
 	"time"
 
 	"go-common/app/service/ops/log-agent/event"
 	"go-common/app/service/ops/log-agent/output"
-	"go-common/app/service/ops/log-agent/pkg/flowmonitor"
-	"go-common/app/service/ops/log-agent/pkg/common"
 	"go-common/app/service/ops/log-agent/output/cache/file"
-	"go-common/library/log"
+	"go-common/app/service/ops/log-agent/pkg/common"
+	"go-common/app/service/ops/log-agent/pkg/flowmonitor"
 	"go-common/app/service/ops/log-agent/pkg/lancermonitor"
+	"go-common/library/log"
 )
 
 const (
@@ -95,7 +95,7 @@ func NewLancer(ctx context.Context, config interface{}) (output.Output, error) {
 	return lancer, nil
 }
 
-func (l *Lancer) InputChan() (chan *event.ProcessorEvent) {
+func (l *Lancer) InputChan() chan *event.ProcessorEvent {
 	return l.i
 }
 
@@ -167,7 +167,6 @@ func (l *Lancer) parseOpslog(e *event.ProcessorEvent) {
 		}
 	}
 }
-
 
 // sendLogDirectToLancer send log direct to lancer without aggr
 func (l *Lancer) sendLogDirectToLancer(e *event.ProcessorEvent) {

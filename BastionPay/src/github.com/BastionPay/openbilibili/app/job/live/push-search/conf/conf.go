@@ -15,9 +15,9 @@ import (
 	"go-common/library/net/trace"
 
 	"github.com/BurntSushi/toml"
-	"go-common/library/queue/databus"
 	"go-common/library/database/hbase.v2"
 	"go-common/library/net/rpc/liverpc"
+	"go-common/library/queue/databus"
 	xtime "go-common/library/time"
 )
 
@@ -43,27 +43,27 @@ type Config struct {
 	DataBus     *DataBus
 	Group       *Group
 	SearchHBase *hbaseConf
-	MigrateNum	int
+	MigrateNum  int
 }
 
 type DataBus struct {
-	RoomInfo *databus.Config
-	Attention *databus.Config
-	UserName *databus.Config
+	RoomInfo   *databus.Config
+	Attention  *databus.Config
+	UserName   *databus.Config
 	PushSearch *databus.Config
 }
 
 // Group group.
 type Group struct {
-	RoomInfo *GroupConf
+	RoomInfo  *GroupConf
 	Attention *GroupConf
-	UserInfo *GroupConf
+	UserInfo  *GroupConf
 }
 
 // GroupConf group conf.
 type GroupConf struct {
-	Num    int
-	Chan   int
+	Num  int
+	Chan int
 }
 
 type hbaseConf struct {

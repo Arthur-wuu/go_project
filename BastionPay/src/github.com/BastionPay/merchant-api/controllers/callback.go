@@ -39,7 +39,6 @@ import (
 //-----END PUBLIC KEY-----
 //`)
 
-
 var proServerPubByte = []byte(`
 -----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhQ8CGW4m9itPq0MCmOhLpbF
@@ -54,7 +53,6 @@ gMjf6xn1vLv5WBGmLQxKnG6tppbFe0xg5i7YkJDwC5VBIphgE1wIDAQAB
 type (
 	CallBacker struct {
 		Controllers
-
 	}
 )
 
@@ -105,23 +103,23 @@ type (
 //
 //}
 
-type NotifyParam struct{
-	TradeNo           *string   `json:"tradeOrderNo,omitempty"`
-	Assets            *string   `json:"assets,omitempty"`
-	Amount            *string   `json:"amount,omitempty"`
-	MerchantOrderNo   *string   `json:"merchantOrderNo,omitempty"`
-	Status            *string   `json:"status,omitempty"`
-	Signature         *string   `json:"signature,omitempty"`
+type NotifyParam struct {
+	TradeNo         *string `json:"tradeOrderNo,omitempty"`
+	Assets          *string `json:"assets,omitempty"`
+	Amount          *string `json:"amount,omitempty"`
+	MerchantOrderNo *string `json:"merchantOrderNo,omitempty"`
+	Status          *string `json:"status,omitempty"`
+	Signature       *string `json:"signature,omitempty"`
 }
 
 func (this *CallBacker) Notify(ctx iris.Context) {
 
-	paramMap := make(map[string][]string,6)
+	paramMap := make(map[string][]string, 6)
 
 	bodyBytes, err := ioutil.ReadAll(ctx.Request().Body)
 	paramMap, err = url.ParseQuery(string(bodyBytes))
 
-	ZapLog().Info( "notify params:", zap.Any("paramMap",paramMap))
+	ZapLog().Info("notify params:", zap.Any("paramMap", paramMap))
 
 	amount := paramMap["amount"][0]
 	assets := paramMap["assets"][0]
@@ -131,56 +129,56 @@ func (this *CallBacker) Notify(ctx iris.Context) {
 	merchantOrderNo := paramMap["merchantOrderNo"][0]
 
 	//fmt.Println("param**",amount,assets,status)
-	ZapLog().Info( "order status:", zap.String("status",status))
+	ZapLog().Info("order status:", zap.String("status", status))
 	this.Response(ctx, "succ")
 
 	reqBodySign, _ := json.Marshal(map[string]interface{}{
-		"amount": amount,
-		"assets": assets,
-		"status": status,
-		"tradeOrderNo": tradeOrderNo,
+		"amount":          amount,
+		"assets":          assets,
+		"status":          status,
+		"tradeOrderNo":    tradeOrderNo,
 		"merchantOrderNo": merchantOrderNo,
 	})
 
 	signStr := baspay.RequestBodyToSignStr(reqBodySign)
 	decodeSign, err := base64.StdEncoding.DecodeString(signature)
 	if err != nil {
-		ZapLog().Error( "base64 decoding err, notify end", zap.Error(err))
+		ZapLog().Error("base64 decoding err, notify end", zap.Error(err))
 		return
 	}
 	//这里对比两个签名
 	err = VerifySign(proServerPubByte, []byte(signStr), decodeSign)
 	if err != nil {
-		ZapLog().Error( "VerifySign err, notify end", zap.Error(err))
+		ZapLog().Error("VerifySign err, notify end", zap.Error(err))
 		return
 	}
-	ZapLog().Info( "VerifySign succ")
+	ZapLog().Info("VerifySign succ")
 
 	if status == "3" {
 		//支付成功，根据订单号去更新表的状态，然好查询机器的id，币数量
-		bool, err := new(models.Trade).UpdateRowsAffected( merchantOrderNo, models.EUM_TRANSFER_STATUS_SUCCESS)
+		bool, err := new(models.Trade).UpdateRowsAffected(merchantOrderNo, models.EUM_TRANSFER_STATUS_SUCCESS)
 		if err != nil {
-			ZapLog().Error( " update by tradeNo err, notify end", zap.Error(err))
+			ZapLog().Error(" update by tradeNo err, notify end", zap.Error(err))
 			ctx.JSON(Response{Code: 10010, Message: err.Error()})
 			return
 		}
 		if bool == false {
-			ZapLog().Error( "update 0 rows, notify end", zap.Error(err))
-			ctx.JSON(Response{Code: 10010, Message:"too many notifys"})
+			ZapLog().Error("update 0 rows, notify end", zap.Error(err))
+			ctx.JSON(Response{Code: 10010, Message: "too many notifys"})
 			return
 		}
 		//game := new(device.Game)
 		//查数据库，把订单号对应的机器id放进来就可以了
 		deviceId, gameCoin, err := new(models.Trade).GetDeviceId(nil, merchantOrderNo)
 
-		if gameCoin == "" || len(gameCoin) == 0  {
-			ZapLog().Info( "game coin nill")
+		if gameCoin == "" || len(gameCoin) == 0 {
+			ZapLog().Info("game coin nill")
 			return
 		}
-		ZapLog().Info( "deviceId:", zap.Any("deviceId",deviceId))
+		ZapLog().Info("deviceId:", zap.Any("deviceId", deviceId))
 
 		if err != nil {
-			ZapLog().Error( "get device id err, notify end", zap.Error(err))
+			ZapLog().Error("get device id err, notify end", zap.Error(err))
 			return
 		}
 
@@ -190,54 +188,51 @@ func (this *CallBacker) Notify(ctx iris.Context) {
 		devices := device.GDeviceMgr.Get(deviceId)
 		err = devices.Send(gameCoin)
 		if err != nil {
-			ZapLog().Error( "send coin to machine fail, notify end", zap.Error(err))
+			ZapLog().Error("send coin to machine fail, notify end", zap.Error(err))
 			//ctx.JSON(Response{Code: apibackend.BASERR_DATABASE_ERROR.Code(), Message: err.Error()})
 			return
 		}
-		ZapLog().Info( "send coin finish···")
+		ZapLog().Info("send coin finish···")
 		//this.Response(ctx, "succ")
 		return
 
-	}else{
+	} else {
 		//更新表里的状态
 		err := new(models.Trade).UpdateTransferStatusByTradeNo(nil, merchantOrderNo, models.EUM_TRANSFER_STATUS_FAIL)
 		if err != nil {
-			ZapLog().Error( "fail update by tradeNo err, notify end", zap.Error(err))
+			ZapLog().Error("fail update by tradeNo err, notify end", zap.Error(err))
 			//ctx.JSON(Response{Code: apibackend.BASERR_DATABASE_ERROR.Code(), Message: err.Error()})
 			return
 		}
 	}
 
-
-
-
 	//可用chan，redis来存储，方式消息处理过慢
-	{// 退款成功，退款失败。是不是 有退款限制啊？？？
+	{ // 退款成功，退款失败。是不是 有退款限制啊？？？
 	}
 
-	{// 提币成功，提币失败
+	{ // 提币成功，提币失败
 	}
 
 	this.Response(ctx, nil)
 
 }
 
-func VerifySign (signingPubKey, signStr,sign []byte) error {
+func VerifySign(signingPubKey, signStr, sign []byte) error {
 	block, _ := pem.Decode(signingPubKey)
 	if block == nil {
-		ZapLog().Error( "block err")
+		ZapLog().Error("block err")
 		return errors.New("block err")
 	}
 
 	key, err := x509.ParsePKIXPublicKey(block.Bytes)
 	if err != nil {
-		ZapLog().Error( "pub key err", zap.Error(err))
+		ZapLog().Error("pub key err", zap.Error(err))
 		return err
 	}
 
 	rsaPubKey, ok := key.(*rsa.PublicKey)
 	if !ok {
-		ZapLog().Error( "pubkey get err", zap.Error(err))
+		ZapLog().Error("pubkey get err", zap.Error(err))
 		return errors.New("pubkey get err")
 	}
 
@@ -247,8 +242,8 @@ func VerifySign (signingPubKey, signStr,sign []byte) error {
 
 	err = rsa.VerifyPKCS1v15(rsaPubKey, crypto.SHA1, digest, sign)
 	if err != nil {
-		ZapLog().Error( "send coin to machine fail, notify end", zap.Error(err))
+		ZapLog().Error("send coin to machine fail, notify end", zap.Error(err))
 		return err
 	}
-	return  nil
+	return nil
 }

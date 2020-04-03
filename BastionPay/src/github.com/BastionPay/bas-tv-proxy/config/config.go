@@ -1,11 +1,11 @@
 package config
 
 import (
+	"errors"
 	"fmt"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"strings"
-	"errors"
 )
 
 var GConfig Config
@@ -27,16 +27,16 @@ func LoadConfig(path string) *Config {
 
 func PreProcess() error {
 	if GPreConfig.MarketMap == nil {
-		GPreConfig.MarketMap = make(map[string] *Market)
+		GPreConfig.MarketMap = make(map[string]*Market)
 	}
 	if GPreConfig.CoinDetailMap == nil {
-		GPreConfig.CoinDetailMap = make(map[string] *CoinDetail)
+		GPreConfig.CoinDetailMap = make(map[string]*CoinDetail)
 	}
 	if GPreConfig.Markets == nil {
 		GPreConfig.Markets = make([]string, 0)
 	}
-	marketArr := make([]*Market,0)
-	for i:=0; i < len(GConfig.Markets); i++ {
+	marketArr := make([]*Market, 0)
+	for i := 0; i < len(GConfig.Markets); i++ {
 		AbbArr := strings.Split(strings.TrimRight(strings.ToUpper(strings.Replace(GConfig.Markets[i].Abb, " ", "", -1)), ","), ",")
 		NameArr := strings.Split(strings.TrimRight(strings.ToUpper(strings.Replace(GConfig.Markets[i].Name, " ", "", -1)), ","), ",")
 		zhNameArr := strings.Split(strings.TrimRight(strings.ToUpper(strings.Replace(GConfig.Markets[i].ZhName, " ", "", -1)), ","), ",")
@@ -47,9 +47,9 @@ func PreProcess() error {
 			fmt.Println(zhNameArr)
 			fmt.Println(webInfoArr)
 
-			return errors.New("Markets config err "+ fmt.Sprintf("%v %v %v %v", len(AbbArr), len(NameArr), len(zhNameArr), len(webInfoArr)))
+			return errors.New("Markets config err " + fmt.Sprintf("%v %v %v %v", len(AbbArr), len(NameArr), len(zhNameArr), len(webInfoArr)))
 		}
-		for j:=0; j < len(AbbArr); j++ {
+		for j := 0; j < len(AbbArr); j++ {
 			market := new(Market)
 			market.Abb = AbbArr[j]
 			market.Name = NameArr[j]
@@ -62,18 +62,18 @@ func PreProcess() error {
 	}
 	GConfig.Markets = marketArr
 
-	coinDetailArr := make([]*CoinDetail,0)
-	for i:=0; i < len(GConfig.CoinDetails); i++ {
+	coinDetailArr := make([]*CoinDetail, 0)
+	for i := 0; i < len(GConfig.CoinDetails); i++ {
 		NameArr := strings.Split(strings.TrimRight(strings.ToUpper(strings.Replace(GConfig.CoinDetails[i].Name, " ", "", -1)), ","), ",")
 		zhNameArr := strings.Split(strings.TrimRight(strings.ToUpper(strings.Replace(GConfig.CoinDetails[i].ZhName, " ", "", -1)), ","), ",")
 		pinyinArr := strings.Split(strings.TrimRight(strings.ToUpper(strings.Replace(GConfig.CoinDetails[i].PinYin, " ", "", -1)), ","), ",")
-		if  len(NameArr) != len(zhNameArr) || len(zhNameArr) != len(pinyinArr) {
+		if len(NameArr) != len(zhNameArr) || len(zhNameArr) != len(pinyinArr) {
 			fmt.Println(NameArr)
 			fmt.Println(zhNameArr)
 			fmt.Println(pinyinArr)
-			return errors.New("CoinDetail config err "+fmt.Sprintf("%v %v %v", len(NameArr) ,len(zhNameArr),len(pinyinArr)))
+			return errors.New("CoinDetail config err " + fmt.Sprintf("%v %v %v", len(NameArr), len(zhNameArr), len(pinyinArr)))
 		}
-		for j:=0; j < len(NameArr); j++ {
+		for j := 0; j < len(NameArr); j++ {
 			deatil := new(CoinDetail)
 			deatil.Name = NameArr[j]
 			deatil.ZhName = zhNameArr[j]
@@ -87,27 +87,26 @@ func PreProcess() error {
 	return nil
 }
 
-type PreConfig struct{
-	CoinDetailMap map[string] *CoinDetail //HBI
-	MarketMap     map[string] *Market   //HBI
-	Markets       []string             // HBI、BIC
+type PreConfig struct {
+	CoinDetailMap map[string]*CoinDetail //HBI
+	MarketMap     map[string]*Market     //HBI
+	Markets       []string               // HBI、BIC
 }
 
 type Config struct {
-	Server  Server                `yaml:"server"`
-	CoinMerit  CoinMerit          `yaml:"coinmerit"`
-	BtcExa     BtcExa             `yaml:"btcexa"`
-	Markets     []*Market           `yaml:"market"`
-	CoinDetails []*CoinDetail       `yaml:"coin_detail"`
+	Server      Server        `yaml:"server"`
+	CoinMerit   CoinMerit     `yaml:"coinmerit"`
+	BtcExa      BtcExa        `yaml:"btcexa"`
+	Markets     []*Market     `yaml:"market"`
+	CoinDetails []*CoinDetail `yaml:"coin_detail"`
 }
 
 type CoinMerit struct {
-	Secret_key string   `yaml:"secret_key"`
-	ApiKey string       `yaml:"api_key"`
-	WsUrl   string      `yaml:"ws_url"`
-	HttpUrl string      `yaml:"http_url"`
+	Secret_key string `yaml:"secret_key"`
+	ApiKey     string `yaml:"api_key"`
+	WsUrl      string `yaml:"ws_url"`
+	HttpUrl    string `yaml:"http_url"`
 }
-
 
 type Server struct {
 	Port    string `yaml:"port"`
@@ -116,21 +115,21 @@ type Server struct {
 }
 
 type BtcExa struct {
-	Secret_key string   `yaml:"secret_key"`
-	ApiKey string       `yaml:"api_key"`
-	WsUrl   string      `yaml:"ws_url"`
-	HttpUrl string      `yaml:"http_url"`
+	Secret_key string `yaml:"secret_key"`
+	ApiKey     string `yaml:"api_key"`
+	WsUrl      string `yaml:"ws_url"`
+	HttpUrl    string `yaml:"http_url"`
 }
 
 type Market struct {
-	Abb   string         `yaml:"abb"`
-	Name  string         `yaml:"name"`
-	ZhName string        `yaml:"zh_name"`
-	WebInfo string       `yaml:"web_info"`
+	Abb     string `yaml:"abb"`
+	Name    string `yaml:"name"`
+	ZhName  string `yaml:"zh_name"`
+	WebInfo string `yaml:"web_info"`
 }
 
 type CoinDetail struct {
-	Name   string         `yaml:"name"`
-	ZhName string         `yaml:"zh_name"`
-	PinYin string         `yaml:"pinyin"`
+	Name   string `yaml:"name"`
+	ZhName string `yaml:"zh_name"`
+	PinYin string `yaml:"pinyin"`
 }

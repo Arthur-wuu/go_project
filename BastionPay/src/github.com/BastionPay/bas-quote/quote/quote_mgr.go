@@ -17,9 +17,9 @@ import (
 )
 
 type QuoteMgr struct {
-	mHistory    HistoryMgr
-	mRedis      *db.Redis
-	mSqlDb      db.DbMgr
+	mHistory HistoryMgr
+	mRedis   *db.Redis
+	mSqlDb   db.DbMgr
 	//	mRptSymbols []collect.CodeInfo
 	//mUniSymbols []collect.CodeInfo
 	mCodeTable map[string]*collect.CodeInfo
@@ -53,7 +53,7 @@ func (this *QuoteMgr) Init() (err error) {
 	if err != nil {
 		return err
 	}
-    //init
+	//init
 	db.GCache.SetQuoteCacheFunc(GetCacheQuote)
 	db.GCache.SetHuilvCacheFunc(GetCacheHuilv)
 
@@ -79,7 +79,7 @@ func (this *QuoteMgr) Start() error {
 		this.mCodeTable[arr[i].Symbol] = v
 		ZapLog().Sugar().Infof("Symbol[%v] Info[%v]", v.GetSymbol(), v.ToPrintStr())
 	}
-	ZapLog().Sugar().Infof("End load codeTable from SqlDb count[%d]",  len(this.mCodeTable))
+	ZapLog().Sugar().Infof("End load codeTable from SqlDb count[%d]", len(this.mCodeTable))
 	go this.run()
 	return nil
 }
@@ -126,9 +126,9 @@ func (this *QuoteMgr) SetCodeTable(cc *collect.CodeInfo) error {
 //行情的回调
 func GetCacheQuote(key interface{}) (interface{}, *time.Duration, error) {
 	expire := config.GConfig.Cache.Timeout * time.Second
-	data ,err:= redis.Bytes(db.GRedis.Do("GET",key))
+	data, err := redis.Bytes(db.GRedis.Do("GET", key))
 	if err != nil {
-		return  nil, nil, err
+		return nil, nil, err
 	}
 	if data == nil {
 		return nil, nil, errors.New("nil data")
@@ -136,10 +136,10 @@ func GetCacheQuote(key interface{}) (interface{}, *time.Duration, error) {
 	return data, &expire, nil
 }
 
-func (this *QuoteMgr) GetQuoteUseId(id int, to string) ( *collect.MoneyInfo, error) {
+func (this *QuoteMgr) GetQuoteUseId(id int, to string) (*collect.MoneyInfo, error) {
 
 	key := this.genQuoteKey(id, to)
-	ZapLog().Debug("GetQuoteUseId",zap.String("key", string(key)))
+	ZapLog().Debug("GetQuoteUseId", zap.String("key", string(key)))
 
 	value, err := db.GCache.QuoteCache.Get(string(key))
 	if err != nil {
@@ -149,20 +149,20 @@ func (this *QuoteMgr) GetQuoteUseId(id int, to string) ( *collect.MoneyInfo, err
 		moneyInfo := new(collect.MoneyInfo)
 		err = json.Unmarshal(value.([]byte), moneyInfo)
 		if err != nil {
-			return  nil, err
+			return nil, err
 		}
 		moneyInfo.SetSymbol(to)
-		return  moneyInfo, nil
+		return moneyInfo, nil
 	}
-	return  nil, nil
+	return nil, nil
 }
 
 //汇率的回调
-func GetCacheHuilv (key interface{}) (interface{}, *time.Duration, error) {
+func GetCacheHuilv(key interface{}) (interface{}, *time.Duration, error) {
 	expire := config.GConfig.Cache.Timeout * time.Second
-	data ,err:= redis.Bytes(db.GRedis.Do("GET",key))
+	data, err := redis.Bytes(db.GRedis.Do("GET", key))
 	if err != nil {
-		return  nil, nil, err
+		return nil, nil, err
 	}
 	if data == nil {
 		return nil, nil, errors.New("nil data")
@@ -171,7 +171,7 @@ func GetCacheHuilv (key interface{}) (interface{}, *time.Duration, error) {
 }
 
 //GetQuoteHuilv   USD==>法币
-func (this *QuoteMgr) GetQuoteHuilv( to string) ( *collect.MoneyInfo, error) {
+func (this *QuoteMgr) GetQuoteHuilv(to string) (*collect.MoneyInfo, error) {
 	to = fmt.Sprintf("qt_USD_%s", to)
 	if to == "qt_USD_USD" {
 		moneyInfo := new(collect.MoneyInfo)
@@ -202,34 +202,35 @@ func (this *QuoteMgr) GetKxian1Day(id int, to string, start, limit int) ([]*KXia
 		return nil, err
 	}
 	arr := make([]*KXian, 0)
-	for i:=0; i < len(bytesArr); i++ {
-		kxian:= new(KXian)
+	for i := 0; i < len(bytesArr); i++ {
+		kxian := new(KXian)
 		err := json.Unmarshal(bytesArr[i], kxian)
 		if err != nil {
 			return nil, err
 		}
 		arr = append(arr, kxian)
 	}
-	return arr,nil
+	return arr, nil
 
 }
+
 //得到一天的kxian
-func (this *QuoteMgr) GetKxian1DayUseUSD( to string, start, limit int) ([]*KXian, error) {
+func (this *QuoteMgr) GetKxian1DayUseUSD(to string, start, limit int) ([]*KXian, error) {
 	key := this.genKXian1DayKeyUSD(to)
 	bytesArr, err := redis.ByteSlices(db.GRedis.Do("LRANGE", key, start, limit))
 	if err != nil {
 		return nil, err
 	}
 	arr := make([]*KXian, 0)
-	for i:=0; i < len(bytesArr); i++ {
-		kxian:= new(KXian)
+	for i := 0; i < len(bytesArr); i++ {
+		kxian := new(KXian)
 		err := json.Unmarshal(bytesArr[i], kxian)
 		if err != nil {
 			return nil, err
 		}
 		arr = append(arr, kxian)
 	}
-	return arr,nil
+	return arr, nil
 
 }
 
@@ -241,12 +242,12 @@ func (this *QuoteMgr) GetQuoteUseSymbol(from, to string) (*collect.CodeInfo, *co
 		return nil, nil, errors.New("nofind codeTable")
 	}
 	key := this.genQuoteKey(codeInfo.GetId(), to)
-	data ,err:= redis.Bytes(db.GRedis.Do("GET",key))
+	data, err := redis.Bytes(db.GRedis.Do("GET", key))
 	if err != nil {
 		return nil, nil, err
 	}
 	if data == nil {
-		return nil,nil, errors.New("nil data")
+		return nil, nil, errors.New("nil data")
 	}
 	moneyInfo := new(collect.MoneyInfo)
 	err = json.Unmarshal(data, moneyInfo)
@@ -282,11 +283,11 @@ func (this *QuoteMgr) run() {
 	}
 }
 
-func (this*QuoteMgr) genCodeTable() (map[string]*collect.CodeInfo, error){
+func (this *QuoteMgr) genCodeTable() (map[string]*collect.CodeInfo, error) {
 	arr, err := this.mSqlDb.GetAllCode()
 	if err != nil {
 		ZapLog().Sugar().With(zap.Error(err)).Error("load codeTable from SqlDb err")
-		return nil,err
+		return nil, err
 	}
 	codeTable := make(map[string]*collect.CodeInfo, 0)
 
@@ -297,7 +298,7 @@ func (this*QuoteMgr) genCodeTable() (map[string]*collect.CodeInfo, error){
 		ZapLog().Sugar().Debugf("Symbol[%v] Info[%v]", v.GetSymbol(), v.ToPrintStr())
 	}
 	ZapLog().Sugar().Infof("End load codeTable from SqlDb", zap.Int("count", len(this.mCodeTable)))
-	return codeTable,nil
+	return codeTable, nil
 }
 
 func (this *QuoteMgr) genQuoteKey(id int, money string) []byte {
@@ -309,6 +310,6 @@ func (this *QuoteMgr) genKXian1DayKey(id int, coin string) string {
 	return fmt.Sprintf("%s_%d_%s", CONST_KXIAN_1Day_Prefix, id, coin)
 }
 
-func (this *QuoteMgr) genKXian1DayKeyUSD( coin string) string {
+func (this *QuoteMgr) genKXian1DayKeyUSD(coin string) string {
 	return fmt.Sprintf("%s_%s_%s", CONST_KXIAN_1Day_Prefix, "USD", coin)
 }

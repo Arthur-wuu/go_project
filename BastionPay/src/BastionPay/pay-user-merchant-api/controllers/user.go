@@ -1,27 +1,27 @@
 package controllers
 
 import (
+	"BastionPay/bas-api/apibackend"
+	. "BastionPay/bas-base/log/zap"
+	"BastionPay/pay-user-merchant-api/api"
+	"BastionPay/pay-user-merchant-api/bas-user-api"
 	"BastionPay/pay-user-merchant-api/common"
 	"BastionPay/pay-user-merchant-api/config"
 	"BastionPay/pay-user-merchant-api/models"
-	. "BastionPay/bas-base/log/zap"
+	"fmt"
 	"github.com/kataras/iris"
 	"go.uber.org/zap"
-	"BastionPay/bas-api/apibackend"
-	"BastionPay/pay-user-merchant-api/api"
-	"fmt"
-	"BastionPay/pay-user-merchant-api/bas-user-api"
 
-	"time"
-	"github.com/satori/go.uuid"
-	"strings"
 	"encoding/json"
 	"github.com/go-redis/redis"
+	"github.com/satori/go.uuid"
+	"strings"
+	"time"
 )
 
-const(
-	CONNST_QRCODE_Prefix = "QRCODE_"
-	CONNST_TOKEN_Prefix = "TOKEN_"
+const (
+	CONNST_QRCODE_Prefix  = "QRCODE_"
+	CONNST_TOKEN_Prefix   = "TOKEN_"
 	CONNST_TOKEN_UserInfo = "{}"
 )
 
@@ -30,19 +30,18 @@ type UserController struct {
 }
 
 func NewUserController() *UserController {
-	return &UserController{
-	}
+	return &UserController{}
 }
 
 func (this *UserController) LoginQr(ctx iris.Context) {
-	qrCode,err := new(bas_user_api.ScanLoginQrcode).Send()
+	qrCode, err := new(bas_user_api.ScanLoginQrcode).Send()
 	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("userapi ScanLoginQrcode err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_INTERNAL_SERVICE_ACCESS_ERROR.Code(), "userapi ScanLoginQrcode err")
 		return
 	}
 
-	uuidSu,err := uuid.NewV4()
+	uuidSu, err := uuid.NewV4()
 	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("uuid.NewV4 err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_SYSTEM_INTERNAL_ERROR.Code(), "token gen err")
@@ -60,13 +59,13 @@ func (this *UserController) LoginQr(ctx iris.Context) {
 		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), "redis Pipeline SetXX err")
 		return
 	}
-	err = batcher.Set(CONNST_TOKEN_Prefix+uuidStr,[]byte(CONNST_TOKEN_UserInfo), 10*time.Minute).Err()
+	err = batcher.Set(CONNST_TOKEN_Prefix+uuidStr, []byte(CONNST_TOKEN_UserInfo), 10*time.Minute).Err()
 	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("redis Pipeline SetXX err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), "redis Pipeline SetXX err")
 		return
 	}
-	_,err = batcher.Exec()
+	_, err = batcher.Exec()
 	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("redis Pipeline Exec err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), "redis Pipeline Exec err")
@@ -74,8 +73,8 @@ func (this *UserController) LoginQr(ctx iris.Context) {
 	}
 
 	res := &api.ResLoginQr{
-		QrCode :qrCode,
-		Token: uuidStr,
+		QrCode: qrCode,
+		Token:  uuidStr,
 		//Expiration: config.GConfig.Token.Expiration,
 	}
 	this.Response(ctx, res)
@@ -90,7 +89,7 @@ func (this *UserController) BkLoginQrCallBack(ctx iris.Context) {
 		return
 	}
 
-	token, err := common.GRedis.GetConn().Get(CONNST_QRCODE_Prefix+*param.LoginQrcode).Result()
+	token, err := common.GRedis.GetConn().Get(CONNST_QRCODE_Prefix + *param.LoginQrcode).Result()
 	if err == redis.Nil {
 		ZapLog().Error("token is nil, qrcode store in redis must have expire")
 		this.ExceptionSerive(ctx, apibackend.BASERR_OBJECT_NOT_FOUND.Code(), "nofind qrcode err")
@@ -110,7 +109,7 @@ func (this *UserController) BkLoginQrCallBack(ctx iris.Context) {
 	param.Status = new(int)
 	*param.Status = 1
 
-	userInfo,err := json.Marshal(param)
+	userInfo, err := json.Marshal(param)
 	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("json Marshal err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_DATA_PACK_ERROR.Code(), "json Marshal err")
@@ -136,7 +135,7 @@ func (this *UserController) LoginQrCheck(ctx iris.Context) {
 		return
 	}
 
-	userInfoBytes,err := common.GRedis.GetConn().Get(CONNST_TOKEN_Prefix+param.Token).Bytes()
+	userInfoBytes, err := common.GRedis.GetConn().Get(CONNST_TOKEN_Prefix + param.Token).Bytes()
 	if err == redis.Nil {
 		ZapLog().With(zap.Error(err)).Error("redis Get err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_TOKEN_INVALID.Code(), "redis get err")
@@ -159,7 +158,7 @@ func (this *UserController) LoginQrCheck(ctx iris.Context) {
 		this.ExceptionSerive(ctx, apibackend.BASERR_SYSTEM_INTERNAL_ERROR.Code(), "json.Unmarshal err")
 		return
 	}
-	if userInfo.Status ==nil || *userInfo.Status != 1 {
+	if userInfo.Status == nil || *userInfo.Status != 1 {
 		//ZapLog().Error("pending err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_TOKEN_PENDING.Code(), "pending")
 		return
@@ -170,8 +169,8 @@ func (this *UserController) LoginQrCheck(ctx iris.Context) {
 
 func (this *UserController) Login(ctx iris.Context) {
 	var (
-		safe   bool
-		params = new(api.Login)
+		safe       bool
+		params     = new(api.Login)
 		checkItems = struct {
 			Email bool
 			Phone bool
@@ -187,7 +186,7 @@ func (this *UserController) Login(ctx iris.Context) {
 	}
 
 	// 检测图形验证码
-	captchaPass, err := common.NewVerification( "login", common.VerificationTypeCaptcha).
+	captchaPass, err := common.NewVerification("login", common.VerificationTypeCaptcha).
 		Check(params.CaptchaToken, 0, "")
 	if err != nil || !captchaPass {
 		if err != nil {
@@ -196,7 +195,6 @@ func (this *UserController) Login(ctx iris.Context) {
 		this.ExceptionSerive(ctx, apibackend.BASERR_ADMIN_INCORRECT_VERIFYCODE.Code(), "FAILURE_OF_CAPTCHA_TOKEN_AUTHENTICATION")
 		return
 	}
-
 
 	user, err := new(models.User).GetByPhone(params.CountryCode, params.Phone)
 	if err != nil {
@@ -219,14 +217,13 @@ func (this *UserController) Login(ctx iris.Context) {
 
 	termBlock := common.NewTermBlocker(&common.GRedis, config.GPreConfig.TermBlockLimits, "login_pwd_incorrect", fmt.Sprintf("%d", user.Id), ctx)
 	isBlock, err := termBlock.IsBlock()
-	if err !=nil {
+	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("TermBlocker IsBlock err")
-	}else if isBlock{
+	} else if isBlock {
 		ZapLog().Error("USER_IS_LOCKED err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_BLOCK_ACCOUNT.Code(), "USER_IS_LOCKED")
 		return
 	}
-
 
 	//verify, err := models.GSecretModel.Verify(user.SecretID, params.Password)
 	//if err != nil {
@@ -241,8 +238,6 @@ func (this *UserController) Login(ctx iris.Context) {
 		ZapLog().With(zap.Error(err)).Error("TermBlocker Done err")
 	}
 
-
-
 	if !verify {
 		ZapLog().With(zap.Any("use", *user)).Error("Verify err")
 		if !tbResper.OpenFlag {
@@ -250,7 +245,7 @@ func (this *UserController) Login(ctx iris.Context) {
 			return
 		}
 		if tbResper.OnBlock {
-			this.ExceptionSerive(ctx,  apibackend.BASERR_BLOCK_ACCOUNT.Code(), "USER_IS_LOCKED")
+			this.ExceptionSerive(ctx, apibackend.BASERR_BLOCK_ACCOUNT.Code(), "USER_IS_LOCKED")
 			return
 		}
 		this.ExceptionSeriveWithParams(ctx, apibackend.BASERR_INCORRECT_PWD.Code(), "INCORRECT_USERNAME_OR_PASSWORD_BLOCKER", tbResper.Remain_count, tbResper.Lock_time)
@@ -264,7 +259,7 @@ func (this *UserController) Login(ctx iris.Context) {
 	}
 
 	//if user.Email != "" {
-		checkItems.Email = false
+	checkItems.Email = false
 	//}
 	if user.Phone != "" {
 		checkItems.Phone = true
@@ -283,11 +278,10 @@ func (this *UserController) Login(ctx iris.Context) {
 	}
 
 	this.Response(ctx, &api.ResLogin{
-		Token: token,
+		Token:      token,
 		Expiration: expiration,
-		Safe: safe,
+		Safe:       safe,
 	})
-
 
 	ctx.Values().Set("device", "web")
 	//ctx.Values().Set("uid", user.ID)
@@ -325,7 +319,7 @@ func (this *UserController) LoginWithGa(ctx iris.Context) {
 		{params.GaToken == "", "ga_token"}})
 	if pv != nil {
 		ZapLog().With(zap.String("error", pv.ErrMsg)).Error("CheckParams err")
-		this.ExceptionSeriveWithParams(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "MISSING_PARAMETERS",pv.ErrMsg)
+		this.ExceptionSeriveWithParams(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "MISSING_PARAMETERS", pv.ErrMsg)
 		return
 	}
 
@@ -358,7 +352,7 @@ func (this *UserController) LoginWithGa(ctx iris.Context) {
 	}
 
 	this.Response(ctx, &api.ResLoginGa{
-		Token: token,
+		Token:      token,
 		Expiration: expiration,
 	})
 
@@ -380,7 +374,7 @@ func (this *UserController) RefreshToken(ctx iris.Context) {
 	user, err := new(models.User).GetById(int64(userId))
 	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("GetUserById err")
-		this.ExceptionSerive(ctx,  apibackend.BASERR_ACCOUNT_NOT_FOUND.Code(), "GET_USER_ERROR")
+		this.ExceptionSerive(ctx, apibackend.BASERR_ACCOUNT_NOT_FOUND.Code(), "GET_USER_ERROR")
 		return
 	}
 

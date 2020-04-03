@@ -19,7 +19,7 @@ func (this *AppVersion) Add(ctx iris.Context) {
 	err := Tools.ShouldBindJSON(ctx, param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
@@ -36,20 +36,20 @@ func (this *AppVersion) Add(ctx iris.Context) {
 	//}
 	label, err := new(models.AppWhiteLabel).GetBy(param.LabelId)
 	if err != nil {
-		ZapLog().Error( "Add param to mysql err", zap.Error(err))
-		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(),  err.Error())
+		ZapLog().Error("Add param to mysql err", zap.Error(err))
+		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), err.Error())
 		return
 	}
 	if label == nil {
-		this.ExceptionSerive(ctx, apibackend.BASERR_OBJECT_NOT_FOUND.Code(),  err.Error())
+		this.ExceptionSerive(ctx, apibackend.BASERR_OBJECT_NOT_FOUND.Code(), err.Error())
 		return
 	}
 	param.Name = label.Name
 
 	result, err := param.Set()
 	if err != nil {
-		ZapLog().Error( "Add param to mysql err", zap.Error(err))
-		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(),  err.Error())
+		ZapLog().Error("Add param to mysql err", zap.Error(err))
+		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), err.Error())
 		return
 	}
 
@@ -62,7 +62,7 @@ func (this *AppVersion) GetForFront(ctx iris.Context) {
 	err := Tools.ShouldBindJSON(ctx, param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
@@ -79,8 +79,8 @@ func (this *AppVersion) GetForFront(ctx iris.Context) {
 
 	result, err := param.GetForFront(param.Name, param.SysType)
 	if err != nil {
-		ZapLog().Error( "Add param to mysql err", zap.Error(err))
-		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(),  err.Error())
+		ZapLog().Error("Add param to mysql err", zap.Error(err))
+		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), err.Error())
 		return
 	}
 	if result == nil {
@@ -90,7 +90,6 @@ func (this *AppVersion) GetForFront(ctx iris.Context) {
 
 	this.Response(ctx, result)
 }
-
 
 func (this *AppVersion) List(ctx iris.Context) {
 	param := new(models.AppVersionList)
@@ -119,12 +118,12 @@ func (this *AppVersion) Update(ctx iris.Context) {
 	err := Tools.ShouldBindJSON(ctx, param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
-	_, err  = param.Update()
-	if  err != nil {
+	_, err = param.Update()
+	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err:"+err.Error())
 		return
 	}

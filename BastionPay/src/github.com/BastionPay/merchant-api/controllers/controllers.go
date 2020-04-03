@@ -1,15 +1,14 @@
 package controllers
 
 import (
-	"github.com/kataras/iris/context"
-	"BastionPay/merchant-api/common"
 	"BastionPay/merchant-api/baspay"
+	"BastionPay/merchant-api/common"
+	"github.com/kataras/iris/context"
 	//"gopkg.exa.center/blockshine-ex/api-article/config"
 )
 
 type (
 	Controllers struct {
-
 	}
 
 	Response struct {
@@ -19,10 +18,10 @@ type (
 	}
 
 	PriceResponse struct {
-		Code    int         `json:"code"`
-		Message string      `json:"message"`
-		Data    interface{} `json:"data,omitempty"`
-		UsdPrice    interface{} `json:"usd_price,omitempty"`
+		Code     int         `json:"code"`
+		Message  string      `json:"message"`
+		Data     interface{} `json:"data,omitempty"`
+		UsdPrice interface{} `json:"usd_price,omitempty"`
 	}
 )
 
@@ -38,7 +37,7 @@ func (c *Controllers) Response(ctx context.Context, data interface{}) {
 
 	ctx.JSON(
 		Response{
-			Code: 0,
+			Code:    0,
 			Message: "Success",
 			Data:    data,
 		})
@@ -47,19 +46,19 @@ func (c *Controllers) Response(ctx context.Context, data interface{}) {
 func (c *Controllers) RefundResponse(ctx context.Context, refundRes baspay.RefundRes) {
 	ctx.JSON(
 		Response{
-			Code: 0,
+			Code:    0,
 			Message: "Success",
 			Data:    refundRes.Data,
 		})
 }
 
-func (c *Controllers) PriceResponse(ctx context.Context, data,UsdPrice interface{}) {
+func (c *Controllers) PriceResponse(ctx context.Context, data, UsdPrice interface{}) {
 
 	ctx.JSON(
 		PriceResponse{
-			Code: 0,
-			Message: "Success",
-			Data:    data,
+			Code:     0,
+			Message:  "Success",
+			Data:     data,
 			UsdPrice: UsdPrice,
 		})
 }
@@ -69,7 +68,6 @@ func (c *Controllers) PosResponse(ctx context.Context, posRes baspay.PosRes) {
 	ctx.JSON(
 		posRes)
 }
-
 
 func (c *Controllers) PosOrdersRes(ctx context.Context, posOrderRes baspay.PosOrdersRes) {
 
@@ -99,7 +97,6 @@ func (c *Controllers) ExceptionSerive(
 			Message: message,
 		})
 }
-
 
 //type coffeeStruct struct {
 //	orderid  string  `json:"orderid,omitempty"`

@@ -1,50 +1,49 @@
 package controllers
 
 import (
-	"github.com/kataras/iris"
-	"BastionPay/bas-notify/models"
-	"go.uber.org/zap"
 	"BastionPay/bas-api/apibackend"
 	. "BastionPay/bas-base/log/zap"
 	"BastionPay/bas-notify/config"
+	"BastionPay/bas-notify/models"
+	"github.com/kataras/iris"
+	"go.uber.org/zap"
 )
 
-type DingDing struct{
+type DingDing struct {
 	Controllers
 }
 
-func (this * DingDing) Send(ctx iris.Context) {
+func (this *DingDing) Send(ctx iris.Context) {
 	param := new(models.DingDingMsg)
 
 	err := Tools.ShouldBindJSON(ctx, param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err")
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 	if flag := this.ReqNotifyMsgIsValid(param); !flag {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err")
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
 	errCode, err := param.Send(true)
 	if errCode != 0 {
 		this.ExceptionSerive(ctx, errCode, err.Error())
-		ZapLog().Error( "Send err", zap.Error(err))
+		ZapLog().Error("Send err", zap.Error(err))
 		return
 	}
 	this.Response(ctx, nil)
 }
 
-func (this * DingDing) GetQuns(ctx iris.Context) {
+func (this *DingDing) GetQuns(ctx iris.Context) {
 	quns := make([]string, 0, len(config.GConfig.DingDing))
-	for i:=0; i < len(config.GConfig.DingDing); i++ {
+	for i := 0; i < len(config.GConfig.DingDing); i++ {
 		quns = append(quns, config.GConfig.DingDing[i].QunName)
 	}
 	this.Response(ctx, quns)
 }
-
 
 //
 //func (this * DingDing) Sends(ctx iris.Context) {

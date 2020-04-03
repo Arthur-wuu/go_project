@@ -1,21 +1,21 @@
 package pipeline
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
-	"go-common/app/service/ops/log-agent/output/lancerlogstream"
-	"go-common/app/service/ops/log-agent/output/lancergrpc"
-	"go-common/app/service/ops/log-agent/input/sock"
 	"go-common/app/service/ops/log-agent/input/file"
+	"go-common/app/service/ops/log-agent/input/sock"
+	"go-common/app/service/ops/log-agent/output/lancergrpc"
+	"go-common/app/service/ops/log-agent/output/lancerlogstream"
+	"go-common/app/service/ops/log-agent/output/stdout"
 	"go-common/app/service/ops/log-agent/processor/classify"
-	"go-common/app/service/ops/log-agent/processor/jsonLog"
 	"go-common/app/service/ops/log-agent/processor/fileLog"
+	"go-common/app/service/ops/log-agent/processor/grok"
+	"go-common/app/service/ops/log-agent/processor/httpstream"
+	"go-common/app/service/ops/log-agent/processor/jsonLog"
 	"go-common/app/service/ops/log-agent/processor/lengthCheck"
 	"go-common/app/service/ops/log-agent/processor/sample"
-	"go-common/app/service/ops/log-agent/processor/httpstream"
-	"go-common/app/service/ops/log-agent/processor/grok"
-	"go-common/app/service/ops/log-agent/output/stdout"
 	"go-common/library/log"
 
 	"github.com/BurntSushi/toml"

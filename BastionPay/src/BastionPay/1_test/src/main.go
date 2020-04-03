@@ -53,13 +53,15 @@ package main
 
 import (
 	"encoding/binary"
+	aa "net/url"
+	//"github.com/kataras/iris/core/netutil"
 	"strconv"
 
+	"bytes"
 	//"github.com/bluele/gcache"
 	"fmt"
 	"math/rand"
 	"time"
-	"bytes"
 )
 
 
@@ -96,33 +98,10 @@ fmt.Println(string(result))
 }
 
 func main() {
-	//gc := gcache.New(20).
-	//	LRU().
-	//	Build()
-	//gc.SetWithExpire("ke2", "ok", time.Second*10)
-	//value, err := gc.Get("ke")
-	//fmt.Println("Get:", value,err)
-	//
-	//// Wait for value to expire
-	//time.Sleep(time.Second*10)
-	//
-	////value, err := gc.Get("key")
-	//if err != nil {
-	//	panic(err)
-	//}
-	//fmt.Println("Get:", value)
+	callbackUrl, err := aa.QueryUnescape("__ CALLBACK__%26clktime%3d%7bacttime%7d%26imei%3d%7bIMEI%7d%26idfa%3d% 7bIDFA%7d%26event%3d%7bEVENT%7d")
 
-	//s :=GenRandomString(32)
-	////d := GetRandomString(32)
-	////
-	//fmt.Println("Get:", s)
-	//keysSort := make([]string,0)
+fmt.Println(callbackUrl)
+	fmt.Println(err)
 
-	//var signH5Str string
-	//
-	//signH5Str = "="+"&"
-	//
-	a := "abcdefghij"
-	a = a[0:len(a)-1]
-	fmt.Println("a:", a)
+
 }

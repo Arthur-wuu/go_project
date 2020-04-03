@@ -2,9 +2,9 @@ package manager
 
 import (
 	"flag"
+	"go-common/app/service/main/videoup/conf"
 	"os"
 	"testing"
-	"go-common/app/service/main/videoup/conf"
 )
 
 var (

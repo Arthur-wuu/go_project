@@ -23,7 +23,7 @@ func LoadConfig(path string) *Config {
 }
 
 type EnvFlag struct {
-	Flag   string      `yaml:"flag"`  // 测试环境 test  生产 pro
+	Flag string `yaml:"flag"` // 测试环境 test  生产 pro
 }
 
 func PreProcess() {
@@ -49,6 +49,7 @@ func PreProcess() {
 	//	//获取本地ip替换掉
 	//}
 }
+
 //
 type Config struct {
 	//Server   System      `yaml:"system"`
@@ -61,8 +62,9 @@ type Config struct {
 	////DeviceMap  map[string]*Device    `yaml:"-"`
 	//Login   Login        `yaml:"login"`
 	//PayeeId PayeeId      `yaml:"payeeid"`
-	EnvFlag     EnvFlag    `yaml:"envflag"`
+	EnvFlag EnvFlag `yaml:"envflag"`
 }
+
 //
 //type BastionpayUrl struct{
 //	Bastionurl   string          `yaml:"bastionurl"`

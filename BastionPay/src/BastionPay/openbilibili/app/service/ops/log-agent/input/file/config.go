@@ -29,7 +29,7 @@ type Config struct {
 	Fields          map[string]interface{} `toml:"fields"`
 }
 
-func (c *Config) ConfigValidate() (error) {
+func (c *Config) ConfigValidate() error {
 	if c == nil {
 		return errors.New("config of file Input is nil")
 	}

@@ -1,26 +1,25 @@
 package go_sdk
 
 import (
+	"BastionPay/bas-base/config"
+	. "BastionPay/baspay-sdk/config"
 	"fmt"
 	"io/ioutil"
 	"strings"
 	"time"
-	. "BastionPay/baspay-sdk/config"
-	"BastionPay/bas-base/config"
 )
 
-const testCommonUrl    =  "https://test-openapi.bastionpay.io/"
-const commonUrl        =  "https://open-api.bastionpay.com/"
+const testCommonUrl = "https://test-openapi.bastionpay.io/"
+const commonUrl = "https://open-api.bastionpay.com/"
 
-const transUrl         =  "open-api/trade/transfer"
-const availAssetsUrl   =  "open-api/trade/avail_assets"
-const createQrUrl      =  "open-api/trade/create_qr_trade"
-const createSdkUrl     =  "open-api/trade/create_trade"
-const createWapUrl     =  "open-api/trade/create_wap_trade"
-const tradeInfoUrl     =  "open-api/trade/info"
-const posUrl           =  "open-api/trade/pos"
-const posOrderUrl      =  "open-api/trade/pos_orders"
-
+const transUrl = "open-api/trade/transfer"
+const availAssetsUrl = "open-api/trade/avail_assets"
+const createQrUrl = "open-api/trade/create_qr_trade"
+const createSdkUrl = "open-api/trade/create_trade"
+const createWapUrl = "open-api/trade/create_wap_trade"
+const tradeInfoUrl = "open-api/trade/info"
+const posUrl = "open-api/trade/pos"
+const posOrderUrl = "open-api/trade/pos_orders"
 
 //商户10号的 11号的
 var h5PrivateKey = []byte(`
@@ -84,10 +83,9 @@ ZpqTdTAmvK7JaZooBF736k+gTMmX0qdzfmoJSDNqHZaoq4tmuojZZg==
 -----END RSA PRIVATE KEY-----
 `)
 
-
 type Configs struct {
-		KeyPath string   //`yaml:"keyPath"`
-	}
+	KeyPath string //`yaml:"keyPath"`
+}
 
 var (
 	//私钥
@@ -97,12 +95,11 @@ var (
 	pubkey []byte
 )
 
-type PaySdk struct{
-
+type PaySdk struct {
 }
 
 //pem文件的路径
-func (this* PaySdk) Init() error {
+func (this *PaySdk) Init() error {
 	//////加载pem文件，检测有效性
 	////if err := loadRsaKeys(); err != nil {
 	////	fmt.Println("err",err)
@@ -122,7 +119,7 @@ func (this* PaySdk) Init() error {
 }
 
 //转账接口       数量，币种，商户id，收款人id
-func (this* PaySdk) Transfer(amount, assets, merchant_id, payee_id, productName, notifyUrl string)( string, error) {
+func (this *PaySdk) Transfer(amount, assets, merchant_id, payee_id, productName, notifyUrl string) (string, error) {
 	param := new(TransferParam)
 	times := time.Now().Local().Format("2006-01-02 15:04:05")
 
@@ -134,7 +131,6 @@ func (this* PaySdk) Transfer(amount, assets, merchant_id, payee_id, productName,
 	param.MerchantId = &merchant_id
 	param.ProductName = &productName
 	param.NotifyUrl = &notifyUrl
-
 
 	transferStatus, err := param.Send()
 	if err != nil {
@@ -156,9 +152,6 @@ func (this* PaySdk) Transfer(amount, assets, merchant_id, payee_id, productName,
 	return "fail", nil
 }
 
-
-
-
 // 加载数据
 func loadRsaKeys(config *Configs) error {
 	var err error
@@ -177,12 +170,10 @@ func loadRsaKeys(config *Configs) error {
 	return nil
 }
 
-
-
 //有效币种接口 avail_assets
-func (this* PaySdk) AvailAssets( arg ... interface{})( interface{}, error) {
+func (this *PaySdk) AvailAssets(arg ...interface{}) (interface{}, error) {
 	param := new(AvailAssetsParam)
-	if len(arg) ==  1 {
+	if len(arg) == 1 {
 		argParam := arg[0].(string)
 		param.Assets = &argParam
 		availAssetsRes, err := param.Send()
@@ -192,7 +183,7 @@ func (this* PaySdk) AvailAssets( arg ... interface{})( interface{}, error) {
 		return availAssetsRes, nil
 	}
 
-	if len(arg) ==  0 {
+	if len(arg) == 0 {
 		availAssetsRes, err := param.Send()
 		if err != nil {
 			return nil, err
@@ -203,10 +194,8 @@ func (this* PaySdk) AvailAssets( arg ... interface{})( interface{}, error) {
 	return nil, nil
 }
 
-
-
 //二维码下单接口       create_qr_trade
-func (this* PaySdk) CreateQrtrade(amount, assets, merchant_id, payee_id, product_detail,product_name,remark,return_url,show_url, notifyUrl string , expire_time int64)( interface{}, error) {
+func (this *PaySdk) CreateQrtrade(amount, assets, merchant_id, payee_id, product_detail, product_name, remark, return_url, show_url, notifyUrl string, expire_time int64) (interface{}, error) {
 	param := new(QrTrade)
 	times := time.Now().Local().Format("2006-01-02 15:04:05")
 
@@ -224,7 +213,6 @@ func (this* PaySdk) CreateQrtrade(amount, assets, merchant_id, payee_id, product
 	param.NotifyUrl = &notifyUrl
 	param.ExpireTime = expire_time
 
-
 	createQrRes, err := param.Send()
 	if err != nil {
 		return "fail", err
@@ -233,12 +221,8 @@ func (this* PaySdk) CreateQrtrade(amount, assets, merchant_id, payee_id, product
 	return createQrRes, nil
 }
 
-
-
-
-
 //Sdk下单接口       create sdk trade
-func (this* PaySdk) CreateSdkTrade(amount, assets, merchant_id, payee_id, product_detail,product_name,remark,return_url,show_url, notifyUrl string , expire_time int64)( interface{}, error) {
+func (this *PaySdk) CreateSdkTrade(amount, assets, merchant_id, payee_id, product_detail, product_name, remark, return_url, show_url, notifyUrl string, expire_time int64) (interface{}, error) {
 	param := new(SdkTrade)
 	times := time.Now().Local().Format("2006-01-02 15:04:05")
 
@@ -256,7 +240,6 @@ func (this* PaySdk) CreateSdkTrade(amount, assets, merchant_id, payee_id, produc
 	param.NotifyUrl = &notifyUrl
 	param.ExpireTime = expire_time
 
-
 	createSdkRes, err := param.Send()
 	if err != nil {
 		return "fail", err
@@ -265,13 +248,8 @@ func (this* PaySdk) CreateSdkTrade(amount, assets, merchant_id, payee_id, produc
 	return createSdkRes, nil
 }
 
-
-
-
-
-
 //wap下单接口       create wap trade
-func (this* PaySdk) CreateWapTrade(amount, assets, merchant_id, payee_id, product_detail,product_name,remark,return_url,show_url, notifyUrl string , expire_time int64)( interface{}, error) {
+func (this *PaySdk) CreateWapTrade(amount, assets, merchant_id, payee_id, product_detail, product_name, remark, return_url, show_url, notifyUrl string, expire_time int64) (interface{}, error) {
 	param := new(WapTrade)
 	times := time.Now().Local().Format("2006-01-02 15:04:05")
 
@@ -289,7 +267,6 @@ func (this* PaySdk) CreateWapTrade(amount, assets, merchant_id, payee_id, produc
 	param.NotifyUrl = &notifyUrl
 	param.ExpireTime = expire_time
 
-
 	createWapRes, err := param.Send()
 	if err != nil {
 		return "fail", err
@@ -298,11 +275,8 @@ func (this* PaySdk) CreateWapTrade(amount, assets, merchant_id, payee_id, produc
 	return createWapRes, nil
 }
 
-
-
-
 //查询交易信息       5aa32a38-4214-4e52-a384-5ad8e3b54fb0
-func (this* PaySdk) SearchTradeInfo ( merchant_id, merchant_trade_no, notifyUrl string )( interface{}, error) {
+func (this *PaySdk) SearchTradeInfo(merchant_id, merchant_trade_no, notifyUrl string) (interface{}, error) {
 	param := new(TradeInfo)
 	param.MerchantId = &merchant_id
 	param.MerchantTradeNo = &merchant_trade_no
@@ -316,10 +290,8 @@ func (this* PaySdk) SearchTradeInfo ( merchant_id, merchant_trade_no, notifyUrl 
 	return infoRes, nil
 }
 
-
-
 //pos支付接口       create_qr_trade
-func (this* PaySdk) CreatePos (amount, assets, merchant_id, payee_id,pay_voucher,pos_merchine_id, product_detail,product_name,remark, notifyUrl string )( interface{}, error) {
+func (this *PaySdk) CreatePos(amount, assets, merchant_id, payee_id, pay_voucher, pos_merchine_id, product_detail, product_name, remark, notifyUrl string) (interface{}, error) {
 	param := new(PosTrade)
 	times := time.Now().Local().Format("2006-01-02 15:04:05")
 
@@ -336,7 +308,6 @@ func (this* PaySdk) CreatePos (amount, assets, merchant_id, payee_id,pay_voucher
 	param.Remark = &remark
 	param.NotifyUrl = &notifyUrl
 
-
 	createQrRes, err := param.Send()
 	if err != nil {
 		return "fail", err
@@ -345,11 +316,8 @@ func (this* PaySdk) CreatePos (amount, assets, merchant_id, payee_id,pay_voucher
 	return createQrRes, nil
 }
 
-
-
-
 //pos支付订单列表接口
-func (this* PaySdk) PosOrderList (begin_time,end_time, merchant_id,merchant_pos_no, pos_merchine_id, page,page_size,trade_status, notifyUrl string )( interface{}, error) {
+func (this *PaySdk) PosOrderList(begin_time, end_time, merchant_id, merchant_pos_no, pos_merchine_id, page, page_size, trade_status, notifyUrl string) (interface{}, error) {
 	param := new(PosOrderList)
 	times := time.Now().Local().Format("2006-01-02 15:04:05")
 
@@ -364,7 +332,6 @@ func (this* PaySdk) PosOrderList (begin_time,end_time, merchant_id,merchant_pos_
 	param.PageSize = &page_size
 	param.TradeStatus = &trade_status
 
-
 	createQrRes, err := param.Send()
 	if err != nil {
 		return "fail", err
@@ -372,24 +339,3 @@ func (this* PaySdk) PosOrderList (begin_time,end_time, merchant_id,merchant_pos_
 
 	return createQrRes, nil
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

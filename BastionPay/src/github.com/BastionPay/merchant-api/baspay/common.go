@@ -16,25 +16,24 @@ import (
 	"sort"
 )
 
-type(
-	Request struct{
-		MerchantId *string  `json:"merchant_id,omitempty"`
-		SignType   *string  `json:"sign_type,omitempty"`
-		Signature  *string  `json:"signature,omitempty"`
-		Timestamp  *string  `json:"timestamp,omitempty"`
-		NotifyUrl  *string  `json:"notify_url,omitempty"`
+type (
+	Request struct {
+		MerchantId *string `json:"merchant_id,omitempty"`
+		SignType   *string `json:"sign_type,omitempty"`
+		Signature  *string `json:"signature,omitempty"`
+		Timestamp  *string `json:"timestamp,omitempty"`
+		NotifyUrl  *string `json:"notify_url,omitempty"`
 	}
 
-	Response struct{
-		Code       int       `json:"code,omitempty"`
-		Message    string    `json:"message,omitempty"`
-		Signature  string    `json:"signature,omitempty"`
+	Response struct {
+		Code      int    `json:"code,omitempty"`
+		Message   string `json:"message,omitempty"`
+		Signature string `json:"signature,omitempty"`
 	}
 )
 
-
-func RequestBodyToSignStr (body []byte) (string){
-	requestParams := make(map[string]string,0)
+func RequestBodyToSignStr(body []byte) string {
+	requestParams := make(map[string]string, 0)
 
 	err := json.Unmarshal(body, &requestParams)
 	if err != nil {
@@ -43,20 +42,18 @@ func RequestBodyToSignStr (body []byte) (string){
 	}
 	//将param的key排序，
 	keysSort := make([]string, 0)
-	for k, _ := range requestParams{
+	for k, _ := range requestParams {
 		keysSort = append(keysSort, k)
 	}
 	sort.Strings(keysSort)
 	//拼接签名字符串
 	signH5Str := ""
-	for i:=0; i<len(keysSort); i++ {
-		signH5Str += keysSort[i]+"="+requestParams[keysSort[i]]+"&"
+	for i := 0; i < len(keysSort); i++ {
+		signH5Str += keysSort[i] + "=" + requestParams[keysSort[i]] + "&"
 	}
-	signH5Str = signH5Str[0:len(signH5Str)-1]
-	return  signH5Str
+	signH5Str = signH5Str[0 : len(signH5Str)-1]
+	return signH5Str
 }
-
-
 
 // 签名：采用sha1算法进行签名并输出为hex格式（私钥PKCS8格式）
 func RsaSignWithSha1Hex(data string, prvKey string) (string, error) {
@@ -74,7 +71,7 @@ func RsaSignWithSha1Hex(data string, prvKey string) (string, error) {
 	h.Write([]byte([]byte(data)))
 	hash := h.Sum(nil)
 	signature, err := rsa.SignPKCS1v15(rand.Reader, private.(*rsa.PrivateKey), crypto.SHA1, hash[:])
-	fmt.Println("signature***",signature)
+	fmt.Println("signature***", signature)
 
 	if err != nil {
 		fmt.Printf("Error from signing: %s\n", err)
@@ -84,9 +81,8 @@ func RsaSignWithSha1Hex(data string, prvKey string) (string, error) {
 	return out, nil
 }
 
-
 //  验签：对采用sha1算法进行签名后转base64格式的数据进行验签
-func RsaVerySignWithSha1Base64(originalData, signData, pubKey string) error{
+func RsaVerySignWithSha1Base64(originalData, signData, pubKey string) error {
 	sign, err := base64.StdEncoding.DecodeString(signData)
 	if err != nil {
 		return err

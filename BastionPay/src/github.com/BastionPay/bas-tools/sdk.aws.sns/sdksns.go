@@ -22,9 +22,9 @@ func NewSnsSdk(region, accessKeyID, accessKey, accessToken string) *SnsSdk {
 	var sess *session.Session
 	if (len(accessKeyID) == 0) && (len(accessKey) == 0) {
 		sess = session.Must(session.NewSession(&aws.Config{
-			Region:      aws.String(region),
+			Region: aws.String(region),
 		}))
-	}else{
+	} else {
 		sess = session.Must(session.NewSession(&aws.Config{
 			Region:      aws.String(region),
 			Credentials: credentials.NewStaticCredentials(accessKeyID, accessKey, accessToken),

@@ -6,8 +6,8 @@ type Response struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
-type PushMsg struct{
-	MsgType  int      `json:"msg_type"`
+type PushMsg struct {
+	MsgType int         `json:"msg_type"`
 	Data    interface{} `json:"data,omitempty"`
 }
 

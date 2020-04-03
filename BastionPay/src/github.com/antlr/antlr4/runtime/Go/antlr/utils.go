@@ -380,7 +380,6 @@ func rotateLeft64(x uint64, k int) uint64 {
 	return x<<s | x>>(n-s)
 }
 
-
 // murmur hash
 const (
 	c1_32 uint = 0xCC9E2D51

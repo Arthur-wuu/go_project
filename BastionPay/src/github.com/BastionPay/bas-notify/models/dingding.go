@@ -13,73 +13,71 @@ import (
 	"github.com/juju/errors"
 )
 
-const(
-	robotUrl  = "https://oapi.dingtalk.com/robot/send?access_token="
-
+const (
+	robotUrl = "https://oapi.dingtalk.com/robot/send?access_token="
 )
+
 type Msg struct {
-	Msgtype  *string `json:"msgtype,omitempty"`
-	Text      Content `json:"text,omitempty"`
+	Msgtype *string `json:"msgtype,omitempty"`
+	Text    Content `json:"text,omitempty"`
 }
 
 type Content struct {
-	Content  *string `json:"content,omitempty"`
+	Content *string `json:"content,omitempty"`
 }
 
 type MsgRes struct {
-	Errcode  *int `json:"errcode,omitempty"`
-	Errmsg   *string `json:"errmsg,omitempty"`
+	Errcode *int    `json:"errcode,omitempty"`
+	Errmsg  *string `json:"errmsg,omitempty"`
 }
 
-
-
-type(
+type (
 	//优先级TempId(唯一)>>TempAlias(同一个groupid，同一语言 可以少量重复)
 	//     >>(GroupId+lang)(lang可以少量重复)>>(GroupName+lang)(GroupName唯一，lang可少量重复)
 	//     >>(GroupAlias+lang)(GroupAlias唯一，lang可少量重复)
 	DingDingMsg struct {
-		GroupName *string                 `valid:"optional" json:"group_name,omitempty"` //groupname+lang 联合使用
-		GroupId   *int                  `valid:"optional" json:"group_id,omitempty"` //groupid+lang联合使用
-		Lang      *string                 `valid:"required" json:"lang,omitempty"`
+		GroupName *string `valid:"optional" json:"group_name,omitempty"` //groupname+lang 联合使用
+		GroupId   *int    `valid:"optional" json:"group_id,omitempty"`   //groupid+lang联合使用
+		Lang      *string `valid:"required" json:"lang,omitempty"`
 		//GroupAlias *string               `valid:"optional" json:"group_alias,omitempty"`//GroupAlias+lang
 		//TempAlias *string                `valid:"optional" json:"temp_alias,omitempty"`     //可单独使用，重复则选其一
 		//TempId    *int                  `valid:"optional" json:"temp_id,omitempty"`    //唯一，可单独使用
-		Params    map[string]interface{}  `valid:"-" json:"params,omitempty"`    //optional
+		Params map[string]interface{} `valid:"-" json:"params,omitempty"` //optional
 		//Recipient []string               `valid:"optional" json:"recipient,omitempty"` //require
-		Level     *int                     `valid:"optional" json:"level,omitempty"`     //optional
-		AppName   *string                  `valid:"optional" json:"app_name,omitempty"`
+		Level   *int    `valid:"optional" json:"level,omitempty"` //optional
+		AppName *string `valid:"optional" json:"app_name,omitempty"`
 		//UseDefaultRecipient *bool        `valid:"optional" json:"use_default_recipient,omitempty"` //使用默认收件人
 		//SenderId   *string                `valid:"optional" json:"sender_name,omitempty"`
 	}
 )
 
-func (this *DingDingMsg) Send(recordFlag bool) (int, error){
+func (this *DingDingMsg) Send(recordFlag bool) (int, error) {
 	tmplate, errCode, err := this.GetValidTemplate()
 	if err != nil {
-		return errCode,err
+		return errCode, err
 	}
 
 	dingDingMsgBody := ""
 	if tmplate.Content != nil {
 		dingDingMsgBody, err = ParseTextTemplate(*tmplate.Content, this.Params)
 		if err != nil {
-			ZapLog().With(zap.Any("tempParam", this.Params),zap.Any("tempid", tmplate.Id),zap.Error(err)).Error("ParseTextTemplate err")
+			ZapLog().With(zap.Any("tempParam", this.Params), zap.Any("tempid", tmplate.Id), zap.Error(err)).Error("ParseTextTemplate err")
 			//go RecordHistory(*tmplate.GroupId, Notify_Type_DDing, 0,len(this.Recipient), recordFlag)
 			return apibackend.BASERR_BASNOTIFY_TEMPLATE_PARSE_FAIL.Code(), errors.Annotate(err, "ParseTextTemplate")
 		}
 	}
 
-	code ,gerr := this.SendDingDing(dingDingMsgBody, tmplate.DingQunName)
+	code, gerr := this.SendDingDing(dingDingMsgBody, tmplate.DingQunName)
 	errCode = apibackend.BASERR_BASNOTIFY_TWL_ERR.Code()
 
 	if gerr != nil {
-	//	go RecordHistory(*tmplate.GroupId, Notify_Type_Sms, len(this.Recipient)-failCount ,failCount, recordFlag)
+		//	go RecordHistory(*tmplate.GroupId, Notify_Type_Sms, len(this.Recipient)-failCount ,failCount, recordFlag)
 		return errCode, gerr
 	}
 
 	//go RecordHistory(*tmplate.GroupId,Notify_Type_Sms, len(this.Recipient),0, recordFlag)
 	ZapLog().With(zap.Any("param", *this)).Info("SmsSend success")
-	return code,nil
+	return code, nil
 }
 
 func (this *DingDingMsg) SendDingDing(dingBody string, dingQunName *string) (int, error) {
@@ -91,24 +89,24 @@ func (this *DingDingMsg) SendDingDing(dingBody string, dingQunName *string) (int
 
 	reqBody, err := json.Marshal(msg)
 	if err != nil {
-		ZapLog().With(zap.Any("marshal", msg),zap.Any("msg", msg),zap.Error(err)).Error("marshal error")
+		ZapLog().With(zap.Any("marshal", msg), zap.Any("msg", msg), zap.Error(err)).Error("marshal error")
 		return apibackend.BASERR_BASNOTIFY_TEMPLATE_PARSE_FAIL.Code(), errors.Annotate(err, "marshal error")
 	}
 
 	var res []byte
 	switch *dingQunName {
 	case config.GConfig.DingDing[0].QunName:
-		res, err = base.HttpSend(robotUrl+config.GConfig.DingDing[0].RobToken, bytes.NewBuffer(reqBody), "POST",nil)
+		res, err = base.HttpSend(robotUrl+config.GConfig.DingDing[0].RobToken, bytes.NewBuffer(reqBody), "POST", nil)
 	case config.GConfig.DingDing[1].QunName:
-		res, err = base.HttpSend(robotUrl+config.GConfig.DingDing[1].RobToken, bytes.NewBuffer(reqBody), "POST",nil)
+		res, err = base.HttpSend(robotUrl+config.GConfig.DingDing[1].RobToken, bytes.NewBuffer(reqBody), "POST", nil)
 	case config.GConfig.DingDing[2].QunName:
-		res, err = base.HttpSend(robotUrl+config.GConfig.DingDing[2].RobToken, bytes.NewBuffer(reqBody), "POST",nil)
+		res, err = base.HttpSend(robotUrl+config.GConfig.DingDing[2].RobToken, bytes.NewBuffer(reqBody), "POST", nil)
 	}
 
 	robotRes := new(MsgRes)
 	err = json.Unmarshal(res, robotRes)
 	if err != nil {
-		ZapLog().With(zap.Any("unmarshal", msg),zap.Any("robotRes", robotRes),zap.Error(err)).Error("unmarshal error")
+		ZapLog().With(zap.Any("unmarshal", msg), zap.Any("robotRes", robotRes), zap.Error(err)).Error("unmarshal error")
 		return apibackend.BASERR_BASNOTIFY_TEMPLATE_PARSE_FAIL.Code(), errors.Annotate(err, "unmarshal error")
 	}
 
@@ -119,16 +117,16 @@ func (this *DingDingMsg) GetValidTemplate() (*table.Template, int, error) {
 	var group *table.TemplateGroup
 	var err error
 	if this.GroupId != nil {
-		group,err = new(TemplateGroup).GetByid(*this.GroupId)
+		group, err = new(TemplateGroup).GetByid(*this.GroupId)
 		if err != nil {
 			return nil, apibackend.BASERR_DATABASE_ERROR.Code(), errors.Annotate(err, "GetById")
 		}
-	}else if this.GroupName != nil {                                   //需要改动 2
-		group,err = new(TemplateGroup).GetByNameAndType(*this.GroupName, Notify_Type_Ding, nil)
+	} else if this.GroupName != nil { //需要改动 2
+		group, err = new(TemplateGroup).GetByNameAndType(*this.GroupName, Notify_Type_Ding, nil)
 		if err != nil {
 			return nil, apibackend.BASERR_DATABASE_ERROR.Code(), errors.Annotate(err, "GetByNameAndType")
 		}
-	}else{
+	} else {
 		return nil, apibackend.BASERR_INVALID_PARAMETER.Code(), errors.Annotate(err, "GetUnSupport")
 	}
 
@@ -140,12 +138,12 @@ func (this *DingDingMsg) GetValidTemplate() (*table.Template, int, error) {
 		*this.Lang = "zh-CN"
 	}
 
-	tempalate,err := new(Template).GetByGIdAndLang(*group.Id, *this.Lang)
+	tempalate, err := new(Template).GetByGIdAndLang(*group.Id, *this.Lang)
 	if err != nil {
 		return nil, apibackend.BASERR_DATABASE_ERROR.Code(), errors.Annotate(err, "GetByGIdAndLang")
 	}
-	if (*this.Lang != "zh-CN") &&(tempalate == nil || tempalate.Content == nil || len(*tempalate.Content) == 0){
-		tempalate,_ = new(Template).GetByGIdAndLang(*group.Id, "zh-CN")
+	if (*this.Lang != "zh-CN") && (tempalate == nil || tempalate.Content == nil || len(*tempalate.Content) == 0) {
+		tempalate, _ = new(Template).GetByGIdAndLang(*group.Id, "zh-CN")
 		if tempalate == nil {
 			return nil, apibackend.BASERR_OBJECT_NOT_FOUND.Code(), errors.Errorf("nofind temp")
 		}
@@ -173,7 +171,7 @@ func (this *DingDingMsg) GetValidTemplate() (*table.Template, int, error) {
 	//	tempalate.SmsPlatform = new(int)
 	//	*tempalate.SmsPlatform = SMSPlatform_AWS
 	//}
-	return tempalate, 0,nil
+	return tempalate, 0, nil
 }
 
 //

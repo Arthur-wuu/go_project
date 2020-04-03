@@ -1,8 +1,8 @@
 package output
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 	"go-common/app/service/ops/log-agent/event"
 	"go-common/library/log"
 
@@ -14,7 +14,7 @@ type configDecodeFunc = func(md toml.MetaData, primValue toml.Primitive) (c inte
 type Output interface {
 	Run() (err error)
 	Stop()
-	InputChan() (chan *event.ProcessorEvent)
+	InputChan() chan *event.ProcessorEvent
 }
 
 // Factory is used to register functions creating new Input instances.
@@ -69,7 +69,7 @@ func OutputRunning(name string) bool {
 	return exists
 }
 
-func RegisterOutput(name string, o Output) (error) {
+func RegisterOutput(name string, o Output) error {
 	if name == "" {
 		return nil
 	}

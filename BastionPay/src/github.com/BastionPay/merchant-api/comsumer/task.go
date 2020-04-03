@@ -18,6 +18,7 @@ import (
 	"BastionPay/merchant-api/config"
 	"BastionPay/merchant-api/util"
 )
+
 var h5PrivateKey = []byte(`
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEAuW30rrCPsvjtXMtCEV7elJdQ81NC2r309zTItBx+0KOcvysU
@@ -48,32 +49,30 @@ ZpqTdTAmvK7JaZooBF736k+gTMmX0qdzfmoJSDNqHZaoq4tmuojZZg==
 -----END RSA PRIVATE KEY-----
 `)
 
-
-type Data struct{
-	MerchantTradeNo  *string   `json:"merchant_trade_no"`
-	Assets           *string   `json:"assets"`
-	Amount           *string   `json:"amount"`
-	Status           *string   `json:"status"`
-	TradeNo          *string   `json:"trade_no"`
+type Data struct {
+	MerchantTradeNo *string `json:"merchant_trade_no"`
+	Assets          *string `json:"assets"`
+	Amount          *string `json:"amount"`
+	Status          *string `json:"status"`
+	TradeNo         *string `json:"trade_no"`
 }
 
 var GTasker Tasker
-type Tasker struct{
-	mMerchantOrderChan   chan *api.Merchant
 
+type Tasker struct {
+	mMerchantOrderChan chan *api.Merchant
 }
 
-
-func (this * Tasker) Start() {
+func (this *Tasker) Start() {
 	this.mMerchantOrderChan = make(chan *api.Merchant, 100)
-	for i:=0; i < 10; i++ {
+	for i := 0; i < 10; i++ {
 		go this.sChanWorker()
 	}
 }
 
-func (this * Tasker) sChanWorker() {
+func (this *Tasker) sChanWorker() {
 	//查cache
-	for  {
+	for {
 		time.Sleep(time.Second * 2)
 		orderNo := <-this.mMerchantOrderChan
 		fmt.Println("开始拿chan 的数据...", orderNo.MerchantTradeNo, orderNo.MerchantId)
@@ -81,7 +80,7 @@ func (this * Tasker) sChanWorker() {
 		//查询订单状态
 		statusData, err := Send(orderNo.MerchantTradeNo, orderNo.MerchantId)
 		if err != nil {
-			ZapLog().Error( "send message to pastionpay select order status err")
+			ZapLog().Error("send message to pastionpay select order status err")
 			continue
 		}
 		status := statusData["status"]
@@ -92,17 +91,17 @@ func (this * Tasker) sChanWorker() {
 		//	return
 		//}
 
-		fmt.Println("order status" , status)
+		fmt.Println("order status", status)
 
 		if status == "3" {
-			bool, err := new(models.Trade).UpdateRowsAffected( orderNo.MerchantTradeNo, models.EUM_TRANSFER_STATUS_SUCCESS)
+			bool, err := new(models.Trade).UpdateRowsAffected(orderNo.MerchantTradeNo, models.EUM_TRANSFER_STATUS_SUCCESS)
 			if err != nil {
-				ZapLog().Error( " update by tradeNo err, notify end", zap.Error(err))
+				ZapLog().Error(" update by tradeNo err, notify end", zap.Error(err))
 				//ctx.JSON(Response{Code: apibackend.BASERR_DATABASE_ERROR.Code(), Message: err.Error()})
 				continue
 			}
 			if bool == false {
-				ZapLog().Error( "update 0 rows, notify end", zap.Error(err))
+				ZapLog().Error("update 0 rows, notify end", zap.Error(err))
 				//ctx.JSON(Response{Code: apibackend.BASERR_DATABASE_ERROR.Code(), Message: err.Error()})
 				continue
 			}
@@ -118,7 +117,7 @@ func (this * Tasker) sChanWorker() {
 			}
 
 			if err != nil {
-				ZapLog().Error( "get device id err, notify end", zap.Error(err))
+				ZapLog().Error("get device id err, notify end", zap.Error(err))
 				//ctx.JSON(Response{Code: apibackend.BASERR_DATABASE_ERROR.Code(), Message: err.Error()})
 				continue
 			}
@@ -130,11 +129,11 @@ func (this * Tasker) sChanWorker() {
 			err = devices.Send(gameCoin)
 			fmt.Println("***send coin over ***", status)
 			if err != nil {
-				ZapLog().Error( "send coin to machine fail, notify end", zap.Error(err))
+				ZapLog().Error("send coin to machine fail, notify end", zap.Error(err))
 				//ctx.JSON(Response{Code: apibackend.BASERR_DATABASE_ERROR.Code(), Message: err.Error()})
 				continue
 			}
-		}else{
+		} else {
 			//扔回去
 			//fmt.Println("order status ！=3 " , status)
 			this.mMerchantOrderChan <- orderNo
@@ -144,15 +143,12 @@ func (this * Tasker) sChanWorker() {
 	}
 }
 
-func (this * Tasker) SendOrderNo(msg *api.Merchant) {
-	fmt.Println("数据进入chan 待消费中....",msg)
+func (this *Tasker) SendOrderNo(msg *api.Merchant) {
+	fmt.Println("数据进入chan 待消费中....", msg)
 	this.mMerchantOrderChan <- msg
 }
 
-
-
-
-func Send(MerchantTradeNo,MerchantId string) (map[string]interface{} , error){
+func Send(MerchantTradeNo, MerchantId string) (map[string]interface{}, error) {
 	//往baspay 查询订单状态
 	signType := "RSA"
 	timeStamp := GetTimeStamp()
@@ -164,10 +160,10 @@ func Send(MerchantTradeNo,MerchantId string) (map[string]interface{} , error){
 
 	reqBodySign, _ := json.Marshal(map[string]interface{}{
 		"merchant_trade_no": MerchantTradeNo,
-		"merchant_id": MerchantId,
+		"merchant_id":       MerchantId,
 		//	"sign_type": this.Request.SignType,
 		//	"signature": this.Request.Signature,
-		"timestamp": timeStamp,
+		"timestamp":  timeStamp,
 		"notify_url": notifyUrl,
 	})
 
@@ -182,22 +178,22 @@ func Send(MerchantTradeNo,MerchantId string) (map[string]interface{} , error){
 
 	//fmt.Println("***final sign***",finalSign)
 	if err != nil {
-		ZapLog().Error( "sign err", zap.Error(err))
+		ZapLog().Error("sign err", zap.Error(err))
 		return nil, err
 	}
 
 	reqBody, _ := json.Marshal(map[string]interface{}{
 		"merchant_trade_no": MerchantTradeNo,
-		"merchant_id": MerchantId,
-		"sign_type": signType,
-		"signature": finalSign,
-		"timestamp": timeStamp,
-		"notify_url": notifyUrl,
+		"merchant_id":       MerchantId,
+		"sign_type":         signType,
+		"signature":         finalSign,
+		"timestamp":         timeStamp,
+		"notify_url":        notifyUrl,
 	})
 
-	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/info", bytes.NewBuffer(reqBody),"POST", nil) //map[string]string{"Client":"1", "DeviceType":"1", "DeviceName":"huawei","DeviceId":"ab9dd65725876c597","Version":"1.1.0","Content-Type":"application/json;charset=UTF-8" }
+	result, err := base.HttpSend(config.GConfig.BastionpayUrl.Bastionurl+"/open-api/trade/info", bytes.NewBuffer(reqBody), "POST", nil) //map[string]string{"Client":"1", "DeviceType":"1", "DeviceName":"huawei","DeviceId":"ab9dd65725876c597","Version":"1.1.0","Content-Type":"application/json;charset=UTF-8" }
 	if err != nil {
-		ZapLog().Error( "send message to get trade info err", zap.Error(err))
+		ZapLog().Error("send message to get trade info err", zap.Error(err))
 		return nil, err
 	}
 	//fmt.Println("**result**",string(result))
@@ -211,22 +207,20 @@ func Send(MerchantTradeNo,MerchantId string) (map[string]interface{} , error){
 
 }
 
-
 func GetTimeStamp() string {
 	times := time.Now().Format("2006-01-02 15:04:05")
 	return times
 }
 
-type ResTradeInfo struct{
-	Code       *int                `json:"code"`
-	Data       *map[string]interface{}   `json:"data"`
-	Message    *string             `json:"message"`
+type ResTradeInfo struct {
+	Code    *int                    `json:"code"`
+	Data    *map[string]interface{} `json:"data"`
+	Message *string                 `json:"message"`
 }
 
-
-func RequestBodyToSignStr (body []byte) (string){
+func RequestBodyToSignStr(body []byte) string {
 	//fmt.Println("**body**",string(body))
-	requestParams := make(map[string]string,0)
+	requestParams := make(map[string]string, 0)
 
 	err := json.Unmarshal(body, &requestParams)
 	//fmt.Println("**requestParams**",requestParams)
@@ -236,17 +230,17 @@ func RequestBodyToSignStr (body []byte) (string){
 	}
 	//将param的key排序，
 	keysSort := make([]string, 0)
-	for k, _ := range requestParams{
+	for k, _ := range requestParams {
 		keysSort = append(keysSort, k)
 	}
 	sort.Strings(keysSort)
 	//fmt.Println("**keysSort**",keysSort)
 	//拼接签名字符串
 	signH5Str := ""
-	for i:=0; i<len(keysSort); i++ {
-		signH5Str += keysSort[i]+"="+requestParams[keysSort[i]]+"&"
+	for i := 0; i < len(keysSort); i++ {
+		signH5Str += keysSort[i] + "=" + requestParams[keysSort[i]] + "&"
 	}
-	signH5Str = signH5Str[0:len(signH5Str)-1]
+	signH5Str = signH5Str[0 : len(signH5Str)-1]
 	//fmt.Println("**signH5Str**",signH5Str)
-	return  signH5Str
+	return signH5Str
 }

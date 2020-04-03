@@ -1,19 +1,19 @@
 package pipeline
 
 import (
-	"sync"
-	"errors"
 	"context"
-	"sort"
-	"time"
-	"os"
+	"errors"
+	"github.com/BurntSushi/toml"
 	"go-common/app/service/ops/log-agent/event"
 	"go-common/app/service/ops/log-agent/input"
-	"go-common/app/service/ops/log-agent/processor"
 	"go-common/app/service/ops/log-agent/output"
 	"go-common/app/service/ops/log-agent/pkg/common"
+	"go-common/app/service/ops/log-agent/processor"
 	"go-common/library/log"
-	"github.com/BurntSushi/toml"
+	"os"
+	"sort"
+	"sync"
+	"time"
 )
 
 type PipelineMng struct {
@@ -125,7 +125,7 @@ func (m *PipelineMng) scan() {
 	}
 }
 
-func (m *PipelineMng) StartPipeline(ctx context.Context, configPath string, config string) () {
+func (m *PipelineMng) StartPipeline(ctx context.Context, configPath string, config string) {
 	var err error
 	p := new(Pipeline)
 	p.configPath = configPath

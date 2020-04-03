@@ -185,7 +185,7 @@ func (s *Service) userInfo(c context.Context, mid int64) (ui *model.UserInfo, er
 }
 
 // Info returns user info.
-func (s *Service) Info(c context.Context, mid int64) (ui *model.UserInfo, err error){
+func (s *Service) Info(c context.Context, mid int64) (ui *model.UserInfo, err error) {
 	ui, err = s.UserInfoAsyn(c, mid)
 	if err != nil {
 		return

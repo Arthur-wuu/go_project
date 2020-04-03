@@ -1,23 +1,23 @@
 package utils
 
 import (
-	"github.com/satori/go.uuid"
 	"context"
-	"sync"
 	"fmt"
+	"github.com/satori/go.uuid"
+	"sync"
 )
 
 // Trace and monitor request
 // TODO: not finish, not useful
 
 type ApiRequest struct {
-	VersionApi string	// api
-	Id string			// uuid
+	VersionApi string // api
+	Id         string // uuid
 }
 
 func (ar ApiRequest) BuildUuid() error {
 	uuid, err := uuid.NewV4()
-	if err != nil{
+	if err != nil {
 		ar.Id = uuid.String()
 	}
 
@@ -30,7 +30,7 @@ type ApiRequestTracer struct {
 	apiChan chan ApiRequest
 
 	apiFinChan chan string
-	
+
 	apiRequestMap map[string]ApiRequest
 }
 
@@ -40,15 +40,15 @@ func NewApiRequestTracer() *ApiRequestTracer {
 	art.apiChan = make(chan ApiRequest, 1000)
 	art.apiFinChan = make(chan string, 1000)
 	art.apiRequestMap = make(map[string]ApiRequest)
-	return art;
+	return art
 }
 
-func (art *ApiRequestTracer)StartTracer(ctx context.Context, wg *sync.WaitGroup)  {
+func (art *ApiRequestTracer) StartTracer(ctx context.Context, wg *sync.WaitGroup) {
 	go func(ctx2 context.Context, wg2 *sync.WaitGroup, art2 *ApiRequestTracer) {
 		wg2.Add(1)
 		defer wg2.Done()
 
-		for  {
+		for {
 			select {
 			case <-ctx2.Done():
 				art2.stopChan <- true
@@ -63,23 +63,23 @@ func (art *ApiRequestTracer)StartTracer(ctx context.Context, wg *sync.WaitGroup)
 		}
 	}(ctx, wg, art)
 
-	<- art.stopChan
+	<-art.stopChan
 	fmt.Println("I am quit Api request tracer")
 }
 
-func (art *ApiRequestTracer)TraceApi(versionApi string) string {
+func (art *ApiRequestTracer) TraceApi(versionApi string) string {
 	uuid, err := uuid.NewV4()
-	if err != nil{
+	if err != nil {
 		return ""
 	}
 
-	ar := ApiRequest{VersionApi:versionApi, Id:uuid.String()}
+	ar := ApiRequest{VersionApi: versionApi, Id: uuid.String()}
 
 	art.apiChan <- ar
 	return ar.Id
 }
 
-func (art *ApiRequestTracer)FinishTraceApi(id string) {
+func (art *ApiRequestTracer) FinishTraceApi(id string) {
 	art.apiFinChan <- id
 	return
 }

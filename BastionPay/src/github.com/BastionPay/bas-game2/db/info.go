@@ -36,7 +36,6 @@ package db
 //	}
 //}
 
-
 type DbOptions struct {
 	Host        string
 	Port        string

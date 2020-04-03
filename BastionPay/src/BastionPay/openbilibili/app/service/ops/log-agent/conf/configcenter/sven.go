@@ -1,8 +1,8 @@
 package configcenter
 
 import (
-	"go-common/library/log"
 	"go-common/library/conf"
+	"go-common/library/log"
 )
 
 var (

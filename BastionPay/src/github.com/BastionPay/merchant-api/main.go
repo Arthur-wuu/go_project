@@ -1,12 +1,12 @@
 package main
 
 import (
-"BastionPay/bas-base/config"
-. "BastionPay/bas-base/log/zap"
-. "BastionPay/merchant-api/config"
-"fmt"
-"go.uber.org/zap"
-"runtime/debug"
+	"BastionPay/bas-base/config"
+	. "BastionPay/bas-base/log/zap"
+	. "BastionPay/merchant-api/config"
+	"fmt"
+	"go.uber.org/zap"
+	"runtime/debug"
 )
 
 func PanicPrint() {

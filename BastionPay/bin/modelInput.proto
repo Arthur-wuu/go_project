@@ -1,0 +1,115 @@
+syntax = "proto2";
+
+package modelInput;
+
+option go_package = "model";
+
+service Score {
+    rpc pred ( CtrModelReq) returns (  CtrModelResp) {}
+}
+
+message CtrModelReq
+{
+  optional string dt=1; //时间
+  optional int32  hr=2; //小时
+  optional string src_id=3;//广告位ID
+  optional int32  src_type=4;//媒体类型
+  optional int32  page_index=5; //页索引
+  optional string posids=6; //广告位置IDs
+  optional string expids_str=7; //实验IDs
+  optional uint32 operator_id=8; //运营商ID
+  optional string os_platform=9; //OS平台
+  optional string os_version=10; //OS版本
+  optional string m_brand=11; //品牌
+  optional string m_model=12; //设备模型
+  optional string app_market=13;//应用市场
+  optional string app_version=14; //应用版本
+  optional string ipstr=15; //IP地址
+  optional int32  loc_code=16;//位置代码
+
+  enum NetType
+  {
+    NT_UnKnown = 0;
+    NT_Ethernet = 1;
+    NT_Wifi = 2;
+    NT_Cellular = 3;
+    NT_Cellular_2G = 4;
+    NT_Cellular_3G = 5;
+    NT_Cellular_4G = 6;
+  }
+  optional NetType net_type = 17; //网络类型
+  optional double longitude = 18; //经度
+  optional double latitude = 19;  //维度
+  optional string locprovince=20; //位置
+
+  repeated Ads ads=21; //广告
+
+  optional int32 ad_slot_type=22;
+  optional int32 q_gender=23;
+  optional int32 ad_width=24;
+  optional int32 ad_height=25;
+  optional string game_hobby_tags=26;
+  optional string game_hobby_tags_level=27;
+
+  message Ads
+  {
+    optional uint32 user_id  = 1; //用户ID
+    optional uint32 subject_id = 2; /* 推广主体 */
+    enum Category
+    {
+      Game = 1; /*游戏*/
+      Novel = 2; /*小说*/
+      Audio = 3; /* 音频 */
+      Video = 4; /* 视频 */
+      LiveShow = 5; /* 直播 */
+      Ecommerce = 6; /* 电商 */
+      Lottery = 7; /* 彩票 */
+      News = 8; /* 新闻 */
+      Tools = 9; /* 工具 */
+      Canton = 10;  /* 卡通 */
+    }
+    optional Category category_id = 3; /* 推广类型: 游戏, 小说 */
+    optional string action_id = 4; /* 动作: redirect, download*/
+    optional int32 target_id = 5; /* 推广目标: 下载, tab跳转, 快应用, 拉活 */
+    optional uint32 plan_id = 6;
+    optional uint32 unit_id = 7;
+    optional uint32 idea_id = 8;
+    optional uint32 template_id = 9;
+    optional string attributes = 10; // 创意属性揭露
+    optional double ctr = 11; //CTR对统计值
+    optional double cvr = 12; //CVR
+    optional double bid = 13;
+    optional int32 need_ads=14;
+    enum SubjectType
+    {
+      APP = 1;
+      H5 = 2;
+    }
+    optional SubjectType subject_type = 15; /* 推广主体类型, 兼容老格式, 先用optional, 以后改为required */
+    optional double dtr = 16; //dtr
+    optional double ctrl_cpm = 17; //cpm
+    optional double factor = 18; //安装曝光率
+    optional string lp_id = 19; //落地页
+    optional int32 targeted = 20; //创意是否参与定向
+    optional int32 is_backup = 21; //是否为补余数据
+    optional string pos_ratio = 22; //当前位置上的各种率
+    optional string pv_bid_cpms = 23; //当前位置上的竞价价格
+    optional string inview_bid_cpms = 24; // 当前位置上的入屏价格
+    optional int32 showed_count = 25; //三天内的素材展现
+    optional string app_list = 26; //app 装机列表
+  }
+}
+
+message CtrModelResp {
+  required int32 ret =1; //返回值。1为成功，0为出错
+  repeated Ctr ctr = 2; //返回的CTR
+  message Ctr
+  {
+    required uint32 idea_id = 1; //创意ID
+    required uint32 subject_id = 2;//主体ID
+    required double ctr = 3; //ctr  值
+    optional uint32 plan_id=4;  //计划ID
+    optional uint32 unit_id=5;
+    repeated double multi_ctrs=6; //有多个位置的广告
+  }
+}

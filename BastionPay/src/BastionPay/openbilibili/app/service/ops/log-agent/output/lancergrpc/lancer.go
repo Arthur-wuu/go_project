@@ -1,24 +1,24 @@
 package lancergrpc
 
 import (
+	"bytes"
 	"context"
 	"fmt"
-	"bytes"
-	"sync"
-	"strconv"
-	"time"
 	"math"
+	"strconv"
+	"sync"
+	"time"
 
 	"go-common/app/service/ops/log-agent/event"
 	"go-common/app/service/ops/log-agent/output"
-	"go-common/app/service/ops/log-agent/pkg/flowmonitor"
-	"go-common/app/service/ops/log-agent/pkg/common"
 	"go-common/app/service/ops/log-agent/output/cache/file"
-	"go-common/library/log"
+	"go-common/app/service/ops/log-agent/output/lancergrpc/lancergateway"
+	"go-common/app/service/ops/log-agent/pkg/common"
+	"go-common/app/service/ops/log-agent/pkg/flowmonitor"
 	"go-common/app/service/ops/log-agent/pkg/lancermonitor"
+	"go-common/library/log"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
-	"go-common/app/service/ops/log-agent/output/lancergrpc/lancergateway"
 )
 
 const (
@@ -93,7 +93,7 @@ func NewLancer(ctx context.Context, config interface{}) (output.Output, error) {
 	return lancer, nil
 }
 
-func (l *Lancer) InputChan() (chan *event.ProcessorEvent) {
+func (l *Lancer) InputChan() chan *event.ProcessorEvent {
 	return l.i
 }
 
@@ -182,7 +182,7 @@ func (l *Lancer) sendLogDirectToLancer(e *event.ProcessorEvent) {
 	l.sendChan <- logDoc
 }
 
-func (l *Lancer) nextRetry(retry int) (time.Duration) {
+func (l *Lancer) nextRetry(retry int) time.Duration {
 	// avoid d too large
 	if retry > 10 {
 		return time.Duration(l.c.MaxRetryDuration)
@@ -225,7 +225,7 @@ func (l *Lancer) bulkSendToLancerWithRetry(in *lancergateway.EventList) {
 		}
 
 		time.Sleep(l.nextRetry(retry))
-		retry ++
+		retry++
 	}
 }
 

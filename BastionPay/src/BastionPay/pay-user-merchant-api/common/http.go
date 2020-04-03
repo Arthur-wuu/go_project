@@ -1,12 +1,12 @@
 package common
 
 import (
+	"errors"
+	"io"
 	"io/ioutil"
 	"net"
 	"net/http"
 	"time"
-	"errors"
-	"io"
 )
 
 const (
@@ -23,7 +23,7 @@ func HttpSend(url string, body io.Reader, method string, headers map[string]stri
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	for k,v := range headers {
+	for k, v := range headers {
 
 		req.Header.Set(k, v)
 	}
@@ -39,7 +39,7 @@ func HttpSend(url string, body io.Reader, method string, headers map[string]stri
 
 	content, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 
 	if len(content) == 0 {

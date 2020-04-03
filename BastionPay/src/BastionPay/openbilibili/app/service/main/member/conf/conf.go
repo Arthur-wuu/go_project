@@ -29,7 +29,6 @@ var (
 
 // Config struct of conf.
 type Config struct {
-
 	Log           *log.Config
 	BM            *bm.ServerConfig
 	HTTPClient    *bm.ClientConfig

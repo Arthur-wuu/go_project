@@ -113,7 +113,7 @@ func (z *ZkElection) Elect() (err error) {
 					log.Info("reinit zk")
 					if err = z.Init(); err != nil {
 						log.Error("err init zk again, sleep 5s, err=%v", err)
-						time.Sleep(5*time.Second)
+						time.Sleep(5 * time.Second)
 					} else {
 						ch, err = z.watchChange()
 						if err != nil {

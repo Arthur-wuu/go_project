@@ -8,14 +8,13 @@ import (
 	//"strconv"
 )
 
-
 type (
 	WhiteList struct {
-		Id            *uint64     `json:"id"              gorm:"AUTO_INCREMENT;primary_key;column:id"`
-		CreatedAt     *int64      `json:"created_at"      gorm:"column:created_at;type:bigint(20)"`
-		UpdatedAt     *int64      `json:"updated_at"      gorm:"column:updated_at;type:bigint(20)"`
+		Id        *uint64 `json:"id"              gorm:"AUTO_INCREMENT;primary_key;column:id"`
+		CreatedAt *int64  `json:"created_at"      gorm:"column:created_at;type:bigint(20)"`
+		UpdatedAt *int64  `json:"updated_at"      gorm:"column:updated_at;type:bigint(20)"`
 
-		WhiteUrl       *string    `json:"white_url"       gorm:"column:white_url;type:varchar(80)"`
+		WhiteUrl *string `json:"white_url"       gorm:"column:white_url;type:varchar(80)"`
 		//Symbol         *string    `json:"symbol"          gorm:"column:symbol;type:varchar(10)"`
 		//Amount         *string    `json:"amount"          gorm:"column:amount;type:varchar(10)"`
 		//DeviceType     *string    `json:"device_type"     gorm:"column:device_type;type:varchar(10)"`
@@ -33,25 +32,25 @@ func (this *WhiteList) TableName() string {
 
 type (
 	WhiteListGet struct {
-		DeviceNo    *string `valid:"optional" json:"white_url"`
+		DeviceNo *string `valid:"optional" json:"white_url"`
 	}
-
 )
 
 func InitWhiteList() error {
 	return db.GDbMgr.Get().AutoMigrate(&WhiteList{}).Error
 }
 
-func (this *WhiteListGet) Get() (*string ,error) {
+func (this *WhiteListGet) Get() (*string, error) {
 	model := &WhiteList{}
 	if err := db.GDbMgr.Get().Last(model).Error; err != nil {
-		return model.WhiteUrl,  err
+		return model.WhiteUrl, err
 	}
 	if model == nil {
 		return nil, errors.New("WhiteList not find")
 	}
 	return model.WhiteUrl, nil
 }
+
 //
 //func (this *BkConfigAdd) Add()  (error) {
 //	//bkConfig := &BkConfigAdd{}

@@ -72,8 +72,8 @@ func (s *Service) payFail(c context.Context, status string, payOrder *model.PayO
 	var (
 		payParam *model.PayParam
 		//ystOrder *model.YstOrderStateReply
-		tx       *xsql.Tx
-		err      error
+		tx  *xsql.Tx
+		err error
 	)
 	if payOrder.Status == model.PayOrderStatusFail {
 		log.Info("s.PayFail(%s, %+v) msg(DuplicatedCallback)", status, payOrder)
@@ -125,7 +125,7 @@ func (s *Service) paySuccess(c context.Context, status string, payOrder *model.P
 		payParam *model.PayParam
 		panel    *model.PanelPriceConfig
 		//ystOrder *model.YstOrderStateReply
-		err      error
+		err error
 	)
 	if payOrder.Status == model.PayOrderStatusSuccess {
 		log.Info("s.PaySuccess(%s, %+v) msg(DuplicatedCallback)", status, payOrder)

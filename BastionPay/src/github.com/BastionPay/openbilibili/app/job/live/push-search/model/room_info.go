@@ -13,16 +13,16 @@ type ApRoomNotifyInfo struct {
 }
 
 type LiveDatabusAttention struct {
-	Topic	string `json:"topic"`
-	MsgId	string `json:"msg_id"`
+	Topic      string               `json:"topic"`
+	MsgId      string               `json:"msg_id"`
 	MsgContent *AttentionNotifyInfo `json:"msg_content"`
 }
 
 // NotifyInfo notify info.
 type AttentionNotifyInfo struct {
-	Uid      int64  `json:"uid"`
-	UpUid    int64  `json:"up_uid"`
-	ExtInfo  *ExInfo `json:"ext_info"`
+	Uid     int64   `json:"uid"`
+	UpUid   int64   `json:"up_uid"`
+	ExtInfo *ExInfo `json:"ext_info"`
 }
 
 type ExInfo struct {
@@ -30,15 +30,15 @@ type ExInfo struct {
 }
 
 type LiveDatabus struct {
-	Topic	string `json:"topic"`
-	MsgId	string `json:"msg_id"`
+	Topic      string `json:"topic"`
+	MsgId      string `json:"msg_id"`
 	MsgContent string `json:"msg_content"`
 }
 
-type UnameNotifyInfo struct{
-	Uid int64 `json:"uid"`
-	Uname string `json:"uname"`
-	Identification int `json:"identification"`
+type UnameNotifyInfo struct {
+	Uid            int64  `json:"uid"`
+	Uname          string `json:"uname"`
+	Identification int    `json:"identification"`
 }
 
 type TableField struct {
@@ -54,13 +54,13 @@ type TableField struct {
 	TryTime        string `json:"try_time"`
 	Cover          string `json:"cover"`
 	UserCover      string `json:"user_cover"`
-	LockStatus     string    `json:"lock_status"`
-	HiddenStatus   string    `json:"hidden_status"`
+	LockStatus     string `json:"lock_status"`
+	HiddenStatus   string `json:"hidden_status"`
 	Attentions     int    `json:"attentions"`
 	Online         int    `json:"online"`
 	LiveTime       string `json:"live_time"`
 	AreaV2Id       int    `json:"area_v2_id"`
-	AreaV2Name	   string `json:"area_v2_name"`
+	AreaV2Name     string `json:"area_v2_name"`
 	AreaV2ParentId int    `json:"area_v2_parent_id"`
 	Virtual        int    `json:"virtual"`
 	RoundStatus    int    `json:"round_status"`

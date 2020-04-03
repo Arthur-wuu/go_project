@@ -41,7 +41,7 @@ func (this *DbMgr) AddCode(info *CodeTable) error {
 		info.UpdatedAt = new(int64)
 		*info.UpdatedAt = NowTimestamp()
 	}
-//	fmt.Printf("=====%v\n", *info)
+	//	fmt.Printf("=====%v\n", *info)
 	newDB := this.mConn.Model(&CodeTable{}).Where("symbol = ?", info.Symbol).Update(info)
 	if newDB.Error != nil {
 		return newDB.Error

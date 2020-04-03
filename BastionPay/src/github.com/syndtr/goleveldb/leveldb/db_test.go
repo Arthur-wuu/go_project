@@ -515,7 +515,7 @@ func truno(t *testing.T, o *opt.Options, f func(h *dbHarness)) {
 				if o == nil {
 					o = &opt.Options{
 						DisableLargeBatchTransaction: true,
-						Filter: testingBloomFilter,
+						Filter:                       testingBloomFilter,
 					}
 				} else {
 					old := o

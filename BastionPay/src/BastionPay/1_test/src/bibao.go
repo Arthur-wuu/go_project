@@ -1,65 +1,170 @@
-package src
+package main
 
 import (
-	"encoding/json"
+	"math/rand"
+	"regexp"
 	"fmt"
-	"reflect"
+	"sort"
+
+	//"net/http"
+
+	//"strconv"
+	//a "net/url"
+
+	//"strconv"
+	"strings"
+
+	//"strconv"
+
+	//"strings"
 )
 
 func main(){
-	var j int = 5
-	a:=func() (func()){
-		var i int = 10
-		return func(){
-			fmt.Printf("i,j:%d,%d\n",i,j)
+	//s := "postgres://user:pass@host.com:5432/paths?k=v#f"
+	//urls, _ := a.Parse(s)
+	//maps := urls.Query()
+	////maps["k"] = "sss"
+	//fmt.Println("maps:",maps)
+	//maps["k"][0] = "xsacsa"
+	//
+	//urls.String()
+	//
+	//
+	////var uid *string
+	////uidInt, _ := strconv.Atoi(*uid)
+	//
+	//u, _ := a.Parse(s)
+	//query := u.Query()
+	//fmt.Println("aaa", query)
+	//m, _ := a.ParseQuery(u.RawQuery)
+	//
+	//fmt.Println(m)
+	//fmt.Println(m["k"][0])
+	//m.Set("k", "dwqdwq")
+	//m.Encode()
+	//fmt.Println(m)
+	//fmt.Println(s)
+	//
+	//var ints int
+	//fmt.Println(ints)
+
+	//line := "imei		android"
+	//data := strings.Split(line, "\t")
+	////len(data)
+	//fmt.Println(data[0],data[1],data[2], len(data))
+str  := "wkreader://app/go/read?bookid=46998"
+  arr := strings.Split(str, "&")
+
+  fmt.Println(len(arr))
+	fmt.Println(arr)
+	//fmt.Println(len(arr))
+	s := "157264&chapterid=41722869&force_to_chapter=true&extsourceid=wkr28022"
+	s = "123456" + s[6:]
+	fmt.Println(s)
+
+
+	fmt.Println("" == " ")
+	ids := []string{"2","4","66"}
+	s = GetPkgsByIDs(ids)
+	fmt.Println(s)
+
+
+	bookReg, _ := regexp.Compile(`bookid=([\d]+)`)
+	//b :=bookReg.FindStringSubmatch("hap://dsadsa?dsa=sd&dwd&bookid=1238")
+	//fmt.Println(b)
+	strs := "wklreader://app/go/read?bookid=157264&chapterid=41722869&force_to_chapter=true&extsourceid=wkr28022"
+            // wklreader://app/go/read?bookid=33333&chapterid=41722869&force_to_chapter=true&extsourceid=wkr28022
+	p := "33333"
+	a := bookReg.FindStringIndex(strs)
+	// 前a[0] 后a[1]
+	pre := strs[:a[0]+7] + p
+	end := strs[a[1]:]
+	fmt.Println(pre + end)
+	fmt.Println(end)
+
+
+
+
+
+
+	fmt.Println(a)
+	//length := len(b[1])
+
+	num := 1
+	i := rand.Intn(num)
+
+	fmt.Println("i" , i)
+	sreee :=GetExpidsStr([]uint32{1,3,4,555,654,2})
+	fmt.Println("sreee" , sreee)
+
+	sreee2 := GetExpidsStrUniq([]uint32{1,3,3322222,2,2222,2222,3,3,3,4,555,654,2})
+	fmt.Println("sreee2" , sreee2)
+
+
+
+	keysSlice := []string{"12","23"}
+	lists := new(Lists)
+	lists.List = make([]Body,len(keysSlice))
+	for idx, key := range keysSlice {
+		token := "ttt"
+		lists.List[idx].Id = key
+		lists.List[idx].Token = token
+	}
+
+	fmt.Println(*lists)
+
+
+
+}
+
+// GetExpidsStr 获取实验 id 以逗号分给
+func GetExpidsStr(expids []uint32) (str string) {
+	expidsStr := make([]string, 0, len(expids))
+	for _, expid := range expids {
+		expidsStr = append(expidsStr, fmt.Sprintf("%d", expid))
+	}
+	return strings.Join(expidsStr, ",")
+}
+
+func GetExpidsStrUniq(expids []uint32) (str string) {
+	tempMap := make(map[string]int)
+	for _, expid := range expids {
+		_, ok := tempMap[fmt.Sprintf("%d", expid)]
+		if !ok {
+			tempMap[fmt.Sprintf("%d", expid)] = 1
 		}
-	}()//将一个无需参数，返回值为匿名函数的函数赋值给a()
-
-	sub := "sub"
-	obj := "obj"
-	period := "1m"
-	Topic1 := sub+".market."+obj+".kline|{\\\"period\\\":\\\""+period+"\\\"}"
-	Topic2 := sub+".market."+obj+".kline|{\\\"period\\\":\\\""+period+"\\\"}"
-	//变成json的字节数组，拼接成json
-
-	json1 := "{\"topic\":\""+Topic1+"\"}"
-
-	fmt.Println(json1)
-	fmt.Println(Topic1)
-	fmt.Println(Topic2)
+	}
+	expidsStr := make([]string, 0, len(tempMap))
+	for keys, _ := range tempMap {
+		expidsStr = append(expidsStr, keys)
+		sort.Strings(expidsStr)
+	}
+	return strings.Join(expidsStr, ",")
+}
 
 
 
-	//var ar = []string{"s", "d","x"}
-	//s:= ar[1]
-	//str := "[\"u\", \"OK\"]"
-	//ss := strings.Split(str,",")
+func  GetPkgsByIDs(ids []string) (pkgNameStr string) {
+	pkgNames := make([]string, len(ids))
 
-	//a()
-	//j*=2
-	// i*=2这样是错的
-	a()
-
-
-	str := "[\"1539043200000\", \"0.034473\", [\"0.034614\", \"0.03433\"]]"
-	byte := []byte(str)
-	fmt.Println(str)
-
-	slic := make([]interface{},0)
-	json.Unmarshal(byte, &slic)
-
-		s0 := slic[0].(string)
-		s1 := slic[1]
-		s2 := slic[2]
-
-	c := reflect.TypeOf(s2)
+		pkgNames[0] = ids[0]
+	pkgNames[1] = ids[1]
+	pkgNames[2] = ids[2]
+fmt.Println("pkgNames",pkgNames)
+	return strings.Replace(strings.Trim(fmt.Sprint(pkgNames), "[]"), " ", ",", -1)
+}
 
 
-	fmt.Println(s0)
-	fmt.Println(s1)
-	fmt.Println(s2)
-	fmt.Println("*****",c)
+type Lists struct {
+	List     []Body    `json:"list,omitempty"`
+}
+
+type Body struct {
+	Id     string    `json:"id"`
+	Token  string    `json:"token"`
+}
 
 
-
+type WxTokenParams struct {
+	Key  string `form:"key" json:"key"`
 }

@@ -5,7 +5,7 @@ package api
 /*
 urlpath协议可带上版本号
 协议处理，转发省去版本号。版本号对应返回数据结构，对业务处理无影响。
- */
+*/
 
 /* 协议规则 定义如下：
    /版本号/公司(网站名)/业务功能?sub=1&qid=10&output=json,
@@ -23,8 +23,8 @@ btcexa交易所同样遵循上面定义
 
 func NewQuoteKlineSingle(obj string, kxians []*KXian) *QuoteKlineSingle {
 	return &QuoteKlineSingle{
-		Obj:&obj,
-		Data:kxians,
+		Obj:  &obj,
+		Data: kxians,
 	}
 }
 
@@ -38,7 +38,7 @@ func (this *QuoteKlineSingle) Append() {
 
 }
 
-func (m *QuoteKlineSingle) Reset()         { *m = QuoteKlineSingle{} }
+func (m *QuoteKlineSingle) Reset() { *m = QuoteKlineSingle{} }
 
 func (m *QuoteKlineSingle) GetObj() string {
 	if m != nil && m.Obj != nil {
@@ -54,16 +54,15 @@ func (m *QuoteKlineSingle) GetData() []*KXian {
 	return nil
 }
 
-
 type KXian struct {
-	ShiJian        *int64    `json:"ShiJian,omitempty"`
-	KaiPanJia      *string   `json:"KaiPanJia,omitempty"`
-	ZuiGaoJia      *string   `json:"ZuiGaoJia,omitempty"`
-	ZuiDiJia       *string   `json:"ZuiDiJia,omitempty"`
-	ShouPanJia     *string   `json:"ShouPanJia,omitempty"`
-	ChengJiaoLiang *string   `json:"ChengJiaoLiang,omitempty"`
-	ChengJiaoE     *string   `json:"ChengJiaoE,omitempty"`
-	ChengJiaoBiShu *string   `json:"ChengJiaoBiShu,omitempty"`
+	ShiJian        *int64  `json:"ShiJian,omitempty"`
+	KaiPanJia      *string `json:"KaiPanJia,omitempty"`
+	ZuiGaoJia      *string `json:"ZuiGaoJia,omitempty"`
+	ZuiDiJia       *string `json:"ZuiDiJia,omitempty"`
+	ShouPanJia     *string `json:"ShouPanJia,omitempty"`
+	ChengJiaoLiang *string `json:"ChengJiaoLiang,omitempty"`
+	ChengJiaoE     *string `json:"ChengJiaoE,omitempty"`
+	ChengJiaoBiShu *string `json:"ChengJiaoBiShu,omitempty"`
 }
 
 func (this *KXian) SetShiJian(s int64) {

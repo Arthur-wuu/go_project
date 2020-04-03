@@ -24,7 +24,6 @@ var (
 
 // Config .
 type Config struct {
-
 	Log *log.Config
 
 	Bugly *BuglyConf

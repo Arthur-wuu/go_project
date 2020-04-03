@@ -108,7 +108,7 @@ func TestDaoMcnUps(t *testing.T) {
 			ups, err := d.McnUps(c, offset, limit)
 			ctx.Convey("Then err should be nil.ups should not be nil.", func(ctx convey.C) {
 				ctx.So(err, convey.ShouldBeNil)
-				ctx.So(len(ups), convey.ShouldBeGreaterThanOrEqualTo,0)
+				ctx.So(len(ups), convey.ShouldBeGreaterThanOrEqualTo, 0)
 			})
 		})
 	})

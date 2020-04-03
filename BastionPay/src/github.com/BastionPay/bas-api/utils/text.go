@@ -1,11 +1,11 @@
 package utils
 
 import (
-	"fmt"
 	"crypto/md5"
 	"encoding/hex"
-	"os"
+	"fmt"
 	"io"
+	"os"
 	"reflect"
 )
 
@@ -14,9 +14,9 @@ func ScanLine() string {
 	var c byte
 	var err error
 	var b []byte
-	for ; err == nil; {
+	for err == nil {
 		_, err = fmt.Scanf("%c", &c)
-		if c != '\n' && c!= '\r' {
+		if c != '\n' && c != '\r' {
 			b = append(b, c)
 		} else {
 			break
@@ -33,27 +33,27 @@ func GetMd5Text(text string) string {
 	return hex.EncodeToString(sum)
 }
 
-func CopyFile(src, dst string)(w int64, err error){
-	srcFile,err := os.Open(src)
-	if err!=nil{
+func CopyFile(src, dst string) (w int64, err error) {
+	srcFile, err := os.Open(src)
+	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
 	defer srcFile.Close()
 
-	dstFile,err := os.Create(dst)
-	if err!=nil{
+	dstFile, err := os.Create(dst)
+	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
 
 	defer dstFile.Close()
 
-	return io.Copy(dstFile,srcFile)
+	return io.Copy(dstFile, srcFile)
 }
 
-
 const stringSpace = " "
+
 func space(level int) string {
 	var out string
 	for i := 0; i < level; i++ {
@@ -88,30 +88,30 @@ func fieldFormat(vv reflect.Value, level int) string {
 				continue
 			}
 			out += space(level+1) + tagJson + "--(" + t.Field(i).Tag.Get("doc") + ") "
-			out += fieldFormat(v.Field(i), level + 1)
+			out += fieldFormat(v.Field(i), level+1)
 			out += "\n"
 		}
 		out += space(level) + "}"
-	}else if t.Kind() == reflect.Slice || t.Kind() == reflect.Array{
+	} else if t.Kind() == reflect.Slice || t.Kind() == reflect.Array {
 		n := v.Len()
 		out += space(level) + "[\n"
 		for i := 0; i < n; i++ {
 			rs := v.Index(i)
-			out += space(level) + fieldFormat(rs, level + 1)
+			out += space(level) + fieldFormat(rs, level+1)
 			out += "\n"
 		}
 		out += space(level) + "]"
-	}else if t.Kind() == reflect.Map {
+	} else if t.Kind() == reflect.Map {
 		ks := v.MapKeys()
 		out += "{\n"
 		for i := 0; i < len(ks); i++ {
-			out += fieldFormat(ks[i], level + 1)
+			out += fieldFormat(ks[i], level+1)
 			out += ":"
 			key := v.MapIndex(ks[i])
-			out += fieldFormat(key, level + 1)
+			out += fieldFormat(key, level+1)
 		}
 		out += "\n}"
-	}else{
+	} else {
 		out = v.Type().String()
 	}
 

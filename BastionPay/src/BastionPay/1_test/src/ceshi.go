@@ -1,6 +1,7 @@
 package main
 import (
 	"fmt"
+	"strings"
 )
 
 func main() {
@@ -8,10 +9,10 @@ func main() {
 	//for i := 0; i < 10; i++ {
 		//fmt.Println(fab(2))
 	//}
+	s1 := strings.ReplaceAll("tabfreesssss", "tabfree", "rlfree")
+	//s := firstUniqChar("aaaaaaavvvc")
 
-	s := firstUniqChar("aaaaaaavvvc")
-
-	fmt.Println(s)
+	fmt.Println(s1)
 }
 
 

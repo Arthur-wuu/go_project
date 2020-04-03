@@ -1,21 +1,20 @@
 package common
 
 import (
+	"archive/zip"
 	"io/ioutil"
 	"os"
-	"archive/zip"
 )
 
 func NewZip() *Zip {
 	return &Zip{}
 }
 
-type Zip struct{
-
+type Zip struct {
 }
 
-func (this * Zip) Compress(srcPath, desPath string)  error {
-	file,err := os.Open(srcPath)
+func (this *Zip) Compress(srcPath, desPath string) error {
+	file, err := os.Open(srcPath)
 	if err != nil {
 		return err
 	}

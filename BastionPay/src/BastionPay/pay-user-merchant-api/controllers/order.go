@@ -22,21 +22,18 @@ func (this *Trade) ListTrade(ctx iris.Context) {
 	err := Tools.ShouldBindJSON(ctx, param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err")
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
-	res,err := new(models.Trade).List(param.Page, param.Size, param.MerchantTradeNo, param.PayeeId, param.TradeNo)
+	res, err := new(models.Trade).List(param.Page, param.Size, param.MerchantTradeNo, param.PayeeId, param.TradeNo)
 	if err != nil {
-		ZapLog().Error( "List err", zap.Error(err))
+		ZapLog().Error("List err", zap.Error(err))
 		ctx.JSON(OrderResponse{Code: apibackend.BASERR_DATABASE_ERROR.Code(), Message: err.Error()})
 		return
 	}
 	this.Response(ctx, res)
 }
-
-
-
 
 //退单 列表
 func (this *Trade) ReFundList(ctx iris.Context) {
@@ -46,13 +43,13 @@ func (this *Trade) ReFundList(ctx iris.Context) {
 	err := ctx.ReadJSON(param)
 	if err != nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "param err")
-		ZapLog().Error( "param err", zap.Error(err))
+		ZapLog().Error("param err", zap.Error(err))
 		return
 	}
 
-	if param.MerchantId == nil  {
+	if param.MerchantId == nil {
 		this.ExceptionSerive(ctx, apibackend.BASERR_INVALID_PARAMETER.Code(), "merchantid nil or original num nil err")
-		ZapLog().Error( "merchantid nil or original num nil err")
+		ZapLog().Error("merchantid nil or original num nil err")
 		return
 	}
 
@@ -64,31 +61,30 @@ func (this *Trade) ReFundList(ctx iris.Context) {
 		param.Size = &size
 	}
 
-	res, originOrderList, err := new(models.ReFund).ParseList(param).List(*param.MerchantId,*param.Page, *param.Size)
+	res, originOrderList, err := new(models.ReFund).ParseList(param).List(*param.MerchantId, *param.Page, *param.Size)
 	if err != nil {
-		ZapLog().Error( "UpdateTransferStatusByTradeNo err", zap.Error(err))
+		ZapLog().Error("UpdateTransferStatusByTradeNo err", zap.Error(err))
 		ctx.JSON(OrderResponse{Code: apibackend.BASERR_DATABASE_ERROR.Code(), Message: "get refund list err"})
 		return
 	}
 
-	if len(res) == 0 || len(originOrderList) == 0  {
-		ZapLog().Info( "this merchant no refund order ")
+	if len(res) == 0 || len(originOrderList) == 0 {
+		ZapLog().Info("this merchant no refund order ")
 		ctx.JSON(OrderResponse{Code: 0, Message: "no refund"})
 		return
 	}
 
-
 	//根据退单里的原始订单查询 原始订单里的金额，币种
 	tradeInfos, err := new(models.Trade).GetByOriginNoList(originOrderList)
 	if err != nil {
-		ZapLog().Error( "use refund order origin no get trade info err", zap.Error(err))
+		ZapLog().Error("use refund order origin no get trade info err", zap.Error(err))
 		ctx.JSON(OrderResponse{Code: apibackend.BASERR_DATABASE_ERROR.Code(), Message: "use refund order origin no get trade info err"})
 		return
 	}
 
-	reFundWithInfo := make([]*models.ReFundWithInfo,0)
+	reFundWithInfo := make([]*models.ReFundWithInfo, 0)
 
-	for i:= 0; i < len(res) ; i++ {
+	for i := 0; i < len(res); i++ {
 		reInfo := new(models.ReFundWithInfo).Parse(res[i])
 		reInfo.PayeeId = tradeInfos[i].PayeeId
 		reInfo.Assets = tradeInfos[i].Assets
@@ -97,7 +93,6 @@ func (this *Trade) ReFundList(ctx iris.Context) {
 	}
 	this.Response(ctx, &reFundWithInfo)
 }
-
 
 func PanicPrint() {
 	if err := recover(); err != nil {

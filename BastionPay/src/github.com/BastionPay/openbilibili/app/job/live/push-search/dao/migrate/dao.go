@@ -9,9 +9,9 @@ import (
 
 // Dao dao
 type Dao struct {
-	c                 *conf.Config
-	SearchHBase       *hbase.Client
-	RoomDb			  *sql.DB
+	c           *conf.Config
+	SearchHBase *hbase.Client
+	RoomDb      *sql.DB
 }
 
 // New init mysql db

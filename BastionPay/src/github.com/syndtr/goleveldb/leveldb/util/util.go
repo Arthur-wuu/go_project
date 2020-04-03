@@ -20,7 +20,7 @@ var (
 type Releaser interface {
 	// Release releases associated resources. Release should always success
 	// and can be called multiple times without causing error.
-	Release()
+	//Release()
 }
 
 // ReleaseSetter is the interface that wraps the basic SetReleaser method.

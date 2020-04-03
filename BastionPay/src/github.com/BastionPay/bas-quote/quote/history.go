@@ -1,21 +1,21 @@
 package quote
 
 import (
-	"BastionPay/bas-quote/collect"
-	"go.uber.org/zap"
-	"encoding/json"
-	"fmt"
 	. "BastionPay/bas-base/log/zap"
-	"time"
+	"BastionPay/bas-quote/collect"
 	"BastionPay/bas-quote/db"
-	"github.com/garyburd/redigo/redis"
+	"encoding/json"
 	"errors"
+	"fmt"
+	"github.com/garyburd/redigo/redis"
+	"go.uber.org/zap"
+	"time"
 )
 
-type HistoryMgr struct{
-	mKXian1Days map[string] *KXian //不需要锁，没有并发
+type HistoryMgr struct {
+	mKXian1Days map[string]*KXian //不需要锁，没有并发
 	mRedis      *db.Redis
-	mFlag bool
+	mFlag       bool
 }
 
 //读取历史
@@ -24,31 +24,31 @@ func (this *HistoryMgr) Init(redis *db.Redis) (err error) {
 		return errors.New("nil redis in historyMgr")
 	}
 	this.mRedis = redis
-	this.mKXian1Days,err = this.loadLastedKxian();
+	this.mKXian1Days, err = this.loadLastedKxian()
 	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("loadLastedKxian err")
-		return  err
+		return err
 	}
 	this.mFlag = true
 	return nil
 }
 
-func (this *HistoryMgr)loadLastedKxian() (kXian1Days map[string] *KXian, err error) {
-	kXian1Days = make(map[string] *KXian)
+func (this *HistoryMgr) loadLastedKxian() (kXian1Days map[string]*KXian, err error) {
+	kXian1Days = make(map[string]*KXian)
 
-	allNum:=0
-	succNum:=0
+	allNum := 0
+	succNum := 0
 	var keys []string
 	con := this.mRedis.GetConn()
 	defer con.Close() //释放连接到连接池
-	for cur:=0; true; {
-		cur, keys, err = this.mRedis.Scan(cur, "MATCH", CONST_KXIAN_1Day_Prefix+"*" , "COUNT", 50)
+	for cur := 0; true; {
+		cur, keys, err = this.mRedis.Scan(cur, "MATCH", CONST_KXIAN_1Day_Prefix+"*", "COUNT", 50)
 		if err != nil {
 			ZapLog().With(zap.Error(err), zap.Int("cur", cur)).Error("Scan err")
 			return nil, err
 		}
 		allNum += len(keys)
-		for i:=0; i < len(keys); i ++ {
+		for i := 0; i < len(keys); i++ {
 			err = con.Send("LRANGE", keys[i], 0, 0)
 			if err != nil {
 				ZapLog().With(zap.Error(err), zap.String("key", keys[i])).Error("LRANGE err")
@@ -60,14 +60,14 @@ func (this *HistoryMgr)loadLastedKxian() (kXian1Days map[string] *KXian, err err
 			ZapLog().With(zap.Error(err)).Error("redis flush err")
 			return nil, err
 		}
-		for i:=0; i < len(keys); i ++ {
-			repyArr,err := redis.ByteSlices(con.Receive())
+		for i := 0; i < len(keys); i++ {
+			repyArr, err := redis.ByteSlices(con.Receive())
 			if err != nil {
 				ZapLog().With(zap.Error(err), zap.String("key", keys[i])).Error("redis Receive err")
 				return nil, err
 			}
 			if len(repyArr) == 0 {
-				ZapLog().With( zap.String("key", keys[i])).Error("redis Receive nil")
+				ZapLog().With(zap.String("key", keys[i])).Error("redis Receive nil")
 				continue
 			}
 			kxian := new(KXian)
@@ -83,7 +83,7 @@ func (this *HistoryMgr)loadLastedKxian() (kXian1Days map[string] *KXian, err err
 			break
 		}
 	}
-	ZapLog().With(zap.Int("allKeys", allNum), zap.Int("succKeys", succNum),zap.Int("mKXian1Days", len(kXian1Days))).Info("loadLastedKxian ok ")
+	ZapLog().With(zap.Int("allKeys", allNum), zap.Int("succKeys", succNum), zap.Int("mKXian1Days", len(kXian1Days))).Info("loadLastedKxian ok ")
 	return
 }
 
@@ -91,17 +91,17 @@ func (this *HistoryMgr) Set(tickerInfos *collect.TickerInfo, coin string) (gerr 
 	con := this.mRedis.GetConn()
 	defer con.Close()
 	count := 0
-	for i:=0; i < len(tickerInfos.IdDetailInfos) ; i++ {
+	for i := 0; i < len(tickerInfos.IdDetailInfos); i++ {
 		IdDetailInfo := tickerInfos.IdDetailInfos[i]
 		nowDayTime := this.GenDay(IdDetailInfo.GetLast_updated())
 
 		for my, moneyInfo := range IdDetailInfo.Quotes {
-			if coin != my  {
+			if coin != my {
 				continue
 			}
 			key := this.genKXian1DayKey(IdDetailInfo.Id, my)
 
-			kxian, updateWay, updateFlag:= this.updateKXian1Day(nowDayTime,key, &moneyInfo)
+			kxian, updateWay, updateFlag := this.updateKXian1Day(nowDayTime, key, &moneyInfo)
 			if !updateFlag {
 				continue
 			}
@@ -116,7 +116,7 @@ func (this *HistoryMgr) Set(tickerInfos *collect.TickerInfo, coin string) (gerr 
 				ZapLog().With(zap.Error(err), zap.Any("key", key)).Error("batchPushKXian err")
 				return err
 			}
-			count+=num
+			count += num
 		}
 
 	}
@@ -125,7 +125,7 @@ func (this *HistoryMgr) Set(tickerInfos *collect.TickerInfo, coin string) (gerr 
 		return err
 	}
 
-	for i:=0; i < count; i ++ {
+	for i := 0; i < count; i++ {
 		_, err := con.Receive()
 		if err != nil {
 			gerr = err
@@ -142,13 +142,13 @@ func (this *HistoryMgr) batchPushKXian(con redis.Conn, updateWay bool, key strin
 		if err != nil {
 			return 0, err
 		}
-		err = con.Send("LTRIM", key,0, 30)
+		err = con.Send("LTRIM", key, 0, 30)
 		if err != nil {
 			return 1, err
 		}
 
 		return 2, nil
-	}else{
+	} else {
 		err := con.Send("LSET", key, 0, content)
 		if err != nil {
 			return 0, err
@@ -167,27 +167,27 @@ func (this *HistoryMgr) GetKXian1Days(id int, coin string, start, count int) ([]
 		return nil, err
 	}
 	arr := make([]*KXian, 0)
-	for i:=0; i < len(bytesArr); i++ {
-		kxian:= new(KXian)
+	for i := 0; i < len(bytesArr); i++ {
+		kxian := new(KXian)
 		err := json.Unmarshal(bytesArr[i], kxian)
 		if err != nil {
 			return nil, err
 		}
 		arr = append(arr, kxian)
 	}
-	return arr,nil
+	return arr, nil
 }
 
 //返回值，最新的kxian，是否是新日期，是否需要更新
-func (this *HistoryMgr) updateKXian1Day(nowDayTime int64,key string, moneyInfo *collect.MoneyInfo) (*KXian, bool, bool) {
+func (this *HistoryMgr) updateKXian1Day(nowDayTime int64, key string, moneyInfo *collect.MoneyInfo) (*KXian, bool, bool) {
 	price := moneyInfo.GetPrice()
 	newFlag := false
 	kxian, ok := this.mKXian1Days[key]
 	if !ok {
 		newFlag = true
-	}else{
+	} else {
 		if nowDayTime < kxian.GetTimestamp() {
-			return nil,false, false
+			return nil, false, false
 		}
 		if nowDayTime > kxian.GetTimestamp() {
 			newFlag = true
@@ -203,7 +203,7 @@ func (this *HistoryMgr) updateKXian1Day(nowDayTime int64,key string, moneyInfo *
 		kxian.SetLowPrice(price)
 		kxian.SetOpenPrice(price)
 		kxian.SetTimestamp(nowDayTime)
-	}else{
+	} else {
 		kxian.SetClosePrice(price)
 		kxian.SetLastPrice(price)
 		if price > kxian.GetHighPrice() {
@@ -220,11 +220,11 @@ func (this *HistoryMgr) genKXian1DayKey(id int, coin string) string {
 	return fmt.Sprintf("%s_%d_%s", CONST_KXIAN_1Day_Prefix, id, coin)
 }
 
-func (this *HistoryMgr) GenDay(t int64) int64{
-	t1:=time.Unix(t, 0).Year()        //年
-	t2:=time.Unix(t, 0).Month()       //月
-	t3:=time.Unix(t, 0).Day()         //日
-	lc,_ :=time.LoadLocation("UTC")
-	currentTimeData:=time.Date(t1,t2,t3,0,0,0,0, lc)
+func (this *HistoryMgr) GenDay(t int64) int64 {
+	t1 := time.Unix(t, 0).Year()  //年
+	t2 := time.Unix(t, 0).Month() //月
+	t3 := time.Unix(t, 0).Day()   //日
+	lc, _ := time.LoadLocation("UTC")
+	currentTimeData := time.Date(t1, t2, t3, 0, 0, 0, 0, lc)
 	return currentTimeData.Unix()
 }

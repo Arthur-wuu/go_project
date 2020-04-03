@@ -1,17 +1,17 @@
 package controllers
 
 import (
-	"BastionPay/pay-user-merchant-api/common"
-	"BastionPay/pay-user-merchant-api/models"
+	"BastionPay/bas-api/apibackend"
 	. "BastionPay/bas-base/log/zap"
+	"BastionPay/pay-user-merchant-api/api"
+	"BastionPay/pay-user-merchant-api/common"
+	"BastionPay/pay-user-merchant-api/config"
+	"BastionPay/pay-user-merchant-api/models"
+	"fmt"
+	"github.com/bugsnag/bugsnag-go/errors"
 	"github.com/kataras/iris"
 	"go.uber.org/zap"
-	"github.com/bugsnag/bugsnag-go/errors"
 	"strings"
-	"fmt"
-	"BastionPay/bas-api/apibackend"
-	"BastionPay/pay-user-merchant-api/config"
-	"BastionPay/pay-user-merchant-api/api"
 )
 
 var (
@@ -34,8 +34,8 @@ var (
 		"bind_phone",
 		"rebind_phone",
 	}
-	phoneSmsLimiter *common.BusLimiter
-	ipSmsLimiter    *common.BusLimiter
+	phoneSmsLimiter   *common.BusLimiter
+	ipSmsLimiter      *common.BusLimiter
 	phoneEmailLimiter *common.BusLimiter
 	ipEmailLimiter    *common.BusLimiter
 )
@@ -176,16 +176,16 @@ func (this *VerificationController) Send(ctx iris.Context) {
 }
 
 func (this *VerificationController) sendEmail(ctx iris.Context, verification *common.Verification, userId uint, recipient string) (string, error) {
-	muchFlag, rateStr, err := this.overLimitMail(ctx, userId);
+	muchFlag, rateStr, err := this.overLimitMail(ctx, userId)
 	if err != nil {
-		ZapLog().With(zap.String("recipient", recipient), zap.Error(err), zap.Uint("userId", userId),zap.String("ip", this.getRemoteAddr(ctx))).Error("overLimitMail err")
+		ZapLog().With(zap.String("recipient", recipient), zap.Error(err), zap.Uint("userId", userId), zap.String("ip", this.getRemoteAddr(ctx))).Error("overLimitMail err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), "SEND_FAILED")
 		return "", err
 	}
 	if muchFlag {
-		ZapLog().With(zap.String("recipient", recipient), zap.Uint("userId", userId),zap.String("ip", this.getRemoteAddr(ctx)), zap.String("timelimit", rateStr)).Error("overLimitMail send too much email")
+		ZapLog().With(zap.String("recipient", recipient), zap.Uint("userId", userId), zap.String("ip", this.getRemoteAddr(ctx)), zap.String("timelimit", rateStr)).Error("overLimitMail send too much email")
 		this.ExceptionSerive(ctx, apibackend.BASERR_OPERATE_FREQUENT.Code(), fmt.Sprintf("Send_Too_Much_Email_%s", rateStr))
-		return "", errors.New("send too much email",0)
+		return "", errors.New("send too much email", 0)
 	}
 	language := ctx.Values().GetString(ctx.Application().ConfigurationReadOnly().GetTranslateLanguageContextKey())
 	id, err := verification.
@@ -199,20 +199,20 @@ func (this *VerificationController) sendEmail(ctx iris.Context, verification *co
 }
 
 func (this *VerificationController) sendSms(ctx iris.Context, verification *common.Verification, userId uint, recipient string) (string, error) {
-	muchFlag,rateStr, err := this.overLimitSms(ctx, userId);
+	muchFlag, rateStr, err := this.overLimitSms(ctx, userId)
 	if err != nil {
-		ZapLog().With(zap.String("recipient", recipient), zap.Error(err), zap.Uint("userId", userId),zap.String("ip", this.getRemoteAddr(ctx))).Error("overLimitSms err")
+		ZapLog().With(zap.String("recipient", recipient), zap.Error(err), zap.Uint("userId", userId), zap.String("ip", this.getRemoteAddr(ctx))).Error("overLimitSms err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), "SEND_FAILED")
 		return "", err
 	}
 	if muchFlag {
-		ZapLog().With(zap.String("recipient", recipient), zap.Uint("userId", userId) ,zap.String("ip", this.getRemoteAddr(ctx)),zap.String("timelimit", rateStr)).Error("overLimitSMS send too much sms")
+		ZapLog().With(zap.String("recipient", recipient), zap.Uint("userId", userId), zap.String("ip", this.getRemoteAddr(ctx)), zap.String("timelimit", rateStr)).Error("overLimitSMS send too much sms")
 		this.ExceptionSerive(ctx, apibackend.BASERR_OPERATE_FREQUENT.Code(), fmt.Sprintf("Send_Too_Much_SMS_%s", rateStr))
 		return "", errors.New("send too much sms", 0)
 	}
 	language := ctx.Values().GetString(ctx.Application().ConfigurationReadOnly().GetTranslateLanguageContextKey())
 	id, err := verification.
-		GenerateSms(userId,  recipient, config.GConfig.BasNotify.VerifyCodeSmsTmp, language)
+		GenerateSms(userId, recipient, config.GConfig.BasNotify.VerifyCodeSmsTmp, language)
 	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("GetString err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_INTERNAL_SERVICE_ACCESS_ERROR.Code(), "SEND_FAILED")
@@ -261,7 +261,7 @@ func (this *VerificationController) Verification(ctx iris.Context) {
 		return
 	}
 
-	verification := common.NewVerification( "", "")
+	verification := common.NewVerification("", "")
 
 	bol, err := verification.Verify(params.Id, user.UserId, params.Value, params.Recipient)
 	if err != nil || bol == false {
@@ -275,64 +275,64 @@ func (this *VerificationController) Verification(ctx iris.Context) {
 	this.Response(ctx, nil)
 }
 
-func (this *VerificationController)  overLimitSms(ctx iris.Context, userId uint) (bool,string, error){
+func (this *VerificationController) overLimitSms(ctx iris.Context, userId uint) (bool, string, error) {
 	if userId == 0 {
-		limitFlag,rateStr, err := ipSmsLimiter.Check(this.getRemoteAddr(ctx))
+		limitFlag, rateStr, err := ipSmsLimiter.Check(this.getRemoteAddr(ctx))
 		if err != nil {
 			ZapLog().With(zap.Error(err), zap.String("rateStr", rateStr)).Error("redis err")
 			this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), apibackend.BASERR_DATABASE_ERROR.Desc())
-			return true,rateStr, err
+			return true, rateStr, err
 		}
 		if limitFlag {
 			ZapLog().With(zap.Error(err)).Error("ip sms limit err")
 			this.ExceptionSerive(ctx, apibackend.BASERR_OPERATE_FREQUENT.Code(), apibackend.BASERR_OPERATE_FREQUENT.Desc())
-			return true,rateStr, err
+			return true, rateStr, err
 		}
-		return false,rateStr,nil
+		return false, rateStr, nil
 	}
 	//已登录用户
-	limitFlag,rateStr, err:= phoneSmsLimiter.Check(fmt.Sprintf("%d", userId))
+	limitFlag, rateStr, err := phoneSmsLimiter.Check(fmt.Sprintf("%d", userId))
 	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("redis err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), apibackend.BASERR_DATABASE_ERROR.Desc())
-		return true,rateStr, err
+		return true, rateStr, err
 	}
 	if limitFlag {
 		ZapLog().With(zap.Error(err)).Error("phone sms limit err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_OPERATE_FREQUENT.Code(), apibackend.BASERR_OPERATE_FREQUENT.Desc())
-		return true,rateStr, err
+		return true, rateStr, err
 	}
-	return false,rateStr,nil
+	return false, rateStr, nil
 }
 
-func (this *VerificationController)  overLimitMail(ctx iris.Context, userId uint ) ( bool,string, error) {
+func (this *VerificationController) overLimitMail(ctx iris.Context, userId uint) (bool, string, error) {
 	if userId == 0 {
-		limitFlag,rateStr, err := ipEmailLimiter.Check(this.getRemoteAddr(ctx))
+		limitFlag, rateStr, err := ipEmailLimiter.Check(this.getRemoteAddr(ctx))
 		if err != nil {
 			ZapLog().With(zap.Error(err), zap.String("rateStr", rateStr)).Error("redis err")
 			this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), apibackend.BASERR_DATABASE_ERROR.Desc())
-			return true,rateStr, err
+			return true, rateStr, err
 		}
 		if limitFlag {
 			ZapLog().With(zap.Error(err)).Error("ip email limit err")
 			this.ExceptionSerive(ctx, apibackend.BASERR_OPERATE_FREQUENT.Code(), apibackend.BASERR_OPERATE_FREQUENT.Desc())
-			return true,rateStr, err
+			return true, rateStr, err
 		}
-		return false,rateStr,nil
+		return false, rateStr, nil
 	}
 	//已登录用户
-	limitFlag,rateStr, err:= phoneEmailLimiter.Check(fmt.Sprintf("%d", userId))
+	limitFlag, rateStr, err := phoneEmailLimiter.Check(fmt.Sprintf("%d", userId))
 	if err != nil {
 		ZapLog().With(zap.Error(err)).Error("redis err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_DATABASE_ERROR.Code(), apibackend.BASERR_DATABASE_ERROR.Desc())
-		return true,rateStr, err
+		return true, rateStr, err
 	}
 	if limitFlag {
 		ZapLog().With(zap.Error(err)).Error("phone email limit err")
 		this.ExceptionSerive(ctx, apibackend.BASERR_OPERATE_FREQUENT.Code(), apibackend.BASERR_OPERATE_FREQUENT.Desc())
-		return true,rateStr, err
+		return true, rateStr, err
 	}
-	return false,rateStr,nil
+	return false, rateStr, nil
 }
 
 func (this *VerificationController) getRemoteAddr(ctx iris.Context) string {

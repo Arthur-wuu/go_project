@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"go-common/app/job/live/push-search/conf"
-	"go-common/library/queue/databus"
 	"go-common/library/database/hbase.v2"
+	"go-common/library/queue/databus"
 )
 
 // Dao dao

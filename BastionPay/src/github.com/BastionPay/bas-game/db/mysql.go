@@ -1,20 +1,19 @@
 package db
 
 import (
-"fmt"
-"github.com/jinzhu/gorm"
-_ "github.com/jinzhu/gorm/dialects/mysql"
-"time"
+	"fmt"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"time"
 )
 
 var GDbMgr DbMgr
 
 type DbMgr struct {
-	mConn *gorm.DB
-	mOption   *DbOptions
-	mFlag bool
+	mConn   *gorm.DB
+	mOption *DbOptions
+	mFlag   bool
 }
-
 
 func (this *DbMgr) Init(options *DbOptions) (err error) {
 	if this.mFlag {
@@ -127,4 +126,3 @@ func addExtraSpaceIfExist(str string) string {
 func NowTimestamp() int64 {
 	return time.Now().Unix()
 }
-

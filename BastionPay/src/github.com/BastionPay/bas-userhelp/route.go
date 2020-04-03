@@ -36,7 +36,7 @@ func (this *WebServer) routes() {
 			"/v1/app-version-bk/file/upload",
 		})
 	})
-//用户帮助信息
+	//用户帮助信息
 	v1 := app.Party("/v1", crs)
 	{
 		userHelpBk := v1.Party("/user-help-bk")
@@ -51,16 +51,16 @@ func (this *WebServer) routes() {
 			}
 		}
 	}
-//app版本信息
+	//app版本信息
 	{
 		appVersionBk := v1.Party("/app-version-bk")
 		{
 			wBk := appVersionBk.Party("/whitelabel")
 			{
 				upload := controllers.AppWhiteLabel{}
-				wBk.Post("/add",  upload.Add)
-				wBk.Post("/update",  upload.Update)
-				wBk.Post("/list",  upload.List)
+				wBk.Post("/add", upload.Add)
+				wBk.Post("/update", upload.Update)
+				wBk.Post("/list", upload.List)
 
 			}
 			fBk := appVersionBk.Party("/file")
@@ -68,10 +68,10 @@ func (this *WebServer) routes() {
 				upload := controllers.UploadFile{}
 				fBk.Post("/upload", upload.HandlePicFiles)
 			}
-			verBk :=  appVersionBk.Party("/version")
+			verBk := appVersionBk.Party("/version")
 			{
 				appVersion := controllers.AppVersion{}
-				verBk.Post("/add",  appVersion.Add)
+				verBk.Post("/add", appVersion.Add)
 				verBk.Post("/list", appVersion.List)
 				verBk.Post("/update", appVersion.Update)
 			}
@@ -81,7 +81,7 @@ func (this *WebServer) routes() {
 		appVersionBk := v1.Party("/app-version")
 		{
 			appVersion := controllers.AppVersion{}
-			appVersionBk.Post("/get",  appVersion.GetForFront)
+			appVersionBk.Post("/get", appVersion.GetForFront)
 		}
 	}
 

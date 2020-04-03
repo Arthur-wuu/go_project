@@ -10,22 +10,22 @@ import (
 type (
 	AppWhiteLabelAdd struct {
 		//NameId        *int `valid:"optional" json:"name_id"`
-		Name          *string `valid:"optional" json:"name"`
+		Name *string `valid:"optional" json:"name"`
 	}
 
 	AppWhiteLabel struct {
-		Id             *uint64 `valid:"required" json:"id"`
+		Id *uint64 `valid:"required" json:"id"`
 		//NameId        *int `valid:"optional" json:"name_id"`
-		Name          *string `valid:"optional" json:"name"`
+		Name *string `valid:"optional" json:"name"`
 	}
 
 	AppWhiteLabelList struct {
 		//NameId        *int `valid:"optional" json:"name_id"`
-		Id             *uint64 `valid:"optional" json:"id"`
-		Name          *string `valid:"optional" json:"name"`
+		Id   *uint64 `valid:"optional" json:"id"`
+		Name *string `valid:"optional" json:"name"`
 
-		Page           int64   `valid:"required" json:"page"`
-		Size           int64   `valid:"optional" json:"size"`
+		Page int64 `valid:"required" json:"page"`
+		Size int64 `valid:"optional" json:"size"`
 	}
 )
 
@@ -35,7 +35,7 @@ func CreateAppWhiteLabel() error {
 
 func (this *AppWhiteLabelAdd) Add() (*table.AppWhiteLabel, error) {
 	model := &table.AppWhiteLabel{
-		Name:         this.Name,
+		Name: this.Name,
 		//NameId:       this.NameId,
 	}
 
@@ -49,8 +49,8 @@ func (this *AppWhiteLabelAdd) Add() (*table.AppWhiteLabel, error) {
 
 func (this *AppWhiteLabel) Update() (*table.AppWhiteLabel, error) {
 	model := &table.AppWhiteLabel{
-		Id :          this.Id,
-		Name:         this.Name,
+		Id:   this.Id,
+		Name: this.Name,
 		//NameId:      this.NameId,
 	}
 	if err := db.GDbMgr.Get().Model(&table.AppWhiteLabel{}).Update(model).Error; err != nil {
@@ -67,7 +67,7 @@ func (this *AppWhiteLabel) Update() (*table.AppWhiteLabel, error) {
 
 func (this *AppWhiteLabel) GetBy(id *uint64) (*table.AppWhiteLabel, error) {
 	appVersion := &table.AppWhiteLabel{}
-	err := db.GDbMgr.Get().Where(&table.AppWhiteLabel{}).Where("id = ? ", id).Last(appVersion).Error;
+	err := db.GDbMgr.Get().Where(&table.AppWhiteLabel{}).Where("id = ? ", id).Last(appVersion).Error
 	if err == gorm.ErrRecordNotFound {
 		return nil, nil
 	}
@@ -83,8 +83,8 @@ func (this *AppWhiteLabelList) List() (*common.Result, error) {
 	query := db.GDbMgr.Get()
 
 	model := &table.AppWhiteLabel{
-		Id: this.Id,
-		Name:      this.Name,
+		Id:   this.Id,
+		Name: this.Name,
 		//NameId:    this.NameId,
 	}
 	query = query.Where(model)

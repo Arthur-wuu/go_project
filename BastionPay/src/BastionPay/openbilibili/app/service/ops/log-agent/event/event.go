@@ -1,9 +1,9 @@
 package event
 
 import (
+	"go-common/library/log"
 	"sync"
 	"time"
-	"go-common/library/log"
 )
 
 var pool sync.Pool

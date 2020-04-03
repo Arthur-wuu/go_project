@@ -266,13 +266,13 @@ func AssetNames() []string {
 
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
-	".DS_Store": Ds_store,
-	"BUILD": build,
-	"assets.go": assetsGo,
-	"client.tmpl": clientTmpl,
-	"server.tmpl": serverTmpl,
+	".DS_Store":    Ds_store,
+	"BUILD":        build,
+	"assets.go":    assetsGo,
+	"client.tmpl":  clientTmpl,
+	"server.tmpl":  serverTmpl,
 	"service.tmpl": serviceTmpl,
-	"template.go": templateGo,
+	"template.go":  templateGo,
 }
 
 // AssetDir returns the file names below a certain
@@ -314,14 +314,15 @@ type bintree struct {
 	Func     func() (*asset, error)
 	Children map[string]*bintree
 }
+
 var _bintree = &bintree{nil, map[string]*bintree{
-	".DS_Store": &bintree{Ds_store, map[string]*bintree{}},
-	"BUILD": &bintree{build, map[string]*bintree{}},
-	"assets.go": &bintree{assetsGo, map[string]*bintree{}},
-	"client.tmpl": &bintree{clientTmpl, map[string]*bintree{}},
-	"server.tmpl": &bintree{serverTmpl, map[string]*bintree{}},
+	".DS_Store":    &bintree{Ds_store, map[string]*bintree{}},
+	"BUILD":        &bintree{build, map[string]*bintree{}},
+	"assets.go":    &bintree{assetsGo, map[string]*bintree{}},
+	"client.tmpl":  &bintree{clientTmpl, map[string]*bintree{}},
+	"server.tmpl":  &bintree{serverTmpl, map[string]*bintree{}},
 	"service.tmpl": &bintree{serviceTmpl, map[string]*bintree{}},
-	"template.go": &bintree{templateGo, map[string]*bintree{}},
+	"template.go":  &bintree{templateGo, map[string]*bintree{}},
 }}
 
 // RestoreAsset restores an asset under the given directory
@@ -370,4 +371,3 @@ func _filePath(dir, name string) string {
 	cannonicalName := strings.Replace(name, "\\", "/", -1)
 	return filepath.Join(append([]string{dir}, strings.Split(cannonicalName, "/")...)...)
 }
-

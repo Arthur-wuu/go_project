@@ -12,10 +12,10 @@ import (
 	"go-common/app/service/live/zeus/internal/server/grpc"
 	"go-common/app/service/live/zeus/internal/server/http"
 	"go-common/app/service/live/zeus/internal/service"
+	v1srv "go-common/app/service/live/zeus/internal/service/v1"
 	ecode "go-common/library/ecode/tip"
 	"go-common/library/log"
 	"go-common/library/net/trace"
-	v1srv "go-common/app/service/live/zeus/internal/service/v1"
 )
 
 func main() {

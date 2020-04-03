@@ -1,12 +1,12 @@
 package processor
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"go-common/app/service/ops/log-agent/event"
-	"go-common/library/log"
 	"go-common/app/service/ops/log-agent/output"
+	"go-common/library/log"
 )
 
 // Factory is used to register functions creating new output instances.

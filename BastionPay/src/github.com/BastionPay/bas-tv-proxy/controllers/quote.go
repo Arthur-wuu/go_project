@@ -1,14 +1,12 @@
 package controllers
 
-
 import (
-	"BastionPay/bas-tv-proxy/config"
-	"BastionPay/bas-tv-proxy/base"
 	"BastionPay/bas-tv-proxy/api"
+	"BastionPay/bas-tv-proxy/base"
+	"BastionPay/bas-tv-proxy/config"
 	"github.com/kataras/iris"
 	"strings"
 )
-
 
 var GQuoteCtrl QuoteCtrl
 
@@ -24,7 +22,7 @@ func (this *QuoteCtrl) Init(c *config.Config) error {
 
 func (this *QuoteCtrl) HandleWsKXian(request base.Requester) {
 	exa := request.GetParamValue("market")
-	_,ok := config.GPreConfig.MarketMap[strings.ToUpper(exa)]
+	_, ok := config.GPreConfig.MarketMap[strings.ToUpper(exa)]
 	if !ok {
 		request.OnResponseWithPack(api.ErrCode_Param, nil)
 		return
@@ -41,7 +39,7 @@ func (this *QuoteCtrl) HandleWsKXian(request base.Requester) {
 
 func (this *QuoteCtrl) HandleHttpKXian(ctx iris.Context) {
 	exa := ctx.URLParam("market")
-	_,ok := config.GPreConfig.MarketMap[strings.ToUpper(exa)]
+	_, ok := config.GPreConfig.MarketMap[strings.ToUpper(exa)]
 	if !ok {
 		ctx.JSON(api.NewErrResponse(ctx.URLParam("qid"), api.ErrCode_Param))
 		return

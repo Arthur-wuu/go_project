@@ -3,14 +3,14 @@ package api
 type JPBLeiXing int32
 
 const (
-	JPBLeiXing_TYPE_OBJ        JPBLeiXing = 0
+	JPBLeiXing_TYPE_OBJ JPBLeiXing = 0
 )
 
 var JPBLeiXing_name = map[int32]string{
 	0: "TYPE_OBJ",
 }
 var JPBLeiXing_value = map[string]int32{
-	"TYPE_OBJ":        0,
+	"TYPE_OBJ": 0,
 }
 
 func (x JPBLeiXing) Enum() *JPBLeiXing {
@@ -23,13 +23,13 @@ func (x JPBLeiXing) String() string {
 }
 
 type JPBShuJu struct {
-	DaiMa            *string `json:"DaiMa,omitempty"`
-	MingCheng        *string `json:"MingCheng,omitempty"`
-	ShuXing          *string `json:"ShuXing,omitempty"`
-	KuoZhan          *string `json:"KuoZhan,omitempty"`
+	DaiMa     *string `json:"DaiMa,omitempty"`
+	MingCheng *string `json:"MingCheng,omitempty"`
+	ShuXing   *string `json:"ShuXing,omitempty"`
+	KuoZhan   *string `json:"KuoZhan,omitempty"`
 }
 
-func (m *JPBShuJu) Reset()         { *m = JPBShuJu{} }
+func (m *JPBShuJu) Reset() { *m = JPBShuJu{} }
 
 func (m *JPBShuJu) GetDaiMa() string {
 	if m != nil && m.DaiMa != nil {
@@ -61,11 +61,11 @@ func (m *JPBShuJu) GetKuoZhan() string {
 
 func NewJPBShuChu(leixing JPBLeiXing, shuJu []*JPBShuJu, shiChang, shiChangQuanMing string, updateTime int64) *JPBShuChu {
 	return &JPBShuChu{
-		LeiXing:&leixing ,
-		ShuJu:shuJu,
-		ShiChang: &shiChang,
-		ShiChangQuanMing:&shiChangQuanMing,
-		UpdateTime:&updateTime,
+		LeiXing:          &leixing,
+		ShuJu:            shuJu,
+		ShiChang:         &shiChang,
+		ShiChangQuanMing: &shiChangQuanMing,
+		UpdateTime:       &updateTime,
 	}
 }
 
@@ -78,8 +78,8 @@ type JPBShuChu struct {
 	XXX_unrecognized []byte      `json:"-"`
 }
 
-func (m *JPBShuChu) Reset()         { *m = JPBShuChu{} }
-func (*JPBShuChu) ProtoMessage()    {}
+func (m *JPBShuChu) Reset()      { *m = JPBShuChu{} }
+func (*JPBShuChu) ProtoMessage() {}
 
 func (m *JPBShuChu) GetLeiXing() JPBLeiXing {
 	if m != nil && m.LeiXing != nil {
@@ -95,12 +95,13 @@ func (m *JPBShuChu) GetShuJu() []*JPBShuJu {
 	return nil
 }
 
-func NewJianPanBaoShuChu(guanjianzi string,JieGuo []*JPBShuChu) *JianPanBaoShuChu {
+func NewJianPanBaoShuChu(guanjianzi string, JieGuo []*JPBShuChu) *JianPanBaoShuChu {
 	return &JianPanBaoShuChu{
 		GuanJianZi: &guanjianzi,
-		JieGuo: JieGuo,
+		JieGuo:     JieGuo,
 	}
 }
+
 //
 type JianPanBaoShuChu struct {
 	GuanJianZi       *string      `protobuf:"bytes,1,req" json:"GuanJianZi,omitempty"`
@@ -108,8 +109,8 @@ type JianPanBaoShuChu struct {
 	XXX_unrecognized []byte       `json:"-"`
 }
 
-func (m *JianPanBaoShuChu) Reset()         { *m = JianPanBaoShuChu{} }
-func (*JianPanBaoShuChu) ProtoMessage()    {}
+func (m *JianPanBaoShuChu) Reset()      { *m = JianPanBaoShuChu{} }
+func (*JianPanBaoShuChu) ProtoMessage() {}
 
 func (m *JianPanBaoShuChu) GetGuanJianZi() string {
 	if m != nil && m.GuanJianZi != nil {
@@ -124,4 +125,3 @@ func (m *JianPanBaoShuChu) GetJieGuo() []*JPBShuChu {
 	}
 	return nil
 }
-

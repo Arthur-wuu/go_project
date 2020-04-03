@@ -1,8 +1,8 @@
 package sample
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 	"time"
 
 	"go-common/app/service/ops/log-agent/conf/configcenter"
@@ -20,7 +20,7 @@ type Config struct {
 	SampleConfig map[string]int64 `toml:"sampleConfig"`
 }
 
-func (c *Config) ConfigValidate() (error) {
+func (c *Config) ConfigValidate() error {
 	if c == nil {
 		return fmt.Errorf("Error can't be nil")
 	}

@@ -1,9 +1,9 @@
 package db
 
 import (
-	"time"
-	"github.com/garyburd/redigo/redis"
 	"errors"
+	"github.com/garyburd/redigo/redis"
+	"time"
 )
 
 var GRedis Redis
@@ -40,7 +40,7 @@ func (this *Redis) Init(host string, port string, password string, db string) er
 		},
 	}
 
-	_,err := this.Do("GET", "test")
+	_, err := this.Do("GET", "test")
 	if err != nil {
 		return err
 	}
@@ -71,14 +71,13 @@ func (this *Redis) Scan(args ...interface{}) (int, []string, error) {
 		return 0, nil, nil
 	}
 	if repy == nil {
-		return 0,nil, nil
+		return 0, nil, nil
 	}
 	var cur int
 	var keys []string
 	_, err = redis.Scan(repy, &cur, &keys)
 	if err != nil {
-		return 0,nil,err
+		return 0, nil, err
 	}
-	return cur , keys, nil
+	return cur, keys, nil
 }
-

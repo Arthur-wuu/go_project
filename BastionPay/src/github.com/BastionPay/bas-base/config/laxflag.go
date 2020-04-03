@@ -1,9 +1,9 @@
 package config
 
 import (
-"flag"
-"os"
-"strings"
+	"flag"
+	"os"
+	"strings"
 )
 
 //空输出
@@ -77,4 +77,3 @@ func NewLaxFlagDefault() *LaxFlagDefault {
 func (self *LaxFlagDefault) LaxParseDefault() {
 	self.LaxParse(os.Args[1:])
 }
-

@@ -1,8 +1,8 @@
 package common
 
 import (
-	"github.com/kataras/iris"
 	"github.com/asaskevich/govalidator"
+	"github.com/kataras/iris"
 )
 
 func (t *Tools) ShouldBindJSON(ctx iris.Context, params interface{}) error {

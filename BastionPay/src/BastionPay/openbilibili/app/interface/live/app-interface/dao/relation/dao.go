@@ -1,16 +1,15 @@
 package relation
 
 import (
-    "context"
+	"context"
 
-    "go-common/app/interface/live/app-interface/conf"
+	"go-common/app/interface/live/app-interface/conf"
 )
 
 // Dao dao
 type Dao struct {
 	c *conf.Config
 }
-
 
 // New init mysql db
 func New(c *conf.Config) (dao *Dao) {

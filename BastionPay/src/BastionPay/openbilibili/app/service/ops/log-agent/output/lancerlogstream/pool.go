@@ -1,15 +1,15 @@
 package lancerlogstream
 
 import (
-	"net"
-	"time"
-	"sync"
 	"errors"
-	"math/rand"
 	"expvar"
+	"math/rand"
+	"net"
+	"sync"
+	"time"
 
-	"go-common/library/log"
 	"go-common/app/service/ops/log-agent/pkg/bufio"
+	"go-common/library/log"
 	xtime "go-common/library/time"
 )
 
@@ -45,7 +45,7 @@ type ConnPoolConfig struct {
 	PoolSize    int            `tome:"poolSize"`
 }
 
-func (c *ConnPoolConfig) ConfigValidate() (error) {
+func (c *ConnPoolConfig) ConfigValidate() error {
 	if c == nil {
 		return errors.New("Config of pool is nil")
 	}
@@ -147,7 +147,7 @@ func initConnPool(c *ConnPoolConfig) (cp *connPool, err error) {
 }
 
 // connableUpstreams 返回可以建立连接的upstream列表
-func (cp *connPool) connableUpstreams() ([]string) {
+func (cp *connPool) connableUpstreams() []string {
 	list := make([]string, 0)
 	cp.invalidUpstreamsLock.RLock()
 	defer cp.invalidUpstreamsLock.RUnlock()
@@ -212,7 +212,7 @@ func (cp *connPool) getBufConn() (*LancerBufConn, error) {
 }
 
 // setConn 为bufConn绑定一个新的Conn
-func (cp *connPool) setConn(bufConn *LancerBufConn) (error) {
+func (cp *connPool) setConn(bufConn *LancerBufConn) error {
 	if bufConn.conn != nil {
 		if bufConn.enabled == false {
 			cp.markUpstreamInvalid(bufConn.conn.RemoteAddr().String())

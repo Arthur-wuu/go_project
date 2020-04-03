@@ -1,5 +1,6 @@
 package main
-import(
+
+import (
 	apiquote "BastionPay/bas-api/quote"
 	"BastionPay/bas-quote-collect/collect"
 	"BastionPay/bas-quote-collect/quote"
@@ -9,36 +10,36 @@ func toApiMoneyInfo(m *collect.MoneyInfo) *apiquote.MoneyInfo {
 	m2 := new(apiquote.MoneyInfo)
 	m2.Symbol = m.Symbol
 	m2.Price = m.Price
-	m2.Volume_24h  = m.Volume_24h
+	m2.Volume_24h = m.Volume_24h
 	m2.Market_cap = m.Market_cap
-	m2.Percent_change_1h  = m.Percent_change_1h
+	m2.Percent_change_1h = m.Percent_change_1h
 	m2.Percent_change_24h = m.Percent_change_24h
-	m2.Percent_change_7d  = m.Percent_change_7d
-	m2.Last_updated      = m.Last_updated
-	return  m2
+	m2.Percent_change_7d = m.Percent_change_7d
+	m2.Last_updated = m.Last_updated
+	return m2
 }
 
-func toApiCodeInfo(c * collect.CodeInfo) *apiquote.CodeInfo  {
+func toApiCodeInfo(c *collect.CodeInfo) *apiquote.CodeInfo {
 	c2 := new(apiquote.CodeInfo)
-	c2.Id  = c.Id
+	c2.Id = c.Id
 	c2.Name = c.Name
-	c2.Symbol  = c.Symbol
+	c2.Symbol = c.Symbol
 	c2.Website_slug = c.Website_slug
-	c2.Timestamp   = c.Timestamp
+	c2.Timestamp = c.Timestamp
 	return c2
 }
 
-func toLocalCodeInfo(c *apiquote.CodeInfo )  *collect.CodeInfo{
+func toLocalCodeInfo(c *apiquote.CodeInfo) *collect.CodeInfo {
 	c2 := new(collect.CodeInfo)
-	c2.Id  = c.Id
+	c2.Id = c.Id
 	c2.Name = c.Name
-	c2.Symbol  = c.Symbol
+	c2.Symbol = c.Symbol
 	c2.Website_slug = c.Website_slug
-	c2.Timestamp   = c.Timestamp
+	c2.Timestamp = c.Timestamp
 	return c2
 }
 
-func toApiKXian(c *quote.KXian)*apiquote.KXian {
+func toApiKXian(c *quote.KXian) *apiquote.KXian {
 	c2 := new(apiquote.KXian)
 	c2.Timestamp = c.Timestamp
 	c2.LowPrice = c.LowPrice
@@ -49,12 +50,12 @@ func toApiKXian(c *quote.KXian)*apiquote.KXian {
 	return c2
 }
 
-func toApiKXians(c []*quote.KXian)[]*apiquote.KXian {
+func toApiKXians(c []*quote.KXian) []*apiquote.KXian {
 	if c == nil || len(c) == 0 {
 		return nil
 	}
 	arr := make([]*apiquote.KXian, 0)
-	for i:=0; i < len(c); i++ {
+	for i := 0; i < len(c); i++ {
 		c2 := new(apiquote.KXian)
 		c2.Timestamp = c[i].Timestamp
 		c2.LowPrice = c[i].LowPrice

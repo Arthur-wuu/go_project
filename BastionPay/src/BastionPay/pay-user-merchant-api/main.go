@@ -1,13 +1,13 @@
 package main
 
 import (
-	"fmt"
+	"BastionPay/bas-base/config"
+	. "BastionPay/bas-base/log/zap"
 	. "BastionPay/pay-user-merchant-api/config"
+	"fmt"
 	"go.uber.org/zap"
 	"runtime/debug"
 	"time"
-	"BastionPay/bas-base/config"
-	. "BastionPay/bas-base/log/zap"
 )
 
 func PanicPrint() {
@@ -42,7 +42,7 @@ func main() {
 	srv := NewWebServer()
 	ZapLog().Sugar().Info("WebServer Start Runing...")
 	srv.Start() //阻塞
-	time.Sleep(time.Second*2)
+	time.Sleep(time.Second * 2)
 	srv.Stop()
 	UnLoader()
 	//	c := make(chan os.Signal, 1)

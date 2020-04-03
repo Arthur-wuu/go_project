@@ -1,0 +1,71 @@
+if len(eng.AdsSelected) == 0 {
+		var againAds []*data.AdInfo
+		var adsFilterByRedis []*data.AdInfo
+		ideas, _ := data.GData.Ads.TriggerBySrctypeSlot(eng.RawFeature.SlotID)
+
+		//先查redis 有没有需要去掉的创意
+		if dk := eng.SlotInfo.Data.GetDedupKey(); dk != "" {
+			ideaSlice , errs := clients.GClients.Redis.GetIdeasId(dk)
+			if errs != nil {
+				logger.GLog.Logger.Warn("get ideas id error", zap.Any("err", err))
+			}
+			if len(ideaSlice) != 0 {
+				for _, ideaUint32 := range ideas {
+					if !IsContainUint32(ideaSlice, ideaUint32) {
+						ad := data.NewAdInfo()
+						fea, exist := data.GData.Ads.GetAdFeature(ideaUint32)
+						if !exist || fea == nil {
+							continue
+						}
+						ad.AdFeature = fea
+						adsFilterByRedis = append(adsFilterByRedis, ad)
+					}
+				}
+					//从redis拿出来的ads 作dk过滤 随机取十个
+				num := genRandomNumbers(0, len(adsFilterByRedis), len(adsFilterByRedis))
+				if len(adsFilterByRedis) > 0 {
+					for i:=0; i<len(num); i++ {
+						plan := adsFilterByRedis[num[i]].AdFeature.Plan
+						idea := adsFilterByRedis[num[i]].AdFeature.Idea
+						subjectID := plan.GetSubjectId()
+						currentAd := fmt.Sprintf("%d_%d:dk", subjectID, idea.GetIdeaId())
+
+						if !IsContain(eng.ContentLogRecord.Airth.FilterAds, currentAd) {
+							againAds = append(againAds, adsFilterByRedis[num[i]])
+							errs := clients.GClients.Redis.SetIdeasId(dk, fmt.Sprintf("%d",idea.GetIdeaId()))
+							if errs != nil {
+								logger.GLog.Logger.Warn("set ideas id error", zap.Any("err", err))
+							}
+						}
+						//	logger.GLog.Logger.Warn("&&&againAds", zap.Any("againAds: ", againAds))
+						if len(againAds) == 10 {
+							break
+						}
+					}
+				}
+			} else {
+				//如果redis里没有需要去掉的，直接从 Trigger 里面, 并且作dk过滤
+				if len(eng.AdsTriggered) > 0 {
+					num := genRandomNumbers(0, len(eng.AdsTriggered), len(eng.AdsTriggered))
+					for i:=0; i<len(num); i++ {
+						plan := eng.AdsTriggered[num[i]].AdFeature.Plan
+						idea := eng.AdsTriggered[num[i]].AdFeature.Idea
+						subjectID := plan.GetSubjectId()
+						currentAd := fmt.Sprintf("%d_%d:dk", subjectID, idea.GetIdeaId())
+
+						if !IsContain(eng.ContentLogRecord.Airth.FilterAds, currentAd) {
+							againAds = append(againAds, eng.AdsTriggered[num[i]])
+							errs := clients.GClients.Redis.SetIdeasId(dk, fmt.Sprintf("%d",idea.GetIdeaId()))
+							if errs != nil {
+								logger.GLog.Logger.Warn("set ideas id error", zap.Any("err", err))
+							}
+						}
+						if len(againAds) == 10 {
+							break
+						}
+					}
+				}
+			}
+		}
+	 	eng.AdsSelected =  againAds
+	}

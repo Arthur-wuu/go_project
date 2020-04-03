@@ -54,7 +54,7 @@ var anchorLevelScoreTable = []int64{
 // Returns the index of first element that **greater** than the given value.
 func upperBound(list []int64, value int64) int {
 	count := len(list)
-	first:= 0
+	first := 0
 	for count > 0 {
 		i := first
 		step := count / 2

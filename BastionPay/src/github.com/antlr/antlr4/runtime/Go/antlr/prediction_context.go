@@ -315,7 +315,7 @@ func (a *ArrayPredictionContext) hash() int {
 		h = murmurUpdate(h, r)
 	}
 
-	return murmurFinish(h, 2 * len(a.parents))
+	return murmurFinish(h, 2*len(a.parents))
 }
 
 func (a *ArrayPredictionContext) String() string {

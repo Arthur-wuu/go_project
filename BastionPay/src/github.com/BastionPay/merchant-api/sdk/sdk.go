@@ -1,10 +1,14 @@
 package sdk
 
 import (
+	. "BastionPay/bas-base/log/zap"
+	"BastionPay/merchant-api/base"
 	"BastionPay/merchant-api/baspay"
+	"BastionPay/merchant-api/util"
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/satori/go.uuid"
 	"go.uber.org/zap"
 	"io/ioutil"
 	"os"
@@ -12,25 +16,19 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"BastionPay/merchant-api/util"
-	. "BastionPay/bas-base/log/zap"
-	"BastionPay/merchant-api/base"
-	"github.com/satori/go.uuid"
 )
 
-const testCommonUrl    =  "https://test-openapi.bastionpay.io/"
-const commonUrl        =  "https://open-api.bastionpay.com/"
+const testCommonUrl = "https://test-openapi.bastionpay.io/"
+const commonUrl = "https://open-api.bastionpay.com/"
 
-const transUrl         =  commonUrl+"open-api/trade/transfer"
-const availAssetsUrl   =  commonUrl+"open-api/trade/avail_assets"
-const createQrUrl      =  commonUrl+"open-api/trade/create_qr_trade"
-const createSdkUrl     =  commonUrl+"open-api/trade/create_trade"
-const createWapUrl     =  commonUrl+"open-api/trade/create_wap_trade"
-const tradeInfoUrl     =  commonUrl+"open-api/trade/info"
-const posUrl           =  commonUrl+"open-api/trade/pos"
-const posOrderUrl      =  commonUrl+"open-api/trade/pos_orders"
-
-
+const transUrl = commonUrl + "open-api/trade/transfer"
+const availAssetsUrl = commonUrl + "open-api/trade/avail_assets"
+const createQrUrl = commonUrl + "open-api/trade/create_qr_trade"
+const createSdkUrl = commonUrl + "open-api/trade/create_trade"
+const createWapUrl = commonUrl + "open-api/trade/create_wap_trade"
+const tradeInfoUrl = commonUrl + "open-api/trade/info"
+const posUrl = commonUrl + "open-api/trade/pos"
+const posOrderUrl = commonUrl + "open-api/trade/pos_orders"
 
 var h5PrivateKey = []byte(`
 -----BEGIN RSA PRIVATE KEY-----
@@ -62,10 +60,9 @@ AV5pE9Mk3YF7sLozbtKGyZev1YxnV3poC1DS+hTbcJdLFPCj3TQC1A==
 -----END RSA PRIVATE KEY-----
 `)
 
-
 type Config struct {
-		KeyPath string   //`yaml:"keyPath"`
-	}
+	KeyPath string //`yaml:"keyPath"`
+}
 
 var (
 	//私钥
@@ -74,47 +71,47 @@ var (
 	//公钥
 	pubkey []byte
 )
+
 type (
 	//转账参数
-	TransferParam struct{
-		Amount           *string   `valid:"required" json:"amount,omitempty"`
-		Assets           *string   `valid:"required" json:"assets,omitempty"`
-		MerchantId       *string   `valid:"required" json:"merchant_id,omitempty"`
-		MerchantTransNo   string   `valid:"optional" json:"-"`
-		NotifyUrl        *string   `valid:"optional" json:"notify_url,omitempty"`
-		PayeeId          *string   `valid:"required" json:"payee_id,omitempty"`
-		ProductName      *string   `valid:"required" json:"product_name,omitempty"`
-		Timestamp        *string   `valid:"optional" json:"timestamp,omitempty"`
-		SignType         *string   `valid:"optional" json:"sign_type,omitempty"`
-		Signature        *string   `valid:"optional" json:"signature,omitempty"`
+	TransferParam struct {
+		Amount          *string `valid:"required" json:"amount,omitempty"`
+		Assets          *string `valid:"required" json:"assets,omitempty"`
+		MerchantId      *string `valid:"required" json:"merchant_id,omitempty"`
+		MerchantTransNo string  `valid:"optional" json:"-"`
+		NotifyUrl       *string `valid:"optional" json:"notify_url,omitempty"`
+		PayeeId         *string `valid:"required" json:"payee_id,omitempty"`
+		ProductName     *string `valid:"required" json:"product_name,omitempty"`
+		Timestamp       *string `valid:"optional" json:"timestamp,omitempty"`
+		SignType        *string `valid:"optional" json:"sign_type,omitempty"`
+		Signature       *string `valid:"optional" json:"signature,omitempty"`
 	}
 
-	TransRes struct{
-		Code              int64    `json:"code"`
-		Message           string   `json:"message"`
-		Data              DataRes  `json:"data"`
+	TransRes struct {
+		Code    int64   `json:"code"`
+		Message string  `json:"message"`
+		Data    DataRes `json:"data"`
 	}
 
 	DataRes struct {
-		Assets             string  `json:"assets,omitempty"`
-		Amount             string  `json:"amount,omitempty"`
-		MerchantTransferNo string  `json:"merchant_transfer_no,omitempty"`
-		Status			   int     `json:"status,omitempty"`
-		TransferNo		   string  `json:"transfer_no,omitempty"`
+		Assets             string `json:"assets,omitempty"`
+		Amount             string `json:"amount,omitempty"`
+		MerchantTransferNo string `json:"merchant_transfer_no,omitempty"`
+		Status             int    `json:"status,omitempty"`
+		TransferNo         string `json:"transfer_no,omitempty"`
 	}
 )
 
 var GPaySdk PaySdk
 
-type PaySdk struct{
-
+type PaySdk struct {
 }
 
 //pem文件的路径
-func (this* PaySdk) Init(config *Config) error {
+func (this *PaySdk) Init(config *Config) error {
 	//加载pem文件，检测有效性
 	if err := loadRsaKeys(config); err != nil {
-		fmt.Println("err",err)
+		fmt.Println("err", err)
 		fmt.Errorf("BastionPay Init: %s", err.Error())
 		os.Exit(1)
 	}
@@ -122,7 +119,7 @@ func (this* PaySdk) Init(config *Config) error {
 }
 
 //转账接口       数量，币种，商户id，收款人id
-func (this* PaySdk) Transfer(amount, assets, merchant_id, payee_id, produceName, notifyUrl string)( string, error) {
+func (this *PaySdk) Transfer(amount, assets, merchant_id, payee_id, produceName, notifyUrl string) (string, error) {
 	param := new(TransferParam)
 	times := time.Now().Local().Format("2006-01-02 15:04:05")
 
@@ -134,7 +131,6 @@ func (this* PaySdk) Transfer(amount, assets, merchant_id, payee_id, produceName,
 	param.ProductName = &produceName
 	param.MerchantId = &merchant_id
 	param.NotifyUrl = &notifyUrl
-
 
 	transferStatus, err := param.Send()
 	if err != nil {
@@ -156,9 +152,6 @@ func (this* PaySdk) Transfer(amount, assets, merchant_id, payee_id, produceName,
 	return "fail", nil
 }
 
-
-
-
 // 加载数据
 func loadRsaKeys(config *Config) error {
 	var err error
@@ -177,22 +170,20 @@ func loadRsaKeys(config *Config) error {
 	return nil
 }
 
-
-
 //转账请求
 func (this *TransferParam) Send() (string, error) {
 	signType := "RSA"
 	this.SignType = &signType
 
 	reqBodySign, _ := json.Marshal(map[string]interface{}{
-		"amount": this.Amount,
-		"assets": this.Assets,
-		"payee_id": this.PayeeId,
-		"product_name": this.ProductName,
+		"amount":               this.Amount,
+		"assets":               this.Assets,
+		"payee_id":             this.PayeeId,
+		"product_name":         this.ProductName,
 		"merchant_transfer_no": this.MerchantTransNo,
-		"merchant_id": this.MerchantId,
-		"timestamp": this.Timestamp,
-		"notify_url": this.NotifyUrl,
+		"merchant_id":          this.MerchantId,
+		"timestamp":            this.Timestamp,
+		"notify_url":           this.NotifyUrl,
 	})
 
 	signStr := RequestBodyToSignStr(reqBodySign)
@@ -202,45 +193,44 @@ func (this *TransferParam) Send() (string, error) {
 	finalSign, err := sha1.Sign(signStr)
 
 	if err != nil {
-		ZapLog().Error( "sign err", zap.Error(err))
+		ZapLog().Error("sign err", zap.Error(err))
 		return "", err
 	}
 
 	reqBody, _ := json.Marshal(map[string]interface{}{
-		"amount": this.Amount,
-		"assets": this.Assets,
-		"payee_id": this.PayeeId,
+		"amount":               this.Amount,
+		"assets":               this.Assets,
+		"payee_id":             this.PayeeId,
 		"merchant_transfer_no": this.MerchantTransNo,
-		"merchant_id": this.MerchantId,
-		"product_name": this.ProductName,
-		"timestamp": this.Timestamp,
-		"notify_url": this.NotifyUrl,
-		"sign_type": this.SignType,
-		"signature": finalSign,
+		"merchant_id":          this.MerchantId,
+		"product_name":         this.ProductName,
+		"timestamp":            this.Timestamp,
+		"notify_url":           this.NotifyUrl,
+		"sign_type":            this.SignType,
+		"signature":            finalSign,
 	})
-	fmt.Println("**reqBody**",string(reqBody))
+	fmt.Println("**reqBody**", string(reqBody))
 
-	result, err := base.HttpSend(transUrl, bytes.NewBuffer(reqBody),"POST", nil)
+	result, err := base.HttpSend(transUrl, bytes.NewBuffer(reqBody), "POST", nil)
 	if err != nil {
-		fmt.Println("err",err)
+		fmt.Println("err", err)
 		//ZapLog().Error( "request err")
 		return "", err
 	}
 
-	fmt.Println("**result**",string(result))
+	fmt.Println("**result**", string(result))
 
 	transRes := new(TransRes)
 	err = json.Unmarshal(result, transRes)
 	fmt.Println("err:", err)
-	fmt.Println("status:",transRes.Data.Status)
+	fmt.Println("status:", transRes.Data.Status)
 	status := strconv.Itoa(transRes.Data.Status)
 
 	return status, nil
 }
 
-
-func RequestBodyToSignStr (body []byte) (string){
-	requestParams := make(map[string]string,0)
+func RequestBodyToSignStr(body []byte) string {
+	requestParams := make(map[string]string, 0)
 
 	err := json.Unmarshal(body, &requestParams)
 	if err != nil {
@@ -249,23 +239,20 @@ func RequestBodyToSignStr (body []byte) (string){
 	}
 	//将param的key排序，
 	keysSort := make([]string, 0)
-	for k, _ := range requestParams{
+	for k, _ := range requestParams {
 		keysSort = append(keysSort, k)
 	}
 	sort.Strings(keysSort)
 	//拼接签名字符串
 	signH5Str := ""
-	for i:=0; i<len(keysSort); i++ {
-		signH5Str += keysSort[i]+"="+requestParams[keysSort[i]]+"&"
+	for i := 0; i < len(keysSort); i++ {
+		signH5Str += keysSort[i] + "=" + requestParams[keysSort[i]] + "&"
 	}
-	signH5Str = signH5Str[0:len(signH5Str)-1]
-	return  signH5Str
+	signH5Str = signH5Str[0 : len(signH5Str)-1]
+	return signH5Str
 }
 
-
-
-
-func  GenerateUuid() string {
+func GenerateUuid() string {
 	ud := uuid.Must(uuid.NewV4())
 
 	return fmt.Sprintf("%s", ud)
@@ -468,22 +455,3 @@ func  GenerateUuid() string {
 //}
 //
 //
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

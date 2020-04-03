@@ -8,7 +8,7 @@ import (
 type Config struct {
 }
 
-func (c *Config) ConfigValidate() (error) {
+func (c *Config) ConfigValidate() error {
 	if c == nil {
 		return fmt.Errorf("Error can't be nil")
 	}

@@ -9,13 +9,13 @@ import (
 	//"go.uber.org/zap"
 	"BastionPay/bas-userhelp/config"
 	//"BastionPay/bas-filetransfer-srv/api"
-	"BastionPay/bas-userhelp/db"
 	. "BastionPay/bas-base/log/zap"
+	"BastionPay/bas-userhelp/db"
 	"BastionPay/bas-userhelp/models"
 )
 
 type WebServer struct {
-	mIris  *iris.Application
+	mIris *iris.Application
 }
 
 func NewWebServer() *WebServer {
@@ -69,7 +69,7 @@ func (this *WebServer) Init() error {
 }
 
 func (this *WebServer) Run() error {
-	ZapLog().Info("WebServer Run with port["+config.GConfig.Server.Port+"]")
+	ZapLog().Info("WebServer Run with port[" + config.GConfig.Server.Port + "]")
 	err := this.mIris.Run(iris.Addr(":" + config.GConfig.Server.Port)) //阻塞模式
 	if err != nil {
 		if err == iris.ErrServerClosed {
@@ -81,7 +81,7 @@ func (this *WebServer) Run() error {
 	return nil
 }
 
-func (this *WebServer) Stop() error {//这里要处理下，全部锁得再看看，还有就是qid
+func (this *WebServer) Stop() error { //这里要处理下，全部锁得再看看，还有就是qid
 	return nil
 }
 

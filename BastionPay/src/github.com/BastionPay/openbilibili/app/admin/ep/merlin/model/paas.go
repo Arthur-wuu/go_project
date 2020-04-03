@@ -313,7 +313,7 @@ func NewPaasUpdateMachineNodeRequest(p *PaasQueryAndDelMachineRequest, ns []*Mac
 		treeIDs = append(treeIDs, n.TreeID)
 	}
 	return &PaasUpdateMachineNodeRequest{
-		TreeID: treeIDs,
+		TreeID:                        treeIDs,
 		PaasQueryAndDelMachineRequest: *p,
 	}
 }

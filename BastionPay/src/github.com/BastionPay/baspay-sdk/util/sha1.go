@@ -10,8 +10,8 @@ import (
 	"crypto/x509"
 	"encoding/base64"
 	"encoding/pem"
-	"fmt"
 	"errors"
+	"fmt"
 	"net/url"
 	"strings"
 )
@@ -52,20 +52,19 @@ func (this *SHAwithRSA) Sign(data string) (string, error) {
 		fmt.Println("Error from signing: %s\n", err)
 		return "", err
 	}
-	s :=base64.StdEncoding.EncodeToString(signature)
+	s := base64.StdEncoding.EncodeToString(signature)
 
-	sReplace1 :=strings.Replace(s, "\n","",-1)
-	sReplace2 :=strings.Replace(sReplace1, "[","",-1)
-	sReplace3 :=strings.Replace(sReplace2, "]","",-1)
-	sReplace4 :=strings.Replace(sReplace3, "\r","",-1)
+	sReplace1 := strings.Replace(s, "\n", "", -1)
+	sReplace2 := strings.Replace(sReplace1, "[", "", -1)
+	sReplace3 := strings.Replace(sReplace2, "]", "", -1)
+	sReplace4 := strings.Replace(sReplace3, "\r", "", -1)
 
 	ss := url.QueryEscape(sReplace4)
 
 	return ss, nil
 }
 
-
-func VerifySign (signingPubKey, data,sign []byte) {
+func VerifySign(signingPubKey, data, sign []byte) {
 	block, _ := pem.Decode(signingPubKey)
 	if block == nil {
 
@@ -87,10 +86,7 @@ func VerifySign (signingPubKey, data,sign []byte) {
 	}
 }
 
-
-
 //---------------AES加密  解密--------------------
-
 
 func Aes128Encrypt(origData, key []byte) (string, error) {
 	if key == nil || len(key) != 32 {
@@ -103,7 +99,7 @@ func Aes128Encrypt(origData, key []byte) (string, error) {
 		return "", err
 	}
 	blockSize := block.BlockSize()
-	origData = ZeroPadding(origData,blockSize)
+	origData = ZeroPadding(origData, blockSize)
 	blockMode := cipher.NewCBCEncrypter(block, IV[:blockSize])
 	crypted := make([]byte, len(origData))
 	// 根据CryptBlocks方法的说明，如下方式初始化crypted也可以
@@ -113,7 +109,7 @@ func Aes128Encrypt(origData, key []byte) (string, error) {
 }
 
 func Aes128Decrypt(crypted, key []byte) ([]byte, error) {
-	crypted1,_ := Base64Decode(crypted)
+	crypted1, _ := Base64Decode(crypted)
 
 	if key == nil || len(key) != 32 {
 		return nil, nil
@@ -126,7 +122,7 @@ func Aes128Decrypt(crypted, key []byte) ([]byte, error) {
 		return nil, err
 	}
 	blockSize := block.BlockSize()
-	blockMode := cipher.NewCBCDecrypter(block,IV[:blockSize])
+	blockMode := cipher.NewCBCDecrypter(block, IV[:blockSize])
 	origData := make([]byte, len(crypted))
 	blockMode.CryptBlocks(origData, crypted1)
 	//origData = ZeroPadding(origData,blockSize[:])
@@ -139,7 +135,6 @@ func ZeroPadding(ciphertext []byte, blockSize int) []byte {
 	return append(ciphertext, padtext...)
 }
 
-
 var coder = base64.NewEncoding("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/")
 
 func Base64Encode(src []byte) []byte {
@@ -150,9 +145,8 @@ func Base64Decode(src []byte) ([]byte, error) {
 	return coder.DecodeString(string(src))
 }
 
-
-func RsaDecrypt3(cipherData []byte, priKey []byte)([]byte, error){
-	clipherBase64, err :=Base64Decode(cipherData)
+func RsaDecrypt3(cipherData []byte, priKey []byte) ([]byte, error) {
+	clipherBase64, err := Base64Decode(cipherData)
 	if err != nil {
 		return nil, err
 	}
@@ -173,9 +167,8 @@ func RsaDecrypt3(cipherData []byte, priKey []byte)([]byte, error){
 	return dstData, nil
 }
 
-
 // Rsa encode origin data with pem format public key
-func RsaEncrypt(originData []byte, pubKey []byte, limit int)([]byte, error){
+func RsaEncrypt(originData []byte, pubKey []byte, limit int) ([]byte, error) {
 	block, _ := pem.Decode(pubKey)
 	if block == nil {
 		return nil, errors.New("decode public key error")
@@ -190,19 +183,19 @@ func RsaEncrypt(originData []byte, pubKey []byte, limit int)([]byte, error){
 	// we need encode by sections according limited bytes
 	length := len(originData)
 
-	cnt := length/limit
-	if length%limit != 0{
+	cnt := length / limit
+	if length%limit != 0 {
 		cnt += 1
 	}
 	s := make([][]byte, cnt)
 
 	index := 0
 	offset := 0
-	for ; offset < length;  {
+	for offset < length {
 		offsetto := 0
-		if length - offset > limit {
+		if length-offset > limit {
 			offsetto = offset + limit
-		}else{
+		} else {
 			offsetto = length
 		}
 		srcData := originData[offset:offsetto]
@@ -216,7 +209,7 @@ func RsaEncrypt(originData []byte, pubKey []byte, limit int)([]byte, error){
 		index++
 		offset = offsetto
 	}
-	baseCode :=Base64Encode(bytes.Join(s, []byte("")))
+	baseCode := Base64Encode(bytes.Join(s, []byte("")))
 
 	return baseCode, nil
 	//return bytes.Join(s, []byte("")), nil

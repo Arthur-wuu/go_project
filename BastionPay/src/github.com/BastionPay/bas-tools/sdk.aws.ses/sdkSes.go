@@ -3,10 +3,10 @@ package sdk_aws_ses
 import (
 	"context"
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
 	pkgSess "github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ses"
 	"time"
-	"github.com/aws/aws-sdk-go/aws/credentials"
 )
 
 /*
@@ -18,9 +18,9 @@ func NewSesSdk(region, accessKeyID, accessKey, accessToken string) *SesSdk {
 	var sess *pkgSess.Session
 	if (len(accessKeyID) == 0) && (len(accessKey) == 0) {
 		sess = pkgSess.Must(pkgSess.NewSession(&aws.Config{
-			Region:      aws.String(region),
+			Region: aws.String(region),
 		}))
-	}else{
+	} else {
 		sess = pkgSess.Must(pkgSess.NewSession(&aws.Config{
 			Region:      aws.String(region),
 			Credentials: credentials.NewStaticCredentials(accessKeyID, accessKey, accessToken),

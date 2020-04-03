@@ -1,40 +1,40 @@
 package base
 
 import (
-	sws "github.com/kataras/iris/websocket"
 	"BastionPay/bas-tv-proxy/config"
 	cws "github.com/gorilla/websocket"
+	sws "github.com/kataras/iris/websocket"
 	"net/url"
 
 	"BastionPay/bas-tv-proxy/api"
 
 	. "BastionPay/bas-base/log/zap"
-	"go.uber.org/zap"
-	"github.com/pborman/uuid"
-	"sync"
-	"errors"
 	"encoding/json"
+	"errors"
+	"github.com/pborman/uuid"
+	"go.uber.org/zap"
 	"strings"
+	"sync"
 )
 
 var GWsServerMgr WsServerMgr
 
 type WsServerMgr struct {
-	mConf *config.Config
-	mInConGroup map[string] *WsServer   //conId
-	reqUuidMap  map[string] Requester //requuid==conId+qid
-	mWsHandlers  map[string] func(request Requester)
-	mPackPushHandler PackPushHanderType
-	mPackResHandler PackResHanderType
+	mConf                *config.Config
+	mInConGroup          map[string]*WsServer //conId
+	reqUuidMap           map[string]Requester //requuid==conId+qid
+	mWsHandlers          map[string]func(request Requester)
+	mPackPushHandler     PackPushHanderType
+	mPackResHandler      PackResHanderType
 	mNewRequesterHandler NewRequesterHandler
 	sync.Mutex
 }
 
 func (this *WsServerMgr) Init(c *config.Config) {
 	this.mConf = c
-	this.mInConGroup = make(map[string] *WsServer)
-	this.mWsHandlers = make(map[string] func(request Requester))
-	this.reqUuidMap = make(map[string] Requester)
+	this.mInConGroup = make(map[string]*WsServer)
+	this.mWsHandlers = make(map[string]func(request Requester))
+	this.reqUuidMap = make(map[string]Requester)
 	if this.mPackPushHandler == nil {
 		this.mPackPushHandler = this.DefaultPackPushMsg
 	}
@@ -55,21 +55,21 @@ func (this *WsServerMgr) RegNewRequesterHandler(h NewRequesterHandler) {
 	this.mNewRequesterHandler = h
 }
 
-func (this *WsServerMgr) RegHandler(path string,f func(request Requester)) {
+func (this *WsServerMgr) RegHandler(path string, f func(request Requester)) {
 	this.mWsHandlers[path] = f
 }
 
 func (this *WsServerMgr) AddReq(req Requester) error {
 	this.Lock()
 	defer this.Unlock()
-	ws ,ok := this.mInConGroup[req.GetConId()]
+	ws, ok := this.mInConGroup[req.GetConId()]
 	if !ok {
 		return errors.New("nofind coinId")
 	}
-	if _,ok := this.reqUuidMap[req.GetUuid()]; ok {
+	if _, ok := this.reqUuidMap[req.GetUuid()]; ok {
 		return errors.New("exist uuid")
 	}
-	if err :=ws.AddReq(req); err != nil {
+	if err := ws.AddReq(req); err != nil {
 		return err
 	}
 	this.reqUuidMap[req.GetUuid()] = req
@@ -80,7 +80,7 @@ func (this *WsServerMgr) AddReq(req Requester) error {
 func (this *WsServerMgr) RemoveReq(conId, qid string) {
 	this.Lock()
 	defer this.Unlock()
-	ws ,ok := this.mInConGroup[conId]
+	ws, ok := this.mInConGroup[conId]
 	if !ok {
 		return
 	}
@@ -93,40 +93,38 @@ func (this *WsServerMgr) RemoveReq(conId, qid string) {
 	ZapLog().Info("RemoveReq ", zap.Int("reqCount", len(this.reqUuidMap)), zap.String("coinid", req.GetConId()))
 }
 
-func (this *WsServerMgr) AddConnection( ws *WsServer) (int, bool) {
+func (this *WsServerMgr) AddConnection(ws *WsServer) (int, bool) {
 	this.Lock()
 	defer this.Unlock()
-	_,ok := this.mInConGroup[ws.GetId()]
+	_, ok := this.mInConGroup[ws.GetId()]
 	this.mInConGroup[ws.GetId()] = ws
 	return len(this.mInConGroup), ok
 }
 
-func (this *WsServerMgr) DelConnection(ws *WsServer) (int,bool) {
+func (this *WsServerMgr) DelConnection(ws *WsServer) (int, bool) {
 	this.Lock()
 	defer this.Unlock()
-	_,ok := this.mInConGroup[ws.GetId()]
+	_, ok := this.mInConGroup[ws.GetId()]
 	delete(this.mInConGroup, ws.GetId())
 	return len(this.mInConGroup), ok
 }
 
-
-
 /**********ws*************/
-func (this *WsServerMgr) HandleWsConnection(con sws.Connection){
-	ZapLog().Info("Ws Connect Start "+con.ID())
+func (this *WsServerMgr) HandleWsConnection(con sws.Connection) {
+	ZapLog().Info("Ws Connect Start " + con.ID())
 	ws := NewWsServer(con)
 	ws.Start()
-	allcount,addExistFlag := this.AddConnection(ws)
+	allcount, addExistFlag := this.AddConnection(ws)
 	if addExistFlag {
-		ZapLog().Error("Ws AddConnection but Id exist "+con.ID())
+		ZapLog().Error("Ws AddConnection but Id exist " + con.ID())
 	}
 	ZapLog().Info("Ws Connect Success "+con.ID(), zap.Int("allcount", allcount))
-	con.OnMessage(func(data []byte){
+	con.OnMessage(func(data []byte) {
 		ZapLog().Info("con.OnMessage ", zap.String("req", string(data)), zap.String("conid", con.ID()))
 		requrl, err := url.Parse(string(data))
 		if err != nil {
 			ZapLog().Error("url Parse err", zap.String("req", string(data)), zap.Error(err), zap.String("conid", con.ID()))
-			this.Json(con, this.mNewRequesterHandler(ws, nil, "",this.RemoveReq, this.mPackPushHandler, this.mPackResHandler), api.ErrCode_UrlPath, nil)
+			this.Json(con, this.mNewRequesterHandler(ws, nil, "", this.RemoveReq, this.mPackPushHandler, this.mPackResHandler), api.ErrCode_UrlPath, nil)
 			return
 		}
 		requester := this.mNewRequesterHandler(ws, requrl, uuid.New(), this.RemoveReq, this.mPackPushHandler, this.mPackResHandler)
@@ -171,16 +169,16 @@ func (this *WsServerMgr) HandleWsConnection(con sws.Connection){
 
 		go handler(requester) //后续操作 走网络的，所以异步处理
 	})
-	con.OnDisconnect(func(){//同一个连接多次收到断开消息，坑爹
-		ZapLog().Info("Ws DisConnect Start "+con.ID())
-		allcount,existFlag := this.DelConnection(ws)
+	con.OnDisconnect(func() { //同一个连接多次收到断开消息，坑爹
+		ZapLog().Info("Ws DisConnect Start " + con.ID())
+		allcount, existFlag := this.DelConnection(ws)
 		if !existFlag {
-			ZapLog().Error("Ws DisConnect not exist "+con.ID())
+			ZapLog().Error("Ws DisConnect not exist " + con.ID())
 			return
 		}
 		ws.Stop()
 		mm := ws.GetAllRequester()
-		for _,v := range mm {
+		for _, v := range mm {
 			if !v.IsSub() {
 				continue
 			}
@@ -214,13 +212,13 @@ func (this *WsServerMgr) Push(reqUUid string, ver uint64, apiMsg interface{}) {
 	}
 }
 
-func (this *WsServerMgr) Json(con sws.Connection,reqster Requester, errCode int32, apiMsg interface{}) {
+func (this *WsServerMgr) Json(con sws.Connection, reqster Requester, errCode int32, apiMsg interface{}) {
 	content, err := this.mPackResHandler(reqster, errCode, apiMsg)
 	if err != nil {
 		ZapLog().Error("response Marshal err", zap.Error(err))
 		return
 	}
-	if err =con.Write(cws.TextMessage, content); err != nil {//con自带锁
+	if err = con.Write(cws.TextMessage, content); err != nil { //con自带锁
 		ZapLog().Error("Ws Write err", zap.Error(err))
 		return
 	}
@@ -230,7 +228,7 @@ func (this *WsServerMgr) Json(con sws.Connection,reqster Requester, errCode int3
 func (this *WsServerMgr) DefaultPackPushMsg(reqster Requester, data interface{}) ([]byte, error) {
 	content, ok := data.([]byte)
 	if ok {
-		return content,nil
+		return content, nil
 	}
 	return json.Marshal(data)
 }
@@ -239,12 +237,12 @@ func (this *WsServerMgr) DefaultPackPushMsg(reqster Requester, data interface{})
 func (this *WsServerMgr) DefaultPackResMsg(reqster Requester, errCode int32, data interface{}) ([]byte, error) {
 	content, ok := data.([]byte)
 	if ok {
-		return content,nil
+		return content, nil
 	}
 	return json.Marshal(data)
 }
 
-func (this *WsServerMgr) DefaultNewRequester(wsServer *WsServer, urlReq *url.URL, reqUUID string, clearHand ClearHanderType, packPushHand PackPushHanderType ,packResHand PackResHanderType) Requester {
+func (this *WsServerMgr) DefaultNewRequester(wsServer *WsServer, urlReq *url.URL, reqUUID string, clearHand ClearHanderType, packPushHand PackPushHanderType, packResHand PackResHanderType) Requester {
 	reqNew := new(DefaultRequester)
 	reqNew.ConId = wsServer.GetId()
 	reqNew.Uuid = reqUUID
@@ -259,9 +257,9 @@ func (this *WsServerMgr) DefaultNewRequester(wsServer *WsServer, urlReq *url.URL
 		sub := api.EVENT_nonesub
 		reqNew.Values.Set("sub", sub)
 		reqNew.Sub = sub
-	}else{
+	} else {
 		sub := reqNew.Values.Get("sub")
-		if len(sub) == 0 || sub >= api.EVENT_SubMax{
+		if len(sub) == 0 || sub >= api.EVENT_SubMax {
 			sub = api.EVENT_nonesub
 		}
 		reqNew.Values.Set("sub", sub)

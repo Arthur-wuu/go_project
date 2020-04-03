@@ -6,8 +6,7 @@ import (
 	"go-common/library/log"
 )
 
-
-func (s *Service) getOnlineListByAttrs(ctx context.Context, attrs []*daoAnchorV1.AttrReq) (roomList map[int64]*daoAnchorV1.AttrResp, err error){
+func (s *Service) getOnlineListByAttrs(ctx context.Context, attrs []*daoAnchorV1.AttrReq) (roomList map[int64]*daoAnchorV1.AttrResp, err error) {
 	roomList = make(map[int64]*daoAnchorV1.AttrResp)
 	RoomOnlineListByAttrsResp, err := s.daoAnchor.RoomOnlineListByAttrs(ctx, &daoAnchorV1.RoomOnlineListByAttrsReq{
 		Attrs: attrs,

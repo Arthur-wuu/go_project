@@ -8,7 +8,6 @@ import (
 
 //---------------AES加密  解密--------------------
 
-
 func Aes128Encrypt(origData, key []byte) (string, error) {
 	if key == nil || len(key) != 32 {
 		return "", nil
@@ -20,7 +19,7 @@ func Aes128Encrypt(origData, key []byte) (string, error) {
 		return "", err
 	}
 	blockSize := block.BlockSize()
-	origData = ZeroPadding(origData,blockSize)
+	origData = ZeroPadding(origData, blockSize)
 	blockMode := cipher.NewCBCEncrypter(block, IV[:blockSize])
 	crypted := make([]byte, len(origData))
 	// 根据CryptBlocks方法的说明，如下方式初始化crypted也可以
@@ -30,7 +29,7 @@ func Aes128Encrypt(origData, key []byte) (string, error) {
 }
 
 func Aes128Decrypt(crypted, key []byte) ([]byte, error) {
-	crypted1,_ := Base64Decode(crypted)
+	crypted1, _ := Base64Decode(crypted)
 
 	if key == nil || len(key) != 32 {
 		return nil, nil
@@ -43,7 +42,7 @@ func Aes128Decrypt(crypted, key []byte) ([]byte, error) {
 		return nil, err
 	}
 	blockSize := block.BlockSize()
-	blockMode := cipher.NewCBCDecrypter(block,IV[:blockSize])
+	blockMode := cipher.NewCBCDecrypter(block, IV[:blockSize])
 	origData := make([]byte, len(crypted))
 	blockMode.CryptBlocks(origData, crypted1)
 	//origData = ZeroPadding(origData,blockSize[:])
